@@ -139,7 +139,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Wandering, hooking, interrupts, carrying, delivery, pens, live score and stealing.
   - Unit tests for hook interrupts and scoring, including stolen values.
   - Done when: a full pickup-and-deliver cycle works, a shot interrupts a pickup, and stealing gives half value.
-- [ ] **5. Match flow**
+- [x] **5. Match flow**
   - Countdown, timer, round end, tie extension, match end, tally screen and play again.
   - Unit tests for the match rules, including ties and early finish.
   - Done when: a full match can be played from the title screen to the tally and replayed.

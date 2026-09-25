@@ -3,7 +3,8 @@
 import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT, STEP } from './config.js';
 import { endStep } from './input.js';
-import { createPlayScene } from './scenes/play.js';
+import { createTitleScene } from './scenes/title.js';
+import { createTally } from './logic/tally.js';
 
 const app = new Application();
 await app.init({
@@ -32,20 +33,26 @@ function fit() {
 app.renderer.on('resize', fit);
 fit();
 
-// Scene manager. A scene is { view, update(dt), render(), destroy() }.
+// Scene manager. A scene is { view, update(dt), render(), destroy?() }.
+// A new scene may adopt the previous scene's view (e.g. as a backdrop);
+// otherwise the old view is destroyed.
 let scene = null;
 const game = {
   go(factory, ...args) {
-    if (scene) {
-      root.removeChild(scene.view);
-      scene.destroy?.();
+    const old = scene;
+    if (old) {
+      root.removeChild(old.view);
+      old.destroy?.();
     }
     scene = factory(game, ...args);
     root.addChild(scene.view);
+    if (old && !old.view.parent) old.view.destroy({ children: true });
   },
 };
 
-game.go(createPlayScene);
+// Lives for the page: reloading resets the tally.
+const session = { tally: createTally(), match: null };
+game.go(createTitleScene, session);
 
 // Fixed-step loop.
 const MAX_FRAME = 0.25;
@@ -61,4 +68,4 @@ app.ticker.add((ticker) => {
 });
 
 // Handy for debugging in the console.
-window.__game = { app, game, get scene() { return scene; } };
+window.__game = { app, game, session, get scene() { return scene; } };

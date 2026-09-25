@@ -1,19 +1,29 @@
-// Play scene: runs the world and draws it.
+// Play scene: one round, from the countdown to the final whistle.
 
 import { Container } from 'pixi.js';
+import { WIDTH } from '../config.js';
 import { playerInput } from '../input.js';
-import { createWorld, stepWorld, SIDES } from '../logic/world.js';
+import { SIDES } from '../logic/world.js';
+import { createRound, stepRound, countdownNumber } from '../logic/round.js';
+import { scores } from '../logic/scoring.js';
+import { roundWinner, recordRound, roundNumber } from '../logic/match.js';
+import { addRoundToTally, addMatchToTally } from '../logic/tally.js';
 import { createBackdrop } from '../render/backdrop.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { createProjectileView } from '../render/projectileView.js';
 import { createAnimalView } from '../render/animalView.js';
 import { createHud } from '../render/hud.js';
+import { label } from '../render/text.js';
+import { createRoundEndScene } from './roundEnd.js';
 
-export function createPlayScene() {
+export function createPlayScene(game, session) {
+  const { match, tally } = session;
+  const number = roundNumber(match);
+  const round = createRound();
+  const { world } = round;
+
   const view = new Container();
   view.addChild(createBackdrop());
-
-  const world = createWorld();
 
   const animalView = createAnimalView();
   view.addChild(animalView.view);
@@ -27,17 +37,55 @@ export function createPlayScene() {
   const hud = createHud();
   view.addChild(projectileView.view, hud.view);
 
+  const banner = label('', { size: 96, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  banner.position.set(WIDTH / 2, 280);
+  const sub = label(`ROUND ${number}`, { size: 28, color: 0xcfd6ff, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  sub.position.set(WIDTH / 2, 200);
+  view.addChild(banner, sub);
+
+  let goFlash = 0;
+
+  function render() {
+    animalView.sync(world);
+    for (const side of SIDES) saucerViews[side].sync(world.saucers[side]);
+    projectileView.sync(world.projectiles);
+    hud.sync(world, { timeLeft: round.timeLeft, match });
+
+    if (round.phase === 'countdown') {
+      banner.text = String(countdownNumber(round));
+      banner.alpha = 1;
+      banner.visible = sub.visible = true;
+    } else if (goFlash > 0 && round.phase === 'play') {
+      banner.text = 'GO!';
+      banner.alpha = Math.min(1, goFlash * 3);
+      banner.visible = true;
+      sub.visible = false;
+    } else {
+      banner.visible = sub.visible = false;
+    }
+  }
+
+  function finish() {
+    // Draw the final state: this view stays up behind the round result.
+    render();
+    const points = scores(world.animals);
+    const result = roundWinner(points);
+    addRoundToTally(tally, world.animals);
+    const outcome = recordRound(match, result);
+    if (match.over) addMatchToTally(tally, match);
+    game.go(createRoundEndScene, session, { number, points, result, outcome, background: view });
+  }
+
   return {
     view,
-    world,
+    round,
     update(dt) {
-      stepWorld(world, { red: playerInput('red'), blue: playerInput('blue') }, dt);
+      if (round.phase === 'over') return;
+      stepRound(round, { red: playerInput('red'), blue: playerInput('blue') }, dt);
+      if (round.events.some((e) => e.type === 'go')) goFlash = 0.7;
+      goFlash = Math.max(0, goFlash - dt);
+      if (round.phase === 'over') finish();
     },
-    render() {
-      animalView.sync(world);
-      for (const side of SIDES) saucerViews[side].sync(world.saucers[side]);
-      projectileView.sync(world.projectiles);
-      hud.sync(world);
-    },
+    render,
   };
 }
