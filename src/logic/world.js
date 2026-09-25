@@ -7,6 +7,7 @@ import { createProjectile, updateProjectile, applyKnockback } from './projectile
 import { createHerd, updateAnimal } from './animal.js';
 import { createHook, updateHook, interruptHook } from './hook.js';
 import { createRng } from './rng.js';
+import { animalValue } from './scoring.js';
 
 export const SIDES = ['red', 'blue'];
 
@@ -77,7 +78,10 @@ export function stepWorld(w, inputs, dt) {
     const wasFalling = a.state === 'falling';
     const pen = updateAnimal(a, dt, w.rng);
     if (wasFalling && a.state !== 'falling') {
-      w.events.push({ type: 'land', kind: a.kind, pen, x: a.x, y: a.y });
+      const delivered = a.delivering;
+      a.delivering = false;
+      const value = pen ? animalValue(a, pen) : 0;
+      w.events.push({ type: 'land', kind: a.kind, pen, delivered, value, x: a.x, y: a.y });
     }
   }
 }

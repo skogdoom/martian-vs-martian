@@ -143,7 +143,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Countdown, timer, round end, tie extension, match end, tally screen and play again.
   - Unit tests for the match rules, including ties and early finish.
   - Done when: a full match can be played from the title screen to the tally and replayed.
-- [ ] **6. Art**
+- [x] **6. Art**
   - Saucers with red and blue aliens in domes, cows and lambs, a tractor-beam hook, a starry sky and hills, fences for the pens.
   - Particles for hits and deliveries.
 - [ ] **7. Sound**

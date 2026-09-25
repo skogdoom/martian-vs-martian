@@ -144,7 +144,8 @@ describe('delivery and stealing', () => {
     // Flying over the field, or the opponent's pen, does not release it.
     expect(stepUntil(w, flyLeft, 5, (e) => e.type === 'deliver')?.side).toBe('red');
     expect(red.x).toBeLessThanOrEqual(ARENA.pens.red.right);
-    expect(stepUntil(w, {}, 2, (e) => e.type === 'land')?.pen).toBe('red');
+    const land = stepUntil(w, {}, 2, (e) => e.type === 'land');
+    expect(land).toMatchObject({ pen: 'red', delivered: true, value: 2 });
     expect(a.state).toBe('penned');
     expect(a.owner).toBe('red');
     expect(scores(w.animals)).toEqual({ red: 2, blue: 0 });
@@ -191,7 +192,7 @@ describe('delivery and stealing', () => {
     expect(scores(w.animals)).toEqual({ red: 0, blue: 1 });
 
     red.x = 90;
-    stepUntil(w, {}, 2, (e) => e.type === 'land');
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'land')).toMatchObject({ delivered: true, value: 1 });
     expect(a.pen).toBe('red');
     expect(a.owner).toBe('blue');
     expect(scores(w.animals)).toEqual({ red: 1, blue: 1 });
@@ -206,7 +207,7 @@ describe('delivery and stealing', () => {
     expect(a.state).toBe('lifting');
     expect(scores(w.animals).blue).toBe(1); // still counts while lifting
     red.x += HOOK.driftLimit + 1;
-    stepUntil(w, {}, 2, (e) => e.type === 'land');
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'land')).toMatchObject({ pen: 'blue', delivered: false });
     expect(a.state).toBe('penned');
     expect(a.pen).toBe('blue');
   });

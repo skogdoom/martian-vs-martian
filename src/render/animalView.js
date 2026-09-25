@@ -1,57 +1,183 @@
-// Placeholder cows and lambs, plus the tractor beams. Redrawn each frame.
+// Cows, lambs and the tractor beams.
+// Each animal is a container drawn facing right with its feet at (0, 0);
+// legs are separate so they can walk, and kick when lifted.
 
-import { Graphics } from 'pixi.js';
+import { Container, Graphics } from 'pixi.js';
 import { SAUCER, ANIMALS } from '../config.js';
 import { SIDES } from '../logic/world.js';
 import { COLORS } from './backdrop.js';
 
-function drawAnimal(g, a) {
-  const { w, h } = ANIMALS.size[a.kind];
-  const x = a.x - w / 2;
-  const top = a.y - h;
-  const facing = a.vx < 0 ? -1 : 1;
-  const legH = h * 0.3;
-  const bodyH = h - legH;
-  const body = a.kind === 'cow' ? 0xf4f1ea : 0xfdfbf5;
-  const dark = a.kind === 'cow' ? 0x2b2320 : 0x3a3a3a;
+const LEG = {
+  cow: { w: 6, h: 13, hipY: -13, xs: [-18, -11, 12, 19], color: 0xe9e4d8, far: 0xbdb6a8, hoof: 0x2b2320 },
+  lamb: { w: 4, h: 11, hipY: -11, xs: [-11, -6, 8, 13], color: 0x2e2e33, far: 0x1c1c20, hoof: 0x121214 },
+};
 
-  // Legs.
-  for (const lx of [0.2, 0.75]) g.rect(x + w * lx - 3, top + bodyH - 2, 6, legH + 2).fill(dark);
-  // Body.
-  if (a.kind === 'cow') {
-    g.roundRect(x, top, w, bodyH, 8).fill(body);
-    g.circle(x + w * 0.35, top + bodyH * 0.45, bodyH * 0.25).fill(dark);
-    g.circle(x + w * 0.7, top + bodyH * 0.3, bodyH * 0.18).fill(dark);
-  } else {
-    g.roundRect(x, top, w, bodyH, bodyH / 2).fill(body);
-  }
+function makeLeg(kind, far) {
+  const L = LEG[kind];
+  const g = new Graphics();
+  g.rect(-L.w / 2, 0, L.w, L.h).fill(far ? L.far : L.color);
+  g.rect(-L.w / 2, L.h - 3, L.w, 3).fill(L.hoof);
+  return g;
+}
+
+function drawCow(g) {
+  // Tail.
+  g.moveTo(-26, -30).quadraticCurveTo(-34, -22, -31, -13).stroke({ color: 0xe9e4d8, width: 2.5 });
+  g.circle(-31, -12, 3).fill(0x2b2320);
+  // Body with patches.
+  g.roundRect(-27, -37, 50, 25, 11).fill(0xf6f2e8);
+  g.ellipse(-12, -27, 9, 7).fill(0x2b2320);
+  g.ellipse(6, -32, 6, 4).fill(0x2b2320);
+  g.ellipse(14, -20, 5, 4).fill(0x2b2320);
+  // Udder.
+  g.ellipse(-4, -12, 6, 3.5).fill(0xf2a7b5);
   // Head.
-  const hx = a.x + facing * (w / 2 + 2);
-  g.circle(hx, top + bodyH * 0.35, bodyH * 0.38).fill(a.kind === 'cow' ? body : dark);
-  // Owner tag: a small dot in the colour of whoever first delivered it.
-  if (a.owner) g.circle(a.x, top + 5, 3.5).fill(COLORS[a.owner]);
+  g.ellipse(24, -34, 9, 8).fill(0xf6f2e8);
+  g.ellipse(21, -35, 5, 4).fill(0x2b2320);
+  g.ellipse(31, -30, 6.5, 5).fill(0xf2a7b5);
+  g.circle(33, -30, 1).fill(0x7a3a45);
+  g.circle(29, -30, 1).fill(0x7a3a45);
+  g.circle(26, -37, 1.6).fill(0x111111);
+  // Horns and ear.
+  g.moveTo(20, -41).quadraticCurveTo(19, -47, 23, -48).stroke({ color: 0xefe6c8, width: 2.5 });
+  g.moveTo(27, -41).quadraticCurveTo(28, -47, 31, -47).stroke({ color: 0xefe6c8, width: 2.5 });
+  g.ellipse(16, -39, 4, 2.2).fill(0x2b2320);
 }
 
-function drawBeam(g, s, a, side, alpha) {
-  const y0 = s.y + SAUCER.halfHeight;
-  const y1 = a.y;
-  const hw = ANIMALS.size[a.kind].w / 2 + 6;
-  g.poly([s.x - 12, y0, s.x + 12, y0, a.x + hw, y1, a.x - hw, y1]).fill({ color: COLORS[side], alpha: 0.12 + 0.18 * alpha });
+function drawLamb(g) {
+  // Fleece: a cloud of puffs.
+  const puffs = [
+    [-13, -20, 7],
+    [-6, -24, 8],
+    [3, -24, 8],
+    [11, -21, 7],
+    [-9, -15, 6],
+    [0, -15, 7],
+    [9, -15, 6],
+  ];
+  for (const [x, y, r] of puffs) g.circle(x, y, r + 1).fill(0xd9d4c6);
+  for (const [x, y, r] of puffs) g.circle(x - 0.5, y - 0.5, r).fill(0xfdfbf4);
+  // Head.
+  g.ellipse(19, -24, 6.5, 6).fill(0x2e2e33);
+  g.ellipse(14, -26, 4, 2).fill(0x2e2e33);
+  g.circle(12, -30, 3).fill(0xfdfbf4);
+  g.circle(21, -26, 1.4).fill(0xffffff);
 }
 
-export function createAnimalView() {
+function createAnimalSprite(a) {
+  const view = new Container();
+  const L = LEG[a.kind];
+  const legs = L.xs.map((x, i) => {
+    const leg = makeLeg(a.kind, i % 2 === 0);
+    leg.position.set(x, L.hipY);
+    return leg;
+  });
+  const body = new Graphics();
+  if (a.kind === 'cow') drawCow(body);
+  else drawLamb(body);
+  const collar = new Graphics();
+  // Far legs behind the body, near legs in front.
+  view.addChild(legs[0], legs[2], body, legs[1], legs[3], collar);
+
+  let facing = a.x < 640 ? 1 : -1;
+  let walk = Math.random() * 10;
+  let owner;
+
+  return {
+    view,
+    sync(a, t, dt) {
+      if (a.vx !== 0) facing = Math.sign(a.vx);
+      view.position.set(a.x, a.y);
+      view.scale.x = facing;
+
+      const aloft = a.state === 'lifting' || a.state === 'carried' || a.state === 'falling';
+      if (aloft) {
+        // Dangling and kicking.
+        legs.forEach((leg, i) => (leg.rotation = Math.sin(t * 18 + i * 1.7) * 0.5));
+        view.rotation = Math.sin(t * 5 + a.id) * 0.08;
+      } else if (a.vx !== 0) {
+        walk += dt * Math.abs(a.vx) * 0.25;
+        legs.forEach((leg, i) => (leg.rotation = Math.sin(walk + (i % 2 ? Math.PI : 0)) * 0.45));
+        view.rotation = 0;
+      } else {
+        legs.forEach((leg) => (leg.rotation *= 0.8));
+        view.rotation = 0;
+      }
+
+      if (a.owner !== owner) {
+        owner = a.owner;
+        collar.clear();
+        if (owner) {
+          const x = a.kind === 'cow' ? 17 : 13;
+          const y = a.kind === 'cow' ? -34 : -25;
+          collar.roundRect(x - 2, y - 6, 4, 12, 2).fill(COLORS[owner]);
+          collar.circle(x + 1, y + 7, 2.2).fill(0xffd76a);
+        }
+      }
+    },
+  };
+}
+
+/** Beam from the saucer's emitter down to an animal. `strength` 0..1. */
+function drawBeam(g, s, a, side, strength, t) {
+  const x0 = s.x;
+  const y0 = s.y + SAUCER.halfHeight - 2;
+  const reach = Math.min(1, strength / 0.12); // the beam shoots down first
+  const y1 = y0 + (a.y + 4 - y0) * reach;
+  const top = 10;
+  const bottom = ANIMALS.size[a.kind].w / 2 + 12;
+  const x1 = x0 + (a.x - x0) * reach;
+  const color = COLORS[side];
+  const alpha = 0.18 + 0.22 * strength;
+
+  g.poly([x0 - top, y0, x0 + top, y0, x1 + bottom, y1, x1 - bottom, y1]).fill({ color, alpha });
+  g.poly([x0 - top * 0.4, y0, x0 + top * 0.4, y0, x1 + bottom * 0.45, y1, x1 - bottom * 0.45, y1]).fill({
+    color: 0xffffff,
+    alpha: alpha * 0.5,
+  });
+  // Rings rising up the beam.
+  for (let i = 0; i < 4; i++) {
+    const u = 1 - ((t * 1.6 + i / 4) % 1);
+    const y = y0 + (y1 - y0) * u;
+    const w = top + (bottom - top) * u;
+    const x = x0 + (x1 - x0) * u;
+    g.ellipse(x, y, w, 3).stroke({ color: 0xffffff, width: 1.5, alpha: 0.5 * (1 - Math.abs(u - 0.5)) * reach });
+  }
+}
+
+export function createBeamView() {
   const g = new Graphics();
   return {
     view: g,
-    sync(world) {
+    sync(world, t) {
       g.clear();
       for (const side of SIDES) {
         const h = world.hooks[side];
         const s = world.saucers[side];
-        if (h.target) drawBeam(g, s, h.target, side, h.progress);
-        if (h.carrying) drawBeam(g, s, h.carrying, side, 1);
+        if (h.target) drawBeam(g, s, h.target, side, h.progress, t);
+        else if (h.carrying) drawBeam(g, s, h.carrying, side, 1, t);
       }
-      for (const a of world.animals) drawAnimal(g, a);
+    },
+  };
+}
+
+export function createAnimalView(animals) {
+  const view = new Container();
+  const sprites = new Map();
+  // Cows behind lambs, so a lamb in a crowded pen stays visible.
+  const ordered = [...animals].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'cow' ? -1 : 1));
+  for (const a of ordered) {
+    const sprite = createAnimalSprite(a);
+    sprites.set(a, sprite);
+    view.addChild(sprite.view);
+  }
+  let last = null;
+  return {
+    view,
+    sync(t) {
+      const dt = last === null ? 0 : Math.min(0.1, t - last);
+      last = t;
+      for (const [a, sprite] of sprites) sprite.sync(a, t, dt);
     },
   };
 }

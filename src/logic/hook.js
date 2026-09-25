@@ -66,7 +66,7 @@ export function updateHook(h, s, animals, dt, events) {
     a.y = attachY(s, a);
     if (isOverOwnPen(s)) {
       a.x = clampToPen(s.x, a.kind, s.side);
-      drop(a);
+      drop(a, true);
       h.carrying = null;
       events.push({ type: 'deliver', side: s.side, kind: a.kind, x: a.x, y: a.y });
     }

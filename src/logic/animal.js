@@ -46,6 +46,7 @@ export function createAnimal(id, kind, x) {
     pen: null,
     owner: null,
     hookedBy: null,
+    delivering: false, // falling from a delivery rather than a dropped pickup
     wanderTimer: 0,
   };
 }
@@ -114,8 +115,9 @@ function land(a) {
   return side;
 }
 
-export function drop(a) {
+export function drop(a, delivering = false) {
   a.state = 'falling';
   a.hookedBy = null;
+  a.delivering = delivering;
   a.vy = 0;
 }

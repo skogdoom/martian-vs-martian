@@ -5,14 +5,26 @@ import { WIDTH, HEIGHT } from '../config.js';
 import { anyPressed, onKey } from '../input.js';
 import { unlockAudio } from '../audio.js';
 import { createMatch } from '../logic/match.js';
+import { createHerd, updateAnimal } from '../logic/animal.js';
+import { createRng } from '../logic/rng.js';
 import { createBackdrop, COLORS } from '../render/backdrop.js';
+import { createAnimalView } from '../render/animalView.js';
+import { createSaucerView } from '../render/saucerView.js';
 import { label } from '../render/text.js';
 import { createPlayScene } from './play.js';
 
 export function createTitleScene(game, session) {
   const view = new Container();
-  view.addChild(createBackdrop());
-  view.addChild(new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.45 }));
+  const backdrop = createBackdrop();
+  view.addChild(backdrop.view);
+
+  // A grazing herd and two idling saucers behind the title.
+  const rng = createRng();
+  const herd = createHerd();
+  const herdView = createAnimalView(herd);
+  const saucers = { red: createSaucerView('red'), blue: createSaucerView('blue') };
+  view.addChild(herdView.view, saucers.red.view, saucers.blue.view);
+  view.addChild(new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.25 }));
 
   const cx = WIDTH / 2;
   const red = label('RED ALIEN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
@@ -48,12 +60,17 @@ export function createTitleScene(game, session) {
     destroy: unsubscribe,
     update(dt) {
       t += dt;
+      for (const a of herd) updateAnimal(a, dt, rng);
       if (t > 0.3 && anyPressed()) {
         session.match = createMatch();
         game.go(createPlayScene, session);
       }
     },
     render() {
+      backdrop.tick(t);
+      herdView.sync(t);
+      saucers.red.sync({ x: 190 + Math.sin(t * 0.7) * 30, y: 330 + Math.sin(t * 1.1) * 18, vx: Math.cos(t * 0.7) * 21 * 10 }, t, { look: 1 });
+      saucers.blue.sync({ x: 1090 + Math.sin(t * 0.8) * 30, y: 330 + Math.cos(t * 1.2) * 18, vx: Math.cos(t * 0.8) * 24 * 10 }, t, { look: -1 });
       prompt.alpha = 0.55 + 0.45 * Math.sin(t * 4);
     },
   };

@@ -10,3 +10,4 @@ export function label(text, { size = 18, color = 0xffffff, bold = false, anchorX
   t.anchor.set(anchorX, anchorY);
   return t;
 }
+

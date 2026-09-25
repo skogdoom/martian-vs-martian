@@ -12,7 +12,8 @@ import { createPlayScene } from './play.js';
 export function createTallyScene(game, session) {
   const { match, tally } = session;
   const view = new Container();
-  view.addChild(createBackdrop());
+  const backdrop = createBackdrop();
+  view.addChild(backdrop.view);
   view.addChild(new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.6 }));
 
   const cx = WIDTH / 2;

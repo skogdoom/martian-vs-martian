@@ -12,9 +12,12 @@ export function createProjectileView() {
       g.clear();
       const r = COMBAT.projectileRadius;
       for (const p of projectiles) {
-        g.rect(p.dir > 0 ? p.x - r * 3 : p.x, p.y - r / 2, r * 3, r).fill({ color: COLORS[p.owner], alpha: 0.5 });
-        g.circle(p.x, p.y, r).fill(0xffffff);
-        g.circle(p.x, p.y, r).stroke({ color: COLORS[p.owner], width: 2 });
+        const c = COLORS[p.owner];
+        // Tapered trail, glow, hot core.
+        g.poly([p.x, p.y - r * 0.8, p.x - p.dir * r * 7, p.y, p.x, p.y + r * 0.8]).fill({ color: c, alpha: 0.55 });
+        g.circle(p.x, p.y, r * 2.2).fill({ color: c, alpha: 0.25 });
+        g.circle(p.x, p.y, r * 1.3).fill({ color: c, alpha: 0.7 });
+        g.circle(p.x, p.y, r * 0.75).fill(0xffffff);
       }
     },
   };
