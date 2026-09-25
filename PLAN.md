@@ -123,7 +123,7 @@ Also in `config.js`: projectile speed, knockback strength, bump strength, saucer
 
 Work one milestone at a time. Each should be playable or testable before moving on.
 
-- [ ] **1. Scaffold**
+- [x] **1. Scaffold**
   - Vite and Pixi set up, the scaled canvas, the fixed-step loop and input handling.
   - The arena drawn with placeholder shapes.
   - Done when: the canvas scales correctly and key presses are detected for both players.
