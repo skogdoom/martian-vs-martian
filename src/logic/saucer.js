@@ -1,0 +1,107 @@
+// Saucer movement: acceleration, drag, speed cap, flight band, walls and bump.
+
+import { WIDTH, ARENA, SAUCER, BUMP } from '../config.js';
+
+// Saucers are wide and flat, so collisions use an ellipse. Vertical
+// distances are stretched by this factor to turn it into a circle test.
+const SQUASH = SAUCER.radius / SAUCER.halfHeight;
+
+export function createSaucer(side) {
+  return {
+    side,
+    x: SAUCER.startX[side],
+    y: SAUCER.startY,
+    vx: 0,
+    vy: 0,
+  };
+}
+
+export function speed(s) {
+  return Math.hypot(s.vx, s.vy);
+}
+
+/** Apply player input. Input only accelerates up to maxSpeed, so knockback
+ * can push a saucer faster than it can fly, and drag bleeds it off. */
+export function steerSaucer(s, input, dt) {
+  let dx = input.x;
+  let dy = input.y;
+  const len = Math.hypot(dx, dy);
+  if (len > 0) {
+    dx /= len;
+    dy /= len;
+    const along = s.vx * dx + s.vy * dy;
+    if (along < SAUCER.maxSpeed) {
+      const add = Math.min(SAUCER.accel * dt, SAUCER.maxSpeed - along);
+      s.vx += dx * add;
+      s.vy += dy * add;
+    }
+  }
+  const damp = Math.exp(-SAUCER.drag * dt);
+  s.vx *= damp;
+  s.vy *= damp;
+}
+
+export function moveSaucer(s, dt) {
+  s.x += s.vx * dt;
+  s.y += s.vy * dt;
+  clampSaucer(s);
+}
+
+export function clampSaucer(s) {
+  const minX = SAUCER.radius;
+  const maxX = WIDTH - SAUCER.radius;
+  const minY = ARENA.flightTop + SAUCER.top;
+  const maxY = ARENA.flightBottom;
+  if (s.x < minX) {
+    s.x = minX;
+    if (s.vx < 0) s.vx = 0;
+  } else if (s.x > maxX) {
+    s.x = maxX;
+    if (s.vx > 0) s.vx = 0;
+  }
+  if (s.y < minY) {
+    s.y = minY;
+    if (s.vy < 0) s.vy = 0;
+  } else if (s.y > maxY) {
+    s.y = maxY;
+    if (s.vy > 0) s.vy = 0;
+  }
+}
+
+/** Push overlapping saucers apart. Returns true on a new contact. */
+export function bumpSaucers(a, b) {
+  let dx = b.x - a.x;
+  let dy = (b.y - a.y) * SQUASH;
+  let dist = Math.hypot(dx, dy);
+  const minDist = SAUCER.radius * 2;
+  if (dist >= minDist) {
+    a.touching = b.touching = false;
+    return false;
+  }
+  if (dist < 1e-6) {
+    dx = 1;
+    dy = 0;
+    dist = 1;
+  }
+  const nx = dx / dist;
+  const ny = dy / dist;
+  // Separate positions (back into real space for y).
+  const push = (minDist - dist) / 2;
+  a.x -= nx * push;
+  b.x += nx * push;
+  a.y -= (ny * push) / SQUASH;
+  b.y += (ny * push) / SQUASH;
+  // Impulse along the normal, only if they are closing.
+  const closing = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+  const fresh = !a.touching;
+  if (closing < 0 || fresh) {
+    a.vx -= nx * BUMP.strength;
+    a.vy -= ny * BUMP.strength;
+    b.vx += nx * BUMP.strength;
+    b.vy += ny * BUMP.strength;
+  }
+  clampSaucer(a);
+  clampSaucer(b);
+  a.touching = b.touching = true;
+  return fresh;
+}

@@ -1,40 +1,31 @@
-// Play scene. Milestone 1: arena plus a key-state readout for both players.
+// Play scene: runs the world and draws it.
 
-import { Container, Text } from 'pixi.js';
-import { WIDTH } from '../config.js';
+import { Container } from 'pixi.js';
 import { playerInput } from '../input.js';
-import { createBackdrop, COLORS } from '../render/backdrop.js';
+import { createWorld, stepWorld, SIDES } from '../logic/world.js';
+import { createBackdrop } from '../render/backdrop.js';
+import { createSaucerView } from '../render/saucerView.js';
 
 export function createPlayScene() {
   const view = new Container();
   view.addChild(createBackdrop());
 
-  const readouts = {};
-  const shots = { red: 0, blue: 0 };
-  for (const side of ['red', 'blue']) {
-    const t = new Text({ text: '', style: { fill: COLORS[side], fontFamily: 'monospace', fontSize: 18 } });
-    t.anchor.set(side === 'red' ? 0 : 1, 0);
-    t.position.set(side === 'red' ? 20 : WIDTH - 20, 20);
-    view.addChild(t);
-    readouts[side] = t;
-  }
+  const world = createWorld();
 
-  const input = { red: null, blue: null };
+  const saucerViews = {};
+  for (const side of SIDES) {
+    saucerViews[side] = createSaucerView(side);
+    view.addChild(saucerViews[side].view);
+  }
 
   return {
     view,
-    update() {
-      for (const side of ['red', 'blue']) {
-        input[side] = playerInput(side);
-        if (input[side].shoot) shots[side]++;
-      }
+    world,
+    update(dt) {
+      stepWorld(world, { red: playerInput('red'), blue: playerInput('blue') }, dt);
     },
     render() {
-      for (const side of ['red', 'blue']) {
-        const i = input[side];
-        if (!i) continue;
-        readouts[side].text = `${side.toUpperCase()}  x:${i.x}  y:${i.y}  shots:${shots[side]}`;
-      }
+      for (const side of SIDES) saucerViews[side].sync(world.saucers[side]);
     },
   };
 }

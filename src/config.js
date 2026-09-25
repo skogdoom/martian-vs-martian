@@ -22,6 +22,7 @@ export const KEYS = {
 export const SAUCER = {
   radius: 34, // collision radius
   halfHeight: 14, // distance from centre to underside
+  top: 30, // distance from centre to top of dome
   accel: 1400, // px/s^2
   drag: 3, // 1/s, exponential
   maxSpeed: 320, // px/s, cap for self-propelled speed
