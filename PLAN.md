@@ -135,7 +135,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - HUD for ammo and reload.
   - Unit tests for ammo and reload.
   - Done when: shots fire toward the opponent's side, hits knock them back, and ammo runs out correctly.
-- [ ] **4. Animals and hook**
+- [x] **4. Animals and hook**
   - Wandering, hooking, interrupts, carrying, delivery, pens, live score and stealing.
   - Unit tests for hook interrupts and scoring, including stolen values.
   - Done when: a full pickup-and-deliver cycle works, a shot interrupts a pickup, and stealing gives half value.

@@ -4,6 +4,9 @@
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback } from './projectile.js';
+import { createHerd, updateAnimal } from './animal.js';
+import { createHook, updateHook, interruptHook } from './hook.js';
+import { createRng } from './rng.js';
 
 export const SIDES = ['red', 'blue'];
 
@@ -11,12 +14,15 @@ export function opponent(side) {
   return side === 'red' ? 'blue' : 'red';
 }
 
-export function createWorld() {
+export function createWorld(seed) {
   return {
     saucers: { red: createSaucer('red'), blue: createSaucer('blue') },
     weapons: { red: createWeapon(), blue: createWeapon() },
+    hooks: { red: createHook('red'), blue: createHook('blue') },
+    animals: createHerd(),
     projectiles: [],
     events: [],
+    rng: createRng(seed),
   };
 }
 
@@ -56,7 +62,22 @@ export function stepWorld(w, inputs, dt) {
     if (updateProjectile(p, target, dt)) {
       applyKnockback(target, p.dir);
       w.events.push({ type: 'hit', side: target.side, x: p.x, y: p.y, dir: p.dir });
+      const hook = w.hooks[target.side];
+      const a = hook.target;
+      if (interruptHook(hook)) {
+        w.events.push({ type: 'interrupt', side: target.side, reason: 'shot', x: a.x, y: a.y });
+      }
     }
   }
   w.projectiles = w.projectiles.filter((p) => p.alive);
+
+  for (const side of SIDES) updateHook(w.hooks[side], w.saucers[side], w.animals, dt, w.events);
+
+  for (const a of w.animals) {
+    const wasFalling = a.state === 'falling';
+    const pen = updateAnimal(a, dt, w.rng);
+    if (wasFalling && a.state !== 'falling') {
+      w.events.push({ type: 'land', kind: a.kind, pen, x: a.x, y: a.y });
+    }
+  }
 }

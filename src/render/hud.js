@@ -1,9 +1,10 @@
-// HUD: per-player ammo panel in the top corners.
+// HUD: per-player score and ammo panels in the top corners.
 
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, COMBAT } from '../config.js';
 import { SIDES } from '../logic/world.js';
 import { reloadProgress } from '../logic/weapon.js';
+import { scores } from '../logic/scoring.js';
 import { COLORS } from './backdrop.js';
 import { label } from './text.js';
 
@@ -19,12 +20,15 @@ function createPanel(side) {
   name.x = left ? 0 : PANEL_W;
   const ammo = label('', { size: 14, color: 0xcfd6ff, anchorX: left ? 0 : 1 });
   ammo.position.set(left ? 0 : PANEL_W, 48);
+  const score = label('0', { size: 34, color: 0xffffff, bold: true, anchorX: left ? 1 : 0 });
+  score.x = left ? PANEL_W : 0;
   const pips = new Graphics();
-  view.addChild(name, pips, ammo);
+  view.addChild(name, score, pips, ammo);
 
   return {
     view,
-    sync(weapon) {
+    sync(weapon, points) {
+      score.text = String(points);
       ammo.text = `AMMO ${weapon.ammo}`;
       pips.clear();
       const r = 7;
@@ -55,7 +59,8 @@ export function createHud() {
   return {
     view,
     sync(world) {
-      for (const side of SIDES) panels[side].sync(world.weapons[side]);
+      const points = scores(world.animals);
+      for (const side of SIDES) panels[side].sync(world.weapons[side], points[side]);
     },
   };
 }

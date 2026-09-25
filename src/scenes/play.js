@@ -6,6 +6,7 @@ import { createWorld, stepWorld, SIDES } from '../logic/world.js';
 import { createBackdrop } from '../render/backdrop.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { createProjectileView } from '../render/projectileView.js';
+import { createAnimalView } from '../render/animalView.js';
 import { createHud } from '../render/hud.js';
 
 export function createPlayScene() {
@@ -13,6 +14,9 @@ export function createPlayScene() {
   view.addChild(createBackdrop());
 
   const world = createWorld();
+
+  const animalView = createAnimalView();
+  view.addChild(animalView.view);
 
   const saucerViews = {};
   for (const side of SIDES) {
@@ -30,6 +34,7 @@ export function createPlayScene() {
       stepWorld(world, { red: playerInput('red'), blue: playerInput('blue') }, dt);
     },
     render() {
+      animalView.sync(world);
       for (const side of SIDES) saucerViews[side].sync(world.saucers[side]);
       projectileView.sync(world.projectiles);
       hud.sync(world);
