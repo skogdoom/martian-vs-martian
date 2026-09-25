@@ -1,7 +1,8 @@
 // Static arena: sky, flight band, ground and pens.
 
-import { Container, Graphics, Text } from 'pixi.js';
+import { Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT, ARENA } from '../config.js';
+import { label } from './text.js';
 
 export const COLORS = {
   red: 0xe5484d,
@@ -32,13 +33,9 @@ export function createBackdrop() {
   view.addChild(g);
 
   for (const [side, pen] of Object.entries(ARENA.pens)) {
-    const label = new Text({
-      text: side === 'red' ? 'RED PEN' : 'BLUE PEN',
-      style: { fill: COLORS[side], fontFamily: 'monospace', fontSize: 14, fontWeight: 'bold' },
-    });
-    label.anchor.set(0.5, 0);
-    label.position.set((pen.left + pen.right) / 2, ARENA.groundY + 30);
-    view.addChild(label);
+    const t = label(side === 'red' ? 'RED PEN' : 'BLUE PEN', { size: 14, color: COLORS[side], bold: true, anchorX: 0.5 });
+    t.position.set((pen.left + pen.right) / 2, ARENA.groundY + 30);
+    view.addChild(t);
   }
 
   return view;

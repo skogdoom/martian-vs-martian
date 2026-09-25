@@ -130,7 +130,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **2. Saucers**
   - Movement, flight band, walls and bump.
   - Done when: both saucers fly independently, stay inside the flight band, and push apart on contact.
-- [ ] **3. Combat**
+- [x] **3. Combat**
   - Projectiles, knockback, clips, reload and the ammo cap.
   - HUD for ammo and reload.
   - Unit tests for ammo and reload.
