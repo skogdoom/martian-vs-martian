@@ -10,6 +10,7 @@ import { createHook, updateHook, interruptHook, dropCarried } from './hook.js';
 import { createDrop, createCrate, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
+import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen } from './ordnance.js';
 import { createGolden, settleGolden } from './golden.js';
 
 export const SIDES = ['red', 'blue'];
@@ -25,6 +26,8 @@ export function createWorld(seed) {
     hooks: { red: createHook('red'), blue: createHook('blue') },
     animals: createHerd(),
     projectiles: [],
+    rockets: [], // homing rockets in flight
+    bombs: [], // pen bombs falling
     drops: [], // things that parachuted in and climb aboard: the green man, ammo crates
     powers: createPowers(),
     lasers: { red: null, blue: null }, // active laser beams, for hit tests and drawing
@@ -76,6 +79,20 @@ function knockLoose(w, targetSide) {
 function fire(w, side) {
   const s = w.saucers[side];
   const target = w.saucers[opponent(side)];
+  // Single-use power-ups take the place of the next shot.
+  if (hasPower(w.powers, side, 'rocket')) {
+    const r = createRocket(s, target);
+    w.rockets.push(r);
+    w.powers[side] = null;
+    w.events.push({ type: 'rocketLaunch', side, x: r.x, y: r.y });
+    return;
+  }
+  if (hasPower(w.powers, side, 'bomb')) {
+    w.bombs.push(createBomb(s));
+    w.powers[side] = null;
+    w.events.push({ type: 'bombDrop', side, x: s.x, y: s.y });
+    return;
+  }
   const triple = hasPower(w.powers, side, 'triple');
   if (!tryFire(w.weapons[side], triple)) {
     w.events.push({ type: 'dryFire', side });
@@ -120,7 +137,9 @@ export function stepWorld(w, inputs, dt) {
 
   for (const side of SIDES) {
     const s = w.saucers[side];
-    const input = inputs[side] ?? NO_INPUT;
+    // A stunned saucer spins out: its controls do nothing.
+    s.stun = Math.max(0, s.stun - dt);
+    const input = s.stun > 0 ? NO_INPUT : (inputs[side] ?? NO_INPUT);
     const weapon = w.weapons[side];
 
     if (updateWeapon(weapon, dt, hasPower(w.powers, side, 'triple'))) w.events.push({ type: 'reload', side });
@@ -143,7 +162,7 @@ export function stepWorld(w, inputs, dt) {
     w.events.push({ type: 'bump', x: (red.x + blue.x) / 2, y: (red.y + blue.y) / 2 });
   }
 
-  for (const side of SIDES) updateLaser(w, side, inputs[side] ?? NO_INPUT, dt);
+  for (const side of SIDES) updateLaser(w, side, w.saucers[side].stun > 0 ? NO_INPUT : (inputs[side] ?? NO_INPUT), dt);
 
   for (const p of w.projectiles) {
     const target = w.saucers[opponent(p.owner)];
@@ -156,10 +175,34 @@ export function stepWorld(w, inputs, dt) {
   }
   w.projectiles = w.projectiles.filter((p) => p.alive);
 
+  for (const r of w.rockets) {
+    const target = w.saucers[opponent(r.owner)];
+    const result = updateRocket(r, target, dt);
+    if (result === 'hit') {
+      rocketKnockback(r, target);
+      target.stun = POWERUP.rocketStun;
+      w.events.push({ type: 'hit', side: target.side, x: r.x, y: r.y, dir: Math.sign(Math.cos(r.angle)) || 1, rocket: true });
+      interrupt(w, target.side, 'rocket');
+      knockLoose(w, target.side);
+    }
+    if (result) w.events.push({ type: 'explosion', x: r.x, y: r.y, big: result === 'hit' });
+  }
+  w.rockets = w.rockets.filter((r) => r.alive);
+
+  for (const b of w.bombs) {
+    if (!updateBomb(b, dt)) continue;
+    const { pen, launched } = blastPen(w.animals, b.x, w.rng);
+    w.events.push({ type: 'explosion', x: b.x, y: b.y, big: true });
+    w.events.push({ type: 'bombBlast', side: b.owner, pen, count: launched.length, x: b.x, y: b.y });
+  }
+  w.bombs = w.bombs.filter((b) => b.alive);
+
   const targets = w.drops.length ? [...w.animals, ...w.drops] : w.animals;
   for (const side of SIDES) {
     const stealBonus = hasPower(w.powers, side, 'steal');
-    updateHook(w.hooks[side], w.saucers[side], targets, dt, w.events, { stealBonus });
+    const twin = hasPower(w.powers, side, 'twin');
+    const stunned = w.saucers[side].stun > 0;
+    updateHook(w.hooks[side], w.saucers[side], targets, dt, w.events, { stealBonus, twin, stunned });
   }
   for (const e of w.events) {
     if (e.type === 'powerup') grantPower(w.powers, e.side, e.power);

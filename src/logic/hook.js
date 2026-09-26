@@ -12,6 +12,7 @@ export function createHook(side) {
     progress: 0, // 0..1 lift progress
     startY: 0, // animal feet y when the lift began
     carrying: null, // fully lifted animal
+    second: null, // a second one, under the first (twin beam power-up)
   };
 }
 
@@ -62,32 +63,48 @@ export function interruptHook(h) {
   return true;
 }
 
-/** Knock a carried animal loose (powered hits); it falls where it is. Returns it, or null. */
+/** Knock a carried animal loose (a hit); it falls where it is. The lower one
+ * goes first if there are two. Returns it, or null. */
 export function dropCarried(h) {
-  const a = h.carrying;
+  const a = h.second ?? h.carrying;
   if (!a) return null;
   a.bonus = false;
   drop(a);
-  h.carrying = null;
+  if (a === h.second) h.second = null;
+  else h.carrying = null;
   return a;
 }
 
+/** Feet y for `a` when it hangs in the next free slot: under the saucer, or
+ * under the animal already carried (twin beam). */
+function slotY(h, s, a) {
+  if (!h.carrying || h.carrying === a) return attachY(s, a);
+  return attachY(s, h.carrying) + ANIMALS.size[a.kind].h + 3;
+}
+
 /** Advance one step. Pushes events into `events`. `targets` is everything
- * hookable: the animals, plus the green man when he is around.
+ * hookable: the animals, plus drops (green man, crates) when around.
  * `stealBonus`: animals stolen now (lifted out of the opponent's pen) are
- * worth extra once delivered, even if the power-up has run out by then. */
-export function updateHook(h, s, targets, dt, events, { stealBonus = false } = {}) {
+ * worth extra once delivered, even if the power-up has run out by then.
+ * `twin`: the saucer may carry a second animal (twin beam power-up).
+ * `stunned`: spinning out after a rocket hit, so no new pickups. */
+export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin = false, stunned = false } = {}) {
   if (h.carrying) {
-    const a = h.carrying;
-    a.x = s.x;
-    a.y = attachY(s, a);
-    if (isOverOwnPen(s)) {
-      a.x = clampToPen(s.x, a.kind, s.side);
-      drop(a, true);
-      h.carrying = null;
-      events.push({ type: 'deliver', side: s.side, kind: a.kind, x: a.x, y: a.y });
+    for (const a of [h.carrying, h.second]) {
+      if (!a) continue;
+      a.x = s.x;
+      a.y = slotY(h, s, a);
     }
-    return;
+    if (isOverOwnPen(s)) {
+      for (const [a, dx] of [[h.carrying, -10], [h.second, 12]]) {
+        if (!a) continue;
+        a.x = clampToPen(s.x + (h.second ? dx : 0), a.kind, s.side);
+        drop(a, true);
+        events.push({ type: 'deliver', side: s.side, kind: a.kind, x: a.x, y: a.y });
+      }
+      h.carrying = h.second = null;
+      return;
+    }
   }
 
   if (h.target) {
@@ -98,7 +115,7 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false } = {
       return;
     }
     h.progress = Math.min(1, h.progress + dt / HOOK.liftTime[a.kind]);
-    a.y = h.startY + (attachY(s, a) - h.startY) * h.progress;
+    a.y = h.startY + (slotY(h, s, a) - h.startY) * h.progress;
     if (h.progress >= 1 && BOARDS[a.kind]) {
       // Climbs aboard: nothing to carry home.
       a.state = 'gone';
@@ -112,7 +129,8 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false } = {
       spendGolden(a);
       a.state = 'carried';
       a.pen = null;
-      h.carrying = a;
+      if (h.carrying) h.second = a;
+      else h.carrying = a;
       h.target = null;
       h.progress = 0;
       events.push({ type: 'pickup', side: s.side, kind: a.kind, x: a.x, y: a.y });
@@ -120,8 +138,11 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false } = {
     return;
   }
 
-  if (speed(s) > HOOK.stillSpeed) return;
-  const a = findTarget(s, targets);
+  // Room for another? One animal, or two with the twin beam. Drops that
+  // climb aboard (green man, crates) only when nothing is carried.
+  if (h.carrying && (!twin || h.second)) return;
+  if (stunned || speed(s) > HOOK.stillSpeed) return;
+  const a = findTarget(s, h.carrying ? targets.filter((t) => !BOARDS[t.kind]) : targets);
   if (!a) return;
   a.state = 'lifting';
   a.hookedBy = s.side;

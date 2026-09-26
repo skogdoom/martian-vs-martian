@@ -325,6 +325,25 @@ export const SOUNDS = {
     };
   },
 
+  /** Rocket launch: a rising roar of noise and a sawtooth. */
+  whoosh(ac, out, t) {
+    hiss(ac, out, t, { dur: 0.6, peak: 0.35, type: 'bandpass', freq: 500, to: 2600, q: 1.2, attack: 0.05 });
+    tone(ac, out, t, { type: 'sawtooth', freq: 90, to: 260, dur: 0.5, peak: 0.08, attack: 0.03 });
+  },
+
+  /** Explosion: a low thump and a long rumble of filtered noise. */
+  boom(ac, out, t, { big = true } = {}) {
+    const k = big ? 1 : 0.45;
+    tone(ac, out, t, { type: 'sine', freq: 120, to: 30, dur: 0.6 * k + 0.2, peak: 0.8 * k });
+    hiss(ac, out, t, { dur: 1.1 * k + 0.2, peak: 0.6 * k, freq: 1600, to: 90 });
+    hiss(ac, out, t, { dur: 0.1, peak: 0.3 * k, type: 'highpass', freq: 2000 });
+  },
+
+  /** A bomb falling: the classic descending whistle. */
+  whistle(ac, out, t) {
+    tone(ac, out, t, { type: 'sine', freq: 1900, to: 700, dur: 0.7, peak: 0.12, attack: 0.03, hold: 0.4 });
+  },
+
   /** Two low horn blasts as an ammo crate comes down. */
   horn(ac, out, t) {
     for (const [at, freq] of [[0, 196], [0.28, 262]]) {
@@ -448,6 +467,15 @@ export function handleEvents(events) {
       case 'roundEnd':
         stopVoices();
         play('jingle');
+        break;
+      case 'rocketLaunch':
+        play('whoosh', { x: e.x });
+        break;
+      case 'bombDrop':
+        play('whistle', { x: e.x });
+        break;
+      case 'explosion':
+        play('boom', { x: e.x, big: e.big });
         break;
       case 'crateIncoming':
         play('horn', { x: e.x });

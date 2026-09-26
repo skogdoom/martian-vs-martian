@@ -8,7 +8,28 @@ export const POWER_NAMES = {
   laser: 'LASER CANNON',
   triple: 'TRIPLE SHOT',
   steal: 'DOUBLE STEAL',
+  rocket: 'HOMING ROCKET',
+  twin: 'TWIN BEAM',
+  bomb: 'PEN BOMB',
 };
+
+/** Small rocket pointing along +x, nose at (len/2, 0). */
+export function drawRocket(g, len, flame = 0) {
+  const h = len * 0.22;
+  if (flame > 0) g.poly([-len / 2, -h * 0.6, -len / 2 - len * 0.5 * flame, 0, -len / 2, h * 0.6]).fill(0xffa53a);
+  g.poly([-len / 2, -h * 1.6, -len / 2 + len * 0.25, -h, -len / 2 + len * 0.25, h, -len / 2, h * 1.6]).fill(0xc9303a);
+  g.roundRect(-len / 2, -h, len * 0.8, h * 2, h).fill(0xe8ecf2);
+  g.poly([len * 0.3, -h, len / 2, 0, len * 0.3, h]).fill(0xc9303a);
+}
+
+/** Round black bomb with a lit fuse, centred on (0, 0). */
+export function drawBomb(g, r, spark = true) {
+  g.circle(0, 0, r).fill(0x22252b);
+  g.circle(-r * 0.35, -r * 0.35, r * 0.28).fill({ color: 0xffffff, alpha: 0.35 });
+  g.rect(-r * 0.25, -r * 1.25, r * 0.5, r * 0.4).fill(0x6b6f78);
+  g.moveTo(0, -r * 1.25).quadraticCurveTo(r * 0.4, -r * 1.7, r * 0.7, -r * 1.55).stroke({ color: 0xc9a46a, width: Math.max(1, r * 0.15) });
+  if (spark) g.circle(r * 0.72, -r * 1.58, r * 0.28).fill(0xffd24a);
+}
 
 export const POWER_COLOR = 0x6cff6c;
 
@@ -26,6 +47,21 @@ export function createPowerIcon(type, r = 14) {
     g.rect(-9 * s, -2 * s, 18 * s, 4 * s).fill({ color: 0xff5ce1, alpha: 0.5 });
     g.rect(-9 * s, -1 * s, 18 * s, 2 * s).fill(0xffffff);
     g.circle(-8 * s, 0, 3.5 * s).fill(0xff5ce1);
+  } else if (type === 'rocket') {
+    const rocket = new Graphics();
+    drawRocket(rocket, 20 * s, 0.6);
+    rocket.rotation = -0.5;
+    view.addChild(g, rocket);
+    return view;
+  } else if (type === 'bomb') {
+    drawBomb(g, 6.5 * s);
+    g.position.set(0, 0);
+  } else if (type === 'twin') {
+    // Two animals rising in two beams.
+    for (const dx of [-4.5, 4.5]) {
+      g.poly([dx * s - 2 * s, -9 * s, dx * s + 2 * s, -9 * s, dx * s + 4 * s, 8 * s, dx * s - 4 * s, 8 * s]).fill({ color: POWER_COLOR, alpha: 0.35 });
+      g.roundRect(dx * s - 3.5 * s, 0, 7 * s, 5 * s, 2 * s).fill(0xffffff);
+    }
   } else if (type === 'triple') {
     for (const dy of [-6, 0, 6]) {
       g.rect(-8 * s, (dy - 1) * s, 9 * s, 2 * s).fill({ color: 0xffffff, alpha: 0.5 });

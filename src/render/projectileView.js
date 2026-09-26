@@ -1,15 +1,43 @@
 // All projectiles and laser beams, redrawn each frame.
 
-import { Graphics } from 'pixi.js';
+import { Container, Graphics } from 'pixi.js';
 import { COMBAT } from '../config.js';
 import { COLORS } from './backdrop.js';
+import { drawRocket, drawBomb } from './powerupView.js';
 
 export function createProjectileView() {
   const g = new Graphics();
+  // Rockets and bombs are small shape pools, positioned and rotated each frame.
+  const view = new Container();
+  const pools = { rockets: [], bombs: [] };
+  view.addChild(g);
+  function pooled(kind, i, draw) {
+    let s = pools[kind][i];
+    if (!s) {
+      s = new Graphics();
+      draw(s);
+      pools[kind].push(s);
+      view.addChild(s);
+    }
+    s.visible = true;
+    return s;
+  }
   return {
-    view: g,
+    view,
     sync(world, t) {
       g.clear();
+      for (const kind of ['rockets', 'bombs']) for (const s of pools[kind]) s.visible = false;
+      world.rockets.forEach((r, i) => {
+        const s = pooled('rockets', i, (gr) => drawRocket(gr, 26, 0.8));
+        s.position.set(r.x, r.y);
+        s.rotation = r.angle;
+        s.scale.set(1, 1 + 0.08 * Math.sin(t * 40));
+      });
+      world.bombs.forEach((b, i) => {
+        const s = pooled('bombs', i, (gr) => drawBomb(gr, 9));
+        s.position.set(b.x, b.y - 9);
+        s.rotation = Math.sin(t * 10) * 0.3;
+      });
       for (const side of ['red', 'blue']) {
         const b = world.lasers[side];
         if (!b) continue;

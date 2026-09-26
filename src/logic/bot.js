@@ -74,14 +74,34 @@ export function createBot(side, rng, skill) {
       const weapon = w.weapons[side];
       const laser = hasPower(w.powers, side, 'laser');
       const triple = hasPower(w.powers, side, 'triple');
+      const rocket = hasPower(w.powers, side, 'rocket');
+      const bomb = hasPower(w.powers, side, 'bomb');
+      const theirPen = ARENA.pens[other(side)];
+      const theirPenX = (theirPen.left + theirPen.right) / 2;
+      const inTheirPen = w.animals.filter((a) => a.state === 'penned' && a.pen === other(side)).length;
       let tx = s.x;
       let ty = s.y;
+      let dropBomb = false;
 
-      if (hook.carrying) {
+      // With the twin beam, grab a second animal on the way if one is close.
+      const second =
+        hook.carrying && !hook.second && !hook.target && hasPower(w.powers, side, 'twin')
+          ? w.animals.find((a) => a.state === 'field' && a.hookedBy === null && Math.abs(a.x - s.x) < 300)
+          : null;
+
+      if (second) {
+        tx = second.x;
+        ty = Math.abs(second.x - s.x) > 120 ? 380 : LOW;
+      } else if (hook.carrying && !hook.target) {
         const pen = ARENA.pens[side];
         tx = (pen.left + pen.right) / 2;
         ty = 360;
         mode = 'collect';
+      } else if (bomb && !hook.target && inTheirPen > 0) {
+        // Fly over their pen and let it go.
+        tx = theirPenX;
+        ty = 330;
+        dropBomb = Math.abs(s.x - theirPenX) < 30;
       } else if (hook.target) {
         if (lifting !== hook.target) {
           lifting = hook.target;
@@ -119,7 +139,7 @@ export function createBot(side, rng, skill) {
       held = {
         x: axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
         y: axis(s.y, s.vy, ty, skill.gain, top),
-        shoot: Boolean(aligned && worthIt && (weapon.ammo > 0 || triple)),
+        shoot: rocket ? Boolean(target) : bomb ? dropBomb : Boolean(aligned && worthIt && (weapon.ammo > 0 || triple)),
         fire: aligned && laser,
       };
       return held;

@@ -3,7 +3,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { SAUCER } from '../config.js';
 import { COLORS } from './backdrop.js';
-import { POWER_COLOR } from './powerupView.js';
+import { POWER_COLOR, drawRocket, drawBomb } from './powerupView.js';
 
 const SHADE = { red: 0x9e2a2f, blue: 0x1f5bb0 };
 const LIGHTS = 7;
@@ -64,18 +64,29 @@ export function createSaucerView(side) {
   const lights = new Graphics();
   const flash = new Graphics().ellipse(0, -2, r, h + 6).fill(0xffffff);
   flash.alpha = 0;
+  // A single-use power-up waiting under the hull.
+  const heldRocket = new Graphics();
+  drawRocket(heldRocket, 22);
+  heldRocket.position.set(0, h + 4);
+  const heldBomb = new Graphics();
+  drawBomb(heldBomb, 7);
+  heldBomb.position.set(0, h + 9);
+  heldRocket.visible = heldBomb.visible = false;
+  // Stars circling the dome while stunned.
+  const dizzy = new Graphics();
 
-  view.addChild(aura, streaks, glow, back, alien, eyes, glass, hull, lights, flash);
+  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, alien, eyes, glass, hull, lights, flash, dizzy);
 
   return {
     view,
     /** `look` is -1/+1 toward the opponent; `hit` fades 1 → 0 after being shot;
      * `power` is the active power-up type, if any. */
     sync(s, t, { look = 1, hit = 0, beam = false, power = null } = {}) {
+      const stunned = s.stun > 0;
       const bob = Math.sin(t * 3 + (side === 'red' ? 0 : 1.7)) * 1.5;
       view.position.set(s.x, s.y + bob);
       const tilt = Math.max(-0.25, Math.min(0.25, s.vx / 2000));
-      view.rotation = tilt + (hit > 0 ? Math.sin(t * 60) * 0.12 * hit : 0);
+      view.rotation = stunned ? Math.sin(t * 18) * 0.6 : tilt + (hit > 0 ? Math.sin(t * 60) * 0.12 * hit : 0);
 
       // Eyes: big and dark, glancing toward the opponent; the odd blink.
       const blinking = (t + (side === 'red' ? 0 : 1.9)) % 3.7 < 0.12;
@@ -108,6 +119,19 @@ export function createSaucerView(side) {
       // Streaks point away from the direction of travel (the view is rotated, not flipped).
       streaks.visible = power === 'speed' && Math.abs(s.vx) > 150;
       streaks.scale.x = s.vx >= 0 ? 1 : -1;
+      heldRocket.visible = power === 'rocket';
+      heldBomb.visible = power === 'bomb';
+      heldRocket.scale.x = look;
+
+      dizzy.clear();
+      if (stunned) {
+        for (let i = 0; i < 4; i++) {
+          const a = t * 6 + (i * Math.PI) / 2;
+          const x = Math.cos(a) * 22;
+          const y = -26 + Math.sin(a) * 6;
+          dizzy.star(x, y, 5, 4, 2).fill(0xffe45c);
+        }
+      }
     },
   };
 }

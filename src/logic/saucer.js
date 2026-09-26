@@ -13,6 +13,7 @@ export function createSaucer(side) {
     y: SAUCER.startY,
     vx: 0,
     vy: 0,
+    stun: 0, // seconds left spinning out after a rocket hit
   };
 }
 

@@ -86,6 +86,19 @@ export function createEffects() {
           burst(e.x, e.y - 15, { count: 24, colors: [0xd9a93a, 0xffd76a, 0xffffff], speed: [80, 260], life: [0.4, 0.8], size: [2, 4], gravity: -30, shape: 'star' });
           ring(e.x, e.y - 15, 0xffd76a, 60, 0.4);
           break;
+        case 'explosion':
+          if (e.big) {
+            burst(e.x, e.y, { count: 50, colors: [0xffd24a, 0xff8a3a, 0xff4a2a, 0xffffff], speed: [120, 520], life: [0.3, 0.9], size: [2.5, 6], gravity: 250 });
+            burst(e.x, e.y, { count: 16, colors: [0x5a5f6a, 0x7a7f8a], speed: [30, 120], life: [0.8, 1.4], size: [5, 9], gravity: -60 });
+            ring(e.x, e.y, 0xffa53a, 110, 0.45);
+            shake = Math.max(shake, 11);
+          } else {
+            burst(e.x, e.y, { count: 16, colors: [0xffd24a, 0xff8a3a, 0x7a7f8a], speed: [60, 220], life: [0.2, 0.5], size: [2, 4], gravity: 100 });
+          }
+          break;
+        case 'rocketLaunch':
+          burst(e.x, e.y, { count: 12, colors: [0xcfd6ff, 0x8a93c0], speed: [40, 140], life: [0.3, 0.6], size: [3, 5], gravity: -40 });
+          break;
         case 'knockLoose':
           burst(e.x, e.y, { count: 20, colors: [0xffffff, 0xff5ce1, COLORS[e.side]], speed: [80, 260], life: [0.3, 0.6], size: [2, 4], gravity: 200, shape: 'star' });
           ring(e.x, e.y, 0xff5ce1, 40);
@@ -109,6 +122,13 @@ export function createEffects() {
 
   /** Continuous effects that follow world state rather than events. */
   function ambient(world) {
+    // Rockets leave a smoke trail.
+    for (const r of world.rockets) {
+      const bx = r.x - Math.cos(r.angle) * 14;
+      const by = r.y - Math.sin(r.angle) * 14;
+      burst(bx, by, { count: 1, colors: [0xffa53a], speed: [10, 40], life: [0.1, 0.2], size: [2, 3.5], gravity: 0 });
+      burst(bx, by, { count: 1, colors: [0x9aa0ab, 0x6a707b], speed: [5, 25], life: [0.5, 0.9], size: [3, 6], gravity: -30 });
+    }
     // Golden animals glitter.
     for (const a of world.animals) {
       if (!a.golden || Math.random() > 0.25) continue;

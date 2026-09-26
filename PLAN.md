@@ -75,6 +75,11 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Triple shot:** three shots per press, spread vertically. Shots are free while it lasts and an empty gun reloads.
   - **Double steal:** animals stolen from the opponent's pen while it's active are worth double full value (cow 4, lamb 2) once delivered, until they are lifted out again.
 - Like any hit, laser and triple-shot hits also knock a carried animal loose.
+- More power-ups, drawn at random with the rest:
+  - **Homing rocket** (single use, kept until fired): the next shoot press launches one rocket that steers toward the opponent (limited turn rate, burns out after 4.5 s). A hit gives strong knockback, breaks a pickup, knocks a carried animal loose and stuns the saucer for 2 s: no steering, lifting or shooting.
+  - **Twin beam** (15 s): the beam can carry a second animal, hanging under the first. Both are delivered together; a hit knocks the lower one loose.
+  - **Pen bomb** (single use): the shoot key drops it. If it lands in a pen, a random number (at least one) of the animals in it are thrown back into the field; they keep their original owner. It hits whichever pen it lands in, including your own.
+- Single-use power-ups show in the HUD without a timer, and the item hangs under the saucer until used.
 - Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
 
 ### Golden animals
@@ -196,5 +201,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Every hit knocks a carried animal loose** (after playtesting)
   - Before, only laser and triple-shot hits did. Shots still break lifts in progress, and bumps still don't drop anything.
   - Simulator: rounds swing more (lead changes 2.5 → 2.9 per round; the player trailing at 51 s wins 14% instead of 4%). A trailing power-up grabber wins 32% (laser 41%, speed 31%, triple 29%, steal 24%).
+- [x] **Homing rocket, twin beam and pen bomb**
+  - Logic, CPU use, art (rocket with smoke trail, bomb, held items, spin-out stars, explosions), announcements and sound. Unit tests for each.
+  - Simulator, trailing grabber wins: bomb 60%, twin 47%, laser 37%, triple 31%, steal 29%, speed 27%, rocket 18% (the rocket's stun was added because a single knock-loose barely mattered).
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

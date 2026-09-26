@@ -190,7 +190,7 @@ export function createBeamView() {
         const h = world.hooks[side];
         const s = world.saucers[side];
         if (h.target) drawBeam(g, s, h.target, side, h.progress, t);
-        else if (h.carrying) drawBeam(g, s, h.carrying, side, 1, t);
+        else if (h.carrying) drawBeam(g, s, h.second ?? h.carrying, side, 1, t);
       }
     },
   };

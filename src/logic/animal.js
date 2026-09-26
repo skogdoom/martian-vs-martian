@@ -114,6 +114,7 @@ export function updateAnimal(a, dt, rng) {
 
   if (a.state === 'falling') {
     a.vy += ANIMALS.gravity * dt;
+    a.x += a.vx * dt; // sideways only when thrown out of a pen by a bomb
     a.y += a.vy * dt;
     if (a.y >= ARENA.groundY) return land(a);
   }

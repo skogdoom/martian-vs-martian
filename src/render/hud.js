@@ -56,15 +56,17 @@ function createPanel(side, title) {
           power.addChild(icon);
           iconType = active.type;
         }
-        powerName.text = `${POWER_NAMES[active.type]} ${Math.ceil(active.timeLeft)}`;
+        // Single-use power-ups (timeLeft null) wait for the shoot key.
+        const timed = active.timeLeft !== null;
+        powerName.text = timed ? `${POWER_NAMES[active.type]} ${Math.ceil(active.timeLeft)}` : `${POWER_NAMES[active.type]} ×1`;
         const w = 120;
-        const f = Math.max(0, active.timeLeft / POWERUP.duration);
+        const f = timed ? Math.max(0, active.timeLeft / POWERUP.duration) : 1;
         const x = left ? 28 : PANEL_W - 28 - w;
         powerBar.clear();
         powerBar.rect(x, 18, w, 4).fill({ color: POWER_COLOR, alpha: 0.2 });
         powerBar.rect(left ? x : x + w * (1 - f), 18, w * f, 4).fill(POWER_COLOR);
         // Blink for the last three seconds.
-        power.alpha = active.timeLeft < 3 ? 0.55 + 0.45 * Math.sin(active.timeLeft * 18) : 1;
+        power.alpha = timed && active.timeLeft < 3 ? 0.55 + 0.45 * Math.sin(active.timeLeft * 18) : 1;
       }
       pips.clear();
       const r = 7;

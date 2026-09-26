@@ -82,7 +82,8 @@ export const POWERUP = {
   chance: 0.5, // chance per round that a green man drops
   dropAt: 0.5, // when, as a fraction of the round
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
-  types: ['speed', 'laser', 'triple', 'steal'],
+  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb'],
+  singleUse: ['rocket', 'bomb'], // kept until used (or the round ends) instead of timed
   fallSpeed: 110, // parachute descent, px/s
   dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
   // speed: faster saucer
@@ -93,6 +94,16 @@ export const POWERUP = {
   laserHalfWidth: 7,
   // triple: three shots per trigger pull, one ammo
   tripleSpread: 26, // px between the shots
+  // rocket: one homing rocket, fired with the shoot key
+  rocketSpeed: 480,
+  rocketTurn: 2.6, // rad/s: slow enough to dodge
+  rocketLife: 4.5, // seconds before it burns out
+  rocketRadius: 8,
+  rocketKnockback: 1300,
+  rocketStun: 2, // seconds the hit saucer spins out: no steering, lifting or shooting
+  // bomb: dropped with the shoot key; blows animals out of the pen it lands in
+  bombLaunch: [650, 950], // upward speed range of the animals thrown out
+  // twin: the beam can carry a second animal
   // steal: stolen animals delivered while active are worth this times full value
   stealMultiplier: 2,
 };

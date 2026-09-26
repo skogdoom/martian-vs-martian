@@ -37,8 +37,9 @@ export function createPowers() {
   return { red: null, blue: null };
 }
 
+/** Timed power-ups count down; single-use ones (timeLeft null) wait to be used. */
 export function grantPower(powers, side, type) {
-  powers[side] = { type, timeLeft: POWERUP.duration };
+  powers[side] = { type, timeLeft: POWERUP.singleUse.includes(type) ? null : POWERUP.duration };
 }
 
 export function hasPower(powers, side, type) {
@@ -49,7 +50,7 @@ export function hasPower(powers, side, type) {
 export function updatePowers(powers, dt, events) {
   for (const side of ['red', 'blue']) {
     const p = powers[side];
-    if (!p) continue;
+    if (!p || p.timeLeft === null) continue;
     p.timeLeft -= dt;
     if (p.timeLeft <= 1e-9) {
       powers[side] = null;

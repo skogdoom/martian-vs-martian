@@ -149,6 +149,11 @@ export function createPlayScene(game, session) {
       for (const e of round.events) {
         if (e.type === 'dropIncoming') announce(`POWER-UP INCOMING: ${POWER_NAMES[e.power]}`, POWER_COLOR);
         if (e.type === 'powerup') announce(`${name(e.side)} GETS ${POWER_NAMES[e.power]}!`, COLORS[e.side]);
+        if (e.type === 'bombBlast') {
+          if (!e.pen) announce(`${name(e.side)}'S BOMB MISSED`, 0xcfd6ff);
+          else if (e.pen === e.side) announce(`${name(e.side)} BOMBED ITS OWN PEN!`, COLORS[e.side]);
+          else announce(`${name(e.side)} BLASTS ${e.count} OUT OF ${name(e.pen)}'S PEN!`, COLORS[e.side]);
+        }
         if (e.type === 'crateIncoming') announce(`AMMO DROP! ${name(e.side)} IS OUT OF SHOTS`, 0xffd76a);
         if (e.type === 'ammoCrate') announce(`${name(e.side)} GRABS +${AMMO_CRATE.refill} AMMO`, COLORS[e.side]);
         if (e.type === 'goldenIncoming') {
