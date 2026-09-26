@@ -153,6 +153,42 @@ export function createGreenManView() {
   };
 }
 
+/** Mystery package: a wrapped box with a question mark. */
+export function createPackageView() {
+  const view = new Container();
+  const chute = new Graphics();
+  drawParachute(chute);
+  chute.y = 10;
+  const glow = new Graphics().ellipse(0, -14, 32, 26).fill({ color: 0xc86cff, alpha: 0.2 });
+  const box = new Graphics();
+  box.roundRect(-15, -28, 30, 28, 3).fill(0x8a3fd1);
+  box.rect(-3, -28, 6, 28).fill(0xffd24a); // ribbon
+  box.rect(-15, -17, 30, 6).fill(0xffd24a);
+  box.ellipse(-6, -32, 6, 4).fill(0xffd24a); // bow
+  box.ellipse(6, -32, 6, 4).fill(0xffd24a);
+  box.roundRect(-15, -28, 30, 28, 3).stroke({ color: 0x5a2690, width: 2 });
+  const mark = label('?', { size: 22, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  mark.position.set(0, -52);
+  view.addChild(glow, chute, box, mark);
+  view.visible = false;
+  const phase = Math.random() * 10;
+
+  return {
+    view,
+    sync(p, t) {
+      view.visible = p.state !== 'gone';
+      if (!view.visible) return;
+      view.position.set(p.x, p.y);
+      chute.visible = p.state === 'descending';
+      mark.visible = p.state !== 'descending';
+      mark.y = -52 + Math.sin(t * 4 + phase) * 3;
+      const swinging = p.state === 'descending' || p.state === 'lifting' || p.state === 'falling';
+      view.rotation = swinging ? Math.sin(t * 2.4 + phase) * 0.12 : 0;
+      glow.alpha = 0.6 + 0.4 * Math.sin(t * 5);
+    },
+  };
+}
+
 /** Wooden ammo crate with brass rounds on the front. */
 export function createCrateView() {
   const view = new Container();
@@ -196,7 +232,8 @@ export function createDropsView() {
     sync(drops, t) {
       for (const d of drops) {
         if (!views.has(d)) {
-          const v = d.kind === 'crate' ? createCrateView() : createGreenManView();
+          const make = { crate: createCrateView, package: createPackageView }[d.kind] ?? createGreenManView;
+          const v = make();
           views.set(d, v);
           view.addChild(v.view);
         }

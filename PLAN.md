@@ -56,6 +56,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Delivery
 - A carried animal is released automatically when the saucer is over its own pen and low enough for a safe landing (a fall of at most 220 px). Higher up, it stays on until you come down.
 - **Dropping by hand:** while carrying, the shoot key lets go of the (lowest) animal instead of firing. Over your own pen it counts as a delivery.
+- **Restock:** if every cow and lamb has splatted, 3 new ones (random kinds) parachute into the field (`RESTOCK` in `config.js`).
 - **Splat:** a cow or lamb that falls more than 220 px (dropped by hand, knocked loose by a shot, or dropped mid-lift) bursts in a cartoon cloud of blood and is out of the round: no points for anyone. Animals thrown out of a pen by a bomb land safely. `SPLAT.height` in `config.js`.
 - The animal drops into the pen, stays there and stops wandering.
 
@@ -68,7 +69,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Each animal remembers who first delivered it. It is worth full value (cow 2, lamb 1) in that player's pen and half value in the other pen (cow 1, lamb 0.5).
 
 ### Power-ups
-- Twice per round (at 30% and 60% of the round) there is a 60% chance that a little green man parachutes into the field carrying one power-up. Its icon is shown on his parachute and over his head.
+- Twice per round (at 30% and 60% of the round) there is a 60% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
 - He wanders like an animal and is hooked the same way (lift 0.8 s; shots and drift break the pickup). A saucer carrying an animal can't grab him.
 - Fully lifted, he climbs into the saucer and the power-up starts. It lasts 15 s.
 - The power-ups:
@@ -211,5 +212,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Shoot while carrying drops the animal; automatic release only when low; falls over 220 px splat (cloud of blood, stain, "SPLAT!", sound).
   - The CPU never drops by hand, comes down low to deliver and, on Normal and Hard, flies home low so a hit doesn't splat its animal.
   - Simulator: about 1.2 green men grabbed per round, 0.6 splats per round, ties 7%.
+- [x] **Mystery packages and restocking**
+  - About 1 in 5 power-up drops is a mystery package; 3 fresh animals parachute in when the whole herd has splatted.
+  - A drop within reach of the beam is grabbed before a nearer animal.
+  - Fixed: hooking a package crashed the game loop (no voice for it in the sound code); unknown sounds are now ignored.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

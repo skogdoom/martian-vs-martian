@@ -17,7 +17,7 @@ export function createHook(side) {
 }
 
 // Drops that climb aboard when fully lifted, and the event that follows.
-const BOARDS = { greenman: 'powerup', crate: 'ammoCrate' };
+const BOARDS = { greenman: 'powerup', package: 'powerup', crate: 'ammoCrate' };
 
 /** Feet y of an animal hanging under the saucer. */
 export function attachY(s, a) {
@@ -40,12 +40,14 @@ export function canHook(s, a) {
   return gap >= 0 && gap <= HOOK.reach;
 }
 
+/** The closest hookable target; a drop (green man, package, crate) within
+ * reach wins over an animal, since that is what a player hovering there wants. */
 function findTarget(s, animals) {
   let best = null;
   let bestDx = Infinity;
   for (const a of animals) {
     if (!canHook(s, a)) continue;
-    const dx = Math.abs(a.x - s.x);
+    const dx = Math.abs(a.x - s.x) - (BOARDS[a.kind] ? HOOK.grabRadius : 0);
     if (dx < bestDx) {
       best = a;
       bestDx = dx;
@@ -136,7 +138,7 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin
       a.hookedBy = null;
       h.target = null;
       h.progress = 0;
-      events.push({ type: BOARDS[a.kind], side: s.side, power: a.power, x: a.x, y: a.y });
+      events.push({ type: BOARDS[a.kind], side: s.side, power: a.power, mystery: a.kind === 'package', x: a.x, y: a.y });
     } else if (h.progress >= 1) {
       // Stolen from the opponent's pen during a steal power-up?
       a.bonus = stealBonus && a.pen !== null && a.pen !== s.side;

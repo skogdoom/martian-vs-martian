@@ -403,9 +403,12 @@ function output(x) {
 }
 
 export function play(name, { x, ...opts } = {}) {
-  if (!ctx || ctx.state !== 'running') return null;
+  // A missing sound is silence, never a crash in the game loop.
+  if (!ctx || ctx.state !== 'running' || !SOUNDS[name]) return null;
   return SOUNDS[name](ctx, output(x), ctx.currentTime + 0.005, opts);
 }
+
+const HOOK_VOICE = { cow: 'moo', lamb: 'baa', greenman: 'chirp' };
 
 // Sustained voices, one per player, that events start and stop.
 const liftVoices = { red: null, blue: null };
@@ -451,7 +454,8 @@ export function handleEvents(events) {
       case 'hook':
         stopLift(e.side);
         liftVoices[e.side] = play('lift', { x: e.x, dur: HOOK.liftTime[e.kind] });
-        if (e.kind !== 'crate') play({ cow: 'moo', lamb: 'baa', greenman: 'chirp' }[e.kind], { x: e.x });
+        // Animals and the green man have a voice; crates and packages don't.
+        if (HOOK_VOICE[e.kind]) play(HOOK_VOICE[e.kind], { x: e.x });
         break;
       case 'interrupt':
         stopLift(e.side);
@@ -502,6 +506,10 @@ export function handleEvents(events) {
         break;
       case 'dropIncoming':
         play('siren', { x: e.x });
+        break;
+      case 'restock':
+        play('horn');
+        play('moo');
         break;
       case 'powerup':
         play('fanfare', { x: e.x });

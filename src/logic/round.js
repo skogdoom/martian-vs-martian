@@ -10,8 +10,13 @@ export function createRound(seed) {
   const world = createWorld(seed);
   return {
     world,
-    // Green-man drops planned for this round: { at, power, done }.
-    drops: POWERUP.dropTimes.map((at) => ({ at, power: planDrop(world.rng), done: false })),
+    // Green-man drops planned for this round: { at, power, mystery, done }.
+    drops: POWERUP.dropTimes.map((at) => ({
+      at,
+      power: planDrop(world.rng),
+      mystery: world.rng() < POWERUP.mysteryChance,
+      done: false,
+    })),
     goldenChecked: false,
     crates: { red: false, blue: false }, // has this player's crate dropped yet
     phase: 'countdown', // 'countdown' | 'play' | 'over'
@@ -51,7 +56,7 @@ export function stepRound(r, inputs, dt) {
     for (const d of r.drops) {
       if (d.done || !d.power || ROUND.length - r.timeLeft < ROUND.length * d.at) continue;
       d.done = true;
-      spawnDrop(r.world, d.power);
+      spawnDrop(r.world, d.power, d.mystery);
       r.events.push(r.world.events.at(-1));
     }
     // Out of ammo early: one crate per player per round, one at a time.

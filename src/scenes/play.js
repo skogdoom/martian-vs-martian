@@ -147,8 +147,14 @@ export function createPlayScene(game, session) {
       effects.handle(round.events);
       effects.ambient(world);
       for (const e of round.events) {
-        if (e.type === 'dropIncoming') announce(`POWER-UP INCOMING: ${POWER_NAMES[e.power]}`, POWER_COLOR);
-        if (e.type === 'powerup') announce(`${name(e.side)} GETS ${POWER_NAMES[e.power]}!`, COLORS[e.side]);
+        if (e.type === 'dropIncoming') {
+          announce(e.mystery ? 'MYSTERY PACKAGE INCOMING!' : `POWER-UP INCOMING: ${POWER_NAMES[e.power]}`, e.mystery ? 0xc86cff : POWER_COLOR);
+        }
+        if (e.type === 'powerup') {
+          const got = e.mystery ? `OPENS THE PACKAGE: ${POWER_NAMES[e.power]}!` : `GETS ${POWER_NAMES[e.power]}!`;
+          announce(`${name(e.side)} ${got}`, COLORS[e.side]);
+        }
+        if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
         if (e.type === 'bombBlast') {
           if (!e.pen) announce(`${name(e.side)}'S BOMB MISSED`, 0xcfd6ff);
           else if (e.pen === e.side) announce(`${name(e.side)} BOMBED ITS OWN PEN!`, COLORS[e.side]);

@@ -50,7 +50,7 @@ export function createBot(side, rng, skill) {
       const eligible = (a.state === 'field' || (a.state === 'penned' && a.pen !== side)) && a.hookedBy === null;
       if (!eligible) continue;
       const unpaidGold = a.golden && a.goldenValue == null;
-      const prize = a.kind === 'greenman' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
+      const prize = a.kind === 'greenman' || a.kind === 'package' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
       const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (prize ? -400 : 0);
       if (d < bestD) {
         bestD = d;

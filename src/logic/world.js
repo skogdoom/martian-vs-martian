@@ -1,13 +1,13 @@
 // One round's simulation state. Pure: no rendering, no DOM.
 // `events` collects things that happened during the last step, for audio and particles.
 
-import { HOOK, COMBAT, POWERUP, AMMO_CRATE } from '../config.js';
+import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
-import { createHerd, updateAnimal, fallHeight } from './animal.js';
+import { createHerd, updateAnimal, fallHeight, createAnimal, parachute } from './animal.js';
 import { createHook, updateHook, interruptHook, dropCarried, releaseCarried } from './hook.js';
-import { createDrop, createCrate, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
+import { createDrop, createCrate, dropSpot, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
 import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen } from './ordnance.js';
@@ -43,11 +43,24 @@ export function spawnGolden(w, trailing) {
   w.events.push({ type: 'goldenIncoming', kind: a.kind, side: trailing, x: a.x });
 }
 
-/** Send in the green man carrying `power`. */
-export function spawnDrop(w, power) {
-  const d = createDrop(power, w.rng);
+/** Send in the green man carrying `power` (or a mystery package hiding it). */
+export function spawnDrop(w, power, mystery = false) {
+  const d = createDrop(power, w.rng, mystery);
   w.drops.push(d);
-  w.events.push({ type: 'dropIncoming', power, x: d.x });
+  w.events.push({ type: 'dropIncoming', power: mystery ? null : power, mystery, x: d.x });
+}
+
+/** Every animal splatted? Parachute in fresh ones. */
+function restock(w) {
+  const alive = w.animals.filter((a) => a.state !== 'gone').length;
+  if (alive > RESTOCK.aliveAtMost) return;
+  for (let i = 0; i < RESTOCK.count; i++) {
+    const kind = w.rng() < 0.5 ? 'cow' : 'lamb';
+    const a = createAnimal(`restock-${w.animals.length}`, kind, dropSpot(kind, w.rng));
+    parachute(a);
+    w.animals.push(a);
+  }
+  w.events.push({ type: 'restock', count: RESTOCK.count });
 }
 
 /** Send in an ammo crate because `side` ran out. */
@@ -242,4 +255,6 @@ export function stepWorld(w, inputs, dt) {
       w.events.push({ type: 'land', id: a.id, kind: a.kind, pen, delivered, value, stolen, bonus: a.bonus, golden, x: a.x, y: a.y });
     }
   }
+
+  restock(w);
 }

@@ -57,13 +57,13 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8 },
+  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8 },
 };
 
 export const ANIMALS = {
   cows: 4,
   lambs: 5,
-  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0 },
+  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
   gravity: 1400,
@@ -73,6 +73,7 @@ export const ANIMALS = {
     lamb: { w: 40, h: 28 },
     greenman: { w: 22, h: 30 },
     crate: { w: 30, h: 26 },
+    package: { w: 30, h: 28 },
   },
   value: { cow: 2, lamb: 1 },
   fieldMargin: 30, // keep field animals this far from the pen fences
@@ -81,6 +82,7 @@ export const ANIMALS = {
 export const POWERUP = {
   chance: 0.6, // chance that a green man drops at each drop time
   dropTimes: [0.3, 0.6], // when he may drop, as fractions of the round
+  mysteryChance: 0.2, // share of drops that come as a mystery package: power-up unknown until grabbed
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
   types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb'],
   singleUse: ['rocket', 'bomb'], // kept until used (or the round ends) instead of timed
@@ -121,6 +123,12 @@ export const AMMO_CRATE = {
 // animal is released automatically only when it would fall no further than this.
 export const SPLAT = {
   height: 220, // px, from the animal's feet to the ground
+};
+
+// If every cow and lamb has splatted, new ones parachute into the field.
+export const RESTOCK = {
+  aliveAtMost: 0, // restock when this many (or fewer) animals are left alive
+  count: 3,
 };
 
 // A rare comeback drop: a golden cow or lamb that evens the score if the

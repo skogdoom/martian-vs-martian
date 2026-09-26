@@ -2,6 +2,8 @@
 // - Power-ups. Some rounds, halfway through, a little green man parachutes
 //   into the field carrying one power-up. Fully lifted, he vanishes into the
 //   ship and the power-up starts.
+//   About one drop in five is a mystery package instead: the power-up inside
+//   is only revealed when it is grabbed.
 // - Ammo crates, when a player runs out of shots early (see round.js).
 
 import { WIDTH, SAUCER, POWERUP } from '../config.js';
@@ -26,8 +28,10 @@ export function dropSpot(kind, rng) {
   return min + margin + rng() * (max - min - 2 * margin);
 }
 
-export function createDrop(power, rng) {
-  const d = createAnimal('drop', 'greenman', dropSpot('greenman', rng));
+/** A green man carrying `power`, or, if `mystery`, a package that hides it. */
+export function createDrop(power, rng, mystery = false) {
+  const kind = mystery ? 'package' : 'greenman';
+  const d = createAnimal('drop', kind, dropSpot(kind, rng));
   d.power = power;
   parachute(d);
   return d;
