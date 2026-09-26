@@ -42,8 +42,8 @@ for (const a of args.filter((a) => a.includes('='))) {
 }
 
 // Reference time for "late game" and comeback baselines: about when the
-// green man is usually grabbed.
-const PIVOT = Math.round(config.ROUND.length * config.POWERUP.dropAt + 6);
+// last green man is usually grabbed.
+const PIVOT = Math.round(config.ROUND.length * config.POWERUP.dropTimes.at(-1) + 6);
 
 // ---- bots ---------------------------------------------------------------
 
@@ -63,6 +63,7 @@ function skillFor(side, rng) {
     sloppy: SLOPPY,
     jitter: 6,
     raid: true,
+    carryLow: rng() < 0.5,
   };
 }
 
@@ -93,14 +94,14 @@ function simulate(seed) {
     ammoOutAt: { red: null, blue: null },
     leadChanges: 0,
     lastScoreChange: 0,
-    power: round.drop, // planned power-up, or null
+    hasDrops: round.drops.some((d) => d.power), // any green man planned this round
     leadAtCheck: null, // |lead| at the golden check point
     golden: null, // { trailing, deliveredBy, diffBefore } when a golden animal dropped
     crates: [], // { for: side that ran out, t, grabbedBy }
-    grab: null, // { side, t, diff } diff = grabber's score minus the other's at the grab
+    splats: 0,
+    grabs: [], // { side, t, power, diff, swing }: diff = grabber's lead at the grab, swing = lead gained over the power-up's duration
     diffAtPivot: null, // red minus blue at PIVOT, for comeback baselines
     late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, idle: 0 }, // after PIVOT
-    swing: null, // change in the grabber's lead over the power-up window
     baseSwing: null, // change in red's lead from PIVOT + 2 s over the power-up's length, no power-up
   };
   let leader = 'tie';
@@ -152,6 +153,7 @@ function simulate(seed) {
         bumpedAt.red = bumpedAt.blue = t;
       }
       else if (e.type === 'dryFire') m.dry++;
+      else if (e.type === 'splat') m.splats++;
       else if (e.type === 'crateIncoming') m.crates.push({ for: e.side, t, grabbedBy: null });
       else if (e.type === 'ammoCrate') {
         const c = m.crates.find((c) => !c.grabbedBy);
@@ -161,7 +163,7 @@ function simulate(seed) {
         m.golden = { trailing: e.side, deliveredBy: null, diffBefore: p[e.side] - p[other(e.side)] };
       } else if (e.type === 'powerup') {
         const p = scores(w.animals);
-        m.grab = { side: e.side, t, diff: p[e.side] - p[other(e.side)] };
+        m.grabs.push({ side: e.side, t, power: e.power, diff: p[e.side] - p[other(e.side)], swing: null });
       }
     }
     const p = scores(w.animals);
@@ -175,8 +177,8 @@ function simulate(seed) {
     }
     if (m.leadAtCheck === null && t >= config.ROUND.length * config.GOLDEN.checkAt) m.leadAtCheck = Math.abs(p.red - p.blue);
     if (m.diffAtPivot === null && t >= PIVOT) m.diffAtPivot = p.red - p.blue;
-    if (m.grab && m.swing === null && t >= m.grab.t + config.POWERUP.duration) {
-      m.swing = p[m.grab.side] - p[other(m.grab.side)] - m.grab.diff;
+    for (const g of m.grabs) {
+      if (g.swing === null && t >= g.t + config.POWERUP.duration) g.swing = p[g.side] - p[other(g.side)] - g.diff;
     }
     if (m.baseStart === undefined && t >= PIVOT + 2) m.baseStart = p.red - p.blue;
     if (m.baseStart !== undefined && m.baseSwing === null && t >= PIVOT + 2 + config.POWERUP.duration) {
@@ -212,6 +214,7 @@ console.table({
   'pickups completed': avg((r) => r.pickups).toFixed(1),
   deliveries: avg((r) => r.deliveries).toFixed(1),
   '  of which stolen': avg((r) => r.steals).toFixed(1),
+  'animals splatted (knocked loose too high)': avg((r) => r.splats).toFixed(2),
   'animals in pens at the end': `${avg((r) => r.inPens).toFixed(1)} of ${ANIMALS.cows + ANIMALS.lambs}`,
   'first delivery (median s)': median(results.map((r) => r.firstDelivery)),
   'field emptied (median s)': `${median(results.map((r) => r.fieldEmptyAt))} (${pct((r) => r.fieldEmptyAt !== null)} of rounds)`,
@@ -236,32 +239,31 @@ function ROUND_LENGTH() {
 
 const rate = (rs, f) => (rs.length ? `${((100 * rs.filter(f).length) / rs.length).toFixed(0)}% (n=${rs.length})` : '-');
 const powerRows = {};
-const withDrop = results.filter((r) => r.power);
+const withDrop = results.filter((r) => r.hasDrops);
 if (withDrop.length) {
-  const grabbed = withDrop.filter((r) => r.grab);
-  const won = (r) => r.result === r.grab.side;
+  const grabs = results.flatMap((r) => r.grabs.map((g) => ({ ...g, result: r.result })));
+  const won = (g) => g.result === g.side;
   Object.assign(powerRows, {
-    'rounds with a drop': `${withDrop.length} (${pct((r) => r.power)})`,
-    'green man grabbed': rate(withDrop, (r) => r.grab),
-    'grabbed at (median s)': median(grabbed.map((r) => r.grab.t)),
-    'grabber wins the round': rate(grabbed, won),
-    'grabber wins when behind at the grab': rate(grabbed.filter((r) => r.grab.diff < 0), won),
-    'grabber wins when behind by 2+': rate(grabbed.filter((r) => r.grab.diff <= -2), won),
+    'rounds with at least one drop': `${withDrop.length} (${pct((r) => r.hasDrops)})`,
+    'green men grabbed per round': avg((r) => r.grabs.length).toFixed(2),
+    'grabber wins the round': rate(grabs, won),
+    'grabber wins when behind at the grab': rate(grabs.filter((g) => g.diff < 0), won),
+    'grabber wins when behind by 2+': rate(grabs.filter((g) => g.diff <= -2), won),
   });
   const mean = (xs) => (xs.length ? (xs.reduce((a, b) => a + b, 0) / xs.length).toFixed(2) : '-');
   for (const type of config.POWERUP.types) {
-    const rs = grabbed.filter((r) => r.power === type);
-    const swings = rs.map((r) => r.swing).filter((x) => x !== null);
-    powerRows[`${type}: lead gained during power / wins when behind`] = `${mean(swings)} pts / ${rate(rs.filter((r) => r.grab.diff < 0), won)}`;
+    const gs = grabs.filter((g) => g.power === type);
+    const swings = gs.map((g) => g.swing).filter((x) => x !== null);
+    powerRows[`${type}: lead gained during power / wins when behind`] = `${mean(swings)} pts / ${rate(gs.filter((g) => g.diff < 0), won)}`;
   }
 }
 // Baseline: how often the player trailing at PIVOT wins when no power-up is in play.
-const none = results.filter((r) => !r.power && r.diffAtPivot);
+const none = results.filter((r) => !r.hasDrops && r.diffAtPivot);
 if (none.length) {
   const trailingWins = (r) => (r.diffAtPivot < 0 ? r.result === 'red' : r.result === 'blue');
   powerRows[`no power-up: trailing at ${PIVOT} s wins`] = rate(none, trailingWins);
   powerRows[`no power-up: trailing by 2+ at ${PIVOT} s wins`] = rate(none.filter((r) => Math.abs(r.diffAtPivot) >= 2), trailingWins);
-  const base = results.filter((r) => !r.power && r.baseSwing !== null).map((r) => r.baseSwing);
+  const base = results.filter((r) => !r.hasDrops && r.baseSwing !== null).map((r) => r.baseSwing);
   powerRows['no power-up: lead change over the same window (avg of |x|)'] = `${(base.reduce((a, b) => a + Math.abs(b), 0) / Math.max(1, base.length)).toFixed(2)} pts`;
 }
 console.log('\nPower-ups');

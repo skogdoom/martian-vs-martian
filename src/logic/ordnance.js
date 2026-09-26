@@ -85,6 +85,8 @@ function bounceOut(a, rng) {
   a.hookedBy = null;
   a.delivering = false;
   a.state = 'falling';
+  a.fallFrom = a.y;
+  a.safeFall = true;
   const { min, max } = fieldBounds(a.kind);
   const tx = min + rng() * (max - min);
   const [lo, hi] = POWERUP.bombLaunch;

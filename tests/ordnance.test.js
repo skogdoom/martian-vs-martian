@@ -153,7 +153,7 @@ describe('pen bomb', () => {
   /** Blue has three cows in its pen; red holds the bomb above `x`. */
   function setup(x) {
     const w = createWorld(3);
-    const cows = w.animals.filter((a) => a.kind === 'cow');
+    const cows = w.animals.filter((a) => a.kind === 'cow').slice(0, 3);
     cows.forEach((a, i) => Object.assign(a, { state: 'penned', pen: 'blue', owner: 'blue', vx: 0, x: clampToPen(1130 + i * 40, 'cow', 'blue') }));
     place(w.saucers.red, x, 300);
     place(w.saucers.blue, 640, 100);

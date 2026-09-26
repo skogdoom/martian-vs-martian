@@ -51,18 +51,18 @@ describe('the drop', () => {
     expect(planDrop(rng)).toBe(null);
   });
 
-  it('falls halfway through the round when planned', () => {
+  it('falls at each drop time when planned', () => {
     POWERUP.chance = 1;
     const r = createRound(1);
-    let incoming = null;
+    const incoming = [];
     let t = 0;
     while (r.phase !== 'over') {
       stepRound(r, {}, STEP);
       if (r.phase === 'play') t += STEP;
-      incoming ??= r.events.find((e) => e.type === 'dropIncoming') ? t : null;
+      for (const e of r.events) if (e.type === 'dropIncoming') incoming.push({ t, power: e.power });
     }
-    expect(incoming).toBeCloseTo(ROUND.length * POWERUP.dropAt, 1);
-    expect(r.world.drops.find((d) => d.kind === 'greenman').power).toBe(r.drop);
+    expect(incoming.map((d) => d.t)).toEqual(POWERUP.dropTimes.map((f) => expect.closeTo(ROUND.length * f, 1)));
+    expect(incoming.map((d) => d.power)).toEqual(r.drops.map((d) => d.power));
   });
 
   it('never falls when not planned', () => {
@@ -203,8 +203,9 @@ describe('power-up hits knock a carried animal loose too', () => {
     const e = stepUntil(w, { red: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'knockLoose');
     expect(e).toMatchObject({ side: 'blue', kind: 'cow' });
     expect(w.hooks.blue.carrying).toBe(null);
-    expect(stepUntil(w, {}, 2, (e) => e.type === 'land')).toMatchObject({ pen: null, delivered: false });
-    expect(cow.state).toBe('field');
+    // Knocked loose from 300 px up: too high to survive.
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'splat')).toMatchObject({ kind: 'cow' });
+    expect(cow.state).toBe('gone');
   });
 
   it('with the laser', () => {

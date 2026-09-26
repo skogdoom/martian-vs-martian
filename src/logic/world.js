@@ -5,8 +5,8 @@ import { HOOK, COMBAT, POWERUP, AMMO_CRATE } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
-import { createHerd, updateAnimal } from './animal.js';
-import { createHook, updateHook, interruptHook, dropCarried } from './hook.js';
+import { createHerd, updateAnimal, fallHeight } from './animal.js';
+import { createHook, updateHook, interruptHook, dropCarried, releaseCarried } from './hook.js';
 import { createDrop, createCrate, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
@@ -79,6 +79,12 @@ function knockLoose(w, targetSide) {
 function fire(w, side) {
   const s = w.saucers[side];
   const target = w.saucers[opponent(side)];
+  // While carrying, the shoot key lets go of an animal instead.
+  const released = releaseCarried(w.hooks[side], s);
+  if (released) {
+    w.events.push({ type: 'release', side, kind: released.kind, x: released.x, y: released.y, height: fallHeight(released) });
+    return;
+  }
   // Single-use power-ups take the place of the next shot.
   if (hasPower(w.powers, side, 'rocket')) {
     const r = createRocket(s, target);
@@ -143,7 +149,8 @@ export function stepWorld(w, inputs, dt) {
     const weapon = w.weapons[side];
 
     if (updateWeapon(weapon, dt, hasPower(w.powers, side, 'triple'))) w.events.push({ type: 'reload', side });
-    if (input.shoot && !hasPower(w.powers, side, 'laser')) fire(w, side);
+    const carrying = w.hooks[side].carrying !== null;
+    if (input.shoot && (carrying || !hasPower(w.powers, side, 'laser'))) fire(w, side);
 
     const opts = {};
     if (w.hooks[side].target) {
@@ -221,7 +228,10 @@ export function stepWorld(w, inputs, dt) {
     const wasFalling = a.state === 'falling';
     const result = updateAnimal(a, dt, w.rng);
     if (result === 'touchdown') w.events.push({ type: 'dropLanded', x: a.x, y: a.y });
-    if (wasFalling && a.state !== 'falling') {
+    if (result === 'splat') {
+      w.events.push({ type: 'splat', id: a.id, kind: a.kind, golden: Boolean(a.golden), x: a.x, y: a.y });
+      a.delivering = false;
+    } else if (wasFalling && a.state !== 'falling') {
       const pen = result;
       const delivered = a.delivering;
       a.delivering = false;

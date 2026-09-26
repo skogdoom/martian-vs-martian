@@ -108,6 +108,8 @@ function createAnimalSprite(a) {
   return {
     view,
     sync(a, t, dt) {
+      view.visible = a.state !== 'gone';
+      if (!view.visible) return;
       if (a.vx !== 0) facing = Math.sign(a.vx);
       view.position.set(a.x, a.y);
       view.scale.x = facing;

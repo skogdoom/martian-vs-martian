@@ -6,6 +6,7 @@
 //   lifting  frozen in a tractor beam (see hook.js)
 //   carried  attached under a saucer
 //   falling  dropped from a beam or a delivery
+//   gone     burst after falling too far (see SPLAT), out of the round
 //
 // Drops from the sky (the green man, golden animals) start out
 //   descending  floating down under a parachute
@@ -15,7 +16,7 @@
 // `y` is the animal's feet. `pen` is the pen it counts toward, `owner` the
 // player who first delivered it.
 
-import { ARENA, ANIMALS, POWERUP } from '../config.js';
+import { ARENA, ANIMALS, POWERUP, SPLAT } from '../config.js';
 
 export function penAt(x) {
   for (const [side, pen] of Object.entries(ARENA.pens)) {
@@ -52,6 +53,8 @@ export function createAnimal(id, kind, x) {
     owner: null,
     hookedBy: null,
     delivering: false, // falling from a delivery rather than a dropped pickup
+    fallFrom: 0, // y it started falling from
+    safeFall: false, // thrown by a bomb: lands safely whatever the height
     bonus: false, // stolen during a steal power-up: worth extra in its pen
     wanderTimer: 0,
   };
@@ -121,11 +124,25 @@ export function updateAnimal(a, dt, rng) {
   return null;
 }
 
-/** Touch down. Returns the pen it landed in, or null for the field. */
+/** How far `a` would fall from where it is now. */
+export function fallHeight(a) {
+  return ARENA.groundY - a.y;
+}
+
+/** Touch down. Returns the pen it landed in, null for the field, or 'splat'
+ * if a cow or lamb fell too far. */
 function land(a) {
+  const fell = ARENA.groundY - a.fallFrom;
+  const safe = a.safeFall || (a.kind !== 'cow' && a.kind !== 'lamb');
+  a.safeFall = false;
   a.y = ARENA.groundY;
   a.vy = 0;
   a.vx = 0;
+  if (!safe && fell > SPLAT.height) {
+    a.state = 'gone';
+    a.pen = null;
+    return 'splat';
+  }
   const side = penAt(a.x);
   if (side) {
     a.state = 'penned';
@@ -144,4 +161,5 @@ export function drop(a, delivering = false) {
   a.hookedBy = null;
   a.delivering = delivering;
   a.vy = 0;
+  a.fallFrom = a.y;
 }

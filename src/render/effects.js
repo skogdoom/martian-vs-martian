@@ -3,6 +3,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { COLORS } from './backdrop.js';
 import { label } from './text.js';
+import { ARENA } from '../config.js';
 import { POWER_COLOR } from './powerupView.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
@@ -14,6 +15,7 @@ export function createEffects() {
   view.addChild(g);
   const particles = [];
   const rings = [];
+  const stains = []; // splat marks on the ground, fading out
   const popups = [];
   let shake = 0;
   const hitFlash = { red: 0, blue: 0 };
@@ -99,6 +101,15 @@ export function createEffects() {
         case 'rocketLaunch':
           burst(e.x, e.y, { count: 12, colors: [0xcfd6ff, 0x8a93c0], speed: [40, 140], life: [0.3, 0.6], size: [3, 5], gravity: -40 });
           break;
+        case 'splat':
+          // A cartoon cloud of blood, a stain on the grass, and a "SPLAT!".
+          burst(e.x, e.y - 12, { count: 60, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0x6e0a12], up: 1.3, speed: [120, 480], life: [0.5, 1.1], size: [2.5, 6], gravity: 900 });
+          burst(e.x, e.y - 18, { count: 18, colors: [0xb5171f, 0xe0303a], speed: [20, 90], life: [0.6, 1.2], size: [6, 11], gravity: -20 });
+          ring(e.x, e.y - 12, 0xd21f2a, 60, 0.35);
+          stains.push({ x: e.x, w: 30 + Math.random() * 20, life: 8, max: 8 });
+          popup('SPLAT!', e.x, e.y - 70, 0xff4050);
+          shake = Math.max(shake, 5);
+          break;
         case 'knockLoose':
           burst(e.x, e.y, { count: 20, colors: [0xffffff, 0xff5ce1, COLORS[e.side]], speed: [80, 260], life: [0.3, 0.6], size: [2, 4], gravity: 200, shape: 'star' });
           ring(e.x, e.y, 0xff5ce1, 40);
@@ -156,6 +167,8 @@ export function createEffects() {
     }
     for (let i = particles.length - 1; i >= 0; i--) if (particles[i].life <= 0) particles.splice(i, 1);
     for (const r of rings) r.life -= dt;
+    for (const s of stains) s.life -= dt;
+    for (let i = stains.length - 1; i >= 0; i--) if (stains[i].life <= 0) stains.splice(i, 1);
     for (let i = rings.length - 1; i >= 0; i--) if (rings[i].life <= 0) rings.splice(i, 1);
 
     for (const p of popups) {
@@ -177,6 +190,11 @@ export function createEffects() {
 
   function render() {
     g.clear();
+    for (const s of stains) {
+      const alpha = Math.min(0.85, s.life / s.max * 1.5);
+      g.ellipse(s.x, ARENA.groundY + 3, s.w, 6).fill({ color: 0x7a0c14, alpha });
+      g.ellipse(s.x - s.w * 0.3, ARENA.groundY + 2, s.w * 0.35, 3).fill({ color: 0xa3121c, alpha });
+    }
     for (const r of rings) {
       const u = 1 - r.life / r.max;
       g.circle(r.x, r.y, 6 + r.radius * Math.sqrt(u)).stroke({ color: r.color, width: 4 * (1 - u) + 1, alpha: 1 - u });

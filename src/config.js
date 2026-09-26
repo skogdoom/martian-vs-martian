@@ -61,8 +61,8 @@ export const HOOK = {
 };
 
 export const ANIMALS = {
-  cows: 3,
-  lambs: 4,
+  cows: 4,
+  lambs: 5,
   wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
@@ -79,8 +79,8 @@ export const ANIMALS = {
 };
 
 export const POWERUP = {
-  chance: 0.5, // chance per round that a green man drops
-  dropAt: 0.5, // when, as a fraction of the round
+  chance: 0.6, // chance that a green man drops at each drop time
+  dropTimes: [0.3, 0.6], // when he may drop, as fractions of the round
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
   types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb'],
   singleUse: ['rocket', 'bomb'], // kept until used (or the round ends) instead of timed
@@ -115,6 +115,14 @@ export const AMMO_CRATE = {
   refill: 9, // shots it gives (up to COMBAT.ammoPerRound)
 };
 
+// Animals that fall further than this burst in a cloud of blood and are lost
+// (dropped by hand, knocked loose by a shot, or dropped mid-lift). Animals
+// thrown out of a pen by a bomb land safely. Over your own pen, a carried
+// animal is released automatically only when it would fall no further than this.
+export const SPLAT = {
+  height: 220, // px, from the animal's feet to the ground
+};
+
 // A rare comeback drop: a golden cow or lamb that evens the score if the
 // trailing player delivers it.
 export const GOLDEN = {
@@ -125,9 +133,9 @@ export const GOLDEN = {
 
 // Computer player skill per difficulty (see logic/bot.js for what each means).
 export const BOT = {
-  easy: { gain: 1.8, react: 0.3, aim: 7, hunter: 0.05, huntWithGun: 0.3, picky: true, sloppy: 0.3, jitter: 30, raid: false },
-  normal: { gain: 3, react: 0.16, aim: 12, hunter: 0.3, huntWithGun: 0.6, picky: false, sloppy: 0.1, jitter: 12, raid: true },
-  hard: { gain: 5, react: 0.07, aim: 18, hunter: 0.6, huntWithGun: 0.9, picky: false, sloppy: 0, jitter: 4, raid: true },
+  easy: { gain: 1.8, react: 0.3, aim: 7, hunter: 0.05, huntWithGun: 0.3, picky: true, sloppy: 0.3, jitter: 30, raid: false, carryLow: false },
+  normal: { gain: 3, react: 0.16, aim: 12, hunter: 0.3, huntWithGun: 0.6, picky: false, sloppy: 0.1, jitter: 12, raid: true, carryLow: true },
+  hard: { gain: 5, react: 0.07, aim: 18, hunter: 0.6, huntWithGun: 0.9, picky: false, sloppy: 0, jitter: 4, raid: true, carryLow: true },
 };
 
 export const ROUND = {

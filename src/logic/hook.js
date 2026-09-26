@@ -1,8 +1,8 @@
 // Tractor-beam hook: automatic pickup, lift, interrupts, carrying and delivery.
 
-import { ARENA, SAUCER, HOOK, ANIMALS } from '../config.js';
+import { ARENA, SAUCER, HOOK, ANIMALS, SPLAT } from '../config.js';
 import { speed } from './saucer.js';
-import { clampToPen, drop } from './animal.js';
+import { clampToPen, drop, fallHeight } from './animal.js';
 import { spendGolden } from './golden.js';
 
 export function createHook(side) {
@@ -75,6 +75,19 @@ export function dropCarried(h) {
   return a;
 }
 
+/** Let go of the lowest carried animal by hand (the shoot key). Over your own
+ * pen it counts as a delivery; anywhere else it just falls. Returns it, or null. */
+export function releaseCarried(h, s) {
+  const a = h.second ?? h.carrying;
+  if (!a) return null;
+  const home = isOverOwnPen(s);
+  if (home) a.x = clampToPen(s.x, a.kind, s.side);
+  drop(a, home);
+  if (a === h.second) h.second = null;
+  else h.carrying = null;
+  return a;
+}
+
 /** Feet y for `a` when it hangs in the next free slot: under the saucer, or
  * under the animal already carried (twin beam). */
 function slotY(h, s, a) {
@@ -95,7 +108,8 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin
       a.x = s.x;
       a.y = slotY(h, s, a);
     }
-    if (isOverOwnPen(s)) {
+    // Released automatically only when low enough for a safe landing.
+    if (isOverOwnPen(s) && fallHeight(h.carrying) <= SPLAT.height) {
       for (const [a, dx] of [[h.carrying, -10], [h.second, 12]]) {
         if (!a) continue;
         a.x = clampToPen(s.x + (h.second ? dx : 0), a.kind, s.side);

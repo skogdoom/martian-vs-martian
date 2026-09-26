@@ -40,13 +40,13 @@ export function createTitleScene(game, session) {
   vs.position.set(cx, 150);
   blue.position.set(cx + 40, 150);
 
-  const blurb = label('Abduct cows and lambs. Drop them in your pen. Shoot the other saucer.', {
+  const blurb = label('Abduct cows and lambs. Bring them in low: from too high they go splat.', {
     size: 18,
     color: 0xcfd6ff,
     anchorX: 0.5,
   });
   blurb.position.set(cx, 215);
-  const powerHint = label('Some rounds, a little green man drops in halfway. Beam him up for a power-up!', {
+  const powerHint = label('Little green men parachute in during the round. Beam one up for a power-up!', {
     size: 16,
     color: 0x6cff6c,
     anchorX: 0.5,
@@ -84,8 +84,10 @@ export function createTitleScene(game, session) {
     twoPlayers.text = `${solo ? ' ' : '▶'} 2 PLAYERS`;
     onePlayer.alpha = solo ? 1 : 0.5;
     twoPlayers.alpha = solo ? 0.5 : 1;
-    redKeys.text = solo ? 'YOU (RED)\nmove  WASD or ARROWS\nshoot SPACE or ENTER' : 'RED\nmove  W A S D\nshoot SPACE';
-    blueKeys.text = solo ? `CPU (BLUE)\n${session.difficulty.toUpperCase()}` : 'BLUE\nmove  ARROWS\nshoot ENTER';
+    redKeys.text = solo
+      ? 'YOU (RED)\nmove  WASD or ARROWS\nshoot SPACE or ENTER\n(drops what you carry)'
+      : 'RED\nmove  W A S D\nshoot SPACE\n(drops what you carry)';
+    blueKeys.text = solo ? `CPU (BLUE)\n${session.difficulty.toUpperCase()}` : 'BLUE\nmove  ARROWS\nshoot ENTER\n(drops what you carry)';
   }
   refreshMenu();
 

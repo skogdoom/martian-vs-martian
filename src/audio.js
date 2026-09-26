@@ -344,6 +344,13 @@ export const SOUNDS = {
     tone(ac, out, t, { type: 'sine', freq: 1900, to: 700, dur: 0.7, peak: 0.12, attack: 0.03, hold: 0.4 });
   },
 
+  /** An animal bursting: a wet slap and a low thump. */
+  splat(ac, out, t) {
+    hiss(ac, out, t, { dur: 0.35, peak: 0.6, type: 'lowpass', freq: 2400, to: 180, attack: 0.003 });
+    hiss(ac, out, t + 0.02, { dur: 0.15, peak: 0.3, type: 'bandpass', freq: 700, to: 250, q: 3 });
+    tone(ac, out, t, { type: 'sine', freq: 140, to: 45, dur: 0.3, peak: 0.5 });
+  },
+
   /** Two low horn blasts as an ammo crate comes down. */
   horn(ac, out, t) {
     for (const [at, freq] of [[0, 196], [0.28, 262]]) {
@@ -467,6 +474,12 @@ export function handleEvents(events) {
       case 'roundEnd':
         stopVoices();
         play('jingle');
+        break;
+      case 'release':
+        play(e.kind === 'cow' ? 'moo' : 'baa', { x: e.x });
+        break;
+      case 'splat':
+        play('splat', { x: e.x });
         break;
       case 'rocketLaunch':
         play('whoosh', { x: e.x });

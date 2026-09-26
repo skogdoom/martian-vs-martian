@@ -28,6 +28,7 @@ function axis(pos, vel, target, gain, max) {
  *   sloppy       share of lifts where it lets go of the keys once the beam grabs
  *   jitter       steering noise, px
  *   raid         steal from the opponent's pen when losing in the second half
+ *   carryLow     fly home low while carrying, so a hit doesn't splat the animal
  */
 export function createBot(side, rng, skill) {
   let letGo = false;
@@ -93,9 +94,10 @@ export function createBot(side, rng, skill) {
         tx = second.x;
         ty = Math.abs(second.x - s.x) > 120 ? 380 : LOW;
       } else if (hook.carrying && !hook.target) {
+        // Home, coming down low over the pen so the animals are let go safely.
         const pen = ARENA.pens[side];
         tx = (pen.left + pen.right) / 2;
-        ty = 360;
+        ty = skill.carryLow || Math.abs(s.x - tx) < 280 ? LOW - 20 : 360;
         mode = 'collect';
       } else if (bomb && !hook.target && inTheirPen > 0) {
         // Fly over their pen and let it go.
@@ -139,7 +141,14 @@ export function createBot(side, rng, skill) {
       held = {
         x: axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
         y: axis(s.y, s.vy, ty, skill.gain, top),
-        shoot: rocket ? Boolean(target) : bomb ? dropBomb : Boolean(aligned && worthIt && (weapon.ammo > 0 || triple)),
+        // While carrying, shoot would drop the animal: never do that.
+        shoot: hook.carrying
+          ? false
+          : rocket
+            ? Boolean(target)
+            : bomb
+              ? dropBomb
+              : Boolean(aligned && worthIt && (weapon.ammo > 0 || triple)),
         fire: aligned && laser,
       };
       return held;

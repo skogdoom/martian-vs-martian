@@ -54,11 +54,13 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - A player can't hook animals in their own pen.
 
 ### Delivery
-- A carried animal is released automatically when the saucer is over its own pen.
+- A carried animal is released automatically when the saucer is over its own pen and low enough for a safe landing (a fall of at most 220 px). Higher up, it stays on until you come down.
+- **Dropping by hand:** while carrying, the shoot key lets go of the (lowest) animal instead of firing. Over your own pen it counts as a delivery.
+- **Splat:** a cow or lamb that falls more than 220 px (dropped by hand, knocked loose by a shot, or dropped mid-lift) bursts in a cartoon cloud of blood and is out of the round: no points for anyone. Animals thrown out of a pen by a bomb land safely. `SPLAT.height` in `config.js`.
 - The animal drops into the pen, stays there and stops wandering.
 
 ### Animals
-- Each round starts with a fixed set of 3 cows and 4 lambs, placed in the field.
+- Each round starts with a fixed set of 4 cows and 5 lambs, placed in the field (13 points in all).
 - They wander the field and freeze while being hooked.
 
 ### Stealing
@@ -66,7 +68,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Each animal remembers who first delivered it. It is worth full value (cow 2, lamb 1) in that player's pen and half value in the other pen (cow 1, lamb 0.5).
 
 ### Power-ups
-- Each round has a 50% chance that, halfway through, a little green man parachutes into the field carrying one power-up. Its icon is shown on his parachute and over his head.
+- Twice per round (at 30% and 60% of the round) there is a 60% chance that a little green man parachutes into the field carrying one power-up. Its icon is shown on his parachute and over his head.
 - He wanders like an animal and is hooked the same way (lift 0.8 s; shots and drift break the pickup). A saucer carrying an animal can't grab him.
 - Fully lifted, he climbs into the saucer and the power-up starts. It lasts 15 s.
 - The power-ups:
@@ -141,7 +143,7 @@ tests/                 Vitest unit tests for the logic
 | Lamb lift time    | 1.0 s          |
 | Cow lift time     | 1.6 s          |
 | Hook drift limit  | 30 px          |
-| Animals per round | 3 cows, 4 lambs|
+| Animals per round | 4 cows, 5 lambs|
 
 Also in `config.js`: projectile speed, knockback strength, bump strength, saucer acceleration, drag and max speed, and animal wander speed.
 
@@ -204,5 +206,10 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Homing rocket, twin beam and pen bomb**
   - Logic, CPU use, art (rocket with smoke trail, bomb, held items, spin-out stars, explosions), announcements and sound. Unit tests for each.
   - Simulator, trailing grabber wins: bomb 60%, twin 47%, laser 37%, triple 31%, steal 29%, speed 27%, rocket 18% (the rocket's stun was added because a single knock-loose barely mattered).
+- [x] **Bigger herd, more drops, dropping animals, splats**
+  - 4 cows and 5 lambs; two green-man drop times per round.
+  - Shoot while carrying drops the animal; automatic release only when low; falls over 220 px splat (cloud of blood, stain, "SPLAT!", sound).
+  - The CPU never drops by hand, comes down low to deliver and, on Normal and Hard, flies home low so a hit doesn't splat its animal.
+  - Simulator: about 1.2 green men grabbed per round, 0.6 splats per round, ties 7%.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

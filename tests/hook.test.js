@@ -144,13 +144,26 @@ describe('hook pickup', () => {
     const { red, blue } = w.saucers;
     hover(red, a);
     expect(stepUntil(w, {}, 2, (e) => e.type === 'pickup')).toBeTruthy();
-    hover(red, { x: 500 }, 300);
-    hover(blue, { x: 750 }, 300);
+    // Low enough that the fall is safe.
+    hover(red, { x: 500 }, 450);
+    hover(blue, { x: 750 }, 450);
     const e = stepUntil(w, { blue: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'knockLoose');
     expect(e).toMatchObject({ side: 'red', kind: a.kind });
     expect(w.hooks.red.carrying).toBe(null);
     expect(stepUntil(w, {}, 2, (e) => e.type === 'land')).toMatchObject({ pen: null, delivered: false });
     expect(a.state).toBe('field');
+  });
+
+  it('a fully lifted animal shot loose high up bursts on landing', () => {
+    const { w, a } = setup();
+    const { red, blue } = w.saucers;
+    hover(red, a);
+    stepUntil(w, {}, 2, (e) => e.type === 'pickup');
+    hover(red, { x: 500 }, 200);
+    hover(blue, { x: 750 }, 200);
+    stepUntil(w, { blue: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'knockLoose');
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'splat' || e.type === 'land')).toMatchObject({ type: 'splat', kind: a.kind });
+    expect(a.state).toBe('gone');
   });
 
   it('carries one animal at a time', () => {
