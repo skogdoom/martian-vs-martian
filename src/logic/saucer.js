@@ -21,8 +21,9 @@ export function speed(s) {
 }
 
 /** Apply player input. Input only accelerates up to maxSpeed, so knockback
- * can push a saucer faster than it can fly, and drag bleeds it off. */
-export function steerSaucer(s, input, dt) {
+ * can push a saucer faster than it can fly, and drag bleeds it off.
+ * `accelScale` and `extraDrag` make the saucer heavier while its beam lifts. */
+export function steerSaucer(s, input, dt, accelScale = 1, extraDrag = 0) {
   let dx = input.x;
   let dy = input.y;
   const len = Math.hypot(dx, dy);
@@ -31,12 +32,12 @@ export function steerSaucer(s, input, dt) {
     dy /= len;
     const along = s.vx * dx + s.vy * dy;
     if (along < SAUCER.maxSpeed) {
-      const add = Math.min(SAUCER.accel * dt, SAUCER.maxSpeed - along);
+      const add = Math.min(SAUCER.accel * accelScale * dt, SAUCER.maxSpeed - along);
       s.vx += dx * add;
       s.vy += dy * add;
     }
   }
-  const damp = Math.exp(-SAUCER.drag * dt);
+  const damp = Math.exp(-(SAUCER.drag + extraDrag) * dt);
   s.vx *= damp;
   s.vy *= damp;
 }
@@ -68,14 +69,15 @@ export function clampSaucer(s) {
   }
 }
 
-/** Push overlapping saucers apart. Returns true on a new contact. */
+/** Push overlapping saucers apart. Returns true on a new contact: saucers
+ * that stay close count as one contact until they separate by `BUMP.rearm`. */
 export function bumpSaucers(a, b) {
   let dx = b.x - a.x;
   let dy = (b.y - a.y) * SQUASH;
   let dist = Math.hypot(dx, dy);
   const minDist = SAUCER.radius * 2;
   if (dist >= minDist) {
-    a.touching = b.touching = false;
+    if (dist >= minDist + BUMP.rearm) a.touching = b.touching = false;
     return false;
   }
   if (dist < 1e-6) {

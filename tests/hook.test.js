@@ -94,6 +94,26 @@ describe('hook pickup', () => {
     expect(a.y).toBe(ARENA.groundY);
   });
 
+  it('survives a late key release: the beam makes the saucer heavy', () => {
+    // The hook grabs while the player is still steering; they let go 0.2 s later.
+    const { w, a } = setup();
+    const red = w.saucers.red;
+    hover(red, a);
+    const right = { red: { x: 1, y: 0, shoot: false } };
+    stepWorld(w, right, STEP);
+    expect(w.hooks.red.target).toBe(a);
+    run(w, right, 0.2);
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'pickup' || e.type === 'interrupt')?.type).toBe('pickup');
+  });
+
+  it('still breaks when the player flies away on purpose', () => {
+    const { w, a } = setup('cow');
+    hover(w.saucers.red, a);
+    stepWorld(w, {}, STEP);
+    const e = stepUntil(w, { red: { x: 1, y: 0, shoot: false } }, 1, (e) => e.type === 'interrupt' || e.type === 'pickup');
+    expect(e).toMatchObject({ type: 'interrupt', reason: 'drift' });
+  });
+
   it('is interrupted by a shot', () => {
     const { w, a } = setup('cow');
     const { red, blue } = w.saucers;

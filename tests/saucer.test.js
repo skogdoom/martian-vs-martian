@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { STEP, SAUCER, ARENA, WIDTH } from '../src/config.js';
+import { STEP, SAUCER, ARENA, WIDTH, BUMP } from '../src/config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers, speed } from '../src/logic/saucer.js';
 
 function fly(s, input, seconds) {
@@ -64,6 +64,22 @@ describe('bump', () => {
     expect(a.vx).toBeLessThan(0);
     expect(b.vx).toBeGreaterThan(0);
     expect(Math.abs(a.vx)).toBeLessThan(SAUCER.maxSpeed);
+  });
+
+  it('counts saucers that stay close as one contact until they separate', () => {
+    const a = createSaucer('red');
+    const b = createSaucer('blue');
+    a.y = b.y = 200;
+    const touch = (gap) => {
+      a.x = 600;
+      b.x = 600 + gap;
+      return bumpSaucers(a, b);
+    };
+    expect(touch(60)).toBe(true);
+    expect(touch(SAUCER.radius * 2 + 2)).toBe(false); // barely apart
+    expect(touch(60)).toBe(false); // same contact
+    expect(touch(SAUCER.radius * 2 + BUMP.rearm + 1)).toBe(false); // properly apart
+    expect(touch(60)).toBe(true); // a new bump
   });
 
   it('ignores saucers that are apart', () => {

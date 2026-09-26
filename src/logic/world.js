@@ -7,6 +7,7 @@ import { createProjectile, updateProjectile, applyKnockback } from './projectile
 import { createHerd, updateAnimal } from './animal.js';
 import { createHook, updateHook, interruptHook } from './hook.js';
 import { createRng } from './rng.js';
+import { HOOK } from '../config.js';
 import { animalValue } from './scoring.js';
 
 export const SIDES = ['red', 'blue'];
@@ -50,7 +51,8 @@ export function stepWorld(w, inputs, dt) {
       }
     }
 
-    steerSaucer(s, input, dt);
+    if (w.hooks[side].target) steerSaucer(s, input, dt, HOOK.beamAccel, HOOK.beamDrag);
+    else steerSaucer(s, input, dt);
     moveSaucer(s, dt);
   }
 

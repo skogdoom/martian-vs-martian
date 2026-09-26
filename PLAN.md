@@ -150,5 +150,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Shot zap, hit thud, bump boing, reload click, rising pickup tone, synthesized moo and baa, delivery chime, countdown beeps and a round-end jingle.
 - [ ] **8. Tuning pass**
   - Playtest and adjust the values in `config.js`.
+  - Simulated pass done: `npm run sim` plays bot rounds with the real logic and reports pickups, interrupts, steals, ammo, bumps, lead changes and ties. Try values with e.g. `npm run sim -- 500 COMBAT.ammoPerRound=15`.
+    - Pickups broke in 40% of lifts when the player let go of the keys a moment after the beam grabbed. The beam now makes a lifting saucer heavier (`HOOK.beamAccel`, `HOOK.beamDrag`): 1% now, and flying away on purpose still breaks it in about 0.4 s.
+    - Saucers pressed together fired ~24 bump events per round, mostly repeats. A bump now re-arms only after they separate by `BUMP.rearm` px: ~7 per round.
+  - Still to do: a human playtest. Open question: `COMBAT.ammoPerRound`. With 12, bots are out of shots by ~17 s, before the stealing phase (the field is empty by ~23 s). 15 lasts to ~23 s, 18 to ~30 s, at the cost of more pickups shot down (6.7 → 8.5 → 10 per round). Ties are 11–15% of rounds.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

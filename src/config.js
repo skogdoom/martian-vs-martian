@@ -34,6 +34,7 @@ export const SAUCER = {
 
 export const BUMP = {
   strength: 180, // px/s impulse applied to each saucer
+  rearm: 25, // px the saucers must separate before another contact counts as a new bump
 };
 
 export const COMBAT = {
@@ -51,6 +52,10 @@ export const HOOK = {
   grabRadius: 26, // horizontal distance to start a pickup
   stillSpeed: 90, // saucer must be slower than this to lower the hook
   driftLimit: 30,
+  // While the beam is lifting, the saucer is heavier: less thrust, more drag.
+  // Small nudges no longer break a pickup; flying away on purpose still does.
+  beamAccel: 0.5, // fraction of normal acceleration
+  beamDrag: 4, // extra drag, 1/s
   liftTime: { lamb: 1.0, cow: 1.6 },
 };
 
