@@ -58,3 +58,16 @@ export function playerInput(side) {
     fire: isDown(k.shoot), // held, for the laser
   };
 }
+
+/** One player on the whole keyboard: either key set steers the same saucer. */
+export function soloInput() {
+  const a = playerInput('red');
+  const b = playerInput('blue');
+  const clamp = (v) => Math.max(-1, Math.min(1, v));
+  return {
+    x: clamp(a.x + b.x),
+    y: clamp(a.y + b.y),
+    shoot: a.shoot || b.shoot,
+    fire: a.fire || b.fire,
+  };
+}

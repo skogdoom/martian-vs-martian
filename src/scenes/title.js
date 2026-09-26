@@ -1,17 +1,23 @@
-// Title screen: press any key to start. The keypress also unlocks audio.
+// Title screen with the mode menu. Any key also unlocks audio.
+//   up/down      1 or 2 players
+//   left/right   CPU difficulty (1 player)
+//   1 / 2        pick the mode directly
+//   Enter/Space  start
 
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT } from '../config.js';
-import { anyPressed, onKey } from '../input.js';
+import { wasPressed, onKey } from '../input.js';
 import { unlockAudio } from '../audio.js';
-import { createMatch } from '../logic/match.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
+import { startMatch, DIFFICULTIES } from '../session.js';
 import { createBackdrop, COLORS } from '../render/backdrop.js';
 import { createAnimalView } from '../render/animalView.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { label } from '../render/text.js';
 import { createPlayScene } from './play.js';
+
+const pressed = (...codes) => codes.some(wasPressed);
 
 export function createTitleScene(game, session) {
   const view = new Container();
@@ -30,40 +36,58 @@ export function createTitleScene(game, session) {
   const red = label('RED ALIEN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
   const vs = label('vs', { size: 32, color: 0xffffff, anchorX: 0.5, anchorY: 0.5 });
   const blue = label('BLUE ALIEN', { size: 64, color: COLORS.blue, bold: true, anchorX: 0, anchorY: 0.5 });
-  red.position.set(cx - 40, 170);
-  vs.position.set(cx, 170);
-  blue.position.set(cx + 40, 170);
+  red.position.set(cx - 40, 150);
+  vs.position.set(cx, 150);
+  blue.position.set(cx + 40, 150);
 
   const blurb = label('Abduct cows and lambs. Drop them in your pen. Shoot the other saucer.', {
     size: 18,
     color: 0xcfd6ff,
     anchorX: 0.5,
   });
-  blurb.position.set(cx, 240);
+  blurb.position.set(cx, 215);
   const powerHint = label('Some rounds, a little green man drops in halfway. Beam him up for a power-up!', {
     size: 16,
     color: 0x6cff6c,
     anchorX: 0.5,
   });
-  powerHint.position.set(cx, 268);
-  view.addChild(powerHint);
+  powerHint.position.set(cx, 243);
 
-  const redKeys = label('RED\nmove  W A S D\nshoot SPACE', { size: 20, color: COLORS.red, anchorX: 0.5 });
-  redKeys.position.set(cx - 220, 320);
-  const blueKeys = label('BLUE\nmove  ARROWS\nshoot ENTER', { size: 20, color: COLORS.blue, anchorX: 0.5 });
-  blueKeys.position.set(cx + 220, 320);
+  const redKeys = label('', { size: 20, color: COLORS.red, anchorX: 0.5 });
+  redKeys.position.set(cx - 220, 290);
+  const blueKeys = label('', { size: 20, color: COLORS.blue, anchorX: 0.5 });
+  blueKeys.position.set(cx + 220, 290);
 
-  const hint = label('M  toggles sound', { size: 14, color: 0x8a93c0, anchorX: 0.5 });
-  hint.position.set(cx, 530);
-  view.addChild(hint);
+  // The menu.
+  const onePlayer = label('', { size: 26, bold: true, anchorX: 0 });
+  onePlayer.position.set(cx - 230, 395);
+  const twoPlayers = label('', { size: 26, bold: true, anchorX: 0 });
+  twoPlayers.position.set(cx - 230, 432);
 
-  const prompt = label('PRESS ANY KEY', { size: 28, color: 0xffffff, bold: true, anchorX: 0.5 });
-  prompt.position.set(cx, 480);
+  const prompt = label('ENTER OR SPACE TO START', { size: 22, color: 0xffffff, bold: true, anchorX: 0.5 });
+  prompt.position.set(cx, 492);
+  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   ESC  back to this menu', {
+    size: 14,
+    color: 0x8a93c0,
+    anchorX: 0.5,
+  });
+  help.position.set(cx, 528);
 
-  view.addChild(red, vs, blue, blurb, redKeys, blueKeys, prompt);
+  view.addChild(red, vs, blue, blurb, powerHint, redKeys, blueKeys, onePlayer, twoPlayers, prompt, help);
 
   // Unlock from inside the key event itself: some browsers insist on it.
   const unsubscribe = onKey(unlockAudio);
+
+  function refreshMenu() {
+    const solo = session.players === 1;
+    onePlayer.text = `${solo ? '▶' : ' '} 1 PLAYER  vs CPU   ◀ ${session.difficulty.toUpperCase()} ▶`;
+    twoPlayers.text = `${solo ? ' ' : '▶'} 2 PLAYERS`;
+    onePlayer.alpha = solo ? 1 : 0.5;
+    twoPlayers.alpha = solo ? 0.5 : 1;
+    redKeys.text = solo ? 'YOU (RED)\nmove  WASD or ARROWS\nshoot SPACE or ENTER' : 'RED\nmove  W A S D\nshoot SPACE';
+    blueKeys.text = solo ? `CPU (BLUE)\n${session.difficulty.toUpperCase()}` : 'BLUE\nmove  ARROWS\nshoot ENTER';
+  }
+  refreshMenu();
 
   let t = 0;
   return {
@@ -72,8 +96,19 @@ export function createTitleScene(game, session) {
     update(dt) {
       t += dt;
       for (const a of herd) updateAnimal(a, dt, rng);
-      if (t > 0.3 && anyPressed()) {
-        session.match = createMatch();
+      if (t < 0.3) return;
+
+      if (pressed('ArrowUp', 'KeyW', 'Digit1', 'Numpad1')) session.players = 1;
+      if (pressed('ArrowDown', 'KeyS', 'Digit2', 'Numpad2')) session.players = 2;
+      if (session.players === 1) {
+        const i = DIFFICULTIES.indexOf(session.difficulty);
+        if (pressed('ArrowLeft', 'KeyA')) session.difficulty = DIFFICULTIES[Math.max(0, i - 1)];
+        if (pressed('ArrowRight', 'KeyD')) session.difficulty = DIFFICULTIES[Math.min(DIFFICULTIES.length - 1, i + 1)];
+      }
+      refreshMenu();
+
+      if (pressed('Enter', 'Space', 'NumpadEnter')) {
+        startMatch(session);
         game.go(createPlayScene, session);
       }
     },

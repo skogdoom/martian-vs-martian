@@ -12,12 +12,12 @@ import { createPowerIcon, POWER_NAMES, POWER_COLOR } from './powerupView.js';
 const PANEL_W = 180;
 const MARGIN = 16;
 
-function createPanel(side) {
+function createPanel(side, title) {
   const view = new Container();
   const left = side === 'red';
   view.position.set(left ? MARGIN : WIDTH - MARGIN - PANEL_W, MARGIN);
 
-  const name = label(side.toUpperCase(), { size: 18, color: COLORS[side], bold: true, anchorX: left ? 0 : 1 });
+  const name = label(title, { size: 18, color: COLORS[side], bold: true, anchorX: left ? 0 : 1 });
   name.x = left ? 0 : PANEL_W;
   const ammo = label('', { size: 14, color: 0xcfd6ff, anchorX: left ? 0 : 1 });
   ammo.position.set(left ? 0 : PANEL_W, 48);
@@ -85,11 +85,12 @@ function createPanel(side) {
   };
 }
 
-export function createHud() {
+/** `names` is how each side is labelled, e.g. { red: 'RED', blue: 'CPU' }. */
+export function createHud(names = { red: 'RED', blue: 'BLUE' }) {
   const view = new Container();
   const panels = {};
   for (const side of SIDES) {
-    panels[side] = createPanel(side);
+    panels[side] = createPanel(side, names[side]);
     view.addChild(panels[side].view);
   }
   const timer = label('', { size: 40, color: 0xffffff, bold: true, anchorX: 0.5 });

@@ -91,7 +91,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ## Round and match flow
 
-1. **Title screen:** press any key to start. The keypress also unlocks audio.
+1. **Title screen:** choose 1 player (against the CPU, with a difficulty) or 2 players, and start. The first keypress also unlocks audio.
 2. **Round:** a 3-2-1 countdown, then 90 seconds of play.
 3. **Round result:** shows the scores and the winner, or a tie, then moves to the next round.
 4. **Match rules:**
@@ -187,5 +187,11 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Ammo per round 12 → 18. An ammo crate drops for a player who runs out before 45 s.
   - Crate art, announcements and sound. Unit tests for when it drops, the refill and who can take it.
   - Simulator (trigger-happy bots): shots run out at ~28 s instead of ~16 s; a crate drops in almost every round, about 27 s in. Players who shoot less will see fewer.
+- [x] **Single player**
+  - The title menu picks 1 or 2 players and, for 1 player, the CPU difficulty (Easy, Normal, Hard). ESC returns to the menu from a round or the tally.
+  - In 1 player, you fly Red with either key set and the CPU flies Blue. The HUD and messages call it CPU.
+  - The CPU is the simulator's bot (`src/logic/bot.js`), with skill presets in `BOT` in `config.js`: reaction time, steering, aim, aggression, how often it fumbles a lift, and whether it raids your pen when behind.
+  - Each mode and difficulty keeps its own tally.
+  - Simulator (`npm run sim -- 1500 RED=easy BLUE=hard`): Normal beats Easy 98% of rounds, Hard beats Normal 86%, Hard vs Hard is even.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

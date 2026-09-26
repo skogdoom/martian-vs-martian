@@ -1,9 +1,12 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { Container } from 'pixi.js';
-import { WIDTH, AMMO_CRATE } from '../config.js';
-import { playerInput } from '../input.js';
-import { handleEvents } from '../audio.js';
+import { WIDTH, AMMO_CRATE, BOT, ROUND } from '../config.js';
+import { createBot } from '../logic/bot.js';
+import { createRng } from '../logic/rng.js';
+import { sideName, isCpu } from '../session.js';
+import { playerInput, soloInput, wasPressed } from '../input.js';
+import { handleEvents, stopVoices } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
@@ -19,6 +22,7 @@ import { COLORS } from '../render/backdrop.js';
 import { createHud } from '../render/hud.js';
 import { label } from '../render/text.js';
 import { createRoundEndScene } from './roundEnd.js';
+import { createTitleScene } from './title.js';
 
 export function createPlayScene(game, session) {
   const { match, tally } = session;
@@ -46,7 +50,10 @@ export function createPlayScene(game, session) {
     projectileView.view,
     effects.view,
   );
-  const hud = createHud();
+  const hud = createHud({ red: sideName(session, 'red'), blue: sideName(session, 'blue') });
+  const name = (side) => sideName(session, side);
+  // In a 1-player game the CPU flies Blue and the player may use either key set.
+  const cpu = isCpu(session, 'blue') ? createBot('blue', createRng(), BOT[session.difficulty]) : null;
   view.addChild(stage, hud.view);
 
   const banner = label('', { size: 96, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
@@ -108,7 +115,9 @@ export function createPlayScene(game, session) {
   }
 
   function finish() {
-    // Draw the final state: this view stays up behind the round result.
+    // Draw the final state: this view stays up behind the round result,
+    // without a half-faded announcement.
+    announceLeft = 0;
     render();
     stage.position.set(0, 0);
     const points = scores(world.animals);
@@ -122,21 +131,30 @@ export function createPlayScene(game, session) {
   return {
     view,
     round,
+    destroy: stopVoices,
     update(dt) {
       if (round.phase === 'over') return;
+      if (wasPressed('Escape')) {
+        game.go(createTitleScene, session);
+        return;
+      }
       t += dt;
-      stepRound(round, { red: playerInput('red'), blue: playerInput('blue') }, dt);
+      const elapsed = ROUND.length - round.timeLeft;
+      const inputs = cpu
+        ? { red: soloInput(), blue: round.phase === 'play' ? cpu.think(world, dt, elapsed) : undefined }
+        : { red: playerInput('red'), blue: playerInput('blue') };
+      stepRound(round, inputs, dt);
       effects.handle(round.events);
       effects.ambient(world);
       for (const e of round.events) {
         if (e.type === 'dropIncoming') announce(`POWER-UP INCOMING: ${POWER_NAMES[e.power]}`, POWER_COLOR);
-        if (e.type === 'powerup') announce(`${e.side.toUpperCase()} GETS ${POWER_NAMES[e.power]}!`, COLORS[e.side]);
-        if (e.type === 'crateIncoming') announce(`AMMO DROP! ${e.side.toUpperCase()} IS OUT OF SHOTS`, 0xffd76a);
-        if (e.type === 'ammoCrate') announce(`${e.side.toUpperCase()} GRABS +${AMMO_CRATE.refill} AMMO`, COLORS[e.side]);
+        if (e.type === 'powerup') announce(`${name(e.side)} GETS ${POWER_NAMES[e.power]}!`, COLORS[e.side]);
+        if (e.type === 'crateIncoming') announce(`AMMO DROP! ${name(e.side)} IS OUT OF SHOTS`, 0xffd76a);
+        if (e.type === 'ammoCrate') announce(`${name(e.side)} GRABS +${AMMO_CRATE.refill} AMMO`, COLORS[e.side]);
         if (e.type === 'goldenIncoming') {
-          announce(`GOLDEN ${e.kind.toUpperCase()}! ${e.side.toUpperCase()} CAN EVEN THE SCORE`, 0xffcf3a);
+          announce(`GOLDEN ${e.kind.toUpperCase()}! ${name(e.side)} CAN EVEN THE SCORE`, 0xffcf3a);
         }
-        if (e.type === 'land' && e.delivered && e.golden) announce(`${e.pen.toUpperCase()} EVENS THE SCORE!`, 0xffcf3a);
+        if (e.type === 'land' && e.delivered && e.golden) announce(`${name(e.pen)} EVENS THE SCORE!`, 0xffcf3a);
       }
       announceLeft = Math.max(0, announceLeft - dt);
       handleEvents(round.events);

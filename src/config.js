@@ -113,6 +113,13 @@ export const GOLDEN = {
   chance: 0.5, // chance it drops when the lead is that big
 };
 
+// Computer player skill per difficulty (see logic/bot.js for what each means).
+export const BOT = {
+  easy: { gain: 1.8, react: 0.3, aim: 7, hunter: 0.05, huntWithGun: 0.3, picky: true, sloppy: 0.3, jitter: 30, raid: false },
+  normal: { gain: 3, react: 0.16, aim: 12, hunter: 0.3, huntWithGun: 0.6, picky: false, sloppy: 0.1, jitter: 12, raid: true },
+  hard: { gain: 5, react: 0.07, aim: 18, hunter: 0.6, huntWithGun: 0.9, picky: false, sloppy: 0, jitter: 4, raid: true },
+};
+
 export const ROUND = {
   length: 90,
   countdown: 3,

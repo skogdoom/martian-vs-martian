@@ -5,6 +5,7 @@
 //   npm run sim                  default: 300 rounds
 //   npm run sim -- 1000          more rounds
 //   npm run sim -- 300 HOOK.stillSpeed=50 SAUCER.drag=4   try overrides
+//   npm run sim -- 500 RED=easy BLUE=hard                  pit CPU difficulties
 //
 // Bots press keys like people do (-1/0/+1 per axis), re-decide every
 // ~0.1 s, and have a bit of aim and steering noise.
@@ -14,9 +15,9 @@ import { createRound, stepRound } from '../src/logic/round.js';
 import { scores } from '../src/logic/scoring.js';
 import { roundWinner } from '../src/logic/match.js';
 import { createRng } from '../src/logic/rng.js';
-import { hasPower } from '../src/logic/powerup.js';
+import { createBot } from '../src/logic/bot.js';
 
-const { STEP, ARENA, SAUCER, HOOK, ANIMALS } = config;
+const { STEP, ANIMALS } = config;
 
 // ---- command line -------------------------------------------------------
 
@@ -24,13 +25,15 @@ const args = process.argv.slice(2);
 let SLOPPY = 0;
 let PICKY = 0; // PICKY=1: only shoot at an opponent who is lifting or carrying
 let HUNT_WITH_GUN = 0.8; // how keen bots are to chase the opponent with a laser or triple shot
+const LEVELS = { red: null, blue: null }; // RED=easy BLUE=hard: named difficulties instead of random skill
 const rounds = Number(args.find((a) => /^\d+$/.test(a)) ?? 300);
 for (const a of args.filter((a) => a.includes('='))) {
   const [path, value] = a.split('=');
   if (path === 'SLOPPY') SLOPPY = Number(value);
   if (path === 'PICKY') PICKY = Number(value);
   if (path === 'HUNT_WITH_GUN') HUNT_WITH_GUN = Number(value);
-  if (['SLOPPY', 'PICKY', 'HUNT_WITH_GUN'].includes(path)) continue;
+  if (path === 'RED' || path === 'BLUE') LEVELS[path.toLowerCase()] = value;
+  if (['SLOPPY', 'PICKY', 'HUNT_WITH_GUN', 'RED', 'BLUE'].includes(path)) continue;
   const keys = path.split('.');
   let obj = config;
   for (const k of keys.slice(0, -1)) obj = obj[k];
@@ -42,121 +45,24 @@ for (const a of args.filter((a) => a.includes('='))) {
 // green man is usually grabbed.
 const PIVOT = Math.round(config.ROUND.length * config.POWERUP.dropAt + 6);
 
-// ---- bot ----------------------------------------------------------------
+// ---- bots ---------------------------------------------------------------
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
-const LOW = ARENA.flightBottom - 12; // hover height for hooking
 
-/** Digital steering toward `target` on one axis: press, release or brake. */
-function axis(pos, vel, target, gain, max) {
-  const desired = Math.max(-max, Math.min(max, (target - pos) * gain));
-  const dv = desired - vel;
-  return Math.abs(dv) < 30 ? 0 : Math.sign(dv);
-}
-
-function createBot(side, rng) {
-  const skill = {
-    gain: 2.5 + rng() * 2.5, // how hard it steers toward targets
-    react: 0.08 + rng() * 0.1, // seconds between decisions
-    aim: 10 + rng() * 10, // how close in height before firing
-    hunter: rng() * 0.7, // chance to go after an opponent that is lifting
-    // Share of lifts where the player lets go of the keys once the beam grabs,
-    // instead of holding position. Set with SLOPPY=0.5 (default 0).
-    sloppy: SLOPPY,
-  };
-  let letGo = false;
-  let lifting = null; // the animal of the lift we decided `letGo` for
-  let wait = 0;
-  let held = { x: 0, y: 0, shoot: false };
-  let mode = 'collect';
-
-  function pickTarget(w, s) {
-    let best = null;
-    let bestD = Infinity;
-    // Raid the opponent's pen with the steal power-up, or when losing in the
-    // second half (what a trailing player does). Always want the green man.
-    const p = scores(w.animals);
-    const losing = p[side] < p[other(side)] && w.clock > config.ROUND.length / 2;
-    const stealPenalty = hasPower(w.powers, side, 'steal') || losing ? -300 : 150;
-    const targets = [...w.animals, ...w.drops];
-    const wantsAmmo = w.weapons[side].ammo <= 3;
-    for (const a of targets) {
-      const eligible = (a.state === 'field' || (a.state === 'penned' && a.pen !== side)) && a.hookedBy === null;
-      if (!eligible) continue;
-      const unpaidGold = a.golden && a.goldenValue == null;
-      const prize = a.kind === 'greenman' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
-      const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (prize ? -400 : 0);
-      if (d < bestD) {
-        bestD = d;
-        best = a;
-      }
-    }
-    return best;
-  }
-
+/** A random skill in the range the tuning runs used, or a named difficulty (RED=hard). */
+function skillFor(side, rng) {
+  const named = LEVELS[side];
+  if (named) return { ...config.BOT[named] };
   return {
-    skill,
-    think(w, dt) {
-      wait -= dt;
-      if (wait > 0) return { ...held, shoot: false };
-      wait = skill.react;
-
-      const s = w.saucers[side];
-      const o = w.saucers[other(side)];
-      const hook = w.hooks[side];
-      const theirs = w.hooks[other(side)];
-      const weapon = w.weapons[side];
-      let tx = s.x;
-      let ty = s.y;
-
-      if (hook.carrying) {
-        const pen = ARENA.pens[side];
-        tx = (pen.left + pen.right) / 2;
-        ty = 360;
-        mode = 'collect';
-      } else if (hook.target) {
-        if (lifting !== hook.target) {
-          lifting = hook.target;
-          letGo = rng() < skill.sloppy;
-        }
-        if (letGo) {
-          held = { x: 0, y: 0, shoot: false };
-          return held;
-        }
-        tx = hook.target.x;
-        ty = s.y;
-      } else {
-        const laser = hasPower(w.powers, side, 'laser');
-        const armed = weapon.ammo > 0 || laser || hasPower(w.powers, side, 'triple');
-        const hunter = laser || hasPower(w.powers, side, 'triple') ? Math.max(HUNT_WITH_GUN, skill.hunter) : skill.hunter;
-        // With a gun power-up a carrier is worth chasing too: hits knock its animal loose.
-        const prey = theirs.target || ((laser || hasPower(w.powers, side, 'triple')) && theirs.carrying);
-        if (mode === 'collect' && prey && armed && rng() < hunter) mode = 'hunt';
-        if (mode === 'hunt' && (!prey || !armed)) mode = 'collect';
-        if (mode === 'hunt') {
-          tx = s.x;
-          ty = o.y;
-        } else {
-          const a = pickTarget(w, s);
-          if (a) {
-            tx = a.x;
-            ty = Math.abs(a.x - s.x) > 120 ? 380 : LOW;
-          }
-        }
-      }
-
-      const top = SAUCER.maxSpeed * (hasPower(w.powers, side, 'speed') ? config.POWERUP.speedBoost : 1);
-      const spread = hasPower(w.powers, side, 'triple') ? config.POWERUP.tripleSpread : 0;
-      const aligned = Math.abs(o.y - s.y) < skill.aim + spread;
-      const worthIt = PICKY ? theirs.target || theirs.carrying : theirs.target || theirs.carrying || mode === 'hunt' || rng() < 0.05;
-      held = {
-        x: axis(s.x, s.vx, tx + (rng() - 0.5) * 6, skill.gain, top),
-        y: axis(s.y, s.vy, ty, skill.gain, top),
-        shoot: aligned && worthIt && (weapon.ammo > 0 || hasPower(w.powers, side, 'triple')),
-        fire: aligned && hasPower(w.powers, side, 'laser'),
-      };
-      return held;
-    },
+    gain: 2.5 + rng() * 2.5,
+    react: 0.08 + rng() * 0.1,
+    aim: 10 + rng() * 10,
+    hunter: rng() * 0.7,
+    huntWithGun: HUNT_WITH_GUN,
+    picky: Boolean(PICKY),
+    sloppy: SLOPPY,
+    jitter: 6,
+    raid: true,
   };
 }
 
@@ -166,7 +72,7 @@ function simulate(seed) {
   const rng = createRng(seed);
   const round = createRound(seed);
   const w = round.world;
-  const bots = { red: createBot('red', rng), blue: createBot('blue', rng) };
+  const bots = { red: createBot('red', rng, skillFor('red', rng)), blue: createBot('blue', rng, skillFor('blue', rng)) };
   const m = {
     hooks: 0,
     accidental: 0, // hook broken by drift within 0.25 s
@@ -204,11 +110,10 @@ function simulate(seed) {
   let t = 0;
 
   while (round.phase !== 'over') {
-    const inputs = round.phase === 'play' ? { red: bots.red.think(w, STEP), blue: bots.blue.think(w, STEP) } : {};
+    const inputs = round.phase === 'play' ? { red: bots.red.think(w, STEP, t), blue: bots.blue.think(w, STEP, t) } : {};
     stepRound(round, inputs, STEP);
     if (round.phase !== 'play' && round.phase !== 'over') continue;
     t += STEP;
-    w.clock = t; // for the bots
     if (t > PIVOT) {
       for (const e of round.events) {
         if (e.type === 'hook') m.late.hooks++;

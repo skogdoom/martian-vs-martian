@@ -394,6 +394,14 @@ function stopLift(side) {
   stopVoice(liftVoices, side);
 }
 
+/** Silence every sustained sound, e.g. when leaving a round early. */
+export function stopVoices() {
+  for (const side of ['red', 'blue']) {
+    stopVoice(liftVoices, side);
+    stopVoice(laserVoices, side);
+  }
+}
+
 /** Map world and round events to sounds. */
 export function handleEvents(events) {
   for (const e of events) {
@@ -438,10 +446,7 @@ export function handleEvents(events) {
         play('beep', { go: true });
         break;
       case 'roundEnd':
-        for (const side of ['red', 'blue']) {
-          stopLift(side);
-          stopVoice(laserVoices, side);
-        }
+        stopVoices();
         play('jingle');
         break;
       case 'crateIncoming':

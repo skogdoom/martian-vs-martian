@@ -6,7 +6,7 @@ import { endStep, onKey } from './input.js';
 import { toggleMute } from './audio.js';
 import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
-import { createTally } from './logic/tally.js';
+import { createSession } from './session.js';
 
 const app = new Application();
 await app.init({
@@ -61,7 +61,7 @@ onKey((code) => {
 });
 
 // Lives for the page: reloading resets the tally.
-const session = { tally: createTally(), match: null };
+const session = createSession();
 root.addChild(mutedLabel);
 game.go(createTitleScene, session);
 
