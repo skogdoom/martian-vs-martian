@@ -185,7 +185,7 @@ describe('power-ups', () => {
   });
 });
 
-describe('powered hits knock a carried animal loose', () => {
+describe('power-up hits knock a carried animal loose too', () => {
   function carrying() {
     const w = createWorld(1);
     const { red, blue } = w.saucers;
@@ -213,12 +213,6 @@ describe('powered hits knock a carried animal loose', () => {
     stepWorld(w, { red: { x: 0, y: 0, fire: true } }, STEP);
     expect(w.events.some((e) => e.type === 'knockLoose')).toBe(true);
     expect(w.hooks.blue.carrying).toBe(null);
-  });
-
-  it('but not with ordinary shots', () => {
-    const { w } = carrying();
-    expect(stepUntil(w, { red: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'hit')).toBeTruthy();
-    expect(w.hooks.blue.carrying).not.toBe(null);
   });
 });
 

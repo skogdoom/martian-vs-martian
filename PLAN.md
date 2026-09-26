@@ -1,6 +1,6 @@
 # Plan: Red Alien vs Blue Alien
 
-A two-player, same-keyboard browser game. Two flying saucers compete to abduct cows and lambs and drop them in their own pen. Shots knock the opponent away and interrupt their pickups. The game is shown in 2D from the side on one shared screen.
+A two-player, same-keyboard browser game. Two flying saucers compete to abduct cows and lambs and drop them in their own pen. Shots knock the opponent away, interrupt their pickups and knock loose the animal they carry. The game is shown in 2D from the side on one shared screen.
 
 ## Tech
 
@@ -49,7 +49,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Lowers automatically when the saucer is nearly still above an animal and within hook reach. The reach is about 200 px, so the saucer must fly low to reach the ground.
 - Lift time is 1.0 s for a lamb and 1.6 s for a cow.
 - The pickup is interrupted if the saucer drifts more than about 30 px horizontally from the animal, or is shot. The animal then drops back to the ground.
-- A fully lifted animal stays attached, even when the saucer is shot or bumped.
+- A fully lifted animal stays attached when the saucer is bumped, but a hit knocks it loose and it falls where it is (`COMBAT.knockLoose`).
 - A saucer carries one animal at a time.
 - A player can't hook animals in their own pen.
 
@@ -74,7 +74,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Laser cannon:** hold shoot for a continuous beam that pushes the opponent away and breaks their pickups. Uses no ammo.
   - **Triple shot:** three shots per press, spread vertically. Shots are free while it lasts and an empty gun reloads.
   - **Double steal:** animals stolen from the opponent's pen while it's active are worth double full value (cow 4, lamb 2) once delivered, until they are lifted out again.
-- Laser and triple-shot hits also knock a carried animal loose.
+- Like any hit, laser and triple-shot hits also knock a carried animal loose.
 - Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
 
 ### Golden animals
@@ -193,5 +193,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - The CPU is the simulator's bot (`src/logic/bot.js`), with skill presets in `BOT` in `config.js`: reaction time, steering, aim, aggression, how often it fumbles a lift, and whether it raids your pen when behind.
   - Each mode and difficulty keeps its own tally.
   - Simulator (`npm run sim -- 1500 RED=easy BLUE=hard`): Normal beats Easy 98% of rounds, Hard beats Normal 86%, Hard vs Hard is even.
+- [x] **Every hit knocks a carried animal loose** (after playtesting)
+  - Before, only laser and triple-shot hits did. Shots still break lifts in progress, and bumps still don't drop anything.
+  - Simulator: rounds swing more (lead changes 2.5 → 2.9 per round; the player trailing at 51 s wins 14% instead of 4%). A trailing power-up grabber wins 32% (laser 41%, speed 31%, triple 29%, steal 24%).
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

@@ -127,18 +127,30 @@ describe('hook pickup', () => {
     expect(a.state).toBe('falling');
   });
 
-  it('keeps a fully lifted animal when shot or bumped', () => {
+  it('keeps a fully lifted animal when bumped', () => {
     const { w, a } = setup();
     const { red, blue } = w.saucers;
     hover(red, a);
     expect(stepUntil(w, {}, 2, (e) => e.type === 'pickup')).toBeTruthy();
-    blue.x = red.x + 250;
-    blue.y = red.y;
-    expect(stepUntil(w, { blue: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'hit')).toBeTruthy();
     blue.x = red.x + 20;
-    stepWorld(w, {}, STEP);
+    blue.y = red.y;
+    expect(stepUntil(w, {}, 0.2, (e) => e.type === 'bump')).toBeTruthy();
     expect(w.hooks.red.carrying).toBe(a);
     expect(a.state).toBe('carried');
+  });
+
+  it('drops a fully lifted animal when shot', () => {
+    const { w, a } = setup();
+    const { red, blue } = w.saucers;
+    hover(red, a);
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'pickup')).toBeTruthy();
+    hover(red, { x: 500 }, 300);
+    hover(blue, { x: 750 }, 300);
+    const e = stepUntil(w, { blue: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'knockLoose');
+    expect(e).toMatchObject({ side: 'red', kind: a.kind });
+    expect(w.hooks.red.carrying).toBe(null);
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'land')).toMatchObject({ pen: null, delivered: false });
+    expect(a.state).toBe('field');
   });
 
   it('carries one animal at a time', () => {

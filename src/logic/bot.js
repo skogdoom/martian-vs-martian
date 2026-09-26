@@ -96,8 +96,8 @@ export function createBot(side, rng, skill) {
       } else {
         const armed = weapon.ammo > 0 || laser || triple;
         const hunter = laser || triple ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
-        // With a gun power-up a carrier is worth chasing too: hits knock its animal loose.
-        const prey = theirs.target || ((laser || triple) && theirs.carrying);
+        // A carrier is worth chasing too: a hit knocks its animal loose.
+        const prey = theirs.target || theirs.carrying;
         if (mode === 'collect' && prey && armed && rng() < hunter) mode = 'hunt';
         if (mode === 'hunt' && (!prey || !armed)) mode = 'collect';
         if (mode === 'hunt') {

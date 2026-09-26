@@ -41,6 +41,7 @@ export const COMBAT = {
   projectileSpeed: 900,
   projectileRadius: 6,
   knockback: 900, // px/s horizontal impulse on hit
+  knockLoose: true, // a hit also knocks a fully lifted (carried) animal loose
   clipSize: 3,
   reloadTime: 1.5,
   ammoPerRound: 18,
@@ -92,8 +93,6 @@ export const POWERUP = {
   laserHalfWidth: 7,
   // triple: three shots per trigger pull, one ammo
   tripleSpread: 26, // px between the shots
-  // laser and triple: a hit also knocks a carried animal loose
-  knockLoose: true,
   // steal: stolen animals delivered while active are worth this times full value
   stealMultiplier: 2,
 };

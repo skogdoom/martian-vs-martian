@@ -1,7 +1,7 @@
 // One round's simulation state. Pure: no rendering, no DOM.
 // `events` collects things that happened during the last step, for audio and particles.
 
-import { HOOK, POWERUP, AMMO_CRATE } from '../config.js';
+import { HOOK, COMBAT, POWERUP, AMMO_CRATE } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
@@ -66,10 +66,9 @@ function interrupt(w, side, reason) {
   if (interruptHook(hook)) w.events.push({ type: 'interrupt', side, reason, x: a.x, y: a.y });
 }
 
-/** A powered hit (laser, triple shot) can also knock a carried animal loose. */
-function knockLoose(w, shooter, targetSide) {
-  const powered = hasPower(w.powers, shooter, 'laser') || hasPower(w.powers, shooter, 'triple');
-  if (!powered || !POWERUP.knockLoose) return;
+/** A hit knocks a carried animal loose; it falls where it is. */
+function knockLoose(w, targetSide) {
+  if (!COMBAT.knockLoose) return;
   const a = dropCarried(w.hooks[targetSide]);
   if (a) w.events.push({ type: 'knockLoose', side: targetSide, kind: a.kind, x: a.x, y: a.y });
 }
@@ -107,7 +106,7 @@ function updateLaser(w, side, input, dt) {
     target.vx += beam.dir * POWERUP.laserPush * dt;
     if (!hadHit) w.events.push({ type: 'hit', side: target.side, x: beam.x1, y: beam.y, dir: beam.dir, laser: true });
     interrupt(w, target.side, 'laser');
-    knockLoose(w, side, target.side);
+    knockLoose(w, target.side);
   }
 }
 
@@ -152,7 +151,7 @@ export function stepWorld(w, inputs, dt) {
       applyKnockback(target, p.dir);
       w.events.push({ type: 'hit', side: target.side, x: p.x, y: p.y, dir: p.dir });
       interrupt(w, target.side, 'shot');
-      knockLoose(w, p.owner, target.side);
+      knockLoose(w, target.side);
     }
   }
   w.projectiles = w.projectiles.filter((p) => p.alive);
