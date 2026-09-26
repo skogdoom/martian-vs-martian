@@ -1,8 +1,10 @@
 // A round: 3-2-1 countdown with everything frozen, then the timed play phase.
 
-import { ROUND, POWERUP } from '../config.js';
-import { createWorld, stepWorld, spawnDrop } from './world.js';
+import { ROUND, POWERUP, GOLDEN } from '../config.js';
+import { createWorld, stepWorld, spawnDrop, spawnGolden } from './world.js';
 import { planDrop } from './powerup.js';
+import { shouldDropGolden } from './golden.js';
+import { scores } from './scoring.js';
 
 export function createRound(seed) {
   const world = createWorld(seed);
@@ -10,6 +12,7 @@ export function createRound(seed) {
     world,
     drop: planDrop(world.rng), // power-up type due halfway through, or null
     dropped: false,
+    goldenChecked: false,
     phase: 'countdown', // 'countdown' | 'play' | 'over'
     countdown: ROUND.countdown,
     shown: null, // last countdown number announced
@@ -48,6 +51,14 @@ export function stepRound(r, inputs, dt) {
       r.dropped = true;
       spawnDrop(r.world, r.drop);
       r.events.push(r.world.events.at(-1));
+    }
+    if (!r.goldenChecked && ROUND.length - r.timeLeft >= ROUND.length * GOLDEN.checkAt) {
+      r.goldenChecked = true;
+      const points = scores(r.world.animals);
+      if (shouldDropGolden(points, r.world.rng)) {
+        spawnGolden(r.world, points.red < points.blue ? 'red' : 'blue');
+        r.events.push(r.world.events.at(-1));
+      }
     }
     r.timeLeft = Math.max(0, r.timeLeft - dt);
     if (r.timeLeft < 1e-9) {

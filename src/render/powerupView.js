@@ -59,7 +59,7 @@ function drawGreenMan(body) {
   body.circle(4, -25, 0.8).fill(0xffffff);
 }
 
-function drawParachute(g) {
+export function drawParachute(g) {
   const top = -78;
   g.moveTo(-26, top + 16).quadraticCurveTo(0, top - 18, 26, top + 16).lineTo(-26, top + 16).fill(0xf2f2f2);
   for (const x of [-13, 13]) g.rect(x - 4, top - 2, 8, 18).fill({ color: 0xe5484d, alpha: 0.85 });

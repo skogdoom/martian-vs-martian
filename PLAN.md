@@ -76,6 +76,14 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Laser and triple-shot hits also knock a carried animal loose.
 - Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
 
+### Golden animals
+- A rare comeback drop. At the 2/3 mark of a round (60 s), if one player leads by 3 or more points, there is a 50% chance that a golden cow or golden lamb parachutes into the field.
+- It is hooked, carried and delivered like any animal. Both players can race for it.
+- Delivered by the trailing player, it is worth exactly the deficit at that moment, so the score is tied, but never less than its normal value.
+- Delivered by the leader, it is an ordinary cow or lamb.
+- Once it has paid out, lifting it out of that pen makes it ordinary again.
+- Values are in `GOLDEN` in `config.js`. In simulation it drops in about 1 round in 20.
+
 ### Score
 - The live sum of the values of the animals in a player's pen.
 - The round ends only when the timer runs out, since animals can still be stolen until then.
@@ -83,7 +91,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ## Round and match flow
 
 1. **Title screen:** press any key to start. The keypress also unlocks audio.
-2. **Round:** a 3-2-1 countdown, then 60 seconds of play.
+2. **Round:** a 3-2-1 countdown, then 90 seconds of play.
 3. **Round result:** shows the scores and the winner, or a tie, then moves to the next round.
 4. **Match rules:**
    - A match starts as best of 3.
@@ -119,7 +127,7 @@ tests/                 Vitest unit tests for the logic
 
 | Constant          | Value          |
 |-------------------|----------------|
-| Round length      | 60 s           |
+| Round length      | 90 s           |
 | Clip size         | 3              |
 | Reload time       | 1.5 s          |
 | Ammo per round    | 12             |
@@ -170,5 +178,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Green man drop, the four power-ups, HUD timer, announcements, art and sound.
   - Unit tests for the drop, each power-up, knock-loose and the steal bonus.
   - Tuned with the simulator. With 15 s of power, a trailing grabber wins 7–23% of rounds, depending on the power-up, against 2% without. The laser and triple shot only turned rounds once their hits could knock a carried animal loose.
+- [x] **Golden animals and 90 s rounds**
+  - Golden drop, value rules, art (gold tint, glow, parachute, sparkles), announcements and sound.
+  - Unit tests for when it drops and what it is worth.
+  - Simulator: with a 3-point lead at 60 s in 9% of rounds, it drops in about 4.5%. When it drops, the leader delivers it first 59% of the time. When the trailing player delivers it, they go on to win 19% and tie 22% of those rounds; trailing by 3+ without it wins about 1%.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

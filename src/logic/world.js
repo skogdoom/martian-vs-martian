@@ -7,9 +7,10 @@ import { createWeapon, tryFire, updateWeapon } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
 import { createHerd, updateAnimal } from './animal.js';
 import { createHook, updateHook, interruptHook, dropCarried } from './hook.js';
-import { createDrop, updateDrop, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
+import { createDrop, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
+import { createGolden, settleGolden } from './golden.js';
 
 export const SIDES = ['red', 'blue'];
 
@@ -30,6 +31,13 @@ export function createWorld(seed) {
     events: [],
     rng: createRng(seed),
   };
+}
+
+/** Send in a golden cow or lamb for `trailing`, the player who is behind. */
+export function spawnGolden(w, trailing) {
+  const a = createGolden(w.rng);
+  w.animals.push(a);
+  w.events.push({ type: 'goldenIncoming', kind: a.kind, side: trailing, x: a.x });
 }
 
 /** Send in the green man carrying `power`. */
@@ -144,22 +152,26 @@ export function stepWorld(w, inputs, dt) {
   }
   for (const e of w.events) if (e.type === 'powerup') grantPower(w.powers, e.side, e.power);
 
-  if (w.drop) {
+  if (w.drop && w.drop.state !== 'gone') {
     const wasFalling = w.drop.state === 'falling';
-    if (updateDrop(w.drop, dt, w.rng) || (wasFalling && w.drop.state !== 'falling')) {
+    if (updateAnimal(w.drop, dt, w.rng) === 'touchdown' || (wasFalling && w.drop.state !== 'falling')) {
       w.events.push({ type: 'dropLanded', x: w.drop.x, y: w.drop.y });
     }
   }
 
   for (const a of w.animals) {
     const wasFalling = a.state === 'falling';
-    const pen = updateAnimal(a, dt, w.rng);
+    const result = updateAnimal(a, dt, w.rng);
+    if (result === 'touchdown') w.events.push({ type: 'dropLanded', x: a.x, y: a.y });
     if (wasFalling && a.state !== 'falling') {
+      const pen = result;
       const delivered = a.delivering;
       a.delivering = false;
+      if (delivered && a.golden) settleGolden(w.animals, a, pen);
       const value = pen ? animalValue(a, pen) : 0;
       const stolen = pen !== null && a.owner !== pen;
-      w.events.push({ type: 'land', kind: a.kind, pen, delivered, value, stolen, bonus: a.bonus, x: a.x, y: a.y });
+      const golden = a.goldenValue != null;
+      w.events.push({ type: 'land', id: a.id, kind: a.kind, pen, delivered, value, stolen, bonus: a.bonus, golden, x: a.x, y: a.y });
     }
   }
 }

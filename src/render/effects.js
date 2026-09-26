@@ -87,7 +87,11 @@ export function createEffects() {
           ring(e.x, e.y, 0xff5ce1, 40);
           break;
         case 'land':
-          if (e.delivered) {
+          if (e.delivered && e.golden) {
+            burst(e.x, e.y - 10, { count: 70, colors: [0xffcf3a, 0xfff3a0, 0xffffff], up: 1.1, speed: [200, 560], life: [0.8, 1.6], size: [3, 6], gravity: 500, shape: 'star' });
+            ring(e.x, e.y - 14, 0xffcf3a, 120, 0.7);
+            popup(`+${e.value}`, e.x, e.y - 70, 0xffcf3a);
+          } else if (e.delivered) {
             burst(e.x, e.y - 10, { count: 44, colors: [COLORS[e.pen], 0xffd76a, 0xffffff], up: 0.7, speed: [200, 460], life: [0.8, 1.3], size: [3, 5.5], gravity: 650, shape: 'confetti' });
             ring(e.x, e.y - 14, 0xffd76a, 70, 0.45);
             popup(`+${e.value}`, e.x, e.y - 60, e.stolen ? 0xcfd6ff : 0xffd76a);
@@ -101,6 +105,13 @@ export function createEffects() {
 
   /** Continuous effects that follow world state rather than events. */
   function ambient(world) {
+    // Golden animals glitter.
+    for (const a of world.animals) {
+      if (!a.golden || Math.random() > 0.25) continue;
+      const x = a.x + rand(-30, 30);
+      const y = a.y - rand(0, 50);
+      burst(x, y, { count: 1, colors: [0xfff3a0, 0xffffff], speed: [5, 25], life: [0.3, 0.6], size: [1.5, 3], gravity: -30, shape: 'star' });
+    }
     for (const side of ['red', 'blue']) {
       const b = world.lasers[side];
       if (b?.hit) {

@@ -131,6 +131,10 @@ export function createPlayScene(game, session) {
       for (const e of round.events) {
         if (e.type === 'dropIncoming') announce(`POWER-UP INCOMING: ${POWER_NAMES[e.power]}`, POWER_COLOR);
         if (e.type === 'powerup') announce(`${e.side.toUpperCase()} GETS ${POWER_NAMES[e.power]}!`, COLORS[e.side]);
+        if (e.type === 'goldenIncoming') {
+          announce(`GOLDEN ${e.kind.toUpperCase()}! ${e.side.toUpperCase()} CAN EVEN THE SCORE`, 0xffcf3a);
+        }
+        if (e.type === 'land' && e.delivered && e.golden) announce(`${e.pen.toUpperCase()} EVENS THE SCORE!`, 0xffcf3a);
       }
       announceLeft = Math.max(0, announceLeft - dt);
       handleEvents(round.events);

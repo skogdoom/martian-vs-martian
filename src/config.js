@@ -97,8 +97,16 @@ export const POWERUP = {
   stealMultiplier: 2,
 };
 
+// A rare comeback drop: a golden cow or lamb that evens the score if the
+// trailing player delivers it.
+export const GOLDEN = {
+  checkAt: 2 / 3, // when to check, as a fraction of the round
+  minLead: 3, // only when someone leads by at least this many points
+  chance: 0.5, // chance it drops when the lead is that big
+};
+
 export const ROUND = {
-  length: 60,
+  length: 90,
   countdown: 3,
   resultTime: 4,
   startRounds: 3,

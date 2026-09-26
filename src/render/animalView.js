@@ -6,6 +6,9 @@ import { Container, Graphics } from 'pixi.js';
 import { SAUCER, ANIMALS } from '../config.js';
 import { SIDES } from '../logic/world.js';
 import { COLORS } from './backdrop.js';
+import { drawParachute } from './powerupView.js';
+
+const GOLD = 0xffcf3a;
 
 const LEG = {
   cow: { w: 6, h: 13, hipY: -13, xs: [-18, -11, 12, 19], color: 0xe9e4d8, far: 0xbdb6a8, hoof: 0x2b2320 },
@@ -75,6 +78,13 @@ function createAnimalSprite(a) {
   const body = new Graphics();
   if (a.kind === 'cow') drawCow(body);
   else drawLamb(body);
+  // Golden animals: gold tint, a glow, and a parachute on the way down.
+  const glow = new Graphics().ellipse(0, -20, 40, 30).fill({ color: GOLD, alpha: 0.25 });
+  glow.visible = false;
+  const chute = new Graphics();
+  drawParachute(chute);
+  chute.y = a.kind === 'cow' ? -16 : -4;
+  chute.visible = false;
   const collar = new Graphics();
   // Gold star: stolen during a steal power-up, worth double.
   const badge = new Graphics();
@@ -88,10 +98,11 @@ function createAnimalSprite(a) {
   badge.position.set(0, a.kind === 'cow' ? -46 : -38);
   badge.visible = false;
   // Far legs behind the body, near legs in front.
-  view.addChild(legs[0], legs[2], body, legs[1], legs[3], collar, badge);
+  view.addChild(glow, chute, legs[0], legs[2], body, legs[1], legs[3], collar, badge);
 
   let facing = a.x < 640 ? 1 : -1;
   let walk = Math.random() * 10;
+  const wobble = Math.random() * 10; // phase, so dangling animals don't swing in step
   let owner;
 
   return {
@@ -101,11 +112,21 @@ function createAnimalSprite(a) {
       view.position.set(a.x, a.y);
       view.scale.x = facing;
 
-      const aloft = a.state === 'lifting' || a.state === 'carried' || a.state === 'falling';
+      const golden = Boolean(a.golden);
+      const tint = golden ? GOLD : 0xffffff;
+      if (body.tint !== tint) {
+        body.tint = tint;
+        if (a.kind === 'cow') legs.forEach((leg) => (leg.tint = tint));
+      }
+      glow.visible = golden;
+      glow.alpha = 0.6 + 0.4 * Math.sin(t * 5);
+      chute.visible = a.state === 'descending';
+
+      const aloft = a.state === 'lifting' || a.state === 'carried' || a.state === 'falling' || a.state === 'descending';
       if (aloft) {
         // Dangling and kicking.
         legs.forEach((leg, i) => (leg.rotation = Math.sin(t * 18 + i * 1.7) * 0.5));
-        view.rotation = Math.sin(t * 5 + a.id) * 0.08;
+        view.rotation = Math.sin(t * 5 + wobble) * 0.08;
       } else if (a.vx !== 0) {
         walk += dt * Math.abs(a.vx) * 0.25;
         legs.forEach((leg, i) => (leg.rotation = Math.sin(walk + (i % 2 ? Math.PI : 0)) * 0.45));
@@ -175,15 +196,16 @@ export function createBeamView() {
   };
 }
 
+/** Draws every animal in `animals`, including ones added later (golden drops). */
 export function createAnimalView(animals) {
   const view = new Container();
   const sprites = new Map();
-  // Cows behind lambs, so a lamb in a crowded pen stays visible.
-  const ordered = [...animals].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'cow' ? -1 : 1));
-  for (const a of ordered) {
+  function add(a) {
     const sprite = createAnimalSprite(a);
     sprites.set(a, sprite);
-    view.addChild(sprite.view);
+    // Cows behind lambs, so a lamb in a crowded pen stays visible.
+    if (a.kind === 'cow') view.addChildAt(sprite.view, 0);
+    else view.addChild(sprite.view);
   }
   let last = null;
   return {
@@ -191,7 +213,10 @@ export function createAnimalView(animals) {
     sync(t) {
       const dt = last === null ? 0 : Math.min(0.1, t - last);
       last = t;
-      for (const [a, sprite] of sprites) sprite.sync(a, t, dt);
+      for (const a of animals) {
+        if (!sprites.has(a)) add(a);
+        sprites.get(a).sync(a, t, dt);
+      }
     },
   };
 }

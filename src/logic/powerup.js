@@ -2,8 +2,8 @@
 // the field carrying one power-up. He is hooked like an animal; when fully
 // lifted he vanishes into the ship and the power-up starts.
 
-import { WIDTH, ARENA, SAUCER, POWERUP } from '../config.js';
-import { createAnimal, fieldBounds, updateAnimal } from './animal.js';
+import { WIDTH, SAUCER, POWERUP } from '../config.js';
+import { createAnimal, fieldBounds, parachute } from './animal.js';
 
 /** Decide at the start of a round whether (and which) power-up will drop. */
 export function planDrop(rng) {
@@ -11,28 +11,18 @@ export function planDrop(rng) {
   return POWERUP.types[Math.floor(rng() * POWERUP.types.length)];
 }
 
-export function createDrop(power, rng) {
-  const { min, max } = fieldBounds('greenman');
+/** A random landing spot in the middle part of the field. */
+export function dropSpot(kind, rng) {
+  const { min, max } = fieldBounds(kind);
   const margin = (max - min) * POWERUP.dropMargin;
-  const x = min + margin + rng() * (max - min - 2 * margin);
-  const d = createAnimal('drop', 'greenman', x);
-  d.power = power;
-  d.state = 'descending';
-  d.y = -20;
-  return d;
+  return min + margin + rng() * (max - min - 2 * margin);
 }
 
-/** Advance the green man. Returns true on the step he touches down. */
-export function updateDrop(d, dt, rng) {
-  if (d.state === 'descending') {
-    d.y += POWERUP.fallSpeed * dt;
-    if (d.y < ARENA.groundY) return false;
-    d.y = ARENA.groundY;
-    d.state = 'field';
-    return true;
-  }
-  if (d.state !== 'gone') updateAnimal(d, dt, rng);
-  return false;
+export function createDrop(power, rng) {
+  const d = createAnimal('drop', 'greenman', dropSpot('greenman', rng));
+  d.power = power;
+  parachute(d);
+  return d;
 }
 
 export function createPowers() {

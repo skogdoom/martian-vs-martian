@@ -38,6 +38,10 @@ for (const a of args.filter((a) => a.includes('='))) {
   console.log(`override ${path} = ${value}`);
 }
 
+// Reference time for "late game" and comeback baselines: about when the
+// green man is usually grabbed.
+const PIVOT = Math.round(config.ROUND.length * config.POWERUP.dropAt + 6);
+
 // ---- bot ----------------------------------------------------------------
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
@@ -78,7 +82,8 @@ function createBot(side, rng) {
     for (const a of targets) {
       const eligible = (a.state === 'field' || (a.state === 'penned' && a.pen !== side)) && a.hookedBy === null;
       if (!eligible) continue;
-      const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (a.kind === 'greenman' ? -400 : 0);
+      const unpaidGold = a.golden && a.goldenValue == null;
+      const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (a.kind === 'greenman' || unpaidGold ? -400 : 0);
       if (d < bestD) {
         bestD = d;
         best = a;
@@ -181,11 +186,13 @@ function simulate(seed) {
     leadChanges: 0,
     lastScoreChange: 0,
     power: round.drop, // planned power-up, or null
+    leadAtCheck: null, // |lead| at the golden check point
+    golden: null, // { trailing, deliveredBy, diffBefore } when a golden animal dropped
     grab: null, // { side, t, diff } diff = grabber's score minus the other's at the grab
-    diffAt36: null, // red minus blue at 36 s, for comeback baselines
-    late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, idle: 0 }, // after 36 s
+    diffAtPivot: null, // red minus blue at PIVOT, for comeback baselines
+    late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, idle: 0 }, // after PIVOT
     swing: null, // change in the grabber's lead over the power-up window
-    baseSwing: null, // |change in red's lead| from 38 s over the same length, no power-up
+    baseSwing: null, // change in red's lead from PIVOT + 2 s over the power-up's length, no power-up
   };
   let leader = 'tie';
   let lastPoints = '0:0';
@@ -199,13 +206,20 @@ function simulate(seed) {
     if (round.phase !== 'play' && round.phase !== 'over') continue;
     t += STEP;
     w.clock = t; // for the bots
-    if (t > 36) {
+    if (t > PIVOT) {
       for (const e of round.events) {
         if (e.type === 'hook') m.late.hooks++;
         if (e.type === 'pickup') m.late.pickups++;
         if (e.type === 'interrupt') m.late[e.reason]++;
       }
       for (const side of ['red', 'blue']) if (!w.hooks[side].target && !w.hooks[side].carrying) m.late.idle += STEP / 2;
+    }
+    for (const e of round.events) {
+      if (e.type === 'land' && e.id === 'golden' && e.delivered && m.golden && !m.golden.deliveredBy) m.golden.deliveredBy = e.pen;
+      // Paid-out gold lifted back out of the trailer's pen by the leader.
+      if (e.type === 'pickup' && m.golden && m.golden.deliveredBy === m.golden.trailing && e.side !== m.golden.trailing) {
+        if (w.hooks[e.side].carrying?.id === 'golden') m.golden.stolenBack = true;
+      }
     }
     for (const e of round.events) {
       if (e.type === 'hook') {
@@ -230,7 +244,10 @@ function simulate(seed) {
         bumpedAt.red = bumpedAt.blue = t;
       }
       else if (e.type === 'dryFire') m.dry++;
-      else if (e.type === 'powerup') {
+      else if (e.type === 'goldenIncoming') {
+        const p = scores(w.animals);
+        m.golden = { trailing: e.side, deliveredBy: null, diffBefore: p[e.side] - p[other(e.side)] };
+      } else if (e.type === 'powerup') {
         const p = scores(w.animals);
         m.grab = { side: e.side, t, diff: p[e.side] - p[other(e.side)] };
       }
@@ -244,13 +261,14 @@ function simulate(seed) {
       if (now !== 'tie' && leader !== 'tie' && now !== leader) m.leadChanges++;
       if (now !== 'tie') leader = now;
     }
-    if (m.diffAt36 === null && t >= 36) m.diffAt36 = p.red - p.blue;
+    if (m.leadAtCheck === null && t >= config.ROUND.length * config.GOLDEN.checkAt) m.leadAtCheck = Math.abs(p.red - p.blue);
+    if (m.diffAtPivot === null && t >= PIVOT) m.diffAtPivot = p.red - p.blue;
     if (m.grab && m.swing === null && t >= m.grab.t + config.POWERUP.duration) {
       m.swing = p[m.grab.side] - p[other(m.grab.side)] - m.grab.diff;
     }
-    if (m.base38 === undefined && t >= 38) m.base38 = p.red - p.blue;
-    if (m.base38 !== undefined && m.baseSwing === null && t >= 38 + config.POWERUP.duration) {
-      m.baseSwing = p.red - p.blue - m.base38;
+    if (m.baseStart === undefined && t >= PIVOT + 2) m.baseStart = p.red - p.blue;
+    if (m.baseStart !== undefined && m.baseSwing === null && t >= PIVOT + 2 + config.POWERUP.duration) {
+      m.baseSwing = p.red - p.blue - m.baseStart;
     }
     if (m.fieldEmptyAt === null && w.animals.every((a) => a.state !== 'field')) m.fieldEmptyAt = t;
     for (const side of ['red', 'blue']) {
@@ -287,8 +305,8 @@ console.table({
   'field emptied (median s)': `${median(results.map((r) => r.fieldEmptyAt))} (${pct((r) => r.fieldEmptyAt !== null)} of rounds)`,
   'shots per player': (avg((r) => r.shots) / 2).toFixed(1),
   'hit rate': `${((100 * avg((r) => r.hits)) / Math.max(1, avg((r) => r.shots))).toFixed(0)}%`,
-  'after 36 s: hooks / pickups / broken by shot / by drift': ['hooks', 'pickups', 'shot', 'drift'].map((k) => avg((r) => r.late[k]).toFixed(1)).join(' / '),
-  'after 36 s: share of time a saucer is neither lifting nor carrying': `${((100 * avg((r) => r.late.idle)) / (config.ROUND.length - 36)).toFixed(0)}%`,
+  [`after ${PIVOT} s: hooks / pickups / broken by shot / by drift`]: ['hooks', 'pickups', 'shot', 'drift'].map((k) => avg((r) => r.late[k]).toFixed(1)).join(' / '),
+  [`after ${PIVOT} s: share of time a saucer is neither lifting nor carrying`]: `${((100 * avg((r) => r.late.idle)) / (config.ROUND.length - PIVOT)).toFixed(0)}%`,
   'lead changes per round': avg((r) => r.leadChanges).toFixed(2),
   'score still changing in the last 10 s': pct((r) => r.lastScoreChange > config.ROUND.length - 10),
   'ammo used up (median s)': median(results.flatMap((r) => [r.ammoOutAt.red, r.ammoOutAt.blue])),
@@ -325,14 +343,37 @@ if (withDrop.length) {
     powerRows[`${type}: lead gained during power / wins when behind`] = `${mean(swings)} pts / ${rate(rs.filter((r) => r.grab.diff < 0), won)}`;
   }
 }
-// Baseline: how often the player trailing at 36 s wins when no power-up is in play.
-const none = results.filter((r) => !r.power && r.diffAt36);
+// Baseline: how often the player trailing at PIVOT wins when no power-up is in play.
+const none = results.filter((r) => !r.power && r.diffAtPivot);
 if (none.length) {
-  const trailingWins = (r) => (r.diffAt36 < 0 ? r.result === 'red' : r.result === 'blue');
-  powerRows['no power-up: trailing at 36 s wins'] = rate(none, trailingWins);
-  powerRows['no power-up: trailing by 2+ at 36 s wins'] = rate(none.filter((r) => Math.abs(r.diffAt36) >= 2), trailingWins);
+  const trailingWins = (r) => (r.diffAtPivot < 0 ? r.result === 'red' : r.result === 'blue');
+  powerRows[`no power-up: trailing at ${PIVOT} s wins`] = rate(none, trailingWins);
+  powerRows[`no power-up: trailing by 2+ at ${PIVOT} s wins`] = rate(none.filter((r) => Math.abs(r.diffAtPivot) >= 2), trailingWins);
   const base = results.filter((r) => !r.power && r.baseSwing !== null).map((r) => r.baseSwing);
   powerRows['no power-up: lead change over the same window (avg of |x|)'] = `${(base.reduce((a, b) => a + Math.abs(b), 0) / Math.max(1, base.length)).toFixed(2)} pts`;
 }
 console.log('\nPower-ups');
 console.table(powerRows);
+
+// ---- golden animals -----------------------------------------------------
+
+{
+  const leads = results.map((r) => r.leadAtCheck).filter((x) => x !== null);
+  const share = (n) => `${((100 * leads.filter((x) => x >= n).length) / leads.length).toFixed(0)}%`;
+  const dropped = results.filter((r) => r.golden);
+  const trailerWins = (r) => r.result === r.golden.trailing;
+  const trailerTies = (r) => r.result === 'tie';
+  const byTrailer = dropped.filter((r) => r.golden.deliveredBy === r.golden.trailing);
+  const byLeader = dropped.filter((r) => r.golden.deliveredBy && r.golden.deliveredBy !== r.golden.trailing);
+  console.log('\nGolden animals');
+  console.table({
+    [`lead at ${Math.round(config.ROUND.length * config.GOLDEN.checkAt)} s: 2+ / 3+ / 4+ / 5+`]: [2, 3, 4, 5].map(share).join(' / '),
+    'rounds with a golden animal': `${dropped.length} (${pct((r) => r.golden)})`,
+    'delivered by the trailing player': rate(dropped, (r) => r.golden.deliveredBy === r.golden.trailing),
+    'delivered by the leader': rate(dropped, (r) => r.golden.deliveredBy && r.golden.deliveredBy !== r.golden.trailing),
+    'trailing player wins / ties (all golden rounds)': `${rate(dropped, trailerWins)} / ${rate(dropped, trailerTies)}`,
+    '  when the trailer delivered it': `${rate(byTrailer, trailerWins)} / ${rate(byTrailer, trailerTies)}`,
+    '  when the leader delivered it': `${rate(byLeader, trailerWins)} / ${rate(byLeader, trailerTies)}`,
+    '  trailer delivered it, then the leader stole it back': rate(byTrailer, (r) => r.golden.stolenBack),
+  });
+}

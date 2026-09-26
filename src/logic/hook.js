@@ -3,6 +3,7 @@
 import { ARENA, SAUCER, HOOK, ANIMALS } from '../config.js';
 import { speed } from './saucer.js';
 import { clampToPen, drop } from './animal.js';
+import { spendGolden } from './golden.js';
 
 export function createHook(side) {
   return {
@@ -105,6 +106,7 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false } = {
     } else if (h.progress >= 1) {
       // Stolen from the opponent's pen during a steal power-up?
       a.bonus = stealBonus && a.pen !== null && a.pen !== s.side;
+      spendGolden(a);
       a.state = 'carried';
       a.pen = null;
       h.carrying = a;

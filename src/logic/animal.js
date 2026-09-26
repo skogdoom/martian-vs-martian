@@ -7,13 +7,15 @@
 //   carried  attached under a saucer
 //   falling  dropped from a beam or a delivery
 //
-// The green man (power-up drop) reuses this with kind 'greenman' and two
-// extra states: descending (parachute) and gone (climbed into a saucer).
+// Drops from the sky (the green man, golden animals) start out
+//   descending  floating down under a parachute
+// and the green man ends as
+//   gone        climbed into a saucer
 //
 // `y` is the animal's feet. `pen` is the pen it counts toward, `owner` the
 // player who first delivered it.
 
-import { ARENA, ANIMALS } from '../config.js';
+import { ARENA, ANIMALS, POWERUP } from '../config.js';
 
 export function penAt(x) {
   for (const [side, pen] of Object.entries(ARENA.pens)) {
@@ -73,7 +75,24 @@ export function createHerd() {
   return kinds.map((kind, i) => createAnimal(i, kind, min + gap * (i + 1)));
 }
 
+/** Start `a` floating down from above the arena under a parachute. */
+export function parachute(a) {
+  a.state = 'descending';
+  a.y = -20;
+}
+
+/** Advance one step. Returns the pen it landed in (or null) on the step it
+ * lands from a fall, and 'touchdown' when a parachute lands; otherwise null. */
 export function updateAnimal(a, dt, rng) {
+  if (a.state === 'descending') {
+    a.y += POWERUP.fallSpeed * dt;
+    if (a.y < ARENA.groundY) return null;
+    a.y = ARENA.groundY;
+    a.state = 'field';
+    a.wanderTimer = 0;
+    return 'touchdown';
+  }
+
   if (a.state === 'field') {
     a.wanderTimer -= dt;
     if (a.wanderTimer <= 0) {

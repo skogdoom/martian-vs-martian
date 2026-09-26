@@ -325,6 +325,22 @@ export const SOUNDS = {
     };
   },
 
+  /** Rising harp glissando as a golden animal appears. */
+  harp(ac, out, t) {
+    const notes = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760, 2093];
+    notes.forEach((freq, i) => tone(ac, out, t + i * 0.045, { type: 'triangle', freq, dur: 0.6, peak: 0.1 }));
+  },
+
+  /** Big bell cascade when golden gold pays out. */
+  goldChime(ac, out, t) {
+    [1047, 1319, 1568, 2093, 1568, 2093, 2637].forEach((freq, i) => {
+      const at = t + i * 0.08;
+      tone(ac, out, at, { type: 'sine', freq, dur: 1.0, peak: 0.16 });
+      tone(ac, out, at, { type: 'sine', freq: freq * 2.76, dur: 0.3, peak: 0.04 });
+    });
+    for (const freq of [523, 659, 784]) tone(ac, out, t + 0.5, { type: 'triangle', freq, dur: 1.2, peak: 0.08, hold: 0.4 });
+  },
+
   jingle(ac, out, t) {
     // C E G C', then a held chord.
     const melody = [
@@ -403,7 +419,8 @@ export function handleEvents(events) {
         play('ding', { x: e.x });
         break;
       case 'land':
-        if (e.delivered) play('chime', { x: e.x, full: !e.stolen });
+        if (e.delivered && e.golden) play('goldChime', { x: e.x });
+        else if (e.delivered) play('chime', { x: e.x, full: !e.stolen });
         break;
       case 'countdown':
         play('beep');
@@ -417,6 +434,9 @@ export function handleEvents(events) {
           stopVoice(laserVoices, side);
         }
         play('jingle');
+        break;
+      case 'goldenIncoming':
+        play('harp', { x: e.x });
         break;
       case 'dropIncoming':
         play('siren', { x: e.x });
