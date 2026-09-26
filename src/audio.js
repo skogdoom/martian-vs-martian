@@ -325,6 +325,15 @@ export const SOUNDS = {
     };
   },
 
+  /** Two low horn blasts as an ammo crate comes down. */
+  horn(ac, out, t) {
+    for (const [at, freq] of [[0, 196], [0.28, 262]]) {
+      const f = filter(ac, 'lowpass', 1100, 1);
+      f.connect(out);
+      tone(ac, f, t + at, { type: 'sawtooth', freq, dur: 0.26, peak: 0.2, attack: 0.02, hold: 0.12 });
+    }
+  },
+
   /** Rising harp glissando as a golden animal appears. */
   harp(ac, out, t) {
     const notes = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760, 2093];
@@ -408,7 +417,7 @@ export function handleEvents(events) {
       case 'hook':
         stopLift(e.side);
         liftVoices[e.side] = play('lift', { x: e.x, dur: HOOK.liftTime[e.kind] });
-        play({ cow: 'moo', lamb: 'baa', greenman: 'chirp' }[e.kind], { x: e.x });
+        if (e.kind !== 'crate') play({ cow: 'moo', lamb: 'baa', greenman: 'chirp' }[e.kind], { x: e.x });
         break;
       case 'interrupt':
         stopLift(e.side);
@@ -434,6 +443,13 @@ export function handleEvents(events) {
           stopVoice(laserVoices, side);
         }
         play('jingle');
+        break;
+      case 'crateIncoming':
+        play('horn', { x: e.x });
+        break;
+      case 'ammoCrate':
+        play('click', { x: e.x });
+        play('ding', { x: e.x });
         break;
       case 'goldenIncoming':
         play('harp', { x: e.x });

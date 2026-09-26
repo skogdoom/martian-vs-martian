@@ -43,7 +43,7 @@ export const COMBAT = {
   knockback: 900, // px/s horizontal impulse on hit
   clipSize: 3,
   reloadTime: 1.5,
-  ammoPerRound: 12,
+  ammoPerRound: 18,
   fireCooldown: 0.15,
 };
 
@@ -56,21 +56,22 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8 },
+  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8 },
 };
 
 export const ANIMALS = {
   cows: 3,
   lambs: 4,
-  wanderSpeed: { cow: 28, lamb: 40, greenman: 55 },
+  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
   gravity: 1400,
-  // The green man (power-up drop) walks and gets hooked like an animal.
+  // Drops (the green man, ammo crates) are hooked like animals.
   size: {
     cow: { w: 56, h: 38 },
     lamb: { w: 40, h: 28 },
     greenman: { w: 22, h: 30 },
+    crate: { w: 30, h: 26 },
   },
   value: { cow: 2, lamb: 1 },
   fieldMargin: 30, // keep field animals this far from the pen fences
@@ -95,6 +96,13 @@ export const POWERUP = {
   knockLoose: true,
   // steal: stolen animals delivered while active are worth this times full value
   stealMultiplier: 2,
+};
+
+// If a player runs out of ammo early, an ammo crate parachutes in.
+// Either player can grab it; it goes into the ship like the green man.
+export const AMMO_CRATE = {
+  before: 0.5, // only when someone runs out before this share of the round
+  refill: 9, // shots it gives (up to COMBAT.ammoPerRound)
 };
 
 // A rare comeback drop: a golden cow or lamb that evens the score if the

@@ -36,6 +36,11 @@ export function tryFire(w, free = false) {
   return true;
 }
 
+/** Add shots from an ammo crate, up to the per-round cap. */
+export function addAmmo(w, n) {
+  w.ammo = Math.min(COMBAT.ammoPerRound, w.ammo + n);
+}
+
 // Snap tiny float leftovers to zero so a timer of N steps takes exactly N steps.
 function countDown(t, dt) {
   const left = t - dt;
@@ -45,9 +50,10 @@ function countDown(t, dt) {
 /** Advance timers. Returns true on the step the clip is refilled. */
 export function updateWeapon(w, dt, free = false) {
   w.cooldown = countDown(w.cooldown, dt);
-  // Free shots don't outlive the power-up; an empty gun reloads when it starts.
+  // Free shots don't outlive the power-up. An empty clip reloads as soon as
+  // there is something to load (triple shot, or ammo from a crate).
   if (!free && w.clip > w.ammo) w.clip = w.ammo;
-  if (free && w.clip === 0 && w.reload === 0) w.reload = COMBAT.reloadTime;
+  if (w.clip === 0 && w.reload === 0 && (free || w.ammo > 0)) w.reload = COMBAT.reloadTime;
   if (w.reload === 0) return false;
   w.reload = countDown(w.reload, dt);
   if (w.reload > 0) return false;

@@ -32,7 +32,7 @@ function withGreenMan(power = 'speed') {
   w.saucers.red.y = w.saucers.blue.y = 100;
   spawnDrop(w, power);
   stepUntil(w, {}, 10, (e) => e.type === 'dropLanded');
-  return { w, g: w.drop };
+  return { w, g: w.drops.find((d) => d.kind === 'greenman') };
 }
 
 function hover(s, x, y = LOW) {
@@ -62,14 +62,14 @@ describe('the drop', () => {
       incoming ??= r.events.find((e) => e.type === 'dropIncoming') ? t : null;
     }
     expect(incoming).toBeCloseTo(ROUND.length * POWERUP.dropAt, 1);
-    expect(r.world.drop.power).toBe(r.drop);
+    expect(r.world.drops.find((d) => d.kind === 'greenman').power).toBe(r.drop);
   });
 
   it('never falls when not planned', () => {
     POWERUP.chance = 0;
     const r = createRound(1);
     while (r.phase !== 'over') stepRound(r, {}, STEP);
-    expect(r.world.drop).toBe(null);
+    expect(r.world.drops.some((d) => d.kind === 'greenman')).toBe(false);
   });
 
   it('parachutes into the field, then can be grabbed', () => {

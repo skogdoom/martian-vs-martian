@@ -1,4 +1,4 @@
-// The little green man, power-up icons and names.
+// Drops (the little green man, ammo crates), power-up icons and names.
 
 import { Container, Graphics } from 'pixi.js';
 import { label } from './text.js';
@@ -90,7 +90,7 @@ export function createGreenManView() {
   return {
     view,
     sync(d, t) {
-      view.visible = d !== null && d.state !== 'gone';
+      view.visible = d.state !== 'gone';
       if (!view.visible) return;
       if (!icon) {
         icon = createPowerIcon(d.power, 13);
@@ -113,6 +113,59 @@ export function createGreenManView() {
       if (d.state === 'descending') sign.position.set(0, -72);
       else sign.position.set(0, -58 + Math.sin(t * 4) * 3);
       glow.scale.set(1 + 0.15 * Math.sin(t * 6));
+    },
+  };
+}
+
+/** Wooden ammo crate with brass rounds on the front. */
+export function createCrateView() {
+  const view = new Container();
+  const chute = new Graphics();
+  drawParachute(chute);
+  chute.y = 12;
+  const glow = new Graphics().ellipse(0, -13, 30, 24).fill({ color: 0xffd76a, alpha: 0.18 });
+  const box = new Graphics();
+  box.rect(-15, -26, 30, 26).fill(0x9c6b3a);
+  for (const y of [-18, -9]) box.rect(-15, y, 30, 1.5).fill(0x6e4a26);
+  box.rect(-15, -26, 30, 26).stroke({ color: 0x5a3b1c, width: 2 });
+  for (const [x, y] of [[-15, -26], [15, -26], [-15, 0], [15, 0]]) box.rect(x - 3, y - 3, 6, 6).fill(0x8a8f99);
+  for (const x of [-7, 0, 7]) {
+    box.rect(x - 2.2, -19, 4.4, 9).fill(0xd9a93a);
+    box.circle(x, -19, 2.2).fill(0xe8c15a);
+  }
+  view.addChild(glow, chute, box);
+  view.visible = false;
+  const phase = Math.random() * 10;
+
+  return {
+    view,
+    sync(c, t) {
+      view.visible = c.state !== 'gone';
+      if (!view.visible) return;
+      view.position.set(c.x, c.y);
+      chute.visible = c.state === 'descending';
+      const swinging = c.state === 'descending' || c.state === 'lifting' || c.state === 'falling';
+      view.rotation = swinging ? Math.sin(t * 2.4 + phase) * 0.12 : 0;
+      glow.alpha = 0.6 + 0.4 * Math.sin(t * 4);
+    },
+  };
+}
+
+/** Draws every drop in the world, making views for new ones as they arrive. */
+export function createDropsView() {
+  const view = new Container();
+  const views = new Map();
+  return {
+    view,
+    sync(drops, t) {
+      for (const d of drops) {
+        if (!views.has(d)) {
+          const v = d.kind === 'crate' ? createCrateView() : createGreenManView();
+          views.set(d, v);
+          view.addChild(v.view);
+        }
+        views.get(d).sync(d, t);
+      }
     },
   };
 }

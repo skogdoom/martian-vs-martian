@@ -1,13 +1,13 @@
 // One round's simulation state. Pure: no rendering, no DOM.
 // `events` collects things that happened during the last step, for audio and particles.
 
-import { HOOK, POWERUP } from '../config.js';
+import { HOOK, POWERUP, AMMO_CRATE } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
-import { createWeapon, tryFire, updateWeapon } from './weapon.js';
+import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
 import { createHerd, updateAnimal } from './animal.js';
 import { createHook, updateHook, interruptHook, dropCarried } from './hook.js';
-import { createDrop, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
+import { createDrop, createCrate, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
 import { createGolden, settleGolden } from './golden.js';
@@ -25,7 +25,7 @@ export function createWorld(seed) {
     hooks: { red: createHook('red'), blue: createHook('blue') },
     animals: createHerd(),
     projectiles: [],
-    drop: null, // the green man, once he has dropped
+    drops: [], // things that parachuted in and climb aboard: the green man, ammo crates
     powers: createPowers(),
     lasers: { red: null, blue: null }, // active laser beams, for hit tests and drawing
     events: [],
@@ -42,8 +42,20 @@ export function spawnGolden(w, trailing) {
 
 /** Send in the green man carrying `power`. */
 export function spawnDrop(w, power) {
-  w.drop = createDrop(power, w.rng);
-  w.events.push({ type: 'dropIncoming', power, x: w.drop.x });
+  const d = createDrop(power, w.rng);
+  w.drops.push(d);
+  w.events.push({ type: 'dropIncoming', power, x: d.x });
+}
+
+/** Send in an ammo crate because `side` ran out. */
+export function spawnCrate(w, side) {
+  const c = createCrate(w.rng);
+  w.drops.push(c);
+  w.events.push({ type: 'crateIncoming', side, x: c.x });
+}
+
+export function crateInPlay(w) {
+  return w.drops.some((d) => d.kind === 'crate' && d.state !== 'gone');
 }
 
 const NO_INPUT = { x: 0, y: 0, shoot: false, fire: false };
@@ -145,17 +157,21 @@ export function stepWorld(w, inputs, dt) {
   }
   w.projectiles = w.projectiles.filter((p) => p.alive);
 
-  const targets = w.drop ? [...w.animals, w.drop] : w.animals;
+  const targets = w.drops.length ? [...w.animals, ...w.drops] : w.animals;
   for (const side of SIDES) {
     const stealBonus = hasPower(w.powers, side, 'steal');
     updateHook(w.hooks[side], w.saucers[side], targets, dt, w.events, { stealBonus });
   }
-  for (const e of w.events) if (e.type === 'powerup') grantPower(w.powers, e.side, e.power);
+  for (const e of w.events) {
+    if (e.type === 'powerup') grantPower(w.powers, e.side, e.power);
+    if (e.type === 'ammoCrate') addAmmo(w.weapons[e.side], AMMO_CRATE.refill);
+  }
 
-  if (w.drop && w.drop.state !== 'gone') {
-    const wasFalling = w.drop.state === 'falling';
-    if (updateAnimal(w.drop, dt, w.rng) === 'touchdown' || (wasFalling && w.drop.state !== 'falling')) {
-      w.events.push({ type: 'dropLanded', x: w.drop.x, y: w.drop.y });
+  for (const d of w.drops) {
+    if (d.state === 'gone') continue;
+    const wasFalling = d.state === 'falling';
+    if (updateAnimal(d, dt, w.rng) === 'touchdown' || (wasFalling && d.state !== 'falling')) {
+      w.events.push({ type: 'dropLanded', x: d.x, y: d.y });
     }
   }
 

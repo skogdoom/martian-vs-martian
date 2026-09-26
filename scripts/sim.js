@@ -78,12 +78,14 @@ function createBot(side, rng) {
     const p = scores(w.animals);
     const losing = p[side] < p[other(side)] && w.clock > config.ROUND.length / 2;
     const stealPenalty = hasPower(w.powers, side, 'steal') || losing ? -300 : 150;
-    const targets = w.drop ? [...w.animals, w.drop] : w.animals;
+    const targets = [...w.animals, ...w.drops];
+    const wantsAmmo = w.weapons[side].ammo <= 3;
     for (const a of targets) {
       const eligible = (a.state === 'field' || (a.state === 'penned' && a.pen !== side)) && a.hookedBy === null;
       if (!eligible) continue;
       const unpaidGold = a.golden && a.goldenValue == null;
-      const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (a.kind === 'greenman' || unpaidGold ? -400 : 0);
+      const prize = a.kind === 'greenman' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
+      const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (prize ? -400 : 0);
       if (d < bestD) {
         bestD = d;
         best = a;
@@ -188,6 +190,7 @@ function simulate(seed) {
     power: round.drop, // planned power-up, or null
     leadAtCheck: null, // |lead| at the golden check point
     golden: null, // { trailing, deliveredBy, diffBefore } when a golden animal dropped
+    crates: [], // { for: side that ran out, t, grabbedBy }
     grab: null, // { side, t, diff } diff = grabber's score minus the other's at the grab
     diffAtPivot: null, // red minus blue at PIVOT, for comeback baselines
     late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, idle: 0 }, // after PIVOT
@@ -244,7 +247,11 @@ function simulate(seed) {
         bumpedAt.red = bumpedAt.blue = t;
       }
       else if (e.type === 'dryFire') m.dry++;
-      else if (e.type === 'goldenIncoming') {
+      else if (e.type === 'crateIncoming') m.crates.push({ for: e.side, t, grabbedBy: null });
+      else if (e.type === 'ammoCrate') {
+        const c = m.crates.find((c) => !c.grabbedBy);
+        if (c) c.grabbedBy = e.side;
+      } else if (e.type === 'goldenIncoming') {
         const p = scores(w.animals);
         m.golden = { trailing: e.side, deliveredBy: null, diffBefore: p[e.side] - p[other(e.side)] };
       } else if (e.type === 'powerup') {
@@ -375,5 +382,20 @@ console.table(powerRows);
     '  when the trailer delivered it': `${rate(byTrailer, trailerWins)} / ${rate(byTrailer, trailerTies)}`,
     '  when the leader delivered it': `${rate(byLeader, trailerWins)} / ${rate(byLeader, trailerTies)}`,
     '  trailer delivered it, then the leader stole it back': rate(byTrailer, (r) => r.golden.stolenBack),
+  });
+}
+
+// ---- ammo crates --------------------------------------------------------
+
+{
+  const crates = results.flatMap((r) => r.crates);
+  console.log('\nAmmo crates');
+  console.table({
+    'rounds with a crate': pct((r) => r.crates.length > 0),
+    'crates per round (avg)': avg((r) => r.crates.length).toFixed(2),
+    'dropped at (median s)': median(crates.map((c) => c.t)),
+    'grabbed by the player who ran out': rate(crates, (c) => c.grabbedBy === c.for),
+    'grabbed by the other player': rate(crates, (c) => c.grabbedBy && c.grabbedBy !== c.for),
+    'not grabbed': rate(crates, (c) => !c.grabbedBy),
   });
 }

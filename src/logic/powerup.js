@@ -1,9 +1,17 @@
-// Power-ups. Some rounds, halfway through, a little green man parachutes into
-// the field carrying one power-up. He is hooked like an animal; when fully
-// lifted he vanishes into the ship and the power-up starts.
+// Drops from the sky that climb aboard when lifted, instead of being carried home:
+// - Power-ups. Some rounds, halfway through, a little green man parachutes
+//   into the field carrying one power-up. Fully lifted, he vanishes into the
+//   ship and the power-up starts.
+// - Ammo crates, when a player runs out of shots early (see round.js).
 
 import { WIDTH, SAUCER, POWERUP } from '../config.js';
 import { createAnimal, fieldBounds, parachute } from './animal.js';
+
+export function createCrate(rng) {
+  const c = createAnimal('crate', 'crate', dropSpot('crate', rng));
+  parachute(c);
+  return c;
+}
 
 /** Decide at the start of a round whether (and which) power-up will drop. */
 export function planDrop(rng) {

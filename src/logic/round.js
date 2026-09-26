@@ -1,7 +1,7 @@
 // A round: 3-2-1 countdown with everything frozen, then the timed play phase.
 
-import { ROUND, POWERUP, GOLDEN } from '../config.js';
-import { createWorld, stepWorld, spawnDrop, spawnGolden } from './world.js';
+import { ROUND, POWERUP, GOLDEN, AMMO_CRATE } from '../config.js';
+import { createWorld, stepWorld, spawnDrop, spawnGolden, spawnCrate, crateInPlay, SIDES } from './world.js';
 import { planDrop } from './powerup.js';
 import { shouldDropGolden } from './golden.js';
 import { scores } from './scoring.js';
@@ -13,6 +13,7 @@ export function createRound(seed) {
     drop: planDrop(world.rng), // power-up type due halfway through, or null
     dropped: false,
     goldenChecked: false,
+    crates: { red: false, blue: false }, // has this player's crate dropped yet
     phase: 'countdown', // 'countdown' | 'play' | 'over'
     countdown: ROUND.countdown,
     shown: null, // last countdown number announced
@@ -51,6 +52,15 @@ export function stepRound(r, inputs, dt) {
       r.dropped = true;
       spawnDrop(r.world, r.drop);
       r.events.push(r.world.events.at(-1));
+    }
+    // Out of ammo early: one crate per player per round, one at a time.
+    if (ROUND.length - r.timeLeft < ROUND.length * AMMO_CRATE.before) {
+      for (const side of SIDES) {
+        if (r.world.weapons[side].ammo > 0 || r.crates[side] || crateInPlay(r.world)) continue;
+        r.crates[side] = true;
+        spawnCrate(r.world, side);
+        r.events.push(r.world.events.at(-1));
+      }
     }
     if (!r.goldenChecked && ROUND.length - r.timeLeft >= ROUND.length * GOLDEN.checkAt) {
       r.goldenChecked = true;

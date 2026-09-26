@@ -82,6 +82,10 @@ export function createEffects() {
           burst(e.x, e.y - 15, { count: 36, colors: [POWER_COLOR, 0xffffff, 0xfff3a0], speed: [80, 320], life: [0.5, 1], size: [2, 4], gravity: -40, shape: 'star' });
           ring(e.x, e.y - 15, POWER_COLOR, 80, 0.5);
           break;
+        case 'ammoCrate':
+          burst(e.x, e.y - 15, { count: 24, colors: [0xd9a93a, 0xffd76a, 0xffffff], speed: [80, 260], life: [0.4, 0.8], size: [2, 4], gravity: -30, shape: 'star' });
+          ring(e.x, e.y - 15, 0xffd76a, 60, 0.4);
+          break;
         case 'knockLoose':
           burst(e.x, e.y, { count: 20, colors: [0xffffff, 0xff5ce1, COLORS[e.side]], speed: [80, 260], life: [0.3, 0.6], size: [2, 4], gravity: 200, shape: 'star' });
           ring(e.x, e.y, 0xff5ce1, 40);

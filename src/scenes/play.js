@@ -1,7 +1,7 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { Container } from 'pixi.js';
-import { WIDTH } from '../config.js';
+import { WIDTH, AMMO_CRATE } from '../config.js';
 import { playerInput } from '../input.js';
 import { handleEvents } from '../audio.js';
 import { SIDES } from '../logic/world.js';
@@ -14,7 +14,7 @@ import { createSaucerView } from '../render/saucerView.js';
 import { createProjectileView } from '../render/projectileView.js';
 import { createAnimalView, createBeamView } from '../render/animalView.js';
 import { createEffects } from '../render/effects.js';
-import { createGreenManView, POWER_NAMES, POWER_COLOR } from '../render/powerupView.js';
+import { createDropsView, POWER_NAMES, POWER_COLOR } from '../render/powerupView.js';
 import { COLORS } from '../render/backdrop.js';
 import { createHud } from '../render/hud.js';
 import { label } from '../render/text.js';
@@ -34,14 +34,14 @@ export function createPlayScene(game, session) {
   const animalView = createAnimalView(world.animals);
   const saucerViews = {};
   for (const side of SIDES) saucerViews[side] = createSaucerView(side);
-  const greenMan = createGreenManView();
+  const dropsView = createDropsView();
   const projectileView = createProjectileView();
   const effects = createEffects();
   stage.addChild(
     backdrop.view,
     beamView.view,
     animalView.view,
-    greenMan.view,
+    dropsView.view,
     ...SIDES.map((side) => saucerViews[side].view),
     projectileView.view,
     effects.view,
@@ -84,7 +84,7 @@ export function createPlayScene(game, session) {
         beam: Boolean(hook.target || hook.carrying),
       });
     }
-    greenMan.sync(world.drop, t);
+    dropsView.sync(world.drops, t);
     projectileView.sync(world, t);
     announcement.visible = announceLeft > 0;
     announcement.alpha = Math.min(1, announceLeft * 2);
@@ -131,6 +131,8 @@ export function createPlayScene(game, session) {
       for (const e of round.events) {
         if (e.type === 'dropIncoming') announce(`POWER-UP INCOMING: ${POWER_NAMES[e.power]}`, POWER_COLOR);
         if (e.type === 'powerup') announce(`${e.side.toUpperCase()} GETS ${POWER_NAMES[e.power]}!`, COLORS[e.side]);
+        if (e.type === 'crateIncoming') announce(`AMMO DROP! ${e.side.toUpperCase()} IS OUT OF SHOTS`, 0xffd76a);
+        if (e.type === 'ammoCrate') announce(`${e.side.toUpperCase()} GRABS +${AMMO_CRATE.refill} AMMO`, COLORS[e.side]);
         if (e.type === 'goldenIncoming') {
           announce(`GOLDEN ${e.kind.toUpperCase()}! ${e.side.toUpperCase()} CAN EVEN THE SCORE`, 0xffcf3a);
         }

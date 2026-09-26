@@ -15,6 +15,9 @@ export function createHook(side) {
   };
 }
 
+// Drops that climb aboard when fully lifted, and the event that follows.
+const BOARDS = { greenman: 'powerup', crate: 'ammoCrate' };
+
 /** Feet y of an animal hanging under the saucer. */
 export function attachY(s, a) {
   return s.y + SAUCER.halfHeight + 4 + ANIMALS.size[a.kind].h;
@@ -96,13 +99,13 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false } = {
     }
     h.progress = Math.min(1, h.progress + dt / HOOK.liftTime[a.kind]);
     a.y = h.startY + (attachY(s, a) - h.startY) * h.progress;
-    if (h.progress >= 1 && a.kind === 'greenman') {
-      // He climbs aboard: nothing to carry, the power-up starts.
+    if (h.progress >= 1 && BOARDS[a.kind]) {
+      // Climbs aboard: nothing to carry home.
       a.state = 'gone';
       a.hookedBy = null;
       h.target = null;
       h.progress = 0;
-      events.push({ type: 'powerup', side: s.side, power: a.power, x: a.x, y: a.y });
+      events.push({ type: BOARDS[a.kind], side: s.side, power: a.power, x: a.x, y: a.y });
     } else if (h.progress >= 1) {
       // Stolen from the opponent's pen during a steal power-up?
       a.bonus = stealBonus && a.pen !== null && a.pen !== s.side;

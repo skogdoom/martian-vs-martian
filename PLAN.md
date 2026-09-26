@@ -42,7 +42,8 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Projectiles travel horizontally at the shooter's height, always toward the opponent's side (the sign of the x difference). Shots can miss.
 - A hit applies a strong horizontal knockback to the opponent.
 - Each clip holds 3 shots and reloads automatically in 1.5 s when empty.
-- Each player has 12 shots per round. The cap resets every round.
+- Each player has 18 shots per round. The cap resets every round.
+- **Ammo crate:** if a player runs out before halfway (45 s), a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +9 shots (up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
 
 ### Hook
 - Lowers automatically when the saucer is nearly still above an animal and within hook reach. The reach is about 200 px, so the saucer must fly low to reach the ground.
@@ -130,7 +131,7 @@ tests/                 Vitest unit tests for the logic
 | Round length      | 90 s           |
 | Clip size         | 3              |
 | Reload time       | 1.5 s          |
-| Ammo per round    | 12             |
+| Ammo per round    | 18             |
 | Hook reach        | 200 px         |
 | Lamb lift time    | 1.0 s          |
 | Cow lift time     | 1.6 s          |
@@ -173,7 +174,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Simulated pass done: `npm run sim` plays bot rounds with the real logic and reports pickups, interrupts, steals, ammo, bumps, lead changes and ties. Try values with e.g. `npm run sim -- 500 COMBAT.ammoPerRound=15`.
     - Pickups broke in 40% of lifts when the player let go of the keys a moment after the beam grabbed. The beam now makes a lifting saucer heavier (`HOOK.beamAccel`, `HOOK.beamDrag`): 1% now, and flying away on purpose still breaks it in about 0.4 s.
     - Saucers pressed together fired ~24 bump events per round, mostly repeats. A bump now re-arms only after they separate by `BUMP.rearm` px: ~7 per round.
-  - Still to do: a human playtest. Open question: `COMBAT.ammoPerRound`. With 12, bots are out of shots by ~17 s, before the stealing phase (the field is empty by ~23 s). 15 lasts to ~23 s, 18 to ~30 s, at the cost of more pickups shot down (6.7 → 8.5 → 10 per round). Ties are 11–15% of rounds.
+  - Still to do: a human playtest. (Resolved later: ammo raised to 18, plus ammo crates.) Earlier question: `COMBAT.ammoPerRound`. With 12, bots are out of shots by ~17 s, before the stealing phase (the field is empty by ~23 s). 15 lasts to ~23 s, 18 to ~30 s, at the cost of more pickups shot down (6.7 → 8.5 → 10 per round). Ties are 11–15% of rounds.
 - [x] **Power-ups** (added after milestone 8)
   - Green man drop, the four power-ups, HUD timer, announcements, art and sound.
   - Unit tests for the drop, each power-up, knock-loose and the steal bonus.
@@ -182,5 +183,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Golden drop, value rules, art (gold tint, glow, parachute, sparkles), announcements and sound.
   - Unit tests for when it drops and what it is worth.
   - Simulator: with a 3-point lead at 60 s in 9% of rounds, it drops in about 4.5%. When it drops, the leader delivers it first 59% of the time. When the trailing player delivers it, they go on to win 19% and tie 22% of those rounds; trailing by 3+ without it wins about 1%.
+- [x] **More ammo and ammo crates**
+  - Ammo per round 12 → 18. An ammo crate drops for a player who runs out before 45 s.
+  - Crate art, announcements and sound. Unit tests for when it drops, the refill and who can take it.
+  - Simulator (trigger-happy bots): shots run out at ~28 s instead of ~16 s; a crate drops in almost every round, about 27 s in. Players who shoot less will see fewer.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.
