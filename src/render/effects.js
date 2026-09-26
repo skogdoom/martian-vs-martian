@@ -78,7 +78,7 @@ export function createEffects() {
           if (e.delivered) {
             burst(e.x, e.y - 10, { count: 44, colors: [COLORS[e.pen], 0xffd76a, 0xffffff], up: 0.7, speed: [200, 460], life: [0.8, 1.3], size: [3, 5.5], gravity: 650, shape: 'confetti' });
             ring(e.x, e.y - 14, 0xffd76a, 70, 0.45);
-            popup(`+${e.value}`, e.x, e.y - 60, e.value < (e.kind === 'cow' ? 2 : 1) ? 0xcfd6ff : 0xffd76a);
+            popup(`+${e.value}`, e.x, e.y - 60, e.stolen ? 0xcfd6ff : 0xffd76a);
           } else {
             burst(e.x, e.y, { count: 10, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
           }

@@ -3,6 +3,7 @@
 import { Container } from 'pixi.js';
 import { WIDTH } from '../config.js';
 import { playerInput } from '../input.js';
+import { handleEvents } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
@@ -107,6 +108,7 @@ export function createPlayScene(game, session) {
       t += dt;
       stepRound(round, { red: playerInput('red'), blue: playerInput('blue') }, dt);
       effects.handle(round.events);
+      handleEvents(round.events);
       effects.update(dt);
       if (round.events.some((e) => e.type === 'go')) goFlash = 0.7;
       goFlash = Math.max(0, goFlash - dt);

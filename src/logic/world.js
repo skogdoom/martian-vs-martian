@@ -81,7 +81,8 @@ export function stepWorld(w, inputs, dt) {
       const delivered = a.delivering;
       a.delivering = false;
       const value = pen ? animalValue(a, pen) : 0;
-      w.events.push({ type: 'land', kind: a.kind, pen, delivered, value, x: a.x, y: a.y });
+      const stolen = pen !== null && a.owner !== pen;
+      w.events.push({ type: 'land', kind: a.kind, pen, delivered, value, stolen, x: a.x, y: a.y });
     }
   }
 }

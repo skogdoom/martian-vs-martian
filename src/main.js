@@ -1,8 +1,10 @@
 // Boot, scaling, fixed-step loop and scene manager.
 
 import { Application, Container, Graphics } from 'pixi.js';
-import { WIDTH, HEIGHT, STEP } from './config.js';
-import { endStep } from './input.js';
+import { WIDTH, HEIGHT, STEP, MUTE_KEY } from './config.js';
+import { endStep, onKey } from './input.js';
+import { toggleMute } from './audio.js';
+import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
 import { createTally } from './logic/tally.js';
 
@@ -45,13 +47,22 @@ const game = {
       old.destroy?.();
     }
     scene = factory(game, ...args);
-    root.addChild(scene.view);
+    root.addChildAt(scene.view, 1); // above the mask, below the mute label
     if (old && !old.view.parent) old.view.destroy({ children: true });
   },
 };
 
+// Sound toggle, with a small reminder while muted. It sits above every scene.
+const mutedLabel = label('SOUND OFF  (M)', { size: 13, color: 0xcfd6ff, anchorX: 0.5, anchorY: 1 });
+mutedLabel.position.set(WIDTH / 2, HEIGHT - 10);
+mutedLabel.visible = false;
+onKey((code) => {
+  if (code === MUTE_KEY) mutedLabel.visible = toggleMute();
+});
+
 // Lives for the page: reloading resets the tally.
 const session = { tally: createTally(), match: null };
+root.addChild(mutedLabel);
 game.go(createTitleScene, session);
 
 // Fixed-step loop.

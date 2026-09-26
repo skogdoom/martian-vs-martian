@@ -46,6 +46,10 @@ export function createTitleScene(game, session) {
   const blueKeys = label('BLUE\nmove  ARROWS\nshoot ENTER', { size: 20, color: COLORS.blue, anchorX: 0.5 });
   blueKeys.position.set(cx + 220, 320);
 
+  const hint = label('M  toggles sound', { size: 14, color: 0x8a93c0, anchorX: 0.5 });
+  hint.position.set(cx, 530);
+  view.addChild(hint);
+
   const prompt = label('PRESS ANY KEY', { size: 28, color: 0xffffff, bold: true, anchorX: 0.5 });
   prompt.position.set(cx, 480);
 

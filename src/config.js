@@ -19,6 +19,8 @@ export const KEYS = {
   blue: { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight', shoot: 'Enter' },
 };
 
+export const MUTE_KEY = 'KeyM';
+
 export const SAUCER = {
   radius: 34, // collision radius
   halfHeight: 14, // distance from centre to underside

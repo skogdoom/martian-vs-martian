@@ -2,7 +2,7 @@
 // `pressed` holds keys that went down since the last `endStep()`,
 // so a tap between two fixed steps is never lost.
 
-import { KEYS } from './config.js';
+import { KEYS, MUTE_KEY } from './config.js';
 
 const down = new Set();
 const pressed = new Set();
@@ -32,8 +32,10 @@ export function wasPressed(code) {
   return pressed.has(code);
 }
 
+/** Any key except the mute toggle, so muting never skips a screen. */
 export function anyPressed() {
-  return pressed.size > 0;
+  for (const code of pressed) if (code !== MUTE_KEY) return true;
+  return false;
 }
 
 export function endStep() {
