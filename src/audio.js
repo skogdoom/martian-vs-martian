@@ -490,6 +490,10 @@ export function handleEvents(events) {
       case 'splat':
         play('splat', { x: e.x });
         break;
+      case 'spooked':
+        play(e.kind === 'cow' ? 'moo' : 'baa', { x: e.x });
+        play('boing', { x: e.x });
+        break;
       case 'extinguish':
         play('fizz', { x: e.x });
         break;

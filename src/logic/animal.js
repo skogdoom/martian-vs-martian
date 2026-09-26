@@ -16,7 +16,7 @@
 // `y` is the animal's feet. `pen` is the pen it counts toward, `owner` the
 // player who first delivered it.
 
-import { ARENA, ANIMALS, POWERUP, SPLAT } from '../config.js';
+import { WIDTH, ARENA, ANIMALS, POWERUP, SPLAT } from '../config.js';
 
 export function penAt(x) {
   for (const [side, pen] of Object.entries(ARENA.pens)) {
@@ -52,7 +52,7 @@ export function createAnimal(id, kind, x) {
     pen: null,
     owner: null,
     hookedBy: null,
-    delivering: false, // falling from a delivery rather than a dropped pickup
+    droppedBy: null, // the player who let go of it (a delivery if it lands in their pen)
     fallFrom: 0, // y it started falling from
     safeFall: false, // thrown by a bomb: lands safely whatever the height
     onFire: false, // cosmetic: set by a bomb blast, put out when picked up
@@ -118,8 +118,14 @@ export function updateAnimal(a, dt, rng) {
 
   if (a.state === 'falling') {
     a.vy += ANIMALS.gravity * dt;
-    a.x += a.vx * dt; // sideways only when thrown out of a pen by a bomb
+    a.x += a.vx * dt; // thrown from a moving saucer, or out of a pen by a bomb
     a.y += a.vy * dt;
+    a.fallFrom = Math.min(a.fallFrom, a.y); // a throw upward falls from its highest point
+    const half = ANIMALS.size[a.kind].w / 2;
+    if (a.x < half || a.x > WIDTH - half) {
+      a.x = Math.max(half, Math.min(WIDTH - half, a.x));
+      a.vx = 0; // hit the wall
+    }
     if (a.y >= ARENA.groundY) return land(a);
   }
   return null;
@@ -146,6 +152,7 @@ function land(a) {
   }
   const side = penAt(a.x);
   if (side) {
+    a.x = clampToPen(a.x, a.kind, side);
     a.state = 'penned';
     a.pen = side;
     a.owner ??= side;
@@ -157,10 +164,14 @@ function land(a) {
   return side;
 }
 
-export function drop(a, delivering = false) {
+/** Let `a` fall from where it is. `by` is the player letting go on purpose
+ * (null for a pickup broken off or knocked loose); `vx`, `vy` its starting
+ * velocity, e.g. the saucer's when thrown. */
+export function drop(a, { by = null, vx = 0, vy = 0 } = {}) {
   a.state = 'falling';
   a.hookedBy = null;
-  a.delivering = delivering;
-  a.vy = 0;
+  a.droppedBy = by;
+  a.vx = vx;
+  a.vy = vy;
   a.fallFrom = a.y;
 }

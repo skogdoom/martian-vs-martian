@@ -195,9 +195,10 @@ describe('delivery and stealing', () => {
     expect(a.owner).toBe('red');
     expect(scores(w.animals)).toEqual({ red: 2, blue: 0 });
 
-    // Penned animals stay put.
+    // Penned animals stay put (with the saucer gone, so they aren't spooked).
     const x = a.x;
-    run(w, {}, 3);
+    red.x = 640;
+    run(w, {}, 5);
     expect(a.x).toBe(x);
   });
 

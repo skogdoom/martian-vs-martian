@@ -130,6 +130,10 @@ export function createBot(side, rng, skill) {
           if (a) {
             tx = a.x;
             ty = Math.abs(a.x - s.x) > 120 ? 380 : LOW;
+          } else {
+            // Nothing to fetch: wait mid-field, not over our own pen (that spooks the animals).
+            tx = 640;
+            ty = 380;
           }
         }
       }

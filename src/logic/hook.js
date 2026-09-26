@@ -65,26 +65,30 @@ export function interruptHook(h) {
   return true;
 }
 
-/** Knock a carried animal loose (a hit); it falls where it is. The lower one
- * goes first if there are two. Returns it, or null. */
-export function dropCarried(h) {
+/** Knock a carried animal loose (a hit): it flies off with the saucer's
+ * speed. The lower one goes first if there are two. Returns it, or null. */
+export function dropCarried(h, s) {
   const a = h.second ?? h.carrying;
   if (!a) return null;
+  a.x = s.x;
+  a.y = slotY(h, s, a);
   a.bonus = false;
-  drop(a);
+  drop(a, { vx: s.vx, vy: s.vy });
   if (a === h.second) h.second = null;
   else h.carrying = null;
   return a;
 }
 
-/** Let go of the lowest carried animal by hand (the shoot key). Over your own
- * pen it counts as a delivery; anywhere else it just falls. Returns it, or null. */
+/** Let go of the lowest carried animal by hand (the shoot key). It keeps the
+ * saucer's speed, so it can be thrown; landing in your own pen is a delivery.
+ * Returns it, or null. */
 export function releaseCarried(h, s) {
   const a = h.second ?? h.carrying;
   if (!a) return null;
-  const home = isOverOwnPen(s);
-  if (home) a.x = clampToPen(s.x, a.kind, s.side);
-  drop(a, home);
+  // Let go from exactly under the saucer, where it is this step.
+  a.x = s.x;
+  a.y = slotY(h, s, a);
+  drop(a, { by: s.side, vx: s.vx, vy: s.vy });
   if (a === h.second) h.second = null;
   else h.carrying = null;
   return a;
@@ -115,7 +119,7 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin
       for (const [a, dx] of [[h.carrying, -10], [h.second, 12]]) {
         if (!a) continue;
         a.x = clampToPen(s.x + (h.second ? dx : 0), a.kind, s.side);
-        drop(a, true);
+        drop(a, { by: s.side });
         events.push({ type: 'deliver', side: s.side, kind: a.kind, x: a.x, y: a.y });
       }
       h.carrying = h.second = null;

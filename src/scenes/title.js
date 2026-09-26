@@ -52,6 +52,13 @@ export function createTitleScene(game, session) {
     anchorX: 0.5,
   });
   powerHint.position.set(cx, 243);
+  const campHint = label('Hover over your own pen too long and your animals get spooked out.', {
+    size: 14,
+    color: 0x8a93c0,
+    anchorX: 0.5,
+  });
+  campHint.position.set(cx, 266);
+  view.addChild(campHint);
 
   const redKeys = label('', { size: 20, color: COLORS.red, anchorX: 0.5 });
   redKeys.position.set(cx - 220, 290);

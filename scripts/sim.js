@@ -99,6 +99,8 @@ function simulate(seed) {
     golden: null, // { trailing, deliveredBy, diffBefore } when a golden animal dropped
     crates: [], // { for: side that ran out, t, grabbedBy }
     splats: 0,
+    spooked: 0,
+    fieldRestocks: 0,
     grabs: [], // { side, t, power, diff, swing }: diff = grabber's lead at the grab, swing = lead gained over the power-up's duration
     diffAtPivot: null, // red minus blue at PIVOT, for comeback baselines
     late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, idle: 0 }, // after PIVOT
@@ -154,6 +156,8 @@ function simulate(seed) {
       }
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat') m.splats++;
+      else if (e.type === 'spooked') m.spooked++;
+      else if (e.type === 'restock' && e.reason === 'emptyField') m.fieldRestocks++;
       else if (e.type === 'crateIncoming') m.crates.push({ for: e.side, t, grabbedBy: null });
       else if (e.type === 'ammoCrate') {
         const c = m.crates.find((c) => !c.grabbedBy);
@@ -190,7 +194,7 @@ function simulate(seed) {
     }
   }
   const points = scores(w.animals);
-  return { ...m, points, result: roundWinner(points), inPens: w.animals.filter((a) => a.pen).length };
+  return { ...m, points, result: roundWinner(points), inPens: w.animals.filter((a) => a.pen).length, herd: w.animals.length };
 }
 
 const results = [];
@@ -215,7 +219,9 @@ console.table({
   deliveries: avg((r) => r.deliveries).toFixed(1),
   '  of which stolen': avg((r) => r.steals).toFixed(1),
   'animals splatted (knocked loose too high)': avg((r) => r.splats).toFixed(2),
-  'animals in pens at the end': `${avg((r) => r.inPens).toFixed(1)} of ${ANIMALS.cows + ANIMALS.lambs}`,
+  'animals spooked out of a pen': avg((r) => r.spooked).toFixed(2),
+  'field restocks (empty for too long)': avg((r) => r.fieldRestocks).toFixed(2),
+  'animals in pens at the end': `${avg((r) => r.inPens).toFixed(1)} (herd of ${ANIMALS.cows + ANIMALS.lambs}, ${avg((r) => r.herd).toFixed(1)} with restocks)`,
   'first delivery (median s)': median(results.map((r) => r.firstDelivery)),
   'field emptied (median s)': `${median(results.map((r) => r.fieldEmptyAt))} (${pct((r) => r.fieldEmptyAt !== null)} of rounds)`,
   'shots per player': (avg((r) => r.shots) / 2).toFixed(1),

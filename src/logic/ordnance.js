@@ -77,17 +77,18 @@ export function updateBomb(b, dt) {
   return true;
 }
 
-/** Throw `a` out of its pen in an arc that lands somewhere in the field. */
-function bounceOut(a, rng) {
+/** Throw `a` out of its pen in an arc that lands safely somewhere in the
+ * field. A bomb also sets it on fire (cosmetic). */
+export function bounceOut(a, rng, { fire = true } = {}) {
   spendGolden(a);
   a.bonus = false;
   a.pen = null;
   a.hookedBy = null;
-  a.delivering = false;
+  a.droppedBy = null;
   a.state = 'falling';
   a.fallFrom = a.y;
   a.safeFall = true;
-  a.onFire = true; // cosmetic only: it burns until a beam picks it up
+  a.onFire = fire; // cosmetic only: it burns until a beam picks it up
   const { min, max } = fieldBounds(a.kind);
   const tx = min + rng() * (max - min);
   const [lo, hi] = POWERUP.bombLaunch;

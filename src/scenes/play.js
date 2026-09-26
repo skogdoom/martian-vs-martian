@@ -79,7 +79,7 @@ export function createPlayScene(game, session) {
   function render() {
     backdrop.tick(t);
     beamView.sync(world, t);
-    animalView.sync(t);
+    animalView.sync(t, world.spook);
     for (const side of SIDES) {
       const s = world.saucers[side];
       const other = world.saucers[side === 'red' ? 'blue' : 'red'];
@@ -155,6 +155,7 @@ export function createPlayScene(game, session) {
           announce(`${name(e.side)} ${got}`, COLORS[e.side]);
         }
         if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
+        if (e.type === 'spooked') announce(`${name(e.side)}'S ANIMALS ARE SPOOKED!`, COLORS[e.side]);
         if (e.type === 'bombBlast') {
           if (!e.pen) announce(`${name(e.side)}'S BOMB MISSED`, 0xcfd6ff);
           else if (e.pen === e.side) announce(`${name(e.side)} BOMBED ITS OWN PEN!`, COLORS[e.side]);

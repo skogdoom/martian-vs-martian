@@ -101,6 +101,9 @@ export function createEffects() {
         case 'rocketLaunch':
           burst(e.x, e.y, { count: 12, colors: [0xcfd6ff, 0x8a93c0], speed: [40, 140], life: [0.3, 0.6], size: [3, 5], gravity: -40 });
           break;
+        case 'spooked':
+          burst(e.x, e.y, { count: 12, colors: [0x7a5a3a, 0x9c7a52, 0xffffff], up: 1.2, speed: [40, 140], life: [0.3, 0.6], gravity: 300 });
+          break;
         case 'extinguish':
           // Put out: a puff of steam.
           burst(e.x, e.y, { count: 22, colors: [0xffffff, 0xdfe6ee, 0xb8c0cc], up: 0.9, speed: [40, 160], life: [0.5, 1.1], size: [4, 8], gravity: -90 });

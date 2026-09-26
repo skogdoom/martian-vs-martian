@@ -246,6 +246,7 @@ describe('steal power-up', () => {
 
   it('keeps the bonus after the power-up ends, and loses it when lifted out again', () => {
     const { w, cow } = stealCow(true);
+    w.saucers.red.x = 640; // off its pen, or the animals get spooked out
     run(w, {}, POWERUP.duration + 1);
     expect(scores(w.animals).red).toBe(4);
     hover(w.saucers.red, 600, 100);

@@ -76,7 +76,10 @@ describe('golden animal drop', () => {
       stepRound(r, {}, STEP);
       if (r.phase !== 'play') continue;
       t += STEP;
-      if (t < 1) pen(r.world, 'blue', 2); // blue leads 4-0 all along
+      if (t < 1) {
+        pen(r.world, 'blue', 2); // blue leads 4-0 all along
+        r.world.saucers.blue.x = 640; // off its pen, so nothing gets spooked out
+      }
       incoming = r.events.find((e) => e.type === 'goldenIncoming');
     }
     expect(incoming.side).toBe('red');

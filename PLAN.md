@@ -54,10 +54,11 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - A player can't hook animals in their own pen.
 
 ### Delivery
-- A carried animal is released automatically when the saucer is over its own pen and low enough for a safe landing (a fall of at most 220 px). Higher up, it stays on until you come down.
-- **Dropping by hand:** while carrying, the shoot key lets go of the (lowest) animal instead of firing. Over your own pen it counts as a delivery.
-- **Restock:** if every cow and lamb has splatted, 3 new ones (random kinds) parachute into the field (`RESTOCK` in `config.js`).
-- **Splat:** a cow or lamb that falls more than 220 px (dropped by hand, knocked loose by a shot, or dropped mid-lift) bursts in a cartoon cloud of blood and is out of the round: no points for anyone. Animals thrown out of a pen by a bomb land safely. `SPLAT.height` in `config.js`.
+- A carried animal is released automatically when the saucer is over its own pen and low enough for a safe landing (a fall of at most 260 px). Higher up, it stays on until you come down.
+- **Dropping and throwing by hand:** while carrying, the shoot key lets go of the (lowest) animal instead of firing. It keeps the saucer's speed, so it can be lobbed; whether it's a delivery is decided by where it lands (your own pen). Animals knocked loose by a hit also fly off with the saucer's speed from before the hit.
+- **Restock:** if every cow and lamb has splatted, 3 new ones (random kinds) parachute into the field; if the field has stood empty for 10 s, 2 do (`RESTOCK` in `config.js`).
+- **Spooked pens:** a saucer hovering over its own pen for more than 3 s spooks the animals in it: they get nervous (a "!"), then one jumps the fence into the field every 2 s, landing safely (`SPOOK` in `config.js`). Stops pen camping.
+- **Splat:** a cow or lamb that falls more than 260 px (measured from the top of its arc) (dropped by hand, knocked loose by a shot, or dropped mid-lift) bursts in a cartoon cloud of blood and is out of the round: no points for anyone. Animals thrown out of a pen by a bomb land safely. `SPLAT.height` in `config.js`.
 - The animal drops into the pen, stays there and stops wandering.
 
 ### Animals
@@ -216,5 +217,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - About 1 in 5 power-up drops is a mystery package; 3 fresh animals parachute in when the whole herd has splatted.
   - A drop within reach of the beam is grabbed before a nearer animal.
   - Fixed: hooking a package crashed the game loop (no voice for it in the sound code); unknown sounds are now ignored.
+- [x] **Against pen camping; throwing; higher splat height**
+  - Field restock after 10 s empty; spooked pens after 3 s of hovering; the CPU waits mid-field.
+  - Throwing with the saucer's momentum; splat height 220 → 260 px.
+  - Simulator: lead changes 2.75 → 3.1 per round; about 1.6 field restocks and 0.05 splats per round.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

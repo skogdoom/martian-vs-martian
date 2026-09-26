@@ -1,16 +1,16 @@
 // One round's simulation state. Pure: no rendering, no DOM.
 // `events` collects things that happened during the last step, for audio and particles.
 
-import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK } from '../config.js';
+import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
 import { createHerd, updateAnimal, fallHeight, createAnimal, parachute } from './animal.js';
-import { createHook, updateHook, interruptHook, dropCarried, releaseCarried } from './hook.js';
+import { createHook, updateHook, interruptHook, dropCarried, releaseCarried, isOverOwnPen } from './hook.js';
 import { createDrop, createCrate, dropSpot, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
-import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen } from './ordnance.js';
+import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen, bounceOut } from './ordnance.js';
 import { createGolden, settleGolden } from './golden.js';
 
 export const SIDES = ['red', 'blue'];
@@ -31,6 +31,9 @@ export function createWorld(seed) {
     drops: [], // things that parachuted in and climb aboard: the green man, ammo crates
     powers: createPowers(),
     lasers: { red: null, blue: null }, // active laser beams, for hit tests and drawing
+    fieldEmptyFor: 0, // seconds the field has had no animals in it
+    spook: { red: 0, blue: 0 }, // seconds each saucer has hovered over its own pen
+    spookNext: { red: 0, blue: 0 }, // countdown to the next animal jumping out
     events: [],
     rng: createRng(seed),
   };
@@ -50,17 +53,51 @@ export function spawnDrop(w, power, mystery = false) {
   w.events.push({ type: 'dropIncoming', power: mystery ? null : power, mystery, x: d.x });
 }
 
-/** Every animal splatted? Parachute in fresh ones. */
-function restock(w) {
-  const alive = w.animals.filter((a) => a.state !== 'gone').length;
-  if (alive > RESTOCK.aliveAtMost) return;
-  for (let i = 0; i < RESTOCK.count; i++) {
+function parachuteAnimals(w, count, reason) {
+  for (let i = 0; i < count; i++) {
     const kind = w.rng() < 0.5 ? 'cow' : 'lamb';
     const a = createAnimal(`restock-${w.animals.length}`, kind, dropSpot(kind, w.rng));
     parachute(a);
     w.animals.push(a);
   }
-  w.events.push({ type: 'restock', count: RESTOCK.count });
+  w.events.push({ type: 'restock', count, reason });
+}
+
+/** Fresh animals when every one has splatted, or the field has stood empty too long. */
+function restock(w, dt) {
+  const alive = w.animals.filter((a) => a.state !== 'gone').length;
+  if (alive <= RESTOCK.aliveAtMost) {
+    parachuteAnimals(w, RESTOCK.count, 'dead');
+    return;
+  }
+  const inField = w.animals.some((a) => a.state === 'field' || a.state === 'descending');
+  w.fieldEmptyFor = inField ? 0 : w.fieldEmptyFor + dt;
+  if (w.fieldEmptyFor >= RESTOCK.emptyFieldAfter) {
+    w.fieldEmptyFor = 0;
+    parachuteAnimals(w, RESTOCK.emptyFieldCount, 'emptyField');
+  }
+}
+
+/** Hovering over your own pen too long spooks the animals in it out into the field. */
+function spookPens(w, dt) {
+  for (const side of SIDES) {
+    if (!isOverOwnPen(w.saucers[side])) {
+      w.spook[side] = 0;
+      w.spookNext[side] = 0;
+      continue;
+    }
+    w.spook[side] += dt;
+    if (w.spook[side] < SPOOK.after) continue;
+    w.spookNext[side] -= dt;
+    if (w.spookNext[side] > 0) continue;
+    w.spookNext[side] = SPOOK.every;
+    const penned = w.animals.filter((a) => a.state === 'penned' && a.pen === side);
+    if (!penned.length) continue;
+    const a = penned[Math.floor(w.rng() * penned.length)];
+    const from = { x: a.x, y: a.y };
+    bounceOut(a, w.rng, { fire: false });
+    w.events.push({ type: 'spooked', side, kind: a.kind, ...from });
+  }
 }
 
 /** Send in an ammo crate because `side` ran out. */
@@ -82,10 +119,11 @@ function interrupt(w, side, reason) {
   if (interruptHook(hook)) w.events.push({ type: 'interrupt', side, reason, x: a.x, y: a.y });
 }
 
-/** A hit knocks a carried animal loose; it falls where it is. */
+/** A hit knocks a carried animal loose; it flies off with the saucer's
+ * speed from just before the hit. */
 function knockLoose(w, targetSide) {
   if (!COMBAT.knockLoose) return;
-  const a = dropCarried(w.hooks[targetSide]);
+  const a = dropCarried(w.hooks[targetSide], w.saucers[targetSide]);
   if (a) w.events.push({ type: 'knockLoose', side: targetSide, kind: a.kind, x: a.x, y: a.y });
 }
 
@@ -187,10 +225,10 @@ export function stepWorld(w, inputs, dt) {
   for (const p of w.projectiles) {
     const target = w.saucers[opponent(p.owner)];
     if (updateProjectile(p, target, dt)) {
+      knockLoose(w, target.side); // before the knockback: it keeps the saucer's own speed
       applyKnockback(target, p.dir);
       w.events.push({ type: 'hit', side: target.side, x: p.x, y: p.y, dir: p.dir });
       interrupt(w, target.side, 'shot');
-      knockLoose(w, target.side);
     }
   }
   w.projectiles = w.projectiles.filter((p) => p.alive);
@@ -199,11 +237,11 @@ export function stepWorld(w, inputs, dt) {
     const target = w.saucers[opponent(r.owner)];
     const result = updateRocket(r, target, dt);
     if (result === 'hit') {
+      knockLoose(w, target.side);
       rocketKnockback(r, target);
       target.stun = POWERUP.rocketStun;
       w.events.push({ type: 'hit', side: target.side, x: r.x, y: r.y, dir: Math.sign(Math.cos(r.angle)) || 1, rocket: true });
       interrupt(w, target.side, 'rocket');
-      knockLoose(w, target.side);
     }
     if (result) w.events.push({ type: 'explosion', x: r.x, y: r.y, big: result === 'hit' });
   }
@@ -243,11 +281,12 @@ export function stepWorld(w, inputs, dt) {
     if (result === 'touchdown') w.events.push({ type: 'dropLanded', x: a.x, y: a.y });
     if (result === 'splat') {
       w.events.push({ type: 'splat', id: a.id, kind: a.kind, golden: Boolean(a.golden), x: a.x, y: a.y });
-      a.delivering = false;
+      a.droppedBy = null;
     } else if (wasFalling && a.state !== 'falling') {
       const pen = result;
-      const delivered = a.delivering;
-      a.delivering = false;
+      // A delivery: let go on purpose and landed in the pen of whoever let go.
+      const delivered = a.droppedBy !== null && pen === a.droppedBy;
+      a.droppedBy = null;
       if (delivered && a.golden) settleGolden(w.animals, a, pen);
       const value = pen ? animalValue(a, pen) : 0;
       const stolen = pen !== null && a.owner !== pen;
@@ -256,5 +295,6 @@ export function stepWorld(w, inputs, dt) {
     }
   }
 
-  restock(w);
+  spookPens(w, dt);
+  restock(w, dt);
 }

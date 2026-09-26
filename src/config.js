@@ -122,13 +122,24 @@ export const AMMO_CRATE = {
 // thrown out of a pen by a bomb land safely. Over your own pen, a carried
 // animal is released automatically only when it would fall no further than this.
 export const SPLAT = {
-  height: 220, // px, from the animal's feet to the ground
+  height: 260, // px, from the animal's feet to the ground
 };
 
-// If every cow and lamb has splatted, new ones parachute into the field.
+// New animals parachute into the field when every cow and lamb has splatted,
+// or when the field has stood empty for a while (so nobody can just sit on a lead).
 export const RESTOCK = {
   aliveAtMost: 0, // restock when this many (or fewer) animals are left alive
   count: 3,
+  emptyFieldAfter: 10, // seconds the field may stand empty
+  emptyFieldCount: 2,
+};
+
+// A saucer hovering over its own pen too long spooks the animals in it:
+// they jump the fence into the field, one at a time. Stops pen camping.
+export const SPOOK = {
+  after: 3, // seconds over your own pen before they panic
+  every: 2, // seconds between animals jumping out
+  warn: 1.5, // seconds over the pen before they look nervous
 };
 
 // A rare comeback drop: a golden cow or lamb that evens the score if the

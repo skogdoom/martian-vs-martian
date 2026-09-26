@@ -3,10 +3,11 @@
 // legs are separate so they can walk, and kick when lifted.
 
 import { Container, Graphics } from 'pixi.js';
-import { SAUCER, ANIMALS } from '../config.js';
+import { SAUCER, ANIMALS, SPOOK } from '../config.js';
 import { SIDES } from '../logic/world.js';
 import { COLORS } from './backdrop.js';
 import { drawParachute } from './powerupView.js';
+import { label } from './text.js';
 
 const GOLD = 0xffcf3a;
 
@@ -87,6 +88,10 @@ function createAnimalSprite(a) {
   chute.visible = false;
   const collar = new Graphics();
   // Gold star: stolen during a steal power-up, worth double.
+  // "!" over an animal about to be spooked out of its pen.
+  const alarm = label('!', { size: 22, color: 0xffe14a, bold: true, anchorX: 0.5, anchorY: 1 });
+  alarm.y = a.kind === 'cow' ? -50 : -40;
+  alarm.visible = false;
   // Flames along the back after a bomb blast (cosmetic).
   const fire = new Graphics();
   const backY = a.kind === 'cow' ? -36 : -30;
@@ -101,7 +106,7 @@ function createAnimalSprite(a) {
   badge.position.set(0, a.kind === 'cow' ? -46 : -38);
   badge.visible = false;
   // Far legs behind the body, near legs in front.
-  view.addChild(glow, chute, legs[0], legs[2], body, legs[1], legs[3], collar, badge, fire);
+  view.addChild(glow, chute, legs[0], legs[2], body, legs[1], legs[3], collar, badge, fire, alarm);
 
   let facing = a.x < 640 ? 1 : -1;
   let walk = Math.random() * 10;
@@ -110,11 +115,13 @@ function createAnimalSprite(a) {
 
   return {
     view,
-    sync(a, t, dt) {
+    sync(a, t, dt, nervous = false) {
       view.visible = a.state !== 'gone';
       if (!view.visible) return;
+      alarm.visible = nervous;
+      alarm.scale.x = view.scale.x; // stays readable when the sprite is flipped
       if (a.vx !== 0) facing = Math.sign(a.vx);
-      view.position.set(a.x, a.y);
+      view.position.set(a.x + (nervous ? Math.sin(t * 45) * 1.5 : 0), a.y); // nervous ones shiver
       view.scale.x = facing;
 
       const golden = Boolean(a.golden);
@@ -225,12 +232,14 @@ export function createAnimalView(animals) {
   let last = null;
   return {
     view,
-    sync(t) {
+    /** `spook` (optional) is how long each saucer has hovered over its own pen. */
+    sync(t, spook = null) {
       const dt = last === null ? 0 : Math.min(0.1, t - last);
       last = t;
       for (const a of animals) {
         if (!sprites.has(a)) add(a);
-        sprites.get(a).sync(a, t, dt);
+        const nervous = spook !== null && a.state === 'penned' && spook[a.pen] > SPOOK.warn;
+        sprites.get(a).sync(a, t, dt, nervous);
       }
     },
   };
