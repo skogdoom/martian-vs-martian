@@ -101,6 +101,10 @@ export function createEffects() {
         case 'rocketLaunch':
           burst(e.x, e.y, { count: 12, colors: [0xcfd6ff, 0x8a93c0], speed: [40, 140], life: [0.3, 0.6], size: [3, 5], gravity: -40 });
           break;
+        case 'extinguish':
+          // Put out: a puff of steam.
+          burst(e.x, e.y, { count: 22, colors: [0xffffff, 0xdfe6ee, 0xb8c0cc], up: 0.9, speed: [40, 160], life: [0.5, 1.1], size: [4, 8], gravity: -90 });
+          break;
         case 'splat':
           // A cartoon cloud of blood, a stain on the grass, and a "SPLAT!".
           burst(e.x, e.y - 12, { count: 60, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0x6e0a12], up: 1.3, speed: [120, 480], life: [0.5, 1.1], size: [2.5, 6], gravity: 900 });
@@ -133,6 +137,13 @@ export function createEffects() {
 
   /** Continuous effects that follow world state rather than events. */
   function ambient(world) {
+    // Burning animals throw off embers and smoke.
+    for (const a of world.animals) {
+      if (!a.onFire || a.state === 'gone' || Math.random() > 0.5) continue;
+      const top = a.y - (a.kind === 'cow' ? 44 : 36);
+      burst(a.x + rand(-16, 16), top, { count: 1, colors: [0xffb03a, 0xff6a1a], up: 0.5, speed: [30, 90], life: [0.3, 0.6], size: [1.5, 2.5], gravity: -80 });
+      if (Math.random() < 0.4) burst(a.x + rand(-10, 10), top - 6, { count: 1, colors: [0x5a5f6a, 0x7a7f8a], up: 0.3, speed: [15, 40], life: [0.8, 1.4], size: [4, 7], gravity: -40 });
+    }
     // Rockets leave a smoke trail.
     for (const r of world.rockets) {
       const bx = r.x - Math.cos(r.angle) * 14;

@@ -87,6 +87,7 @@ function bounceOut(a, rng) {
   a.state = 'falling';
   a.fallFrom = a.y;
   a.safeFall = true;
+  a.onFire = true; // cosmetic only: it burns until a beam picks it up
   const { min, max } = fieldBounds(a.kind);
   const tx = min + rng() * (max - min);
   const [lo, hi] = POWERUP.bombLaunch;

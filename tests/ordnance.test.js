@@ -182,6 +182,21 @@ describe('pen bomb', () => {
     expect(scores(w.animals).blue).toBe(2 * (3 - blast.count));
   });
 
+  it('sets the animals it throws on fire, until a beam picks them up', () => {
+    const { w, cows } = setup(1190);
+    stepWorld(w, SHOOT, STEP);
+    stepUntil(w, {}, 2, (e) => e.type === 'bombBlast');
+    run(w, {}, 3);
+    const burning = cows.filter((a) => a.onFire);
+    expect(burning.length).toBeGreaterThanOrEqual(1);
+    expect(cows.filter((a) => a.pen === 'blue').every((a) => !a.onFire)).toBe(true);
+    const a = burning[0];
+    place(w.saucers.red, a.x, ARENA.flightBottom - 10);
+    expect(stepUntil(w, {}, 1, (e) => e.type === 'extinguish')).toBeTruthy();
+    expect(a.onFire).toBe(false);
+    expect(w.hooks.red.target).toBe(a);
+  });
+
   it('does nothing when dropped in the field', () => {
     const { w } = setup(640);
     stepWorld(w, SHOOT, STEP);

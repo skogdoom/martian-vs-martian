@@ -344,6 +344,11 @@ export const SOUNDS = {
     tone(ac, out, t, { type: 'sine', freq: 1900, to: 700, dur: 0.7, peak: 0.12, attack: 0.03, hold: 0.4 });
   },
 
+  /** Flames put out: a short hiss of steam. */
+  fizz(ac, out, t) {
+    hiss(ac, out, t, { dur: 0.5, peak: 0.25, type: 'highpass', freq: 3000, to: 5000, attack: 0.02 });
+  },
+
   /** An animal bursting: a wet slap and a low thump. */
   splat(ac, out, t) {
     hiss(ac, out, t, { dur: 0.35, peak: 0.6, type: 'lowpass', freq: 2400, to: 180, attack: 0.003 });
@@ -484,6 +489,9 @@ export function handleEvents(events) {
         break;
       case 'splat':
         play('splat', { x: e.x });
+        break;
+      case 'extinguish':
+        play('fizz', { x: e.x });
         break;
       case 'rocketLaunch':
         play('whoosh', { x: e.x });

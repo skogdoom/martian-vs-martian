@@ -163,6 +163,10 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin
   a.state = 'lifting';
   a.hookedBy = s.side;
   a.vx = 0;
+  if (a.onFire) {
+    a.onFire = false;
+    events.push({ type: 'extinguish', x: a.x, y: a.y - ANIMALS.size[a.kind].h / 2 });
+  }
   h.target = a;
   h.progress = 0;
   h.startY = a.y;

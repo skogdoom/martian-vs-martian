@@ -55,6 +55,7 @@ export function createAnimal(id, kind, x) {
     delivering: false, // falling from a delivery rather than a dropped pickup
     fallFrom: 0, // y it started falling from
     safeFall: false, // thrown by a bomb: lands safely whatever the height
+    onFire: false, // cosmetic: set by a bomb blast, put out when picked up
     bonus: false, // stolen during a steal power-up: worth extra in its pen
     wanderTimer: 0,
   };

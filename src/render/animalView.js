@@ -87,6 +87,9 @@ function createAnimalSprite(a) {
   chute.visible = false;
   const collar = new Graphics();
   // Gold star: stolen during a steal power-up, worth double.
+  // Flames along the back after a bomb blast (cosmetic).
+  const fire = new Graphics();
+  const backY = a.kind === 'cow' ? -36 : -30;
   const badge = new Graphics();
   const star = [];
   for (let i = 0; i < 10; i++) {
@@ -98,7 +101,7 @@ function createAnimalSprite(a) {
   badge.position.set(0, a.kind === 'cow' ? -46 : -38);
   badge.visible = false;
   // Far legs behind the body, near legs in front.
-  view.addChild(glow, chute, legs[0], legs[2], body, legs[1], legs[3], collar, badge);
+  view.addChild(glow, chute, legs[0], legs[2], body, legs[1], legs[3], collar, badge, fire);
 
   let facing = a.x < 640 ? 1 : -1;
   let walk = Math.random() * 10;
@@ -115,10 +118,20 @@ function createAnimalSprite(a) {
       view.scale.x = facing;
 
       const golden = Boolean(a.golden);
-      const tint = golden ? GOLD : 0xffffff;
+      const tint = golden ? GOLD : a.onFire ? 0xb8a898 : 0xffffff; // sooty while burning
       if (body.tint !== tint) {
         body.tint = tint;
         if (a.kind === 'cow') legs.forEach((leg) => (leg.tint = tint));
+      }
+      fire.clear();
+      if (a.onFire) {
+        for (let i = 0; i < 4; i++) {
+          const x = -18 + i * 12;
+          const h = 22 + 8 * Math.sin(t * 17 + i * 1.9) + 5 * Math.sin(t * 29 + i);
+          const sway = Math.sin(t * 11 + i * 2.3) * 3;
+          fire.poly([x - 7, backY + 3, x + sway, backY - h, x + 7, backY + 3]).fill({ color: 0xff6a1a, alpha: 0.9 });
+          fire.poly([x - 4, backY + 3, x + sway * 0.6, backY - h * 0.6, x + 4, backY + 3]).fill(0xffe14a);
+        }
       }
       glow.visible = golden;
       glow.alpha = 0.6 + 0.4 * Math.sin(t * 5);
