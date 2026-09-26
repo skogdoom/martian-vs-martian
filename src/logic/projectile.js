@@ -9,13 +9,14 @@ export function fireDirection(shooter, target) {
   return shooter.side === 'red' ? 1 : -1;
 }
 
-export function createProjectile(shooter, target) {
+/** `dy` offsets the shot vertically (triple-shot power-up). */
+export function createProjectile(shooter, target, dy = 0) {
   const dir = fireDirection(shooter, target);
   return {
     owner: shooter.side,
     dir,
     x: shooter.x + dir * (SAUCER.radius + COMBAT.projectileRadius),
-    y: shooter.y,
+    y: shooter.y + dy,
     vx: dir * COMBAT.projectileSpeed,
     alive: true,
   };

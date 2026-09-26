@@ -76,8 +76,19 @@ function createAnimalSprite(a) {
   if (a.kind === 'cow') drawCow(body);
   else drawLamb(body);
   const collar = new Graphics();
+  // Gold star: stolen during a steal power-up, worth double.
+  const badge = new Graphics();
+  const star = [];
+  for (let i = 0; i < 10; i++) {
+    const r = i % 2 ? 3 : 7;
+    const ang = -Math.PI / 2 + (i * Math.PI) / 5;
+    star.push(Math.cos(ang) * r, Math.sin(ang) * r);
+  }
+  badge.poly(star).fill(0xffd76a).stroke({ color: 0x8a6a1a, width: 1 });
+  badge.position.set(0, a.kind === 'cow' ? -46 : -38);
+  badge.visible = false;
   // Far legs behind the body, near legs in front.
-  view.addChild(legs[0], legs[2], body, legs[1], legs[3], collar);
+  view.addChild(legs[0], legs[2], body, legs[1], legs[3], collar, badge);
 
   let facing = a.x < 640 ? 1 : -1;
   let walk = Math.random() * 10;
@@ -103,6 +114,9 @@ function createAnimalSprite(a) {
         legs.forEach((leg) => (leg.rotation *= 0.8));
         view.rotation = 0;
       }
+
+      badge.visible = a.bonus && a.state === 'penned';
+      badge.rotation = Math.sin(t * 3) * 0.3;
 
       if (a.owner !== owner) {
         owner = a.owner;

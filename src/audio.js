@@ -263,6 +263,68 @@ export const SOUNDS = {
     tone(ac, out, t, { type: 'square', freq: go ? 1046 : 523, dur: go ? 0.45 : 0.16, peak: 0.13, hold: go ? 0.2 : 0.06 });
   },
 
+  /** Two-tone siren as the green man starts to fall. */
+  siren(ac, out, t) {
+    for (let i = 0; i < 4; i++) {
+      tone(ac, out, t + i * 0.22, { type: 'triangle', freq: i % 2 ? 660 : 880, dur: 0.22, peak: 0.13, hold: 0.12 });
+    }
+  },
+
+  /** The green man squeaks when the beam grabs him. */
+  chirp(ac, out, t) {
+    const o = osc(ac, 'sine', 700, t);
+    o.frequency.exponentialRampToValueAtTime(1900, t + 0.18);
+    o.frequency.exponentialRampToValueAtTime(1300, t + 0.3);
+    lfo(ac, 30, 60, o.frequency, t, 0.3);
+    const g = gainNode(ac);
+    envelope(g.gain, t, 0.32, 0.25, 0.01);
+    o.connect(g).connect(out);
+    o.start(t);
+    o.stop(t + 0.35);
+  },
+
+  fanfare(ac, out, t) {
+    [523, 659, 784, 1047, 1319].forEach((freq, i) => {
+      tone(ac, out, t + i * 0.06, { type: 'square', freq, dur: 0.14, peak: 0.12 });
+      tone(ac, out, t + i * 0.06, { type: 'triangle', freq: freq * 2, dur: 0.3, peak: 0.12 });
+    });
+    tone(ac, out, t + 0.3, { type: 'triangle', freq: 1568, dur: 0.6, peak: 0.18, hold: 0.15 });
+  },
+
+  powerDown(ac, out, t) {
+    tone(ac, out, t, { type: 'triangle', freq: 784, dur: 0.15, peak: 0.12, hold: 0.05 });
+    tone(ac, out, t + 0.14, { type: 'triangle', freq: 392, dur: 0.3, peak: 0.12, hold: 0.08 });
+  },
+
+  pop(ac, out, t) {
+    tone(ac, out, t, { type: 'sine', freq: 900, to: 150, dur: 0.12, peak: 0.3 });
+    hiss(ac, out, t, { dur: 0.25, peak: 0.2, type: 'bandpass', freq: 1500, to: 400, q: 1.5 });
+  },
+
+  /** Humming laser beam while shoot is held. Returns { stop(time) }. */
+  laser(ac, out, t) {
+    const g = gainNode(ac);
+    g.gain.setValueAtTime(SILENT, t);
+    g.gain.exponentialRampToValueAtTime(0.2, t + 0.04);
+    const f = filter(ac, 'bandpass', 1400, 2);
+    lfo(ac, 7, 500, f.frequency, t, 30);
+    const oscs = [osc(ac, 'sawtooth', 110, t), osc(ac, 'square', 221, t), osc(ac, 'sine', 1760, t)];
+    for (const o of oscs) lfo(ac, 31, o.frequency.value * 0.03, o.frequency, t, 30);
+    const top = gainNode(ac, 0.15);
+    oscs[0].connect(f);
+    oscs[1].connect(f);
+    oscs[2].connect(top).connect(g);
+    f.connect(g).connect(out);
+    for (const o of oscs) o.start(t);
+    return {
+      stop(at) {
+        g.gain.cancelScheduledValues(at);
+        g.gain.setTargetAtTime(SILENT, at, 0.03);
+        for (const o of oscs) o.stop(at + 0.2);
+      },
+    };
+  },
+
   jingle(ac, out, t) {
     // C E G C', then a held chord.
     const melody = [
@@ -294,11 +356,17 @@ export function play(name, { x, ...opts } = {}) {
   return SOUNDS[name](ctx, output(x), ctx.currentTime + 0.005, opts);
 }
 
+// Sustained voices, one per player, that events start and stop.
 const liftVoices = { red: null, blue: null };
+const laserVoices = { red: null, blue: null };
+
+function stopVoice(voices, side) {
+  if (voices[side] && ctx) voices[side].stop(ctx.currentTime);
+  voices[side] = null;
+}
 
 function stopLift(side) {
-  if (liftVoices[side] && ctx) liftVoices[side].stop(ctx.currentTime);
-  liftVoices[side] = null;
+  stopVoice(liftVoices, side);
 }
 
 /** Map world and round events to sounds. */
@@ -307,6 +375,7 @@ export function handleEvents(events) {
     switch (e.type) {
       case 'shot':
         play('zap', { x: e.x, side: e.side });
+        if (e.triple) play('zap', { x: e.x, side: e.side === 'red' ? 'blue' : 'red' });
         break;
       case 'dryFire':
         play('dry');
@@ -323,7 +392,7 @@ export function handleEvents(events) {
       case 'hook':
         stopLift(e.side);
         liftVoices[e.side] = play('lift', { x: e.x, dur: HOOK.liftTime[e.kind] });
-        play(e.kind === 'cow' ? 'moo' : 'baa', { x: e.x });
+        play({ cow: 'moo', lamb: 'baa', greenman: 'chirp' }[e.kind], { x: e.x });
         break;
       case 'interrupt':
         stopLift(e.side);
@@ -343,9 +412,31 @@ export function handleEvents(events) {
         play('beep', { go: true });
         break;
       case 'roundEnd':
-        stopLift('red');
-        stopLift('blue');
+        for (const side of ['red', 'blue']) {
+          stopLift(side);
+          stopVoice(laserVoices, side);
+        }
         play('jingle');
+        break;
+      case 'dropIncoming':
+        play('siren', { x: e.x });
+        break;
+      case 'powerup':
+        play('fanfare', { x: e.x });
+        break;
+      case 'powerEnd':
+        stopVoice(laserVoices, e.side);
+        play('powerDown');
+        break;
+      case 'knockLoose':
+        play('pop', { x: e.x });
+        break;
+      case 'laserOn':
+        stopVoice(laserVoices, e.side);
+        laserVoices[e.side] = play('laser');
+        break;
+      case 'laserOff':
+        stopVoice(laserVoices, e.side);
         break;
     }
   }

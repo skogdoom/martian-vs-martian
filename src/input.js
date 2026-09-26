@@ -55,5 +55,6 @@ export function playerInput(side) {
     x: (isDown(k.right) ? 1 : 0) - (isDown(k.left) ? 1 : 0),
     y: (isDown(k.down) ? 1 : 0) - (isDown(k.up) ? 1 : 0),
     shoot: wasPressed(k.shoot),
+    fire: isDown(k.shoot), // held, for the laser
   };
 }

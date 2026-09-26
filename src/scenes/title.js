@@ -40,6 +40,13 @@ export function createTitleScene(game, session) {
     anchorX: 0.5,
   });
   blurb.position.set(cx, 240);
+  const powerHint = label('Some rounds, a little green man drops in halfway. Beam him up for a power-up!', {
+    size: 16,
+    color: 0x6cff6c,
+    anchorX: 0.5,
+  });
+  powerHint.position.set(cx, 268);
+  view.addChild(powerHint);
 
   const redKeys = label('RED\nmove  W A S D\nshoot SPACE', { size: 20, color: COLORS.red, anchorX: 0.5 });
   redKeys.position.set(cx - 220, 320);

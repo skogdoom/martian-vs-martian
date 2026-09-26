@@ -1,12 +1,13 @@
 // HUD: per-player score, round wins and ammo in the top corners; timer in the middle.
 
 import { Container, Graphics } from 'pixi.js';
-import { WIDTH, COMBAT } from '../config.js';
+import { WIDTH, COMBAT, POWERUP } from '../config.js';
 import { SIDES } from '../logic/world.js';
 import { reloadProgress } from '../logic/weapon.js';
 import { scores } from '../logic/scoring.js';
 import { COLORS } from './backdrop.js';
 import { label } from './text.js';
+import { createPowerIcon, POWER_NAMES, POWER_COLOR } from './powerupView.js';
 
 const PANEL_W = 180;
 const MARGIN = 16;
@@ -27,12 +28,44 @@ function createPanel(side) {
   const pips = new Graphics();
   view.addChild(name, score, pips, ammo, wins);
 
+  // Active power-up: icon, name, seconds left and a draining bar.
+  const power = new Container();
+  power.y = 104;
+  const powerName = label('', { size: 13, color: POWER_COLOR, bold: true, anchorX: left ? 0 : 1 });
+  powerName.position.set(left ? 28 : PANEL_W - 28, 0);
+  const powerBar = new Graphics();
+  power.addChild(powerName, powerBar);
+  view.addChild(power);
+  let icon = null;
+  let iconType = null;
+
   return {
     view,
-    sync(weapon, points, roundWins) {
+    sync(weapon, points, roundWins, active) {
       score.text = String(points);
       wins.text = `WINS ${'★'.repeat(roundWins) || '-'}`;
-      ammo.text = `AMMO ${weapon.ammo}`;
+      const unlimited = active?.type === 'laser' || active?.type === 'triple';
+      ammo.text = unlimited ? 'AMMO ∞' : `AMMO ${weapon.ammo}`;
+
+      power.visible = active !== null;
+      if (active) {
+        if (iconType !== active.type) {
+          icon?.destroy({ children: true });
+          icon = createPowerIcon(active.type, 11);
+          icon.position.set(left ? 11 : PANEL_W - 11, 8);
+          power.addChild(icon);
+          iconType = active.type;
+        }
+        powerName.text = `${POWER_NAMES[active.type]} ${Math.ceil(active.timeLeft)}`;
+        const w = 120;
+        const f = Math.max(0, active.timeLeft / POWERUP.duration);
+        const x = left ? 28 : PANEL_W - 28 - w;
+        powerBar.clear();
+        powerBar.rect(x, 18, w, 4).fill({ color: POWER_COLOR, alpha: 0.2 });
+        powerBar.rect(left ? x : x + w * (1 - f), 18, w * f, 4).fill(POWER_COLOR);
+        // Blink for the last three seconds.
+        power.alpha = active.timeLeft < 3 ? 0.55 + 0.45 * Math.sin(active.timeLeft * 18) : 1;
+      }
       pips.clear();
       const r = 7;
       const gap = 20;
@@ -69,7 +102,7 @@ export function createHud() {
     view,
     sync(world, { timeLeft, match }) {
       const points = scores(world.animals);
-      for (const side of SIDES) panels[side].sync(world.weapons[side], points[side], match.wins[side]);
+      for (const side of SIDES) panels[side].sync(world.weapons[side], points[side], match.wins[side], world.powers[side]);
       const secs = Math.ceil(timeLeft - 1e-9);
       timer.text = String(secs);
       const color = secs <= 10 ? 0xff6a6a : 0xffffff;

@@ -64,6 +64,18 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Animals in the opponent's pen can be hooked like any other animal.
 - Each animal remembers who first delivered it. It is worth full value (cow 2, lamb 1) in that player's pen and half value in the other pen (cow 1, lamb 0.5).
 
+### Power-ups
+- Each round has a 50% chance that, halfway through, a little green man parachutes into the field carrying one power-up. Its icon is shown on his parachute and over his head.
+- He wanders like an animal and is hooked the same way (lift 0.8 s; shots and drift break the pickup). A saucer carrying an animal can't grab him.
+- Fully lifted, he climbs into the saucer and the power-up starts. It lasts 15 s.
+- The power-ups:
+  - **Speed boost:** 60% faster top speed, 50% more thrust.
+  - **Laser cannon:** hold shoot for a continuous beam that pushes the opponent away and breaks their pickups. Uses no ammo.
+  - **Triple shot:** three shots per press, spread vertically. Shots are free while it lasts and an empty gun reloads.
+  - **Double steal:** animals stolen from the opponent's pen while it's active are worth double full value (cow 4, lamb 2) once delivered, until they are lifted out again.
+- Laser and triple-shot hits also knock a carried animal loose.
+- Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
+
 ### Score
 - The live sum of the values of the animals in a player's pen.
 - The round ends only when the timer runs out, since animals can still be stolen until then.
@@ -154,5 +166,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
     - Pickups broke in 40% of lifts when the player let go of the keys a moment after the beam grabbed. The beam now makes a lifting saucer heavier (`HOOK.beamAccel`, `HOOK.beamDrag`): 1% now, and flying away on purpose still breaks it in about 0.4 s.
     - Saucers pressed together fired ~24 bump events per round, mostly repeats. A bump now re-arms only after they separate by `BUMP.rearm` px: ~7 per round.
   - Still to do: a human playtest. Open question: `COMBAT.ammoPerRound`. With 12, bots are out of shots by ~17 s, before the stealing phase (the field is empty by ~23 s). 15 lasts to ~23 s, 18 to ~30 s, at the cost of more pickups shot down (6.7 → 8.5 → 10 per round). Ties are 11–15% of rounds.
+- [x] **Power-ups** (added after milestone 8)
+  - Green man drop, the four power-ups, HUD timer, announcements, art and sound.
+  - Unit tests for the drop, each power-up, knock-loose and the steal bonus.
+  - Tuned with the simulator. With 15 s of power, a trailing grabber wins 7–23% of rounds, depending on the power-up, against 2% without. The laser and triple shot only turned rounds once their hits could knock a carried animal loose.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

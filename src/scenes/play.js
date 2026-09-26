@@ -14,6 +14,8 @@ import { createSaucerView } from '../render/saucerView.js';
 import { createProjectileView } from '../render/projectileView.js';
 import { createAnimalView, createBeamView } from '../render/animalView.js';
 import { createEffects } from '../render/effects.js';
+import { createGreenManView, POWER_NAMES, POWER_COLOR } from '../render/powerupView.js';
+import { COLORS } from '../render/backdrop.js';
 import { createHud } from '../render/hud.js';
 import { label } from '../render/text.js';
 import { createRoundEndScene } from './roundEnd.js';
@@ -32,12 +34,14 @@ export function createPlayScene(game, session) {
   const animalView = createAnimalView(world.animals);
   const saucerViews = {};
   for (const side of SIDES) saucerViews[side] = createSaucerView(side);
+  const greenMan = createGreenManView();
   const projectileView = createProjectileView();
   const effects = createEffects();
   stage.addChild(
     backdrop.view,
     beamView.view,
     animalView.view,
+    greenMan.view,
     ...SIDES.map((side) => saucerViews[side].view),
     projectileView.view,
     effects.view,
@@ -51,6 +55,17 @@ export function createPlayScene(game, session) {
   sub.position.set(WIDTH / 2, 200);
   view.addChild(banner, sub);
 
+  // Power-up announcements under the HUD.
+  const announcement = label('', { size: 30, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  announcement.position.set(WIDTH / 2, 150);
+  view.addChild(announcement);
+  let announceLeft = 0;
+  function announce(text, color) {
+    announcement.text = text;
+    announcement.tint = color;
+    announceLeft = 2.2;
+  }
+
   let goFlash = 0;
   let t = 0;
 
@@ -63,12 +78,16 @@ export function createPlayScene(game, session) {
       const other = world.saucers[side === 'red' ? 'blue' : 'red'];
       const hook = world.hooks[side];
       saucerViews[side].sync(s, t, {
+        power: world.powers[side]?.type ?? null,
         look: Math.sign(other.x - s.x) || 1,
         hit: effects.hitFlash[side],
         beam: Boolean(hook.target || hook.carrying),
       });
     }
-    projectileView.sync(world.projectiles);
+    greenMan.sync(world.drop, t);
+    projectileView.sync(world, t);
+    announcement.visible = announceLeft > 0;
+    announcement.alpha = Math.min(1, announceLeft * 2);
     effects.render();
     const shake = effects.shakeOffset();
     stage.position.set(shake.x, shake.y);
@@ -108,6 +127,12 @@ export function createPlayScene(game, session) {
       t += dt;
       stepRound(round, { red: playerInput('red'), blue: playerInput('blue') }, dt);
       effects.handle(round.events);
+      effects.ambient(world);
+      for (const e of round.events) {
+        if (e.type === 'dropIncoming') announce(`POWER-UP INCOMING: ${POWER_NAMES[e.power]}`, POWER_COLOR);
+        if (e.type === 'powerup') announce(`${e.side.toUpperCase()} GETS ${POWER_NAMES[e.power]}!`, COLORS[e.side]);
+      }
+      announceLeft = Math.max(0, announceLeft - dt);
       handleEvents(round.events);
       effects.update(dt);
       if (round.events.some((e) => e.type === 'go')) goFlash = 0.7;

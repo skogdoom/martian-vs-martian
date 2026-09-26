@@ -22,8 +22,10 @@ export function speed(s) {
 
 /** Apply player input. Input only accelerates up to maxSpeed, so knockback
  * can push a saucer faster than it can fly, and drag bleeds it off.
- * `accelScale` and `extraDrag` make the saucer heavier while its beam lifts. */
-export function steerSaucer(s, input, dt, accelScale = 1, extraDrag = 0) {
+ * `accelScale` and `extraDrag` make the saucer heavier while its beam lifts;
+ * `speedScale` raises the top speed (speed power-up). */
+export function steerSaucer(s, input, dt, { accelScale = 1, extraDrag = 0, speedScale = 1 } = {}) {
+  const maxSpeed = SAUCER.maxSpeed * speedScale;
   let dx = input.x;
   let dy = input.y;
   const len = Math.hypot(dx, dy);
@@ -31,8 +33,8 @@ export function steerSaucer(s, input, dt, accelScale = 1, extraDrag = 0) {
     dx /= len;
     dy /= len;
     const along = s.vx * dx + s.vy * dy;
-    if (along < SAUCER.maxSpeed) {
-      const add = Math.min(SAUCER.accel * accelScale * dt, SAUCER.maxSpeed - along);
+    if (along < maxSpeed) {
+      const add = Math.min(SAUCER.accel * accelScale * dt, maxSpeed - along);
       s.vx += dx * add;
       s.vy += dy * add;
     }

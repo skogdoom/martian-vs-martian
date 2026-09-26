@@ -56,22 +56,45 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6 },
+  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8 },
 };
 
 export const ANIMALS = {
   cows: 3,
   lambs: 4,
-  wanderSpeed: { cow: 28, lamb: 40 },
+  wanderSpeed: { cow: 28, lamb: 40, greenman: 55 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
   gravity: 1400,
+  // The green man (power-up drop) walks and gets hooked like an animal.
   size: {
     cow: { w: 56, h: 38 },
     lamb: { w: 40, h: 28 },
+    greenman: { w: 22, h: 30 },
   },
   value: { cow: 2, lamb: 1 },
   fieldMargin: 30, // keep field animals this far from the pen fences
+};
+
+export const POWERUP = {
+  chance: 0.5, // chance per round that a green man drops
+  dropAt: 0.5, // when, as a fraction of the round
+  duration: 15, // seconds a power-up lasts (tuned with npm run sim)
+  types: ['speed', 'laser', 'triple', 'steal'],
+  fallSpeed: 110, // parachute descent, px/s
+  dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
+  // speed: faster saucer
+  speedBoost: 1.6, // max speed multiplier
+  accelBoost: 1.5,
+  // laser: hold shoot for a continuous beam; no ammo
+  laserPush: 2600, // px/s^2 horizontal push on the opponent
+  laserHalfWidth: 7,
+  // triple: three shots per trigger pull, one ammo
+  tripleSpread: 26, // px between the shots
+  // laser and triple: a hit also knocks a carried animal loose
+  knockLoose: true,
+  // steal: stolen animals delivered while active are worth this times full value
+  stealMultiplier: 2,
 };
 
 export const ROUND = {

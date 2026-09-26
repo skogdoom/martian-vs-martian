@@ -1,10 +1,12 @@
 // Pen scores. An animal is worth full value in the pen of the player who
-// first delivered it, and half value in the other pen.
+// first delivered it, and half value in the other pen. An animal stolen
+// during a steal power-up is worth double full value until it is lifted again.
 
-import { ANIMALS } from '../config.js';
+import { ANIMALS, POWERUP } from '../config.js';
 
 export function animalValue(a, penSide) {
   const full = ANIMALS.value[a.kind];
+  if (a.bonus) return full * POWERUP.stealMultiplier;
   return a.owner === penSide ? full : full / 2;
 }
 

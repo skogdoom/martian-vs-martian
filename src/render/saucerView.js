@@ -3,6 +3,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { SAUCER } from '../config.js';
 import { COLORS } from './backdrop.js';
+import { POWER_COLOR } from './powerupView.js';
 
 const SHADE = { red: 0x9e2a2f, blue: 0x1f5bb0 };
 const LIGHTS = 7;
@@ -42,6 +43,12 @@ export function createSaucerView(side) {
   const domeRy = SAUCER.top - h + 2;
 
   const glow = new Graphics().ellipse(0, 2, r + 12, h + 8).fill({ color: COLORS[side], alpha: 0.12 });
+  // Power-up aura, and speed streaks trailing behind.
+  const aura = new Graphics().ellipse(0, 0, r + 14, h + 14).stroke({ color: POWER_COLOR, width: 3 });
+  aura.visible = false;
+  const streaks = new Graphics();
+  for (const [y, len] of [[-6, 30], [2, 44], [9, 26]]) streaks.rect(-r - len - 6, y - 1, len, 2).fill({ color: 0xffffff, alpha: 0.6 });
+  streaks.visible = false;
 
   const back = new Graphics().ellipse(0, domeY, 15, domeRy).fill({ color: 0x0c1830, alpha: 0.85 });
   const alien = new Graphics();
@@ -58,12 +65,13 @@ export function createSaucerView(side) {
   const flash = new Graphics().ellipse(0, -2, r, h + 6).fill(0xffffff);
   flash.alpha = 0;
 
-  view.addChild(glow, back, alien, eyes, glass, hull, lights, flash);
+  view.addChild(aura, streaks, glow, back, alien, eyes, glass, hull, lights, flash);
 
   return {
     view,
-    /** `look` is -1/+1 toward the opponent; `hit` fades 1 → 0 after being shot. */
-    sync(s, t, { look = 1, hit = 0, beam = false } = {}) {
+    /** `look` is -1/+1 toward the opponent; `hit` fades 1 → 0 after being shot;
+     * `power` is the active power-up type, if any. */
+    sync(s, t, { look = 1, hit = 0, beam = false, power = null } = {}) {
       const bob = Math.sin(t * 3 + (side === 'red' ? 0 : 1.7)) * 1.5;
       view.position.set(s.x, s.y + bob);
       const tilt = Math.max(-0.25, Math.min(0.25, s.vx / 2000));
@@ -94,6 +102,12 @@ export function createSaucerView(side) {
       }
       glow.alpha = beam ? 1 : 0.7 + 0.3 * Math.sin(t * 4);
       flash.alpha = hit * 0.7;
+      aura.visible = power !== null;
+      aura.alpha = 0.5 + 0.4 * Math.sin(t * 8);
+      aura.scale.set(1 + 0.06 * Math.sin(t * 8));
+      // Streaks point away from the direction of travel (the view is rotated, not flipped).
+      streaks.visible = power === 'speed' && Math.abs(s.vx) > 150;
+      streaks.scale.x = s.vx >= 0 ? 1 : -1;
     },
   };
 }

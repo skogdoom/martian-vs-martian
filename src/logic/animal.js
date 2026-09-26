@@ -7,6 +7,9 @@
 //   carried  attached under a saucer
 //   falling  dropped from a beam or a delivery
 //
+// The green man (power-up drop) reuses this with kind 'greenman' and two
+// extra states: descending (parachute) and gone (climbed into a saucer).
+//
 // `y` is the animal's feet. `pen` is the pen it counts toward, `owner` the
 // player who first delivered it.
 
@@ -47,6 +50,7 @@ export function createAnimal(id, kind, x) {
     owner: null,
     hookedBy: null,
     delivering: false, // falling from a delivery rather than a dropped pickup
+    bonus: false, // stolen during a steal power-up: worth extra in its pen
     wanderTimer: 0,
   };
 }

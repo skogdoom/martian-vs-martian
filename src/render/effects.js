@@ -3,6 +3,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { COLORS } from './backdrop.js';
 import { label } from './text.js';
+import { POWER_COLOR } from './powerupView.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const rand = (lo, hi) => lo + Math.random() * (hi - lo);
@@ -74,6 +75,17 @@ export function createEffects() {
         case 'pickup':
           burst(e.x, e.y, { count: 12, colors: [0xffffff, COLORS[e.side]], speed: [40, 120], life: [0.3, 0.6], gravity: -60, shape: 'star' });
           break;
+        case 'dropLanded':
+          burst(e.x, e.y, { count: 8, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
+          break;
+        case 'powerup':
+          burst(e.x, e.y - 15, { count: 36, colors: [POWER_COLOR, 0xffffff, 0xfff3a0], speed: [80, 320], life: [0.5, 1], size: [2, 4], gravity: -40, shape: 'star' });
+          ring(e.x, e.y - 15, POWER_COLOR, 80, 0.5);
+          break;
+        case 'knockLoose':
+          burst(e.x, e.y, { count: 20, colors: [0xffffff, 0xff5ce1, COLORS[e.side]], speed: [80, 260], life: [0.3, 0.6], size: [2, 4], gravity: 200, shape: 'star' });
+          ring(e.x, e.y, 0xff5ce1, 40);
+          break;
         case 'land':
           if (e.delivered) {
             burst(e.x, e.y - 10, { count: 44, colors: [COLORS[e.pen], 0xffd76a, 0xffffff], up: 0.7, speed: [200, 460], life: [0.8, 1.3], size: [3, 5.5], gravity: 650, shape: 'confetti' });
@@ -83,6 +95,17 @@ export function createEffects() {
             burst(e.x, e.y, { count: 10, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
           }
           break;
+      }
+    }
+  }
+
+  /** Continuous effects that follow world state rather than events. */
+  function ambient(world) {
+    for (const side of ['red', 'blue']) {
+      const b = world.lasers[side];
+      if (b?.hit) {
+        burst(b.x1, b.y, { count: 2, colors: [0xffffff, 0xff5ce1], dir: -b.dir, speed: [80, 260], life: [0.15, 0.35], gravity: 200 });
+        shake = Math.max(shake, 1.5);
       }
     }
   }
@@ -141,6 +164,7 @@ export function createEffects() {
   return {
     view,
     handle,
+    ambient,
     update,
     render,
     hitFlash,

@@ -1,5 +1,6 @@
 // Clip, reload and per-round ammo cap.
 // `ammo` is every shot left this round, including the ones in the clip.
+// `free` (triple-shot power-up): shots cost no ammo and the clip always reloads.
 
 import { COMBAT } from '../config.js';
 
@@ -26,12 +27,12 @@ export function canFire(w) {
 }
 
 /** Spend one shot. Returns true if a shot was fired. */
-export function tryFire(w) {
+export function tryFire(w, free = false) {
   if (!canFire(w)) return false;
   w.clip--;
-  w.ammo--;
+  if (!free) w.ammo--;
   w.cooldown = COMBAT.fireCooldown;
-  if (w.clip === 0 && w.ammo > 0) w.reload = COMBAT.reloadTime;
+  if (w.clip === 0 && (free || w.ammo > 0)) w.reload = COMBAT.reloadTime;
   return true;
 }
 
@@ -42,11 +43,14 @@ function countDown(t, dt) {
 }
 
 /** Advance timers. Returns true on the step the clip is refilled. */
-export function updateWeapon(w, dt) {
+export function updateWeapon(w, dt, free = false) {
   w.cooldown = countDown(w.cooldown, dt);
+  // Free shots don't outlive the power-up; an empty gun reloads when it starts.
+  if (!free && w.clip > w.ammo) w.clip = w.ammo;
+  if (free && w.clip === 0 && w.reload === 0) w.reload = COMBAT.reloadTime;
   if (w.reload === 0) return false;
   w.reload = countDown(w.reload, dt);
   if (w.reload > 0) return false;
-  w.clip = Math.min(COMBAT.clipSize, w.ammo);
+  w.clip = free ? COMBAT.clipSize : Math.min(COMBAT.clipSize, w.ammo);
   return true;
 }

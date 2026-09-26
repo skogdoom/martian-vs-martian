@@ -58,8 +58,21 @@ export function interruptHook(h) {
   return true;
 }
 
-/** Advance one step. Pushes events into `events`. */
-export function updateHook(h, s, animals, dt, events) {
+/** Knock a carried animal loose (powered hits); it falls where it is. Returns it, or null. */
+export function dropCarried(h) {
+  const a = h.carrying;
+  if (!a) return null;
+  a.bonus = false;
+  drop(a);
+  h.carrying = null;
+  return a;
+}
+
+/** Advance one step. Pushes events into `events`. `targets` is everything
+ * hookable: the animals, plus the green man when he is around.
+ * `stealBonus`: animals stolen now (lifted out of the opponent's pen) are
+ * worth extra once delivered, even if the power-up has run out by then. */
+export function updateHook(h, s, targets, dt, events, { stealBonus = false } = {}) {
   if (h.carrying) {
     const a = h.carrying;
     a.x = s.x;
@@ -82,7 +95,16 @@ export function updateHook(h, s, animals, dt, events) {
     }
     h.progress = Math.min(1, h.progress + dt / HOOK.liftTime[a.kind]);
     a.y = h.startY + (attachY(s, a) - h.startY) * h.progress;
-    if (h.progress >= 1) {
+    if (h.progress >= 1 && a.kind === 'greenman') {
+      // He climbs aboard: nothing to carry, the power-up starts.
+      a.state = 'gone';
+      a.hookedBy = null;
+      h.target = null;
+      h.progress = 0;
+      events.push({ type: 'powerup', side: s.side, power: a.power, x: a.x, y: a.y });
+    } else if (h.progress >= 1) {
+      // Stolen from the opponent's pen during a steal power-up?
+      a.bonus = stealBonus && a.pen !== null && a.pen !== s.side;
       a.state = 'carried';
       a.pen = null;
       h.carrying = a;
@@ -94,7 +116,7 @@ export function updateHook(h, s, animals, dt, events) {
   }
 
   if (speed(s) > HOOK.stillSpeed) return;
-  const a = findTarget(s, animals);
+  const a = findTarget(s, targets);
   if (!a) return;
   a.state = 'lifting';
   a.hookedBy = s.side;
