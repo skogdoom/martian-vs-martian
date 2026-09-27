@@ -221,5 +221,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Field restock after 10 s empty; spooked pens after 3 s of hovering; the CPU waits mid-field.
   - Throwing with the saucer's momentum; splat height 220 → 260 px.
   - Simulator: lead changes 2.75 → 3.1 per round; about 1.6 field restocks and 0.05 splats per round.
+- [x] **Full screen**
+  - F (or double-click) toggles full screen; ESC or F leaves it. The arena stays letterboxed at 16:9 and the mouse cursor is hidden.
+  - F and M never skip a result screen.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

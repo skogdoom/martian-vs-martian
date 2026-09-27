@@ -2,7 +2,7 @@
 // `pressed` holds keys that went down since the last `endStep()`,
 // so a tap between two fixed steps is never lost.
 
-import { KEYS, MUTE_KEY } from './config.js';
+import { KEYS, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
 
 const down = new Set();
 const pressed = new Set();
@@ -13,6 +13,8 @@ const gameKeys = new Set(Object.values(KEYS).flatMap((k) => Object.values(k)));
 window.addEventListener('keydown', (e) => {
   if (gameKeys.has(e.code)) e.preventDefault();
   if (e.repeat) return;
+  // In full screen, ESC belongs to the browser (it leaves full screen), not the game.
+  if (e.code === 'Escape' && (document.fullscreenElement || document.webkitFullscreenElement)) return;
   down.add(e.code);
   pressed.add(e.code);
   for (const fn of listeners) fn(e.code);
@@ -32,9 +34,9 @@ export function wasPressed(code) {
   return pressed.has(code);
 }
 
-/** Any key except the mute toggle, so muting never skips a screen. */
+/** Any key except the mute and full screen toggles, so they never skip a screen. */
 export function anyPressed() {
-  for (const code of pressed) if (code !== MUTE_KEY) return true;
+  for (const code of pressed) if (code !== MUTE_KEY && code !== FULLSCREEN_KEY) return true;
   return false;
 }
 

@@ -1,9 +1,10 @@
 // Boot, scaling, fixed-step loop and scene manager.
 
 import { Application, Container, Graphics } from 'pixi.js';
-import { WIDTH, HEIGHT, STEP, MUTE_KEY } from './config.js';
+import { WIDTH, HEIGHT, STEP, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
 import { endStep, onKey } from './input.js';
 import { toggleMute } from './audio.js';
+import { toggleFullscreen } from './fullscreen.js';
 import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
 import { createSession } from './session.js';
@@ -58,7 +59,10 @@ mutedLabel.position.set(WIDTH / 2, HEIGHT - 10);
 mutedLabel.visible = false;
 onKey((code) => {
   if (code === MUTE_KEY) mutedLabel.visible = toggleMute();
+  // Must run inside the key event: browsers only allow full screen from a user gesture.
+  if (code === FULLSCREEN_KEY) toggleFullscreen();
 });
+app.canvas.addEventListener('dblclick', toggleFullscreen);
 
 // Lives for the page: reloading resets the tally.
 const session = createSession();

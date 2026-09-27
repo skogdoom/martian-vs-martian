@@ -20,6 +20,7 @@ export const KEYS = {
 };
 
 export const MUTE_KEY = 'KeyM';
+export const FULLSCREEN_KEY = 'KeyF';
 
 export const SAUCER = {
   radius: 34, // collision radius
