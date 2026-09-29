@@ -33,9 +33,9 @@ export function createTitleScene(game, session) {
   view.addChild(new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.25 }));
 
   const cx = WIDTH / 2;
-  const red = label('RED ALIEN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
+  const red = label('MARTIAN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
   const vs = label('vs', { size: 32, color: 0xffffff, anchorX: 0.5, anchorY: 0.5 });
-  const blue = label('BLUE ALIEN', { size: 64, color: COLORS.blue, bold: true, anchorX: 0, anchorY: 0.5 });
+  const blue = label('MARTIAN', { size: 64, color: COLORS.blue, bold: true, anchorX: 0, anchorY: 0.5 });
   red.position.set(cx - 40, 150);
   vs.position.set(cx, 150);
   blue.position.set(cx + 40, 150);

@@ -1,4 +1,4 @@
-// Saucer with its alien pilot under a glass dome.
+// Saucer with its Martian pilot under a glass dome.
 
 import { Container, Graphics } from 'pixi.js';
 import { SAUCER } from '../config.js';
@@ -8,7 +8,7 @@ import { POWER_COLOR, drawRocket, drawBomb } from './powerupView.js';
 const SHADE = { red: 0x9e2a2f, blue: 0x1f5bb0 };
 const LIGHTS = 7;
 
-function drawAlien(g, side) {
+function drawMartian(g, side) {
   const c = COLORS[side];
   // Antennae.
   g.moveTo(-4, -22).lineTo(-7, -27).stroke({ color: c, width: 2 });
@@ -51,8 +51,8 @@ export function createSaucerView(side) {
   streaks.visible = false;
 
   const back = new Graphics().ellipse(0, domeY, 15, domeRy).fill({ color: 0x0c1830, alpha: 0.85 });
-  const alien = new Graphics();
-  drawAlien(alien, side);
+  const martian = new Graphics();
+  drawMartian(martian, side);
   const eyes = new Graphics();
   const glass = new Graphics();
   glass.ellipse(0, domeY, 15, domeRy).fill({ color: 0xbfe8ff, alpha: 0.18 });
@@ -75,7 +75,7 @@ export function createSaucerView(side) {
   // Stars circling the dome while stunned.
   const dizzy = new Graphics();
 
-  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, alien, eyes, glass, hull, lights, flash, dizzy);
+  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy);
 
   return {
     view,

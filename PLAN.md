@@ -1,4 +1,4 @@
-# Plan: Red Alien vs Blue Alien
+# Plan: Martian vs Martian
 
 A two-player, same-keyboard browser game. Two flying saucers compete to abduct cows and lambs and drop them in their own pen. Shots knock the opponent away, interrupt their pickups and knock loose the animal they carry. The game is shown in 2D from the side on one shared screen.
 
@@ -174,7 +174,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Unit tests for the match rules, including ties and early finish.
   - Done when: a full match can be played from the title screen to the tally and replayed.
 - [x] **6. Art**
-  - Saucers with red and blue aliens in domes, cows and lambs, a tractor-beam hook, a starry sky and hills, fences for the pens.
+  - Saucers with red and blue Martians in domes, cows and lambs, a tractor-beam hook, a starry sky and hills, fences for the pens.
   - Particles for hits and deliveries.
 - [x] **7. Sound**
   - Shot zap, hit thud, bump boing, reload click, rising pickup tone, synthesized moo and baa, delivery chime, countdown beeps and a round-end jingle.
