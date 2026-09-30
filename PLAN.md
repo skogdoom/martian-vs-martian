@@ -33,12 +33,12 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Movement
 - Free 2D movement with acceleration, drag and a max speed.
 - Saucers are clamped to the flight band and the walls.
-- **Momentum:** holding one direction at full speed builds momentum. After 0.2 s the top speed starts to climb, reaching 1.5× (480 px/s) after another 1 s. From a standstill it takes about 1.1 s and 330 px to reach ramming speed. Changing direction, letting go, being stopped by a wall or slowed below 80% of normal speed loses it. Speed lines show it building; a shock front ahead of the saucer shows it is fast enough to ram. The speed power-up doesn't stack with it: the higher of the two counts.
+- **Momentum:** holding one direction at full speed builds momentum. After 0.2 s the top speed starts to climb, reaching 1.5× (480 px/s) after another 1 s. From a standstill it takes about 1.1 s and 330 px to reach ramming speed. Once built it is kept while the saucer flies on straight or turns downward (a dive, down alone, or back to level); the turn redirects the speed instead of losing it. Pressing up, turning back, letting go, being stopped by a wall or slowed below 80% of normal speed loses it. It doesn't build while carrying anything. Speed lines show it building; a shock front ahead of the saucer shows it is fast enough to ram. The speed power-up doesn't stack with it: the higher of the two counts.
 
 ### Bump
 - When saucers overlap, both get a small impulse pushing them apart.
 - The effect is minor compared to a shot.
-- **Ram:** a saucer that hits the other at 400 px/s or more (along the line between them) rams it. The rammed saucer is knocked back, drops everything it carries (it falls like a knocked-loose animal, so from high up it splats), loses any pickup in progress and is dazed for 1.5 s: no steering, lifting or shooting. The rammer loses its momentum. Head on, both can be dazed. A shield stops a ram. Values are in `RAM` in `config.js`.
+- **Ram:** a saucer that hits the other at 400 px/s or more (along the line between them) rams it. The rammed saucer is knocked back, drops everything it carries (it falls like a knocked-loose animal, so from high up it splats), loses any pickup in progress and is dazed for 1.5 s: no steering, lifting or shooting. The rammer loses its momentum. A saucer carrying anything can't ram, not even with the speed power-up. Head on, both can be dazed. A shield stops a ram. Values are in `RAM` in `config.js`.
 
 ### Shooting
 - Projectiles travel horizontally at the shooter's height, always toward the opponent's side (the sign of the x difference). Shots can miss.
@@ -259,5 +259,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Ramming needs a shorter run: momentum starts after 0.2 s (was 0.3) and is full after 1 s more (was 1.2), so ramming speed comes after ~330 px instead of ~405 px.
   - Pickups: flying up or down no longer risks the grip as long as the saucer stays within reach + 60 px of the animal; the sideways limit is 40 px (was 30), since a stray diagonal key while climbing easily drifted 30 px.
   - Fixed: sound could stay off for the rest of the game. Audio was only unlocked by key presses on the title screen, so if the browser suspended it later (tab switch, sleep, new output device) nothing woke it up. Every key press and click now resumes it, and so does coming back to the tab.
+- [x] **Dives keep momentum; no ramming while carrying**
+  - Momentum is kept through a dive and the speed carries over into the new direction. It doesn't build while carrying, and a carrier can't ram.
+  - Simulator: rams 0.30 → 0.34 per round; deliveries and lead changes unchanged.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

@@ -15,7 +15,8 @@ export function createSaucer(side) {
     vy: 0,
     stun: 0, // seconds left spinning out after a rocket hit or a ram
     heading: null, // input direction held last step, as 'x,y'
-    streak: 0, // seconds flown straight at full speed in that direction
+    streak: 0, // seconds of momentum built (see steerSaucer)
+    runX: 0, // horizontal direction of the run that built it: -1, 0 or 1
   };
 }
 
@@ -28,21 +29,44 @@ export function speed(s) {
   return Math.hypot(s.vx, s.vy);
 }
 
+/** Momentum. It builds while one direction is held at full speed. Once
+ * built, it is kept while the saucer goes on straight or turns downward (a
+ * dive), as long as it stays fast. Letting go, pressing up, turning back or
+ * slowing down loses it. `allowed` false (carrying) keeps it at zero. */
+function updateMomentum(s, input, dt, allowed) {
+  const hx = Math.sign(input.x);
+  const hy = Math.sign(input.y);
+  const moving = hx !== 0 || hy !== 0;
+  const heading = moving ? `${hx},${hy}` : null;
+  const cruise = SAUCER.maxSpeed * RAM.cruise;
+  const straight = heading !== null && heading === s.heading;
+  const len = Math.hypot(input.x, input.y);
+  const alongFast = moving && (s.vx * input.x + s.vy * input.y) / len >= cruise;
+  const diving = hy >= 0 && (hx === 0 || s.runX === 0 || hx === s.runX);
+  const keep = allowed && moving && ((straight && alongFast) || (s.streak > 0 && speed(s) >= cruise && (straight || diving)));
+  if (keep) {
+    s.streak += dt;
+    if (hx !== 0) s.runX = hx;
+  } else {
+    s.streak = 0;
+    s.runX = hx;
+  }
+  s.heading = heading;
+}
+
 /** Apply player input. Input only accelerates up to the top speed, so
  * knockback can push a saucer faster than it can fly, and drag bleeds it off.
  * The top speed is SAUCER.maxSpeed, raised by momentum (flying straight) or
  * the speed power-up, whichever is more.
  * `accelScale` and `extraDrag` make the saucer heavier while its beam lifts;
- * `speedScale` raises the top speed (speed power-up). */
-export function steerSaucer(s, input, dt, { accelScale = 1, extraDrag = 0, speedScale = 1 } = {}) {
+ * `speedScale` raises the top speed (speed power-up); `momentum` false stops
+ * it building momentum (while carrying). */
+export function steerSaucer(s, input, dt, { accelScale = 1, extraDrag = 0, speedScale = 1, momentum: allowed = true } = {}) {
   let dx = input.x;
   let dy = input.y;
   const len = Math.hypot(dx, dy);
-  // Momentum: the same direction held, at full speed. Anything else resets it.
-  const heading = len > 0 ? `${Math.sign(dx)},${Math.sign(dy)}` : null;
-  const cruising = len > 0 && (s.vx * dx + s.vy * dy) / len >= SAUCER.maxSpeed * RAM.cruise;
-  s.streak = heading !== null && heading === s.heading && cruising ? s.streak + dt : 0;
-  s.heading = heading;
+  const before = speed(s);
+  updateMomentum(s, input, dt, allowed);
   const maxSpeed = SAUCER.maxSpeed * Math.max(speedScale, 1 + (RAM.boost - 1) * momentum(s));
   if (len > 0) {
     dx /= len;
@@ -57,6 +81,15 @@ export function steerSaucer(s, input, dt, { accelScale = 1, extraDrag = 0, speed
   const damp = Math.exp(-(SAUCER.drag + extraDrag) * dt);
   s.vx *= damp;
   s.vy *= damp;
+  // With momentum, turning (into a dive) redirects the speed instead of losing it.
+  if (momentum(s) > 0) {
+    const now = speed(s);
+    const keep = Math.min(before, maxSpeed);
+    if (now > 0 && now < keep) {
+      s.vx *= keep / now;
+      s.vy *= keep / now;
+    }
+  }
 }
 
 export function moveSaucer(s, dt) {

@@ -45,16 +45,44 @@ describe('momentum', () => {
     expect(speed(s)).toBeGreaterThan(RAM.speed);
   });
 
-  it('is lost by turning or letting go', () => {
+  /** A saucer at full momentum, flying right from the left wall at y. */
+  function atFullMomentum(y = 150) {
     const s = createSaucer('red');
-    s.x = 60;
+    Object.assign(s, { x: 60, y });
     fly(s, { x: 1, y: 0 }, FULL + 0.4);
     expect(momentum(s)).toBe(1);
-    fly(s, { x: 1, y: 1 }, STEP);
-    expect(s.streak).toBe(0);
-    fly(s, { x: 1, y: 0 }, FULL);
-    fly(s, { x: 0, y: 0 }, STEP);
-    expect(s.streak).toBe(0);
+    return s;
+  }
+
+  it('is kept when diving: turning down, or down alone', () => {
+    for (const dive of [{ x: 1, y: 1 }, { x: 0, y: 1 }]) {
+      const s = atFullMomentum();
+      fly(s, dive, 0.5);
+      expect(momentum(s)).toBe(1);
+      expect(speed(s)).toBeGreaterThan(RAM.speed);
+      // And back to level flight.
+      fly(s, { x: 1, y: 0 }, 0.2);
+      expect(momentum(s)).toBe(1);
+    }
+  });
+
+  it('is lost by pressing up, turning back or letting go', () => {
+    for (const input of [{ x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 0 }]) {
+      const s = atFullMomentum();
+      fly(s, input, STEP);
+      expect(s.streak).toBe(0);
+    }
+  });
+
+  it('does not build while carrying', () => {
+    const s = createSaucer('red');
+    s.x = 60;
+    for (let t = 0; t < FULL + 0.4; t += STEP) {
+      steerSaucer(s, { x: 1, y: 0 }, STEP, { momentum: false });
+      moveSaucer(s, STEP);
+    }
+    expect(momentum(s)).toBe(0);
+    expect(speed(s)).toBeLessThanOrEqual(SAUCER.maxSpeed + 1e-6);
   });
 
   it('is lost against a wall', () => {
@@ -117,6 +145,21 @@ describe('ramming', () => {
     // Dazed: no new pickup until it wears off.
     run(w, {}, RAM.daze - 0.2);
     expect(w.hooks.blue.target).toBe(null);
+  });
+
+  it('a carrier cannot ram, even with the speed power-up', () => {
+    const { w, red, blue } = setup(820);
+    // Red carries a lamb too.
+    const lamb = w.animals.find((a) => a.kind === 'lamb' && a.state === 'field');
+    Object.assign(lamb, { state: 'carried', hookedBy: 'red' });
+    w.hooks.red.carrying = lamb;
+    grantPower(w.powers, 'red', 'speed');
+    const bump = stepUntil(w, { red: { x: 1, y: 0 } }, 4, (e) => e.type === 'bump');
+    expect(bump).toBeTruthy();
+    expect(w.events.some((e) => e.type === 'ram')).toBe(false);
+    expect(blue.stun).toBe(0);
+    expect(w.hooks.blue.carrying).not.toBe(null);
+    expect(red.streak).toBe(0);
   });
 
   it('bounces off a shield', () => {

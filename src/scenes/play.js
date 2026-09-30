@@ -97,7 +97,7 @@ export function createPlayScene(game, session) {
         hit: effects.hitFlash[side],
         deflect: effects.deflect[side],
         momentum: momentum(s),
-        ramReady: speed(s) >= RAM.speed && s.stun === 0,
+        ramReady: speed(s) >= RAM.speed && s.stun === 0 && !hook.carrying,
         beam: Boolean(hook.target || hook.carrying),
       });
     }

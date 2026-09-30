@@ -329,6 +329,8 @@ export function stepWorld(w, inputs, dt) {
       opts.accelScale = HOOK.beamAccel;
       opts.extraDrag = HOOK.beamDrag;
     }
+    // No momentum with an animal (or anything else) on the beam.
+    if (w.hooks[side].carrying) opts.momentum = false;
     if (hasPower(w.powers, side, 'speed')) {
       opts.speedScale = POWERUP.speedBoost;
       opts.accelScale = (opts.accelScale ?? 1) * POWERUP.accelBoost;
@@ -346,8 +348,9 @@ export function stepWorld(w, inputs, dt) {
   const blueIn = -(blue.vx * n.x + blue.vy * n.y);
   if (bumpSaucers(red, blue, { aFixed: shielded(w, 'red'), bFixed: shielded(w, 'blue') })) {
     w.events.push({ type: 'bump', x: (red.x + blue.x) / 2, y: (red.y + blue.y) / 2 });
-    if (redIn >= RAM.speed) ram(w, 'red', n);
-    if (blueIn >= RAM.speed) ram(w, 'blue', { x: -n.x, y: -n.y });
+    // A carrier can't ram, even with the speed power-up.
+    if (redIn >= RAM.speed && !w.hooks.red.carrying) ram(w, 'red', n);
+    if (blueIn >= RAM.speed && !w.hooks.blue.carrying) ram(w, 'blue', { x: -n.x, y: -n.y });
   }
 
   for (const side of SIDES) updateLaser(w, side, w.saucers[side].stun > 0 ? NO_INPUT : (inputs[side] ?? NO_INPUT), dt);
