@@ -13,7 +13,10 @@ export function createSaucer(side) {
     y: SAUCER.startY,
     vx: 0,
     vy: 0,
-    stun: 0, // seconds left spinning out after a rocket hit or a ram
+    stun: 0, // seconds left dazed: after a rocket hit, a ram or three shots in a row
+    hits: 0, // shot hits in a row (see COMBAT.dazeHits)
+    sinceHit: Infinity, // seconds since the last of them
+    immune: 0, // seconds left in which shot hits don't count (dazed, and just after)
     heading: null, // input direction held last step, as 'x,y'
     streak: 0, // seconds of momentum built (see steerSaucer)
     runX: 0, // horizontal direction of the run that built it: -1, 0 or 1

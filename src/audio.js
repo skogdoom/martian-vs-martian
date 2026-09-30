@@ -527,6 +527,9 @@ export function handleEvents(events) {
           play('boom', { x: e.x, big: false });
         }
         break;
+      case 'dazed':
+        play('womp', { x: e.x });
+        break;
       case 'burst':
         play('splat', { x: e.x });
         break;

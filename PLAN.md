@@ -43,6 +43,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Shooting
 - Projectiles travel horizontally at the shooter's height, always toward the opponent's side (the sign of the x difference). Shots can miss.
 - A hit applies a strong horizontal knockback to the opponent.
+- **Dazed:** three shot hits in a row, each within 2 s of the last, daze the saucer for 1.5 s (no steering, lifting or shooting). Shots landing at once (triple shot) count as one hit; shots that bounce off a shield don't count. Hits while dazed and for 1 s after don't count toward the next daze, so nobody can be kept dazed. Values are `dazeHits`, `dazeWindow`, `dazeTime` and `dazeGrace` in `COMBAT`.
 - Each clip holds 3 shots and reloads automatically in 1.5 s when empty.
 - Each player has 18 shots per round. The cap resets every round.
 - **Ammo crate:** if a player runs out before halfway (45 s), a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +9 shots (up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
@@ -266,5 +267,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - A hit that turns a saucer more than 30° off its course (`RAM.jolt`) clears its momentum, with a puff as the shock front breaks up. The laser usually slows it below cruising speed first, which clears it as well.
 - [x] **Animal swaps reach the pens**
   - Lambs → cows and cows → lambs now also swap penned animals; the replacement parachutes into the same pen and counts at once.
+- [x] **Dazed by three hits in a row**
+  - Logic, "DAZED!" pop-up, announcement and sound; unit tests.
+  - Simulator: the trigger-happy bots (27 shots each, 63% hits) daze each other 2.6 times per round in total; lead changes 3.1 → 2.9. Players who shoot less will see fewer.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

@@ -134,6 +134,10 @@ export function createEffects() {
           popup('POP!', e.x, e.y - 70, 0xffffff);
           shake = Math.max(shake, 4);
           break;
+        case 'dazed':
+          popup('DAZED!', e.x, e.y - 50, 0xffe45c);
+          ring(e.x, e.y, 0xffe45c, 60, 0.4);
+          break;
         case 'momentumLost':
           // The shock front breaks up.
           burst(e.x, e.y, { count: 14, colors: [0xffffff, 0xcfd6ff], speed: [60, 200], life: [0.2, 0.45], size: [1.5, 3], gravity: 0 });

@@ -173,6 +173,18 @@ function knockLoose(w, targetSide) {
   if (a) w.events.push({ type: 'knockLoose', side: targetSide, kind: a.kind, x: a.x, y: a.y });
 }
 
+/** Count a shot hit on `s`; the third in a row dazes it. */
+function countHit(w, s) {
+  if (s.immune > 0) return;
+  s.hits = s.sinceHit <= COMBAT.dazeWindow ? s.hits + 1 : 1;
+  s.sinceHit = 0;
+  if (s.hits < COMBAT.dazeHits) return;
+  s.hits = 0;
+  s.stun = Math.max(s.stun, COMBAT.dazeTime);
+  s.immune = COMBAT.dazeTime + COMBAT.dazeGrace;
+  w.events.push({ type: 'dazed', side: s.side, x: s.x, y: s.y });
+}
+
 /** A hit knocked `s` off its course (it was going `vx`, `vy`): turned more
  * than RAM.jolt degrees, it loses its momentum. Pushed on along its way, it
  * keeps it. */
@@ -340,6 +352,8 @@ export function stepWorld(w, inputs, dt) {
     const s = w.saucers[side];
     // A stunned saucer spins out: its controls do nothing.
     s.stun = Math.max(0, s.stun - dt);
+    s.sinceHit += dt;
+    s.immune = Math.max(0, s.immune - dt);
     const input = s.stun > 0 ? NO_INPUT : (inputs[side] ?? NO_INPUT);
     const weapon = w.weapons[side];
 
@@ -379,6 +393,7 @@ export function stepWorld(w, inputs, dt) {
 
   for (const side of SIDES) updateLaser(w, side, w.saucers[side].stun > 0 ? NO_INPUT : (inputs[side] ?? NO_INPUT), dt);
 
+  const hitNow = new Set(); // saucers shot this step: a triple-shot volley counts once
   for (const p of w.projectiles) {
     const target = w.saucers[opponent(p.owner)];
     if (updateProjectile(p, target, dt)) {
@@ -392,6 +407,8 @@ export function stepWorld(w, inputs, dt) {
       jolt(w, target, vx, vy);
       w.events.push({ type: 'hit', side: target.side, x: p.x, y: p.y, dir: p.dir });
       interrupt(w, target.side, 'shot');
+      if (!hitNow.has(target)) countHit(w, target);
+      hitNow.add(target);
     }
   }
   w.projectiles = w.projectiles.filter((p) => p.alive);

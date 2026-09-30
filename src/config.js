@@ -60,6 +60,12 @@ export const COMBAT = {
   reloadTime: 1.5,
   ammoPerRound: 18,
   fireCooldown: 0.15,
+  // Hit this many times in a row, each within `dazeWindow` s of the last, a
+  // saucer is dazed for `dazeTime` s. Shots at once (triple shot) count once.
+  dazeHits: 3,
+  dazeWindow: 2,
+  dazeTime: 1.5,
+  dazeGrace: 1, // s after a daze wears off before hits count again (no stun-locking)
 };
 
 export const HOOK = {

@@ -87,6 +87,7 @@ function simulate(seed) {
     hits: 0,
     bumps: 0,
     rams: 0,
+    dazes: 0, // three shot hits in a row
     ramDrops: 0, // animals knocked loose by a ram
     bumpRepeats: 0, // bumps within 0.3 s of the previous one
     lastBump: -1,
@@ -165,6 +166,7 @@ function simulate(seed) {
         m.rams++;
         m.ramDrops += round.events.filter((x) => x.type === 'knockLoose' && x.side === e.victim).length;
       }
+      else if (e.type === 'dazed') m.dazes++;
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat') m.splats++;
       else if (e.type === 'timeBombDrop') m.timeBombs.push({ owner: e.side, moves: 0, outcome: null, count: 0 });
@@ -254,6 +256,7 @@ console.table({
   'score still changing in the last 10 s': pct((r) => r.lastScoreChange > config.ROUND.length - 10),
   'ammo used up (median s)': median(results.flatMap((r) => [r.ammoOutAt.red, r.ammoOutAt.blue])),
   bumps: `${avg((r) => r.bumps).toFixed(1)} (${avg((r) => r.bumpRepeats).toFixed(1)} within 0.3 s of the last)`,
+  'dazed by three hits in a row': avg((r) => r.dazes).toFixed(2),
   'rams (animals knocked loose by them)': `${avg((r) => r.rams).toFixed(2)} (${avg((r) => r.ramDrops).toFixed(2)})`,
   'final score (avg per player)': (avg((r) => r.points.red + r.points.blue) / 2).toFixed(2),
   'winning margin (avg)': avg((r) => Math.abs(r.points.red - r.points.blue)).toFixed(2),

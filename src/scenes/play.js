@@ -177,6 +177,7 @@ export function createPlayScene(game, session) {
           else announce(`${name(e.by)} PUTS THE WOLF IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
         }
         if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
+        if (e.type === 'dazed') announce(`${name(e.side)} IS DAZED BY THREE HITS!`, COLORS[e.side === 'red' ? 'blue' : 'red']);
         if (e.type === 'ram') {
           announce(e.shielded ? `${name(e.side)}'S RAM BOUNCES OFF THE SHIELD` : `${name(e.side)} RAMS ${name(e.victim)}!`, COLORS[e.side]);
         }
