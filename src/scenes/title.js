@@ -33,32 +33,20 @@ export function createTitleScene(game, session) {
   view.addChild(new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.25 }));
 
   const cx = WIDTH / 2;
-  const red = label('RED ALIEN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
+  const red = label('MARTIAN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
   const vs = label('vs', { size: 32, color: 0xffffff, anchorX: 0.5, anchorY: 0.5 });
-  const blue = label('BLUE ALIEN', { size: 64, color: COLORS.blue, bold: true, anchorX: 0, anchorY: 0.5 });
+  const blue = label('MARTIAN', { size: 64, color: COLORS.blue, bold: true, anchorX: 0, anchorY: 0.5 });
   red.position.set(cx - 40, 150);
   vs.position.set(cx, 150);
   blue.position.set(cx + 40, 150);
 
-  const blurb = label('Abduct cows and lambs. Bring them in low: from too high they go splat.', {
-    size: 18,
-    color: 0xcfd6ff,
-    anchorX: 0.5,
-  });
-  blurb.position.set(cx, 215);
-  const powerHint = label('Little green men parachute in during the round. Beam one up for a power-up!', {
-    size: 16,
-    color: 0x6cff6c,
-    anchorX: 0.5,
-  });
-  powerHint.position.set(cx, 243);
-  const campHint = label('Hover over your own pen too long and your animals get spooked out.', {
-    size: 14,
-    color: 0x8a93c0,
-    anchorX: 0.5,
-  });
-  campHint.position.set(cx, 266);
-  view.addChild(campHint);
+  // The rest is left for players to find out.
+  // Left-aligned, with the block as a whole centred.
+  const steps = ['Step 1: Abduct the animals.', 'Step 2: …?', 'Step 3: Profit!'].map((text) =>
+    label(text, { size: 20, color: 0xcfd6ff, anchorX: 0 }),
+  );
+  const stepsLeft = cx - Math.max(...steps.map((l) => l.width)) / 2;
+  steps.forEach((line, i) => line.position.set(stepsLeft, 198 + i * 27));
 
   const redKeys = label('', { size: 20, color: COLORS.red, anchorX: 0.5 });
   redKeys.position.set(cx - 220, 290);
@@ -73,14 +61,14 @@ export function createTitleScene(game, session) {
 
   const prompt = label('ENTER OR SPACE TO START', { size: 22, color: 0xffffff, bold: true, anchorX: 0.5 });
   prompt.position.set(cx, 492);
-  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   ESC  back to this menu', {
+  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   F  full screen   ESC  back to this menu', {
     size: 14,
     color: 0x8a93c0,
     anchorX: 0.5,
   });
   help.position.set(cx, 528);
 
-  view.addChild(red, vs, blue, blurb, powerHint, redKeys, blueKeys, onePlayer, twoPlayers, prompt, help);
+  view.addChild(red, vs, blue, ...steps, redKeys, blueKeys, onePlayer, twoPlayers, prompt, help);
 
   // Unlock from inside the key event itself: some browsers insist on it.
   const unsubscribe = onKey(unlockAudio);
