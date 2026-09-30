@@ -38,6 +38,19 @@ export const BUMP = {
   rearm: 25, // px the saucers must separate before another contact counts as a new bump
 };
 
+// Momentum and ramming. Holding one direction at full speed builds momentum:
+// the top speed climbs, and hitting the opponent fast enough is a ram.
+export const RAM = {
+  cruise: 0.8, // momentum builds only while going at least this share of SAUCER.maxSpeed along the input
+  delay: 0.2, // seconds of straight flight before it starts to build
+  build: 1, // seconds more to reach full momentum (ram speed after ~330 px from a standstill)
+  boost: 1.5, // top speed at full momentum, times SAUCER.maxSpeed
+  speed: 400, // px/s toward the opponent at contact for a ram
+  daze: 1.5, // seconds the rammed saucer spins out
+  knockback: 500, // px/s extra push on the rammed saucer
+  jolt: 30, // degrees: a hit that turns the saucer's course more than this costs its momentum
+};
+
 export const COMBAT = {
   projectileSpeed: 900,
   projectileRadius: 6,
@@ -47,24 +60,34 @@ export const COMBAT = {
   reloadTime: 1.5,
   ammoPerRound: 18,
   fireCooldown: 0.15,
+  // Hit this many times in a row, each within `dazeWindow` s of the last, a
+  // saucer is dazed for `dazeTime` s. Shots at once (triple shot) count once.
+  dazeHits: 3,
+  dazeWindow: 2,
+  dazeTime: 1.5,
+  dazeGrace: 1, // s after a daze wears off before hits count again (no stun-locking)
 };
 
 export const HOOK = {
   reach: 200, // from saucer underside to animal top
   grabRadius: 26, // horizontal distance to start a pickup
   stillSpeed: 90, // saucer must be slower than this to lower the hook
-  driftLimit: 30,
+  // A pickup in progress holds while the saucer stays within this far sideways
+  // of the animal, and no more than `stretch` px beyond `reach` above it (the
+  // animal rises with the beam). Flying up or down is fine.
+  driftLimit: 40,
+  stretch: 60,
   // While the beam is lifting, the saucer is heavier: less thrust, more drag.
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8 },
+  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.3, timebomb: 0.8 },
 };
 
 export const ANIMALS = {
   cows: 4,
   lambs: 5,
-  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0 },
+  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0, wolf: 35, timebomb: 0 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
   gravity: 1400,
@@ -75,6 +98,8 @@ export const ANIMALS = {
     greenman: { w: 22, h: 30 },
     crate: { w: 30, h: 26 },
     package: { w: 30, h: 28 },
+    wolf: { w: 52, h: 34 },
+    timebomb: { w: 28, h: 30 },
   },
   value: { cow: 2, lamb: 1 },
   fieldMargin: 30, // keep field animals this far from the pen fences
@@ -85,8 +110,9 @@ export const POWERUP = {
   dropTimes: [0.3, 0.6], // when he may drop, as fractions of the round
   mysteryChance: 0.2, // share of drops that come as a mystery package: power-up unknown until grabbed
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
-  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb'],
-  singleUse: ['rocket', 'bomb'], // kept until used (or the round ends) instead of timed
+  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain', 'timeBomb'],
+  singleUse: ['rocket', 'bomb', 'timeBomb'], // kept until used (or the round ends) instead of timed
+  instant: ['cowRain', 'lambRain'], // happen the moment they are grabbed; any power-up held is kept
   fallSpeed: 110, // parachute descent, px/s
   dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
   // speed: faster saucer
@@ -109,6 +135,21 @@ export const POWERUP = {
   // twin: the beam can carry a second animal
   // steal: stolen animals delivered while active are worth this times full value
   stealMultiplier: 2,
+  // unlimited: shots cost no ammo and the clip never needs reloading
+  // shield: hits and bumps don't move the saucer, break a lift or knock anything loose
+  // timeBomb: the shoot key drops it and lights the fuse. On the ground it can be
+  // lifted, carried and dropped again by either player. It goes off like the
+  // pen bomb; in a beam, it dazes that saucer instead.
+  timeBombFuse: 8, // seconds: time to fetch it out of your pen, tight to send it all the way back
+  timeBombDaze: 2, // seconds
+  // cowRain / lambRain: every lamb (cow) standing in the field bursts and a
+  // cow (lamb) parachutes down in its place. Golden animals are left alone.
+};
+
+// A drop to break a stalemate: the field is empty and someone is out of shots.
+export const SUPPLY = {
+  after: 3, // seconds the stalemate must last
+  crateChance: 0.5, // otherwise a green man (or mystery package)
 };
 
 // If a player runs out of ammo early, an ammo crate parachutes in.
@@ -145,6 +186,19 @@ export const SPOOK = {
 
 // A rare comeback drop: a golden cow or lamb that evens the score if the
 // trailing player delivers it.
+// The wolf: some rounds it parachutes in and eats every lamb it can reach.
+export const WOLF = {
+  chance: 0.35, // chance of a wolf each round
+  window: [0.25, 0.7], // it drops at a random time in this part of the round
+  speed: 130, // chasing, px/s
+  leaveSpeed: 260, // running off, px/s
+  bite: 30, // px between centres to catch a lamb
+  eatTime: 1, // seconds spent on each lamb
+  boredAfter: 6, // seconds without a lamb in reach before it leaves
+  scareRange: 220, // lambs in the field closer than this run away
+  fleeSpeed: 85, // px/s
+};
+
 export const GOLDEN = {
   checkAt: 2 / 3, // when to check, as a fraction of the round
   minLead: 3, // only when someone leads by at least this many points

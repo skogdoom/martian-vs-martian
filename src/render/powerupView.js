@@ -11,7 +11,14 @@ export const POWER_NAMES = {
   rocket: 'HOMING ROCKET',
   twin: 'TWIN BEAM',
   bomb: 'PEN BOMB',
+  unlimited: 'INFINITE AMMO',
+  shield: 'SHIELD',
+  cowRain: 'LAMBS → COWS',
+  lambRain: 'COWS → LAMBS',
+  timeBomb: 'TIME BOMB',
 };
+
+export const SHIELD_COLOR = 0x7fe8ff;
 
 /** Small rocket pointing along +x, nose at (len/2, 0). */
 export function drawRocket(g, len, flame = 0) {
@@ -53,15 +60,51 @@ export function createPowerIcon(type, r = 14) {
     rocket.rotation = -0.5;
     view.addChild(g, rocket);
     return view;
-  } else if (type === 'bomb') {
+  } else if (type === 'bomb' || type === 'timeBomb') {
     drawBomb(g, 6.5 * s);
-    g.position.set(0, 0);
+    if (type === 'timeBomb') {
+      // A clock face on the bomb.
+      g.circle(0, 0, 4.2 * s).fill(0xffffff);
+      g.moveTo(0, 0).lineTo(0, -3.2 * s).stroke({ color: 0xd0202a, width: 1.2 * s });
+      g.moveTo(0, 0).lineTo(2.4 * s, 0.8 * s).stroke({ color: 0x111111, width: 1.2 * s });
+    }
   } else if (type === 'twin') {
     // Two animals rising in two beams.
     for (const dx of [-4.5, 4.5]) {
       g.poly([dx * s - 2 * s, -9 * s, dx * s + 2 * s, -9 * s, dx * s + 4 * s, 8 * s, dx * s - 4 * s, 8 * s]).fill({ color: POWER_COLOR, alpha: 0.35 });
       g.roundRect(dx * s - 3.5 * s, 0, 7 * s, 5 * s, 2 * s).fill(0xffffff);
     }
+  } else if (type === 'shield') {
+    // A bubble with a little shield in it.
+    g.circle(0, 0, 9.5 * s).fill({ color: SHIELD_COLOR, alpha: 0.25 });
+    g.circle(0, 0, 9.5 * s).stroke({ color: SHIELD_COLOR, width: 1.5 * s });
+    g.poly([-5 * s, -5 * s, 5 * s, -5 * s, 5 * s, 0, 0, 6 * s, -5 * s, 0]).fill(0xffffff);
+    g.circle(-4 * s, -5.5 * s, 1.6 * s).fill({ color: 0xffffff, alpha: 0.7 });
+  } else if (type === 'cowRain') {
+    // A cow's face: horns, a black patch and a pink muzzle.
+    g.moveTo(-5 * s, -6 * s).lineTo(-9 * s, -10 * s).stroke({ color: 0xf2e6c8, width: 2 * s });
+    g.moveTo(5 * s, -6 * s).lineTo(9 * s, -10 * s).stroke({ color: 0xf2e6c8, width: 2 * s });
+    g.ellipse(-9 * s, -3 * s, 3 * s, 1.8 * s).fill(0xffffff);
+    g.ellipse(9 * s, -3 * s, 3 * s, 1.8 * s).fill(0xffffff);
+    g.roundRect(-6.5 * s, -8 * s, 13 * s, 15 * s, 5 * s).fill(0xffffff);
+    g.ellipse(-3 * s, -4.5 * s, 3.2 * s, 3.4 * s).fill(0x222222);
+    g.circle(3 * s, -3 * s, 1.2 * s).fill(0x111111);
+    g.circle(-3 * s, -3 * s, 1.2 * s).fill(0xffffff);
+    g.ellipse(0, 4 * s, 6 * s, 3.8 * s).fill(0xf2a0b0);
+    g.circle(-2 * s, 4 * s, 0.9 * s).fill(0x8a4a5a);
+    g.circle(2 * s, 4 * s, 0.9 * s).fill(0x8a4a5a);
+  } else if (type === 'lambRain') {
+    // A lamb's face: dark, in a ring of wool.
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      g.circle(Math.cos(a) * 6.5 * s, Math.sin(a) * 6 * s - 1 * s, 3.4 * s).fill(0xf3eee2);
+    }
+    g.ellipse(-7 * s, 0, 3 * s, 1.6 * s).fill(0x3a3a3a);
+    g.ellipse(7 * s, 0, 3 * s, 1.6 * s).fill(0x3a3a3a);
+    g.ellipse(0, 1 * s, 4.5 * s, 6 * s).fill(0x3a3a3a);
+    g.circle(-2 * s, -0.5 * s, 1.1 * s).fill(0xffffff);
+    g.circle(2 * s, -0.5 * s, 1.1 * s).fill(0xffffff);
+    g.circle(0, -6 * s, 3 * s).fill(0xf3eee2);
   } else if (type === 'triple') {
     for (const dy of [-6, 0, 6]) {
       g.rect(-8 * s, (dy - 1) * s, 9 * s, 2 * s).fill({ color: 0xffffff, alpha: 0.5 });
@@ -72,6 +115,10 @@ export function createPowerIcon(type, r = 14) {
   if (type === 'steal') {
     const t = label('2×', { size: Math.round(13 * s), color: 0xffd76a, bold: true, anchorX: 0.5, anchorY: 0.5 });
     t.y = 0.5 * s;
+    view.addChild(t);
+  } else if (type === 'unlimited') {
+    const t = label('∞', { size: Math.round(20 * s), color: 0xffd76a, bold: true, anchorX: 0.5, anchorY: 0.5 });
+    t.y = -0.5 * s;
     view.addChild(t);
   }
   return view;

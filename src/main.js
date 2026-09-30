@@ -3,7 +3,7 @@
 import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT, STEP, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
 import { endStep, onKey } from './input.js';
-import { toggleMute } from './audio.js';
+import { toggleMute, unlockAudio, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
 import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
@@ -57,6 +57,14 @@ const game = {
 const mutedLabel = label('SOUND OFF  (M)', { size: 13, color: 0xcfd6ff, anchorX: 0.5, anchorY: 1 });
 mutedLabel.position.set(WIDTH / 2, HEIGHT - 10);
 mutedLabel.visible = false;
+// Audio needs a user gesture to start, and may need one again after the
+// browser suspends it, so every key press and click tries to wake it up.
+onKey(unlockAudio);
+window.addEventListener('pointerdown', unlockAudio);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) resumeAudio();
+});
+
 onKey((code) => {
   if (code === MUTE_KEY) mutedLabel.visible = toggleMute();
   // Must run inside the key event: browsers only allow full screen from a user gesture.

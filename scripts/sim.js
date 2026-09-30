@@ -86,6 +86,9 @@ function simulate(seed) {
     shots: 0,
     hits: 0,
     bumps: 0,
+    rams: 0,
+    dazes: 0, // three shot hits in a row
+    ramDrops: 0, // animals knocked loose by a ram
     bumpRepeats: 0, // bumps within 0.3 s of the previous one
     lastBump: -1,
     dry: 0,
@@ -99,11 +102,13 @@ function simulate(seed) {
     golden: null, // { trailing, deliveredBy, diffBefore } when a golden animal dropped
     crates: [], // { for: side that ran out, t, grabbedBy }
     splats: 0,
+    wolf: null, // { eatenField, eatenPen, penDrops: { own, theirs }, left }
+    timeBombs: [], // { owner, moves, outcome: 'theirs' | 'own' | 'field' | 'held' | null, count }
     spooked: 0,
     fieldRestocks: 0,
     grabs: [], // { side, t, power, diff, swing }: diff = grabber's lead at the grab, swing = lead gained over the power-up's duration
     diffAtPivot: null, // red minus blue at PIVOT, for comeback baselines
-    late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, idle: 0 }, // after PIVOT
+    late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, rocket: 0, ram: 0, idle: 0 }, // after PIVOT
     baseSwing: null, // change in red's lead from PIVOT + 2 s over the power-up's length, no power-up
   };
   let leader = 'tie';
@@ -141,7 +146,10 @@ function simulate(seed) {
         if (t - hookedAt[e.side] < 0.25) m.accidental++;
         if (bumpedAt[e.side] >= hookedAt[e.side]) m.driftAfterBump++;
       } else if (e.type === 'interrupt') m.shotInterrupts++;
-      else if (e.type === 'pickup') m.pickups++;
+      else if (e.type === 'pickup') {
+        m.pickups++;
+        if (e.kind === 'timebomb' && m.timeBombs.length) m.timeBombs.at(-1).moves++;
+      }
       else if (e.type === 'land' && e.delivered) {
         m.deliveries++;
         if (e.stolen) m.steals++;
@@ -154,8 +162,24 @@ function simulate(seed) {
         m.lastBump = t;
         bumpedAt.red = bumpedAt.blue = t;
       }
+      else if (e.type === 'ram' && !e.shielded) {
+        m.rams++;
+        m.ramDrops += round.events.filter((x) => x.type === 'knockLoose' && x.side === e.victim).length;
+      }
+      else if (e.type === 'dazed') m.dazes++;
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat') m.splats++;
+      else if (e.type === 'timeBombDrop') m.timeBombs.push({ owner: e.side, moves: 0, outcome: null, count: 0 });
+      else if (e.type === 'timeBombHeld' && m.timeBombs.length) m.timeBombs.at(-1).outcome = 'held';
+      else if (e.type === 'bombBlast' && e.timed && m.timeBombs.length) {
+        const b = m.timeBombs.at(-1);
+        b.outcome = !e.pen ? 'field' : e.pen === b.owner ? 'own' : 'theirs';
+        b.count = e.count;
+      }
+      else if (e.type === 'wolfIncoming') m.wolf = { eatenField: 0, eatenPen: 0, own: 0, theirs: 0, left: false };
+      else if (e.type === 'wolfEat') m.wolf[e.pen ? 'eatenPen' : 'eatenField']++;
+      else if (e.type === 'wolfLand' && e.pen && e.by) m.wolf[e.pen === e.by ? 'own' : 'theirs']++;
+      else if (e.type === 'wolfLeaves') m.wolf.left = true;
       else if (e.type === 'spooked') m.spooked++;
       else if (e.type === 'restock' && e.reason === 'emptyField') m.fieldRestocks++;
       else if (e.type === 'crateIncoming') m.crates.push({ for: e.side, t, grabbedBy: null });
@@ -232,6 +256,8 @@ console.table({
   'score still changing in the last 10 s': pct((r) => r.lastScoreChange > config.ROUND.length - 10),
   'ammo used up (median s)': median(results.flatMap((r) => [r.ammoOutAt.red, r.ammoOutAt.blue])),
   bumps: `${avg((r) => r.bumps).toFixed(1)} (${avg((r) => r.bumpRepeats).toFixed(1)} within 0.3 s of the last)`,
+  'dazed by three hits in a row': avg((r) => r.dazes).toFixed(2),
+  'rams (animals knocked loose by them)': `${avg((r) => r.rams).toFixed(2)} (${avg((r) => r.ramDrops).toFixed(2)})`,
   'final score (avg per player)': (avg((r) => r.points.red + r.points.blue) / 2).toFixed(2),
   'winning margin (avg)': avg((r) => Math.abs(r.points.red - r.points.blue)).toFixed(2),
   'red wins / blue wins / ties': `${pct((r) => r.result === 'red')} / ${pct((r) => r.result === 'blue')} / ${pct((r) => r.result === 'tie')}`,
@@ -240,6 +266,32 @@ console.table({
 function ROUND_LENGTH() {
   return config.ROUND.length;
 }
+
+// ---- the wolf -----------------------------------------------------------
+
+const wolfRounds = results.filter((r) => r.wolf);
+const wavg = (f) => (wolfRounds.reduce((s, r) => s + f(r.wolf), 0) / Math.max(1, wolfRounds.length)).toFixed(2);
+console.log('\nThe wolf');
+console.table({
+  'rounds with a wolf': `${wolfRounds.length} (${((100 * wolfRounds.length) / results.length).toFixed(0)}%)`,
+  'lambs eaten in the field (avg)': wavg((w) => w.eatenField),
+  'lambs eaten in a pen (avg)': wavg((w) => w.eatenPen),
+  "dropped in the opponent's pen / own pen (avg)": `${wavg((w) => w.theirs)} / ${wavg((w) => w.own)}`,
+  'got bored and left before the end': `${((100 * wolfRounds.filter((r) => r.wolf.left).length) / Math.max(1, wolfRounds.length)).toFixed(0)}%`,
+});
+
+// ---- time bombs ---------------------------------------------------------
+
+const tbs = results.flatMap((r) => r.timeBombs);
+const share = (o) => `${((100 * tbs.filter((b) => b.outcome === o).length) / Math.max(1, tbs.length)).toFixed(0)}%`;
+console.log('\nTime bombs');
+console.table({
+  'time bombs dropped': tbs.length,
+  'lifted again (avg times)': (tbs.reduce((s, b) => s + b.moves, 0) / Math.max(1, tbs.length)).toFixed(2),
+  "went off in the opponent's pen / dropper's own pen": `${share('theirs')} / ${share('own')}`,
+  'in the field / in a beam / not before the end': `${share('field')} / ${share('held')} / ${share(null)}`,
+  'animals blown out per pen blast': (tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').reduce((s, b) => s + b.count, 0) / Math.max(1, tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').length)).toFixed(2),
+});
 
 // ---- power-ups ----------------------------------------------------------
 

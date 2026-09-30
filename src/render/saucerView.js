@@ -3,7 +3,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { SAUCER } from '../config.js';
 import { COLORS } from './backdrop.js';
-import { POWER_COLOR, drawRocket, drawBomb } from './powerupView.js';
+import { POWER_COLOR, SHIELD_COLOR, drawRocket, drawBomb } from './powerupView.js';
 
 const SHADE = { red: 0x9e2a2f, blue: 0x1f5bb0 };
 const LIGHTS = 7;
@@ -74,14 +74,28 @@ export function createSaucerView(side) {
   heldRocket.visible = heldBomb.visible = false;
   // Stars circling the dome while stunned.
   const dizzy = new Graphics();
+  // Shield power-up: a bubble around the whole saucer.
+  const shield = new Graphics();
+  shield.ellipse(0, -4, r + 16, SAUCER.top + 6).fill({ color: SHIELD_COLOR, alpha: 0.12 });
+  shield.ellipse(0, -4, r + 16, SAUCER.top + 6).stroke({ color: SHIELD_COLOR, width: 2.5 });
+  shield.ellipse(-r * 0.55, -SAUCER.top * 0.55, 8, 4).fill({ color: 0xffffff, alpha: 0.5 });
+  shield.visible = false;
+  // Fast enough to ram: a shock front ahead of the saucer.
+  const shock = new Graphics();
+  for (const [dx, w, a] of [[0, 3, 0.9], [9, 2, 0.5]]) {
+    shock.moveTo(r + 2 + dx, -h - 8).quadraticCurveTo(r + 18 + dx, 0, r + 2 + dx, h + 8).stroke({ color: 0xffffff, width: w, alpha: a });
+  }
+  shock.visible = false;
 
-  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy);
+  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy, shield, shock);
 
   return {
     view,
     /** `look` is -1/+1 toward the opponent; `hit` fades 1 → 0 after being shot;
-     * `power` is the active power-up type, if any. */
-    sync(s, t, { look = 1, hit = 0, beam = false, power = null } = {}) {
+     * `deflect` the same after a shot bounced off the shield;
+     * `power` is the active power-up type, if any; `momentum` 0..1 from flying
+     * straight; `ramReady` when going fast enough to ram. */
+    sync(s, t, { look = 1, hit = 0, deflect = 0, beam = false, power = null, momentum = 0, ramReady = false } = {}) {
       const stunned = s.stun > 0;
       const bob = Math.sin(t * 3 + (side === 'red' ? 0 : 1.7)) * 1.5;
       view.position.set(s.x, s.y + bob);
@@ -117,11 +131,21 @@ export function createSaucerView(side) {
       aura.alpha = 0.5 + 0.4 * Math.sin(t * 8);
       aura.scale.set(1 + 0.06 * Math.sin(t * 8));
       // Streaks point away from the direction of travel (the view is rotated, not flipped).
-      streaks.visible = power === 'speed' && Math.abs(s.vx) > 150;
+      const speedy = power === 'speed' && Math.abs(s.vx) > 150;
+      streaks.visible = speedy || momentum > 0.15;
+      streaks.alpha = speedy ? 1 : Math.min(1, momentum * 1.3);
       streaks.scale.x = s.vx >= 0 ? 1 : -1;
+      shock.visible = ramReady && !stunned;
+      if (shock.visible) {
+        shock.rotation = Math.atan2(s.vy, s.vx) - view.rotation;
+        shock.alpha = 0.6 + 0.4 * Math.sin(t * 30);
+      }
       heldRocket.visible = power === 'rocket';
-      heldBomb.visible = power === 'bomb';
+      heldBomb.visible = power === 'bomb' || power === 'timeBomb';
       heldRocket.scale.x = look;
+      shield.visible = power === 'shield';
+      shield.alpha = 0.55 + 0.2 * Math.sin(t * 5) + 0.45 * deflect;
+      shield.scale.set(1 + 0.03 * Math.sin(t * 5) + 0.08 * deflect);
 
       dizzy.clear();
       if (stunned) {

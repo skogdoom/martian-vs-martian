@@ -92,7 +92,8 @@ export function updateAnimal(a, dt, rng) {
     a.y += POWERUP.fallSpeed * dt;
     if (a.y < ARENA.groundY) return null;
     a.y = ARENA.groundY;
-    a.state = 'field';
+    // Parachuted into a pen (cow rain / lamb rain): it stays there.
+    a.state = a.pen ? 'penned' : 'field';
     a.wanderTimer = 0;
     return 'touchdown';
   }

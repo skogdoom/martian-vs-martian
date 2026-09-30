@@ -3,9 +3,11 @@
 // It re-decides every `skill.react` seconds and holds its keys in between.
 // Used for the single-player CPU and by the balance simulator (scripts/sim.js).
 
-import { ARENA, SAUCER, POWERUP, ROUND } from '../config.js';
+import { ARENA, SAUCER, POWERUP, ROUND, RAM } from '../config.js';
 import { scores } from './scoring.js';
 import { hasPower } from './powerup.js';
+import { momentum } from './saucer.js';
+import { HAZARDS } from './hook.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const LOW = ARENA.flightBottom - 12; // hover height for hooking
@@ -23,11 +25,12 @@ function axis(pos, vel, target, gain, max) {
  *   react        seconds between decisions
  *   aim          how close in height (px) before it fires
  *   hunter       chance to chase an opponent who is lifting
- *   huntWithGun  the same, while holding a laser or triple shot
+ *   huntWithGun  the same, while holding a laser, triple shot or infinite ammo
  *   picky        only shoot at an opponent who is lifting or carrying
  *   sloppy       share of lifts where it lets go of the keys once the beam grabs
  *   jitter       steering noise, px
- *   raid         steal from the opponent's pen when losing in the second half
+ *   raid         steal from the opponent's pen when losing in the second half,
+ *                and fetch a wolf from the field to drop on the opponent's lambs
  *   carryLow     fly home low while carrying, so a hit doesn't splat the animal
  */
 export function createBot(side, rng, skill) {
@@ -46,11 +49,13 @@ export function createBot(side, rng, skill) {
     const losing = skill.raid && p[side] < p[other(side)] && elapsed > ROUND.length / 2;
     const stealPenalty = hasPower(w.powers, side, 'steal') || losing ? -300 : 150;
     const wantsAmmo = w.weapons[side].ammo <= 3;
-    for (const a of [...w.animals, ...w.drops]) {
+    const theirLambs = w.animals.filter((a) => a.kind === 'lamb' && a.state === 'penned' && a.pen === other(side)).length;
+    const wolves = skill.raid && theirLambs >= 2 ? w.wolves : [];
+    for (const a of [...w.animals, ...w.drops, ...wolves]) {
       const eligible = (a.state === 'field' || (a.state === 'penned' && a.pen !== side)) && a.hookedBy === null;
       if (!eligible) continue;
       const unpaidGold = a.golden && a.goldenValue == null;
-      const prize = a.kind === 'greenman' || a.kind === 'package' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
+      const prize = a.kind === 'wolf' || a.kind === 'greenman' || a.kind === 'package' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
       const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (prize ? -400 : 0);
       if (d < bestD) {
         bestD = d;
@@ -75,14 +80,30 @@ export function createBot(side, rng, skill) {
       const weapon = w.weapons[side];
       const laser = hasPower(w.powers, side, 'laser');
       const triple = hasPower(w.powers, side, 'triple');
+      const endless = hasPower(w.powers, side, 'unlimited');
+      // No point chasing or shooting at a shield.
+      const shielded = hasPower(w.powers, other(side), 'shield');
       const rocket = hasPower(w.powers, side, 'rocket');
-      const bomb = hasPower(w.powers, side, 'bomb');
+      const bomb = hasPower(w.powers, side, 'bomb') || hasPower(w.powers, side, 'timeBomb');
       const theirPen = ARENA.pens[other(side)];
       const theirPenX = (theirPen.left + theirPen.right) / 2;
       const inTheirPen = w.animals.filter((a) => a.state === 'penned' && a.pen === other(side)).length;
       let tx = s.x;
       let ty = s.y;
       let dropBomb = false;
+      let letGoOfIt = false;
+      let ramming = false;
+      // Trouble on the beam (a wolf, a time bomb) goes to their pen.
+      const carried = [hook.carrying, hook.second];
+      const carriedHazard = carried.some((a) => HAZARDS.has(a?.kind));
+      const carriedBomb = carried.find((a) => a?.kind === 'timebomb');
+      const overOwnPen = s.x >= ARENA.pens[side].left - 20 && s.x <= ARENA.pens[side].right + 20;
+      // A time bomb about to go off is let go of anywhere but over our own pen.
+      const bail = carriedBomb && carriedBomb.fuse < 1.2 && !overOwnPen;
+      // Trouble in our pen: get it out, unless the bomb is too close to going off.
+      const trouble = [...w.wolves, ...w.timeBombs].find(
+        (a) => a.state === 'penned' && a.pen === side && a.hookedBy === null && (a.kind === 'wolf' || a.fuse > 3),
+      );
 
       // With the twin beam, grab a second animal on the way if one is close.
       const second =
@@ -90,7 +111,12 @@ export function createBot(side, rng, skill) {
           ? w.animals.find((a) => a.state === 'field' && a.hookedBy === null && Math.abs(a.x - s.x) < 300)
           : null;
 
-      if (second) {
+      if (carriedHazard) {
+        // Over their pen and let it go.
+        tx = theirPenX;
+        ty = 330;
+        letGoOfIt = bail || Math.abs(s.x - theirPenX) < 30;
+      } else if (second) {
         tx = second.x;
         ty = Math.abs(second.x - s.x) > 120 ? 380 : LOW;
       } else if (hook.carrying && !hook.target) {
@@ -115,14 +141,27 @@ export function createBot(side, rng, skill) {
         }
         tx = hook.target.x;
         ty = s.y;
+      } else if (trouble) {
+        tx = trouble.x;
+        ty = Math.abs(trouble.x - s.x) > 120 ? 380 : LOW;
       } else {
-        const armed = weapon.ammo > 0 || laser || triple;
-        const hunter = laser || triple ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
+        const armed = weapon.ammo > 0 || laser || triple || endless;
+        const hunter = laser || triple || endless ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
         // A carrier is worth chasing too: a hit knocks its animal loose.
         const prey = theirs.target || theirs.carrying;
-        if (mode === 'collect' && prey && armed && rng() < hunter) mode = 'hunt';
-        if (mode === 'hunt' && (!prey || !armed)) mode = 'collect';
-        if (mode === 'hunt') {
+        // Out of shots, it rams a carrier instead, if one is close and level.
+        const rammable = theirs.carrying && Math.abs(o.x - s.x) < 450 && Math.abs(o.y - s.y) < 60;
+        if (mode === 'collect' && prey && !shielded && rng() < hunter) {
+          if (armed) mode = 'hunt';
+          else if (rammable) mode = 'ram';
+        }
+        if (mode === 'hunt' && (!prey || shielded || !armed)) mode = 'collect';
+        if (mode === 'ram' && (!theirs.carrying || shielded || armed || Math.abs(o.y - s.y) > 120)) mode = 'collect';
+        if (mode === 'ram') {
+          ramming = true;
+          tx = o.x;
+          ty = o.y;
+        } else if (mode === 'hunt') {
           tx = s.x;
           ty = o.y;
         } else {
@@ -138,21 +177,23 @@ export function createBot(side, rng, skill) {
         }
       }
 
-      const top = SAUCER.maxSpeed * (hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1);
+      const top = SAUCER.maxSpeed * Math.max(hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1, 1 + (RAM.boost - 1) * momentum(s));
       const aligned = Math.abs(o.y - s.y) < skill.aim + (triple ? POWERUP.tripleSpread : 0);
       const target = theirs.target || theirs.carrying;
-      const worthIt = skill.picky ? target : target || mode === 'hunt' || rng() < 0.05;
+      const worthIt = !shielded && (skill.picky ? target : target || mode === 'hunt' || rng() < 0.05);
       held = {
-        x: axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
-        y: axis(s.y, s.vy, ty, skill.gain, top),
-        // While carrying, shoot would drop the animal: never do that.
+        // Ramming: full speed at it, no braking.
+        x: ramming ? Math.sign(o.x - s.x) : axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
+        // Ramming: hold the line once level, so momentum builds.
+        y: ramming && Math.abs(o.y - s.y) < 16 ? 0 : axis(s.y, s.vy, ty, skill.gain, top),
+        // While carrying, shoot drops what it carries: only ever a wolf, on purpose.
         shoot: hook.carrying
-          ? false
+          ? letGoOfIt
           : rocket
             ? Boolean(target)
             : bomb
               ? dropBomb
-              : Boolean(aligned && worthIt && (weapon.ammo > 0 || triple)),
+              : Boolean(aligned && worthIt && (weapon.ammo > 0 || triple || endless)),
         fire: aligned && laser,
       };
       return held;

@@ -1,7 +1,8 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { Container } from 'pixi.js';
-import { WIDTH, AMMO_CRATE, BOT, ROUND } from '../config.js';
+import { WIDTH, AMMO_CRATE, BOT, ROUND, RAM } from '../config.js';
+import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
 import { sideName, isCpu } from '../session.js';
@@ -18,6 +19,8 @@ import { createProjectileView } from '../render/projectileView.js';
 import { createAnimalView, createBeamView } from '../render/animalView.js';
 import { createEffects } from '../render/effects.js';
 import { createDropsView, POWER_NAMES, POWER_COLOR } from '../render/powerupView.js';
+import { createWolvesView } from '../render/wolfView.js';
+import { createTimeBombsView } from '../render/timeBombView.js';
 import { COLORS } from '../render/backdrop.js';
 import { createHud } from '../render/hud.js';
 import { label } from '../render/text.js';
@@ -39,13 +42,17 @@ export function createPlayScene(game, session) {
   const saucerViews = {};
   for (const side of SIDES) saucerViews[side] = createSaucerView(side);
   const dropsView = createDropsView();
+  const wolvesView = createWolvesView();
+  const timeBombsView = createTimeBombsView();
   const projectileView = createProjectileView();
   const effects = createEffects();
   stage.addChild(
     backdrop.view,
     beamView.view,
     animalView.view,
+    wolvesView.view,
     dropsView.view,
+    timeBombsView.view,
     ...SIDES.map((side) => saucerViews[side].view),
     projectileView.view,
     effects.view,
@@ -88,10 +95,15 @@ export function createPlayScene(game, session) {
         power: world.powers[side]?.type ?? null,
         look: Math.sign(other.x - s.x) || 1,
         hit: effects.hitFlash[side],
+        deflect: effects.deflect[side],
+        momentum: momentum(s),
+        ramReady: speed(s) >= RAM.speed && s.stun === 0 && !hook.carrying,
         beam: Boolean(hook.target || hook.carrying),
       });
     }
     dropsView.sync(world.drops, t);
+    wolvesView.sync(world.wolves, t);
+    timeBombsView.sync(world.timeBombs, t);
     projectileView.sync(world, t);
     announcement.visible = announceLeft > 0;
     announcement.alpha = Math.min(1, announceLeft * 2);
@@ -154,9 +166,33 @@ export function createPlayScene(game, session) {
           const got = e.mystery ? `OPENS THE PACKAGE: ${POWER_NAMES[e.power]}!` : `GETS ${POWER_NAMES[e.power]}!`;
           announce(`${name(e.side)} ${got}`, COLORS[e.side]);
         }
+        if (e.type === 'animalRain') {
+          const [from, to] = [`${e.from.toUpperCase()}S`, `${e.to.toUpperCase()}S`];
+          announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} TO TURN INTO ${to}`, COLORS[e.side]);
+        }
+        if (e.type === 'wolfIncoming') announce('A WOLF IS LOOSE! IT EATS LAMBS', 0xcfd6ff);
+        if (e.type === 'wolfLand' && e.pen) {
+          if (!e.by) announce(`THE WOLF LANDS IN ${name(e.pen)}'S PEN!`, COLORS[e.pen]);
+          else if (e.by === e.pen) announce(`${name(e.by)} PUTS THE WOLF IN ITS OWN PEN!`, COLORS[e.by]);
+          else announce(`${name(e.by)} PUTS THE WOLF IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
+        }
+        if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
+        if (e.type === 'dazed') announce(`${name(e.side)} IS DAZED BY THREE HITS!`, COLORS[e.side === 'red' ? 'blue' : 'red']);
+        if (e.type === 'ram') {
+          announce(e.shielded ? `${name(e.side)}'S RAM BOUNCES OFF THE SHIELD` : `${name(e.side)} RAMS ${name(e.victim)}!`, COLORS[e.side]);
+        }
+        if (e.type === 'timeBombLand' && e.pen) {
+          if (!e.by) announce(`THE TIME BOMB LANDS IN ${name(e.pen)}'S PEN!`, COLORS[e.pen]);
+          else if (e.by === e.pen) announce(`${name(e.by)} PUTS THE TIME BOMB IN ITS OWN PEN!`, COLORS[e.by]);
+          else announce(`${name(e.by)} PUTS THE TIME BOMB IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
+        }
+        if (e.type === 'timeBombHeld') announce(`${name(e.side)} WAS HOLDING THE TIME BOMB!`, COLORS[e.side]);
         if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
         if (e.type === 'spooked') announce(`${name(e.side)}'S ANIMALS ARE SPOOKED!`, COLORS[e.side]);
-        if (e.type === 'bombBlast') {
+        if (e.type === 'bombBlast' && e.timed) {
+          if (!e.pen) announce('THE TIME BOMB GOES OFF IN THE FIELD', 0xcfd6ff);
+          else announce(`THE TIME BOMB BLASTS ${e.count} OUT OF ${name(e.pen)}'S PEN!`, COLORS[e.pen]);
+        } else if (e.type === 'bombBlast') {
           if (!e.pen) announce(`${name(e.side)}'S BOMB MISSED`, 0xcfd6ff);
           else if (e.pen === e.side) announce(`${name(e.side)} BOMBED ITS OWN PEN!`, COLORS[e.side]);
           else announce(`${name(e.side)} BLASTS ${e.count} OUT OF ${name(e.pen)}'S PEN!`, COLORS[e.side]);
