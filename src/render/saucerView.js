@@ -80,15 +80,22 @@ export function createSaucerView(side) {
   shield.ellipse(0, -4, r + 16, SAUCER.top + 6).stroke({ color: SHIELD_COLOR, width: 2.5 });
   shield.ellipse(-r * 0.55, -SAUCER.top * 0.55, 8, 4).fill({ color: 0xffffff, alpha: 0.5 });
   shield.visible = false;
+  // Fast enough to ram: a shock front ahead of the saucer.
+  const shock = new Graphics();
+  for (const [dx, w, a] of [[0, 3, 0.9], [9, 2, 0.5]]) {
+    shock.moveTo(r + 2 + dx, -h - 8).quadraticCurveTo(r + 18 + dx, 0, r + 2 + dx, h + 8).stroke({ color: 0xffffff, width: w, alpha: a });
+  }
+  shock.visible = false;
 
-  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy, shield);
+  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy, shield, shock);
 
   return {
     view,
     /** `look` is -1/+1 toward the opponent; `hit` fades 1 → 0 after being shot;
      * `deflect` the same after a shot bounced off the shield;
-     * `power` is the active power-up type, if any. */
-    sync(s, t, { look = 1, hit = 0, deflect = 0, beam = false, power = null } = {}) {
+     * `power` is the active power-up type, if any; `momentum` 0..1 from flying
+     * straight; `ramReady` when going fast enough to ram. */
+    sync(s, t, { look = 1, hit = 0, deflect = 0, beam = false, power = null, momentum = 0, ramReady = false } = {}) {
       const stunned = s.stun > 0;
       const bob = Math.sin(t * 3 + (side === 'red' ? 0 : 1.7)) * 1.5;
       view.position.set(s.x, s.y + bob);
@@ -124,8 +131,15 @@ export function createSaucerView(side) {
       aura.alpha = 0.5 + 0.4 * Math.sin(t * 8);
       aura.scale.set(1 + 0.06 * Math.sin(t * 8));
       // Streaks point away from the direction of travel (the view is rotated, not flipped).
-      streaks.visible = power === 'speed' && Math.abs(s.vx) > 150;
+      const speedy = power === 'speed' && Math.abs(s.vx) > 150;
+      streaks.visible = speedy || momentum > 0.15;
+      streaks.alpha = speedy ? 1 : Math.min(1, momentum * 1.3);
       streaks.scale.x = s.vx >= 0 ? 1 : -1;
+      shock.visible = ramReady && !stunned;
+      if (shock.visible) {
+        shock.rotation = Math.atan2(s.vy, s.vx) - view.rotation;
+        shock.alpha = 0.6 + 0.4 * Math.sin(t * 30);
+      }
       heldRocket.visible = power === 'rocket';
       heldBomb.visible = power === 'bomb';
       heldRocket.scale.x = look;

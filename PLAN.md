@@ -33,10 +33,12 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Movement
 - Free 2D movement with acceleration, drag and a max speed.
 - Saucers are clamped to the flight band and the walls.
+- **Momentum:** holding one direction at full speed builds momentum. After 0.3 s the top speed starts to climb, reaching 1.5× (480 px/s) after another 1.2 s. Changing direction, letting go, being stopped by a wall or slowed below 80% of normal speed loses it. Speed lines show it building; a shock front ahead of the saucer shows it is fast enough to ram. The speed power-up doesn't stack with it: the higher of the two counts.
 
 ### Bump
 - When saucers overlap, both get a small impulse pushing them apart.
 - The effect is minor compared to a shot.
+- **Ram:** a saucer that hits the other at 400 px/s or more (along the line between them) rams it. The rammed saucer is knocked back, drops everything it carries (it falls like a knocked-loose animal, so from high up it splats), loses any pickup in progress and is dazed for 1.5 s: no steering, lifting or shooting. The rammer loses its momentum. Head on, both can be dazed. A shield stops a ram. Values are in `RAM` in `config.js`.
 
 ### Shooting
 - Projectiles travel horizontally at the shooter's height, always toward the opponent's side (the sign of the x difference). Shots can miss.
@@ -245,5 +247,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **The wolf**
   - Logic (`src/logic/wolf.js`), art (`src/render/wolfView.js`: parachute, running, eating, howling), announcements, "CHOMP!", howl, growl and chomp sounds, CPU handling. Unit tests.
   - Simulator (Hard vs Hard): a wolf in 33% of rounds; it eats about 0.6 lambs in the field and 2.9 in pens per wolf round, since the bots keep dropping it back into each other's pens; it leaves before the end in about half of them.
+- [x] **Momentum and ramming**
+  - Logic, speed lines and shock front, "RAM!" impact, announcement and sound. Unit tests.
+  - The CPU rams only when out of shots, at a carrier that is close and level. Letting it chase carriers across the field, or floor it on every long flight, cost it deliveries (14.2 → 12.2 per round) and doubled bumps.
+  - Simulator: about 0.2 rams per round between bots, other numbers close to before (deliveries 13.7, lead changes 3.1). Players who hold a direction will ram more.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

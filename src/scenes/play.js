@@ -1,7 +1,8 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { Container } from 'pixi.js';
-import { WIDTH, AMMO_CRATE, BOT, ROUND } from '../config.js';
+import { WIDTH, AMMO_CRATE, BOT, ROUND, RAM } from '../config.js';
+import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
 import { sideName, isCpu } from '../session.js';
@@ -92,6 +93,8 @@ export function createPlayScene(game, session) {
         look: Math.sign(other.x - s.x) || 1,
         hit: effects.hitFlash[side],
         deflect: effects.deflect[side],
+        momentum: momentum(s),
+        ramReady: speed(s) >= RAM.speed && s.stun === 0,
         beam: Boolean(hook.target || hook.carrying),
       });
     }
@@ -170,6 +173,9 @@ export function createPlayScene(game, session) {
           else announce(`${name(e.by)} PUTS THE WOLF IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
         }
         if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
+        if (e.type === 'ram') {
+          announce(e.shielded ? `${name(e.side)}'S RAM BOUNCES OFF THE SHIELD` : `${name(e.side)} RAMS ${name(e.victim)}!`, COLORS[e.side]);
+        }
         if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
         if (e.type === 'spooked') announce(`${name(e.side)}'S ANIMALS ARE SPOOKED!`, COLORS[e.side]);
         if (e.type === 'bombBlast') {

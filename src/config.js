@@ -38,6 +38,18 @@ export const BUMP = {
   rearm: 25, // px the saucers must separate before another contact counts as a new bump
 };
 
+// Momentum and ramming. Holding one direction at full speed builds momentum:
+// the top speed climbs, and hitting the opponent fast enough is a ram.
+export const RAM = {
+  cruise: 0.8, // momentum builds only while going at least this share of SAUCER.maxSpeed along the input
+  delay: 0.3, // seconds of straight flight before it starts to build
+  build: 1.2, // seconds more to reach full momentum
+  boost: 1.5, // top speed at full momentum, times SAUCER.maxSpeed
+  speed: 400, // px/s toward the opponent at contact for a ram
+  daze: 1.5, // seconds the rammed saucer spins out
+  knockback: 500, // px/s extra push on the rammed saucer
+};
+
 export const COMBAT = {
   projectileSpeed: 900,
   projectileRadius: 6,

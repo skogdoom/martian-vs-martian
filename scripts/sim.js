@@ -86,6 +86,8 @@ function simulate(seed) {
     shots: 0,
     hits: 0,
     bumps: 0,
+    rams: 0,
+    ramDrops: 0, // animals knocked loose by a ram
     bumpRepeats: 0, // bumps within 0.3 s of the previous one
     lastBump: -1,
     dry: 0,
@@ -104,7 +106,7 @@ function simulate(seed) {
     fieldRestocks: 0,
     grabs: [], // { side, t, power, diff, swing }: diff = grabber's lead at the grab, swing = lead gained over the power-up's duration
     diffAtPivot: null, // red minus blue at PIVOT, for comeback baselines
-    late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, idle: 0 }, // after PIVOT
+    late: { hooks: 0, pickups: 0, shot: 0, drift: 0, laser: 0, rocket: 0, ram: 0, idle: 0 }, // after PIVOT
     baseSwing: null, // change in red's lead from PIVOT + 2 s over the power-up's length, no power-up
   };
   let leader = 'tie';
@@ -154,6 +156,10 @@ function simulate(seed) {
         if (t - m.lastBump < 0.3) m.bumpRepeats++;
         m.lastBump = t;
         bumpedAt.red = bumpedAt.blue = t;
+      }
+      else if (e.type === 'ram' && !e.shielded) {
+        m.rams++;
+        m.ramDrops += round.events.filter((x) => x.type === 'knockLoose' && x.side === e.victim).length;
       }
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat') m.splats++;
@@ -237,6 +243,7 @@ console.table({
   'score still changing in the last 10 s': pct((r) => r.lastScoreChange > config.ROUND.length - 10),
   'ammo used up (median s)': median(results.flatMap((r) => [r.ammoOutAt.red, r.ammoOutAt.blue])),
   bumps: `${avg((r) => r.bumps).toFixed(1)} (${avg((r) => r.bumpRepeats).toFixed(1)} within 0.3 s of the last)`,
+  'rams (animals knocked loose by them)': `${avg((r) => r.rams).toFixed(2)} (${avg((r) => r.ramDrops).toFixed(2)})`,
   'final score (avg per player)': (avg((r) => r.points.red + r.points.blue) / 2).toFixed(2),
   'winning margin (avg)': avg((r) => Math.abs(r.points.red - r.points.blue)).toFixed(2),
   'red wins / blue wins / ties': `${pct((r) => r.result === 'red')} / ${pct((r) => r.result === 'blue')} / ${pct((r) => r.result === 'tie')}`,

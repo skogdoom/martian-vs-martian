@@ -1,6 +1,6 @@
 // Saucer movement: acceleration, drag, speed cap, flight band, walls and bump.
 
-import { WIDTH, ARENA, SAUCER, BUMP } from '../config.js';
+import { WIDTH, ARENA, SAUCER, BUMP, RAM } from '../config.js';
 
 // Saucers are wide and flat, so collisions use an ellipse. Vertical
 // distances are stretched by this factor to turn it into a circle test.
@@ -13,23 +13,37 @@ export function createSaucer(side) {
     y: SAUCER.startY,
     vx: 0,
     vy: 0,
-    stun: 0, // seconds left spinning out after a rocket hit
+    stun: 0, // seconds left spinning out after a rocket hit or a ram
+    heading: null, // input direction held last step, as 'x,y'
+    streak: 0, // seconds flown straight at full speed in that direction
   };
+}
+
+/** Momentum from flying straight, 0..1. */
+export function momentum(s) {
+  return Math.max(0, Math.min(1, (s.streak - RAM.delay) / RAM.build));
 }
 
 export function speed(s) {
   return Math.hypot(s.vx, s.vy);
 }
 
-/** Apply player input. Input only accelerates up to maxSpeed, so knockback
- * can push a saucer faster than it can fly, and drag bleeds it off.
+/** Apply player input. Input only accelerates up to the top speed, so
+ * knockback can push a saucer faster than it can fly, and drag bleeds it off.
+ * The top speed is SAUCER.maxSpeed, raised by momentum (flying straight) or
+ * the speed power-up, whichever is more.
  * `accelScale` and `extraDrag` make the saucer heavier while its beam lifts;
  * `speedScale` raises the top speed (speed power-up). */
 export function steerSaucer(s, input, dt, { accelScale = 1, extraDrag = 0, speedScale = 1 } = {}) {
-  const maxSpeed = SAUCER.maxSpeed * speedScale;
   let dx = input.x;
   let dy = input.y;
   const len = Math.hypot(dx, dy);
+  // Momentum: the same direction held, at full speed. Anything else resets it.
+  const heading = len > 0 ? `${Math.sign(dx)},${Math.sign(dy)}` : null;
+  const cruising = len > 0 && (s.vx * dx + s.vy * dy) / len >= SAUCER.maxSpeed * RAM.cruise;
+  s.streak = heading !== null && heading === s.heading && cruising ? s.streak + dt : 0;
+  s.heading = heading;
+  const maxSpeed = SAUCER.maxSpeed * Math.max(speedScale, 1 + (RAM.boost - 1) * momentum(s));
   if (len > 0) {
     dx /= len;
     dy /= len;

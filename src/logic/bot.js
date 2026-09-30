@@ -3,9 +3,10 @@
 // It re-decides every `skill.react` seconds and holds its keys in between.
 // Used for the single-player CPU and by the balance simulator (scripts/sim.js).
 
-import { ARENA, SAUCER, POWERUP, ROUND } from '../config.js';
+import { ARENA, SAUCER, POWERUP, ROUND, RAM } from '../config.js';
 import { scores } from './scoring.js';
 import { hasPower } from './powerup.js';
+import { momentum } from './saucer.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const LOW = ARENA.flightBottom - 12; // hover height for hooking
@@ -90,6 +91,7 @@ export function createBot(side, rng, skill) {
       let ty = s.y;
       let dropBomb = false;
       let dropWolf = false;
+      let ramming = false;
       const carriedWolf = [hook.carrying, hook.second].some((a) => a?.kind === 'wolf');
       // A wolf in our pen: get it out.
       const wolfHome = w.wolves.find((a) => a.state === 'penned' && a.pen === side && a.hookedBy === null);
@@ -138,9 +140,19 @@ export function createBot(side, rng, skill) {
         const hunter = laser || triple || endless ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
         // A carrier is worth chasing too: a hit knocks its animal loose.
         const prey = theirs.target || theirs.carrying;
-        if (mode === 'collect' && prey && armed && !shielded && rng() < hunter) mode = 'hunt';
-        if (mode === 'hunt' && (!prey || !armed || shielded)) mode = 'collect';
-        if (mode === 'hunt') {
+        // Out of shots, it rams a carrier instead, if one is close and level.
+        const rammable = theirs.carrying && Math.abs(o.x - s.x) < 450 && Math.abs(o.y - s.y) < 60;
+        if (mode === 'collect' && prey && !shielded && rng() < hunter) {
+          if (armed) mode = 'hunt';
+          else if (rammable) mode = 'ram';
+        }
+        if (mode === 'hunt' && (!prey || shielded || !armed)) mode = 'collect';
+        if (mode === 'ram' && (!theirs.carrying || shielded || armed || Math.abs(o.y - s.y) > 120)) mode = 'collect';
+        if (mode === 'ram') {
+          ramming = true;
+          tx = o.x;
+          ty = o.y;
+        } else if (mode === 'hunt') {
           tx = s.x;
           ty = o.y;
         } else {
@@ -156,13 +168,15 @@ export function createBot(side, rng, skill) {
         }
       }
 
-      const top = SAUCER.maxSpeed * (hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1);
+      const top = SAUCER.maxSpeed * Math.max(hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1, 1 + (RAM.boost - 1) * momentum(s));
       const aligned = Math.abs(o.y - s.y) < skill.aim + (triple ? POWERUP.tripleSpread : 0);
       const target = theirs.target || theirs.carrying;
       const worthIt = !shielded && (skill.picky ? target : target || mode === 'hunt' || rng() < 0.05);
       held = {
-        x: axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
-        y: axis(s.y, s.vy, ty, skill.gain, top),
+        // Ramming: full speed at it, no braking.
+        x: ramming ? Math.sign(o.x - s.x) : axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
+        // Ramming: hold the line once level, so momentum builds.
+        y: ramming && Math.abs(o.y - s.y) < 16 ? 0 : axis(s.y, s.vy, ty, skill.gain, top),
         // While carrying, shoot drops what it carries: only ever a wolf, on purpose.
         shoot: hook.carrying
           ? dropWolf

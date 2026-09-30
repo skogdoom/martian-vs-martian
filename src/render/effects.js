@@ -134,6 +134,21 @@ export function createEffects() {
           popup('POP!', e.x, e.y - 70, 0xffffff);
           shake = Math.max(shake, 4);
           break;
+        case 'ram':
+          if (e.shielded) {
+            burst(e.x, e.y, { count: 20, colors: [0xffffff, SHIELD_COLOR], speed: [120, 380], life: [0.2, 0.5], size: [1.5, 3.5], gravity: 100, shape: 'star' });
+            ring(e.x, e.y, SHIELD_COLOR, 50, 0.3);
+            deflect[e.victim] = 1;
+            shake = Math.max(shake, 5);
+            break;
+          }
+          burst(e.x, e.y, { count: 44, colors: [0xffffff, COLORS[e.side], 0xfff3a0], speed: [160, 560], life: [0.35, 0.8], size: [2, 5], gravity: 200, shape: 'star' });
+          burst(e.x, e.y, { count: 14, colors: [0x9aa0ab, 0x6a707b], speed: [30, 120], life: [0.6, 1.1], size: [4, 8], gravity: -40 });
+          ring(e.x, e.y, COLORS[e.side], 90, 0.4);
+          hitFlash[e.victim] = 1;
+          popup('RAM!', e.x, e.y - 50, COLORS[e.side]);
+          shake = Math.max(shake, 12);
+          break;
         case 'wolfEat':
           burst(e.x, e.y - 14, { count: 36, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xfdfbf4], up: 1.2, speed: [80, 320], life: [0.4, 0.9], size: [2, 5], gravity: 800 });
           burst(e.x, e.y - 16, { count: 10, colors: [0xfdfbf4, 0xe8e2d4], speed: [20, 90], life: [0.6, 1.2], size: [4, 7], gravity: 60 }); // wool

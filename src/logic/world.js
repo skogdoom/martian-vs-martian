@@ -1,7 +1,7 @@
 // One round's simulation state. Pure: no rendering, no DOM.
 // `events` collects things that happened during the last step, for audio and particles.
 
-import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK } from '../config.js';
+import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK, RAM } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
@@ -164,6 +164,26 @@ function knockLoose(w, targetSide) {
   if (a) w.events.push({ type: 'knockLoose', side: targetSide, kind: a.kind, x: a.x, y: a.y });
 }
 
+/** `side` rammed the opponent, flying along `n` (unit vector toward it):
+ * it spins out, lets go of everything it carries and loses its pickup. */
+function ram(w, side, n) {
+  const victim = w.saucers[opponent(side)];
+  w.saucers[side].streak = 0; // spent
+  const x = (w.saucers.red.x + w.saucers.blue.x) / 2;
+  const y = (w.saucers.red.y + w.saucers.blue.y) / 2;
+  if (shielded(w, victim.side)) {
+    w.events.push({ type: 'ram', side, victim: victim.side, x, y, shielded: true });
+    return;
+  }
+  knockLoose(w, victim.side);
+  knockLoose(w, victim.side); // both, with the twin beam
+  interrupt(w, victim.side, 'ram');
+  victim.vx += n.x * RAM.knockback;
+  victim.vy += n.y * RAM.knockback * 0.3;
+  victim.stun = Math.max(victim.stun, RAM.daze);
+  w.events.push({ type: 'ram', side, victim: victim.side, x, y, dir: Math.sign(n.x) || 1 });
+}
+
 function fire(w, side) {
   const s = w.saucers[side];
   const target = w.saucers[opponent(side)];
@@ -256,8 +276,17 @@ export function stepWorld(w, inputs, dt) {
     moveSaucer(s, dt);
   }
 
+  // Speeds toward each other at the moment of contact decide a ram.
+  const dx = blue.x - red.x;
+  const dy = blue.y - red.y;
+  const d = Math.hypot(dx, dy) || 1;
+  const n = { x: dx / d, y: dy / d };
+  const redIn = red.vx * n.x + red.vy * n.y;
+  const blueIn = -(blue.vx * n.x + blue.vy * n.y);
   if (bumpSaucers(red, blue, { aFixed: shielded(w, 'red'), bFixed: shielded(w, 'blue') })) {
     w.events.push({ type: 'bump', x: (red.x + blue.x) / 2, y: (red.y + blue.y) / 2 });
+    if (redIn >= RAM.speed) ram(w, 'red', n);
+    if (blueIn >= RAM.speed) ram(w, 'blue', { x: -n.x, y: -n.y });
   }
 
   for (const side of SIDES) updateLaser(w, side, w.saucers[side].stun > 0 ? NO_INPUT : (inputs[side] ?? NO_INPUT), dt);

@@ -503,6 +503,13 @@ export function handleEvents(events) {
       case 'hit':
         play(e.shielded ? 'deflect' : 'thud', { x: e.x });
         break;
+      case 'ram':
+        if (e.shielded) play('deflect', { x: e.x });
+        else {
+          play('thud', { x: e.x });
+          play('boom', { x: e.x, big: false });
+        }
+        break;
       case 'burst':
         play('splat', { x: e.x });
         break;
