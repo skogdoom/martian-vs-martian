@@ -141,7 +141,7 @@ export function createSaucerView(side) {
         shock.alpha = 0.6 + 0.4 * Math.sin(t * 30);
       }
       heldRocket.visible = power === 'rocket';
-      heldBomb.visible = power === 'bomb';
+      heldBomb.visible = power === 'bomb' || power === 'timeBomb';
       heldRocket.scale.x = look;
       shield.visible = power === 'shield';
       shield.alpha = 0.55 + 0.2 * Math.sin(t * 5) + 0.45 * deflect;

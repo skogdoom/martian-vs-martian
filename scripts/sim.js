@@ -102,6 +102,7 @@ function simulate(seed) {
     crates: [], // { for: side that ran out, t, grabbedBy }
     splats: 0,
     wolf: null, // { eatenField, eatenPen, penDrops: { own, theirs }, left }
+    timeBombs: [], // { owner, moves, outcome: 'theirs' | 'own' | 'field' | 'held' | null, count }
     spooked: 0,
     fieldRestocks: 0,
     grabs: [], // { side, t, power, diff, swing }: diff = grabber's lead at the grab, swing = lead gained over the power-up's duration
@@ -144,7 +145,10 @@ function simulate(seed) {
         if (t - hookedAt[e.side] < 0.25) m.accidental++;
         if (bumpedAt[e.side] >= hookedAt[e.side]) m.driftAfterBump++;
       } else if (e.type === 'interrupt') m.shotInterrupts++;
-      else if (e.type === 'pickup') m.pickups++;
+      else if (e.type === 'pickup') {
+        m.pickups++;
+        if (e.kind === 'timebomb' && m.timeBombs.length) m.timeBombs.at(-1).moves++;
+      }
       else if (e.type === 'land' && e.delivered) {
         m.deliveries++;
         if (e.stolen) m.steals++;
@@ -163,6 +167,13 @@ function simulate(seed) {
       }
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat') m.splats++;
+      else if (e.type === 'timeBombDrop') m.timeBombs.push({ owner: e.side, moves: 0, outcome: null, count: 0 });
+      else if (e.type === 'timeBombHeld' && m.timeBombs.length) m.timeBombs.at(-1).outcome = 'held';
+      else if (e.type === 'bombBlast' && e.timed && m.timeBombs.length) {
+        const b = m.timeBombs.at(-1);
+        b.outcome = !e.pen ? 'field' : e.pen === b.owner ? 'own' : 'theirs';
+        b.count = e.count;
+      }
       else if (e.type === 'wolfIncoming') m.wolf = { eatenField: 0, eatenPen: 0, own: 0, theirs: 0, left: false };
       else if (e.type === 'wolfEat') m.wolf[e.pen ? 'eatenPen' : 'eatenField']++;
       else if (e.type === 'wolfLand' && e.pen && e.by) m.wolf[e.pen === e.by ? 'own' : 'theirs']++;
@@ -264,6 +275,19 @@ console.table({
   'lambs eaten in a pen (avg)': wavg((w) => w.eatenPen),
   "dropped in the opponent's pen / own pen (avg)": `${wavg((w) => w.theirs)} / ${wavg((w) => w.own)}`,
   'got bored and left before the end': `${((100 * wolfRounds.filter((r) => r.wolf.left).length) / Math.max(1, wolfRounds.length)).toFixed(0)}%`,
+});
+
+// ---- time bombs ---------------------------------------------------------
+
+const tbs = results.flatMap((r) => r.timeBombs);
+const share = (o) => `${((100 * tbs.filter((b) => b.outcome === o).length) / Math.max(1, tbs.length)).toFixed(0)}%`;
+console.log('\nTime bombs');
+console.table({
+  'time bombs dropped': tbs.length,
+  'lifted again (avg times)': (tbs.reduce((s, b) => s + b.moves, 0) / Math.max(1, tbs.length)).toFixed(2),
+  "went off in the opponent's pen / dropper's own pen": `${share('theirs')} / ${share('own')}`,
+  'in the field / in a beam / not before the end': `${share('field')} / ${share('held')} / ${share(null)}`,
+  'animals blown out per pen blast': (tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').reduce((s, b) => s + b.count, 0) / Math.max(1, tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').length)).toFixed(2),
 });
 
 // ---- power-ups ----------------------------------------------------------

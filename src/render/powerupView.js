@@ -15,6 +15,7 @@ export const POWER_NAMES = {
   shield: 'SHIELD',
   cowRain: 'LAMBS → COWS',
   lambRain: 'COWS → LAMBS',
+  timeBomb: 'TIME BOMB',
 };
 
 export const SHIELD_COLOR = 0x7fe8ff;
@@ -59,9 +60,14 @@ export function createPowerIcon(type, r = 14) {
     rocket.rotation = -0.5;
     view.addChild(g, rocket);
     return view;
-  } else if (type === 'bomb') {
+  } else if (type === 'bomb' || type === 'timeBomb') {
     drawBomb(g, 6.5 * s);
-    g.position.set(0, 0);
+    if (type === 'timeBomb') {
+      // A clock face on the bomb.
+      g.circle(0, 0, 4.2 * s).fill(0xffffff);
+      g.moveTo(0, 0).lineTo(0, -3.2 * s).stroke({ color: 0xd0202a, width: 1.2 * s });
+      g.moveTo(0, 0).lineTo(2.4 * s, 0.8 * s).stroke({ color: 0x111111, width: 1.2 * s });
+    }
   } else if (type === 'twin') {
     // Two animals rising in two beams.
     for (const dx of [-4.5, 4.5]) {

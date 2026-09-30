@@ -99,6 +99,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Shield** (15 s): a bubble around the saucer. Shots, laser and rockets bounce off: no knockback, no stun, no broken pickup, nothing knocked loose. Bumps don't move it either; the other saucer takes the whole bounce.
   - **Lambs → cows** (instant): every lamb standing in the field bursts, and a cow parachutes down in its place. Lambs in pens, being lifted or carried, and golden animals are left alone.
   - **Cows → lambs** (instant): the same, the other way round.
+  - **Time bomb** (single use): the shoot key drops it and lights an 8 s fuse, with the seconds shown over it and a tick each second. On the ground it can be lifted (0.8 s), carried and dropped again by either player, even out of their own pen; like the wolf it is never let go of automatically. When the fuse runs out on the ground it works like the pen bomb on the pen it lies in (nothing in the field). If it goes off in a beam, that saucer is dazed for 2 s and drops what else it carries. 8 s is enough to fetch it out of your pen from mid-field, but tight to send it all the way back.
 - Instant power-ups happen the moment they are grabbed; a power-up already held is kept.
 - Single-use power-ups show in the HUD without a timer, and the item hangs under the saucer until used.
 - Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
@@ -251,5 +252,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Logic, speed lines and shock front, "RAM!" impact, announcement and sound. Unit tests.
   - The CPU rams only when out of shots, at a carrier that is close and level. Letting it chase carriers across the field, or floor it on every long flight, cost it deliveries (14.2 → 12.2 per round) and doubled bumps.
   - Simulator: about 0.2 rams per round between bots, other numbers close to before (deliveries 13.7, lead changes 3.1). Players who hold a direction will ram more.
+- [x] **Time bomb**
+  - Logic, CPU use (drops it on the opponent's pen, fetches it out of its own if there is time, lets go before it blows in the beam), art (bomb with countdown and glow, clock-face icon), ticks, announcements. Unit tests.
+  - Simulator: with a 10 s fuse the bots sent it back 34% of the time and it hit the target pen 9%; the grabber, when behind, won 21%. With 8 s: 34% hit the target pen, 14% came back, 40% were dropped in the field, and the grabber won 33% when behind.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

@@ -70,13 +70,13 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.3 },
+  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.3, timebomb: 0.8 },
 };
 
 export const ANIMALS = {
   cows: 4,
   lambs: 5,
-  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0, wolf: 35 },
+  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0, wolf: 35, timebomb: 0 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
   gravity: 1400,
@@ -88,6 +88,7 @@ export const ANIMALS = {
     crate: { w: 30, h: 26 },
     package: { w: 30, h: 28 },
     wolf: { w: 52, h: 34 },
+    timebomb: { w: 28, h: 30 },
   },
   value: { cow: 2, lamb: 1 },
   fieldMargin: 30, // keep field animals this far from the pen fences
@@ -98,8 +99,8 @@ export const POWERUP = {
   dropTimes: [0.3, 0.6], // when he may drop, as fractions of the round
   mysteryChance: 0.2, // share of drops that come as a mystery package: power-up unknown until grabbed
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
-  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain'],
-  singleUse: ['rocket', 'bomb'], // kept until used (or the round ends) instead of timed
+  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain', 'timeBomb'],
+  singleUse: ['rocket', 'bomb', 'timeBomb'], // kept until used (or the round ends) instead of timed
   instant: ['cowRain', 'lambRain'], // happen the moment they are grabbed; any power-up held is kept
   fallSpeed: 110, // parachute descent, px/s
   dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
@@ -125,6 +126,11 @@ export const POWERUP = {
   stealMultiplier: 2,
   // unlimited: shots cost no ammo and the clip never needs reloading
   // shield: hits and bumps don't move the saucer, break a lift or knock anything loose
+  // timeBomb: the shoot key drops it and lights the fuse. On the ground it can be
+  // lifted, carried and dropped again by either player. It goes off like the
+  // pen bomb; in a beam, it dazes that saucer instead.
+  timeBombFuse: 8, // seconds: time to fetch it out of your pen, tight to send it all the way back
+  timeBombDaze: 2, // seconds
   // cowRain / lambRain: every lamb (cow) standing in the field bursts and a
   // cow (lamb) parachutes down in its place. Golden animals are left alone.
 };

@@ -1,7 +1,7 @@
 // One round's simulation state. Pure: no rendering, no DOM.
 // `events` collects things that happened during the last step, for audio and particles.
 
-import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK, RAM } from '../config.js';
+import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK, RAM, ANIMALS } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
@@ -10,7 +10,7 @@ import { createHook, updateHook, interruptHook, dropCarried, releaseCarried, isO
 import { createDrop, createCrate, dropSpot, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
-import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen, bounceOut } from './ordnance.js';
+import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen, bounceOut, createTimeBomb } from './ordnance.js';
 import { createGolden, settleGolden } from './golden.js';
 import { createWolf, updateWolf } from './wolf.js';
 
@@ -31,6 +31,7 @@ export function createWorld(seed) {
     bombs: [], // pen bombs falling
     drops: [], // things that parachuted in and climb aboard: the green man, ammo crates
     wolves: [], // hooked and carried like animals, but they eat lambs (wolf.js)
+    timeBombs: [], // dropped time bombs, also hooked and carried like animals
     powers: createPowers(),
     lasers: { red: null, blue: null }, // active laser beams, for hit tests and drawing
     fieldEmptyFor: 0, // seconds the field has had no animals in it
@@ -201,6 +202,12 @@ function fire(w, side) {
     w.events.push({ type: 'rocketLaunch', side, x: r.x, y: r.y });
     return;
   }
+  if (hasPower(w.powers, side, 'timeBomb')) {
+    w.timeBombs.push(createTimeBomb(s, `timebomb-${w.timeBombs.length}`));
+    w.powers[side] = null;
+    w.events.push({ type: 'timeBombDrop', side, x: s.x, y: s.y });
+    return;
+  }
   if (hasPower(w.powers, side, 'bomb')) {
     w.bombs.push(createBomb(s));
     w.powers[side] = null;
@@ -216,6 +223,60 @@ function fire(w, side) {
   for (const dy of offsets) w.projectiles.push(createProjectile(s, target, dy));
   const p = w.projectiles.at(-1);
   w.events.push({ type: 'shot', side, x: p.x, y: s.y, triple });
+}
+
+/** Let go of `b` wherever it is in `side`'s beam. */
+function unhook(w, side, b) {
+  const h = w.hooks[side];
+  if (h.target === b) {
+    h.target = null;
+    h.progress = 0;
+  }
+  if (h.second === b) h.second = null;
+  if (h.carrying === b) {
+    h.carrying = h.second;
+    h.second = null;
+  }
+  b.hookedBy = null;
+}
+
+/** Fuses burn down wherever the bombs are. On the ground it blasts the pen it
+ * is in, like the pen bomb; in a beam, it dazes that saucer instead. */
+function updateTimeBombs(w, dt) {
+  for (const b of w.timeBombs) {
+    if (b.state === 'gone') continue;
+    if (b.state === 'falling') {
+      if (b.droppedBy) b.lastBy = b.droppedBy;
+      updateAnimal(b, dt, w.rng);
+      if (b.state !== 'falling') {
+        w.events.push({ type: 'timeBombLand', pen: b.pen, by: b.droppedBy, x: b.x, y: b.y });
+        b.droppedBy = null;
+      }
+    }
+    const shown = Math.ceil(b.fuse - 1e-9);
+    b.fuse = Math.max(0, b.fuse - dt);
+    const now = Math.ceil(b.fuse - 1e-9);
+    if (now !== shown && now > 0) w.events.push({ type: 'tick', n: now, x: b.x, y: b.y });
+    if (b.fuse > 0) continue;
+
+    const x = b.x;
+    const y = b.y - ANIMALS.size.timebomb.h / 2;
+    const held = b.hookedBy;
+    const grounded = b.state === 'field' || b.state === 'penned';
+    b.state = 'gone';
+    w.events.push({ type: 'explosion', x, y, big: true });
+    if (held) {
+      unhook(w, held, b);
+      knockLoose(w, held);
+      knockLoose(w, held);
+      const s = w.saucers[held];
+      s.stun = Math.max(s.stun, POWERUP.timeBombDaze);
+      w.events.push({ type: 'timeBombHeld', side: held, x, y });
+    } else if (grounded) {
+      const { pen, launched } = blastPen(w.animals, x, w.rng);
+      w.events.push({ type: 'bombBlast', side: b.lastBy, pen, count: launched.length, timed: true, x, y });
+    }
+  }
 }
 
 /** Holding shoot with the laser power-up: a beam that pushes the opponent. */
@@ -330,7 +391,8 @@ export function stepWorld(w, inputs, dt) {
   }
   w.bombs = w.bombs.filter((b) => b.alive);
 
-  const targets = w.drops.length || w.wolves.length ? [...w.animals, ...w.drops, ...w.wolves] : w.animals;
+  const extra = w.drops.length || w.wolves.length || w.timeBombs.length;
+  const targets = extra ? [...w.animals, ...w.drops, ...w.wolves, ...w.timeBombs] : w.animals;
   for (const side of SIDES) {
     const stealBonus = hasPower(w.powers, side, 'steal');
     const twin = hasPower(w.powers, side, 'twin');
@@ -352,6 +414,7 @@ export function stepWorld(w, inputs, dt) {
   }
 
   for (const wolf of w.wolves) updateWolf(wolf, w.animals, dt, w.rng, w.events);
+  updateTimeBombs(w, dt);
 
   for (const a of w.animals) {
     const wasFalling = a.state === 'falling';

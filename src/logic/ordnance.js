@@ -1,8 +1,8 @@
-// Single-use power-up weapons: the homing rocket and the pen bomb.
+// Single-use power-up weapons: the homing rocket, the pen bomb and the time bomb.
 
 import { WIDTH, HEIGHT, ARENA, SAUCER, ANIMALS, POWERUP } from '../config.js';
 import { fireDirection } from './projectile.js';
-import { penAt, fieldBounds } from './animal.js';
+import { penAt, fieldBounds, createAnimal, drop } from './animal.js';
 import { spendGolden } from './golden.js';
 
 // ---- homing rocket --------------------------------------------------------
@@ -75,6 +75,19 @@ export function updateBomb(b, dt) {
   b.y = ARENA.groundY;
   b.alive = false;
   return true;
+}
+
+// ---- time bomb --------------------------------------------------------------
+
+/** Dropped from `s` with the fuse lit. It is hooked and carried like an
+ * animal (kind 'timebomb'), so it can be moved before it goes off. */
+export function createTimeBomb(s, id) {
+  const b = createAnimal(id, 'timebomb', s.x);
+  b.y = s.y + SAUCER.halfHeight + 8 + ANIMALS.size.timebomb.h;
+  b.fuse = POWERUP.timeBombFuse;
+  b.lastBy = s.side; // who let go of it last
+  drop(b, { by: s.side, vx: s.vx * 0.5, vy: Math.max(0, s.vy) * 0.5 });
+  return b;
 }
 
 /** Throw `a` out of its pen in an arc that lands safely somewhere in the

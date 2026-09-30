@@ -287,6 +287,12 @@ export const SOUNDS = {
     hiss(ac, out, t, { dur, peak: 0.08, type: 'bandpass', freq: 700, q: 2 });
   },
 
+  /** Time bomb tick; `urgent` for the last three seconds. */
+  tick(ac, out, t, { urgent = false } = {}) {
+    tone(ac, out, t, { type: 'square', freq: urgent ? 1760 : 1100, dur: 0.05, peak: urgent ? 0.12 : 0.08 });
+    hiss(ac, out, t, { dur: 0.03, peak: 0.12, type: 'highpass', freq: 3000 });
+  },
+
   /** Two quick bites. */
   chomp(ac, out, t) {
     for (const at of [0, 0.16]) {
@@ -563,6 +569,15 @@ export function handleEvents(events) {
         break;
       case 'wolfLand':
         play('growl', { x: e.x });
+        break;
+      case 'tick':
+        play('tick', { x: e.x, urgent: e.n <= 3 });
+        break;
+      case 'timeBombDrop':
+        play('whistle', { x: e.x });
+        break;
+      case 'timeBombLand':
+        play('click', { x: e.x });
         break;
       case 'splat':
         play('splat', { x: e.x });

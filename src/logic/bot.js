@@ -7,6 +7,7 @@ import { ARENA, SAUCER, POWERUP, ROUND, RAM } from '../config.js';
 import { scores } from './scoring.js';
 import { hasPower } from './powerup.js';
 import { momentum } from './saucer.js';
+import { HAZARDS } from './hook.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const LOW = ARENA.flightBottom - 12; // hover height for hooking
@@ -83,18 +84,26 @@ export function createBot(side, rng, skill) {
       // No point chasing or shooting at a shield.
       const shielded = hasPower(w.powers, other(side), 'shield');
       const rocket = hasPower(w.powers, side, 'rocket');
-      const bomb = hasPower(w.powers, side, 'bomb');
+      const bomb = hasPower(w.powers, side, 'bomb') || hasPower(w.powers, side, 'timeBomb');
       const theirPen = ARENA.pens[other(side)];
       const theirPenX = (theirPen.left + theirPen.right) / 2;
       const inTheirPen = w.animals.filter((a) => a.state === 'penned' && a.pen === other(side)).length;
       let tx = s.x;
       let ty = s.y;
       let dropBomb = false;
-      let dropWolf = false;
+      let letGoOfIt = false;
       let ramming = false;
-      const carriedWolf = [hook.carrying, hook.second].some((a) => a?.kind === 'wolf');
-      // A wolf in our pen: get it out.
-      const wolfHome = w.wolves.find((a) => a.state === 'penned' && a.pen === side && a.hookedBy === null);
+      // Trouble on the beam (a wolf, a time bomb) goes to their pen.
+      const carried = [hook.carrying, hook.second];
+      const carriedHazard = carried.some((a) => HAZARDS.has(a?.kind));
+      const carriedBomb = carried.find((a) => a?.kind === 'timebomb');
+      const overOwnPen = s.x >= ARENA.pens[side].left - 20 && s.x <= ARENA.pens[side].right + 20;
+      // A time bomb about to go off is let go of anywhere but over our own pen.
+      const bail = carriedBomb && carriedBomb.fuse < 1.2 && !overOwnPen;
+      // Trouble in our pen: get it out, unless the bomb is too close to going off.
+      const trouble = [...w.wolves, ...w.timeBombs].find(
+        (a) => a.state === 'penned' && a.pen === side && a.hookedBy === null && (a.kind === 'wolf' || a.fuse > 3),
+      );
 
       // With the twin beam, grab a second animal on the way if one is close.
       const second =
@@ -102,11 +111,11 @@ export function createBot(side, rng, skill) {
           ? w.animals.find((a) => a.state === 'field' && a.hookedBy === null && Math.abs(a.x - s.x) < 300)
           : null;
 
-      if (carriedWolf) {
+      if (carriedHazard) {
         // Over their pen and let it go.
         tx = theirPenX;
         ty = 330;
-        dropWolf = Math.abs(s.x - theirPenX) < 30;
+        letGoOfIt = bail || Math.abs(s.x - theirPenX) < 30;
       } else if (second) {
         tx = second.x;
         ty = Math.abs(second.x - s.x) > 120 ? 380 : LOW;
@@ -132,9 +141,9 @@ export function createBot(side, rng, skill) {
         }
         tx = hook.target.x;
         ty = s.y;
-      } else if (wolfHome) {
-        tx = wolfHome.x;
-        ty = Math.abs(wolfHome.x - s.x) > 120 ? 380 : LOW;
+      } else if (trouble) {
+        tx = trouble.x;
+        ty = Math.abs(trouble.x - s.x) > 120 ? 380 : LOW;
       } else {
         const armed = weapon.ammo > 0 || laser || triple || endless;
         const hunter = laser || triple || endless ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
@@ -179,7 +188,7 @@ export function createBot(side, rng, skill) {
         y: ramming && Math.abs(o.y - s.y) < 16 ? 0 : axis(s.y, s.vy, ty, skill.gain, top),
         // While carrying, shoot drops what it carries: only ever a wolf, on purpose.
         shoot: hook.carrying
-          ? dropWolf
+          ? letGoOfIt
           : rocket
             ? Boolean(target)
             : bomb

@@ -156,6 +156,11 @@ export function createEffects() {
           popup('CHOMP!', e.x, e.y - 60, 0xff4050);
           shake = Math.max(shake, 3);
           break;
+        case 'timeBombHeld':
+          hitFlash[e.side] = 1;
+          popup('BOOM!', e.x, e.y - 40, 0xffa53a);
+          break;
+        case 'timeBombLand':
         case 'wolfLand':
           burst(e.x, e.y, { count: 12, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 110], life: [0.2, 0.5], gravity: 300 });
           break;
