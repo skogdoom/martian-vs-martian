@@ -296,6 +296,13 @@ export const SOUNDS = {
     tone(ac, out, t + 0.14, { type: 'triangle', freq: 392, dur: 0.3, peak: 0.12, hold: 0.08 });
   },
 
+  /** A shot glancing off a shield. */
+  deflect(ac, out, t) {
+    tone(ac, out, t, { type: 'triangle', freq: 2400, to: 3400, dur: 0.18, peak: 0.14 });
+    tone(ac, out, t, { type: 'sine', freq: 1200, to: 1800, dur: 0.25, peak: 0.1 });
+    hiss(ac, out, t, { dur: 0.08, peak: 0.1, type: 'highpass', freq: 4000 });
+  },
+
   pop(ac, out, t) {
     tone(ac, out, t, { type: 'sine', freq: 900, to: 150, dur: 0.12, peak: 0.3 });
     hiss(ac, out, t, { dur: 0.25, peak: 0.2, type: 'bandpass', freq: 1500, to: 400, q: 1.5 });
@@ -448,7 +455,13 @@ export function handleEvents(events) {
         play('dry');
         break;
       case 'hit':
-        play('thud', { x: e.x });
+        play(e.shielded ? 'deflect' : 'thud', { x: e.x });
+        break;
+      case 'burst':
+        play('splat', { x: e.x });
+        break;
+      case 'animalRain':
+        if (e.count) play(e.to === 'cow' ? 'moo' : 'baa');
         break;
       case 'bump':
         play('boing', { x: e.x });

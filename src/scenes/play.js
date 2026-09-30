@@ -88,6 +88,7 @@ export function createPlayScene(game, session) {
         power: world.powers[side]?.type ?? null,
         look: Math.sign(other.x - s.x) || 1,
         hit: effects.hitFlash[side],
+        deflect: effects.deflect[side],
         beam: Boolean(hook.target || hook.carrying),
       });
     }
@@ -153,6 +154,10 @@ export function createPlayScene(game, session) {
         if (e.type === 'powerup') {
           const got = e.mystery ? `OPENS THE PACKAGE: ${POWER_NAMES[e.power]}!` : `GETS ${POWER_NAMES[e.power]}!`;
           announce(`${name(e.side)} ${got}`, COLORS[e.side]);
+        }
+        if (e.type === 'animalRain') {
+          const [from, to] = [`${e.from.toUpperCase()}S`, `${e.to.toUpperCase()}S`];
+          announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} IN THE FIELD TO TURN INTO ${to}`, COLORS[e.side]);
         }
         if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
         if (e.type === 'spooked') announce(`${name(e.side)}'S ANIMALS ARE SPOOKED!`, COLORS[e.side]);

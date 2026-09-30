@@ -85,8 +85,9 @@ export const POWERUP = {
   dropTimes: [0.3, 0.6], // when he may drop, as fractions of the round
   mysteryChance: 0.2, // share of drops that come as a mystery package: power-up unknown until grabbed
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
-  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb'],
+  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain'],
   singleUse: ['rocket', 'bomb'], // kept until used (or the round ends) instead of timed
+  instant: ['cowRain', 'lambRain'], // happen the moment they are grabbed; any power-up held is kept
   fallSpeed: 110, // parachute descent, px/s
   dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
   // speed: faster saucer
@@ -109,6 +110,16 @@ export const POWERUP = {
   // twin: the beam can carry a second animal
   // steal: stolen animals delivered while active are worth this times full value
   stealMultiplier: 2,
+  // unlimited: shots cost no ammo and the clip never needs reloading
+  // shield: hits and bumps don't move the saucer, break a lift or knock anything loose
+  // cowRain / lambRain: every lamb (cow) standing in the field bursts and a
+  // cow (lamb) parachutes down in its place. Golden animals are left alone.
+};
+
+// A drop to break a stalemate: the field is empty and someone is out of shots.
+export const SUPPLY = {
+  after: 3, // seconds the stalemate must last
+  crateChance: 0.5, // otherwise a green man (or mystery package)
 };
 
 // If a player runs out of ammo early, an ammo crate parachutes in.

@@ -4,7 +4,7 @@ import { Container, Graphics } from 'pixi.js';
 import { COLORS } from './backdrop.js';
 import { label } from './text.js';
 import { ARENA } from '../config.js';
-import { POWER_COLOR } from './powerupView.js';
+import { POWER_COLOR, SHIELD_COLOR } from './powerupView.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const rand = (lo, hi) => lo + Math.random() * (hi - lo);
@@ -19,6 +19,7 @@ export function createEffects() {
   const popups = [];
   let shake = 0;
   const hitFlash = { red: 0, blue: 0 };
+  const deflect = { red: 0, blue: 0 }; // shots bouncing off a shield
 
   /** Spray `count` particles. `dir` biases them sideways (-1/+1), `up` upward. */
   function burst(x, y, { count, colors, speed = [60, 240], life = [0.3, 0.7], size = [1.5, 3.5], gravity = 400, dir = 0, up = 0, shape = 'dot' }) {
@@ -62,6 +63,13 @@ export function createEffects() {
           burst(e.x, e.y, { count: 6, colors: [COLORS[e.side], 0xffffff], speed: [40, 120], life: [0.1, 0.25], gravity: 0 });
           break;
         case 'hit':
+          if (e.shielded) {
+            burst(e.x, e.y, { count: 16, colors: [0xffffff, SHIELD_COLOR], dir: -e.dir, speed: [120, 360], life: [0.2, 0.45], size: [1.5, 3], gravity: 100, shape: 'star' });
+            ring(e.x, e.y, SHIELD_COLOR, 30, 0.25);
+            deflect[e.side] = 1;
+            shake = Math.max(shake, 2);
+            break;
+          }
           burst(e.x, e.y, { count: 34, colors: [0xffffff, COLORS[other(e.side)], 0xfff3a0], dir: e.dir, speed: [140, 480], life: [0.35, 0.8], size: [2, 4.5] });
           ring(e.x, e.y, COLORS[other(e.side)], 56);
           hitFlash[e.side] = 1;
@@ -116,6 +124,15 @@ export function createEffects() {
           stains.push({ x: e.x, w: 30 + Math.random() * 20, life: 8, max: 8 });
           popup('SPLAT!', e.x, e.y - 70, 0xff4050);
           shake = Math.max(shake, 5);
+          break;
+        case 'burst':
+          // Cow rain / lamb rain: it goes pop to make room for the new ones.
+          burst(e.x, e.y - 14, { count: 40, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xffffff], up: 1.4, speed: [100, 420], life: [0.5, 1], size: [2.5, 5.5], gravity: 800 });
+          burst(e.x, e.y - 20, { count: 10, colors: [0xffffff, 0xf3eee2, 0x222222], speed: [30, 120], life: [0.6, 1.1], size: [5, 9], gravity: -20 });
+          ring(e.x, e.y - 14, 0xffffff, 50, 0.35);
+          stains.push({ x: e.x, w: 24 + Math.random() * 16, life: 6, max: 6 });
+          popup('POP!', e.x, e.y - 70, 0xffffff);
+          shake = Math.max(shake, 4);
           break;
         case 'knockLoose':
           burst(e.x, e.y, { count: 20, colors: [0xffffff, 0xff5ce1, COLORS[e.side]], speed: [80, 260], life: [0.3, 0.6], size: [2, 4], gravity: 200, shape: 'star' });
@@ -200,6 +217,8 @@ export function createEffects() {
     shake = Math.max(0, shake - dt * 30);
     hitFlash.red = Math.max(0, hitFlash.red - dt * 2.5);
     hitFlash.blue = Math.max(0, hitFlash.blue - dt * 2.5);
+    deflect.red = Math.max(0, deflect.red - dt * 4);
+    deflect.blue = Math.max(0, deflect.blue - dt * 4);
   }
 
   function render() {
@@ -235,6 +254,7 @@ export function createEffects() {
     update,
     render,
     hitFlash,
+    deflect,
     /** Current camera offset for screen shake. */
     shakeOffset() {
       return shake > 0 ? { x: rand(-shake, shake), y: rand(-shake, shake) } : { x: 0, y: 0 };

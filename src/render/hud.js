@@ -44,7 +44,7 @@ function createPanel(side, title) {
     sync(weapon, points, roundWins, active) {
       score.text = String(points);
       wins.text = `WINS ${'★'.repeat(roundWins) || '-'}`;
-      const unlimited = active?.type === 'laser' || active?.type === 'triple';
+      const unlimited = ['laser', 'triple', 'unlimited'].includes(active?.type);
       ammo.text = unlimited ? 'AMMO ∞' : `AMMO ${weapon.ammo}`;
 
       power.visible = active !== null;

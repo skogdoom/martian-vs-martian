@@ -5,7 +5,7 @@ import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK } from '../config.js'
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
-import { createHerd, updateAnimal, fallHeight, createAnimal, parachute } from './animal.js';
+import { createHerd, updateAnimal, fallHeight, createAnimal, parachute, fieldBounds } from './animal.js';
 import { createHook, updateHook, interruptHook, dropCarried, releaseCarried, isOverOwnPen } from './hook.js';
 import { createDrop, createCrate, dropSpot, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
@@ -111,6 +111,34 @@ export function crateInPlay(w) {
   return w.drops.some((d) => d.kind === 'crate' && d.state !== 'gone');
 }
 
+export function dropInPlay(w) {
+  return w.drops.some((d) => d.state !== 'gone');
+}
+
+/** No cows or lambs left in the field (or on their way down to it). */
+export function fieldEmpty(w) {
+  return !w.animals.some((a) => a.state === 'field' || a.state === 'descending');
+}
+
+/** Cow rain / lamb rain: every animal of one kind standing in the field
+ * bursts, and one of the other kind parachutes down in its place. */
+function animalRain(w, side, power) {
+  const [from, to] = power === 'cowRain' ? ['lamb', 'cow'] : ['cow', 'lamb'];
+  const victims = w.animals.filter((a) => a.kind === from && a.state === 'field' && !a.golden);
+  const { min, max } = fieldBounds(to);
+  for (const a of victims) {
+    a.state = 'gone';
+    a.onFire = false;
+    w.events.push({ type: 'burst', kind: from, x: a.x, y: a.y });
+    const b = createAnimal(`rain-${w.animals.length}`, to, Math.max(min, Math.min(max, a.x)));
+    parachute(b);
+    w.animals.push(b);
+  }
+  w.events.push({ type: 'animalRain', side, from, to, count: victims.length });
+}
+
+const shielded = (w, side) => hasPower(w.powers, side, 'shield');
+
 const NO_INPUT = { x: 0, y: 0, shoot: false, fire: false };
 
 function interrupt(w, side, reason) {
@@ -151,7 +179,7 @@ function fire(w, side) {
     return;
   }
   const triple = hasPower(w.powers, side, 'triple');
-  if (!tryFire(w.weapons[side], triple)) {
+  if (!tryFire(w.weapons[side], triple, hasPower(w.powers, side, 'unlimited'))) {
     w.events.push({ type: 'dryFire', side });
     return;
   }
@@ -177,8 +205,10 @@ function updateLaser(w, side, input, dt) {
   w.lasers[side] = beam;
   if (!was) w.events.push({ type: 'laserOn', side });
   if (beam.hit) {
+    const shield = shielded(w, target.side);
+    if (!hadHit) w.events.push({ type: 'hit', side: target.side, x: beam.x1, y: beam.y, dir: beam.dir, laser: true, shielded: shield });
+    if (shield) return;
     target.vx += beam.dir * POWERUP.laserPush * dt;
-    if (!hadHit) w.events.push({ type: 'hit', side: target.side, x: beam.x1, y: beam.y, dir: beam.dir, laser: true });
     interrupt(w, target.side, 'laser');
     knockLoose(w, target.side);
   }
@@ -199,7 +229,8 @@ export function stepWorld(w, inputs, dt) {
     const input = s.stun > 0 ? NO_INPUT : (inputs[side] ?? NO_INPUT);
     const weapon = w.weapons[side];
 
-    if (updateWeapon(weapon, dt, hasPower(w.powers, side, 'triple'))) w.events.push({ type: 'reload', side });
+    const endless = hasPower(w.powers, side, 'unlimited');
+    if (updateWeapon(weapon, dt, hasPower(w.powers, side, 'triple'), endless)) w.events.push({ type: 'reload', side });
     const carrying = w.hooks[side].carrying !== null;
     if (input.shoot && (carrying || !hasPower(w.powers, side, 'laser'))) fire(w, side);
 
@@ -216,7 +247,7 @@ export function stepWorld(w, inputs, dt) {
     moveSaucer(s, dt);
   }
 
-  if (bumpSaucers(red, blue)) {
+  if (bumpSaucers(red, blue, { aFixed: shielded(w, 'red'), bFixed: shielded(w, 'blue') })) {
     w.events.push({ type: 'bump', x: (red.x + blue.x) / 2, y: (red.y + blue.y) / 2 });
   }
 
@@ -225,6 +256,10 @@ export function stepWorld(w, inputs, dt) {
   for (const p of w.projectiles) {
     const target = w.saucers[opponent(p.owner)];
     if (updateProjectile(p, target, dt)) {
+      if (shielded(w, target.side)) {
+        w.events.push({ type: 'hit', side: target.side, x: p.x, y: p.y, dir: p.dir, shielded: true });
+        continue;
+      }
       knockLoose(w, target.side); // before the knockback: it keeps the saucer's own speed
       applyKnockback(target, p.dir);
       w.events.push({ type: 'hit', side: target.side, x: p.x, y: p.y, dir: p.dir });
@@ -236,7 +271,9 @@ export function stepWorld(w, inputs, dt) {
   for (const r of w.rockets) {
     const target = w.saucers[opponent(r.owner)];
     const result = updateRocket(r, target, dt);
-    if (result === 'hit') {
+    if (result === 'hit' && shielded(w, target.side)) {
+      w.events.push({ type: 'hit', side: target.side, x: r.x, y: r.y, dir: Math.sign(Math.cos(r.angle)) || 1, rocket: true, shielded: true });
+    } else if (result === 'hit') {
       knockLoose(w, target.side);
       rocketKnockback(r, target);
       target.stun = POWERUP.rocketStun;
@@ -262,8 +299,9 @@ export function stepWorld(w, inputs, dt) {
     const stunned = w.saucers[side].stun > 0;
     updateHook(w.hooks[side], w.saucers[side], targets, dt, w.events, { stealBonus, twin, stunned });
   }
-  for (const e of w.events) {
-    if (e.type === 'powerup') grantPower(w.powers, e.side, e.power);
+  for (const e of [...w.events]) {
+    if (e.type === 'powerup' && POWERUP.instant.includes(e.power)) animalRain(w, e.side, e.power);
+    else if (e.type === 'powerup') grantPower(w.powers, e.side, e.power);
     if (e.type === 'ammoCrate') addAmmo(w.weapons[e.side], AMMO_CRATE.refill);
   }
 

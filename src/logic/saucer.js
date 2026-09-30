@@ -73,8 +73,9 @@ export function clampSaucer(s) {
 }
 
 /** Push overlapping saucers apart. Returns true on a new contact: saucers
- * that stay close count as one contact until they separate by `BUMP.rearm`. */
-export function bumpSaucers(a, b) {
+ * that stay close count as one contact until they separate by `BUMP.rearm`.
+ * A `fixed` saucer (shield power-up) isn't moved: the other takes it all. */
+export function bumpSaucers(a, b, { aFixed = false, bFixed = false } = {}) {
   let dx = b.x - a.x;
   let dy = (b.y - a.y) * SQUASH;
   let dist = Math.hypot(dx, dy);
@@ -91,19 +92,23 @@ export function bumpSaucers(a, b) {
   const nx = dx / dist;
   const ny = dy / dist;
   // Separate positions (back into real space for y).
+  // Each saucer's share of the push and the impulse.
+  const onlyOne = aFixed !== bFixed;
+  const ka = onlyOne ? (aFixed ? 0 : 2) : 1;
+  const kb = onlyOne ? (bFixed ? 0 : 2) : 1;
   const push = (minDist - dist) / 2;
-  a.x -= nx * push;
-  b.x += nx * push;
-  a.y -= (ny * push) / SQUASH;
-  b.y += (ny * push) / SQUASH;
+  a.x -= nx * push * ka;
+  b.x += nx * push * kb;
+  a.y -= (ny * push * ka) / SQUASH;
+  b.y += (ny * push * kb) / SQUASH;
   // Impulse along the normal, only if they are closing.
   const closing = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
   const fresh = !a.touching;
   if (closing < 0 || fresh) {
-    a.vx -= nx * BUMP.strength;
-    a.vy -= ny * BUMP.strength;
-    b.vx += nx * BUMP.strength;
-    b.vy += ny * BUMP.strength;
+    a.vx -= nx * BUMP.strength * ka;
+    a.vy -= ny * BUMP.strength * ka;
+    b.vx += nx * BUMP.strength * kb;
+    b.vy += ny * BUMP.strength * kb;
   }
   clampSaucer(a);
   clampSaucer(b);

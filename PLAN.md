@@ -44,6 +44,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Each clip holds 3 shots and reloads automatically in 1.5 s when empty.
 - Each player has 18 shots per round. The cap resets every round.
 - **Ammo crate:** if a player runs out before halfway (45 s), a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +9 shots (up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
+- **Supply drop:** if every animal has been abducted (none left in the field) and a player is out of shots, then after 3 s either an ammo crate (for that player) or a green man with a random power-up parachutes in, 50/50. Once each time the field empties, and not while another drop is in play. Values are in `SUPPLY` in `config.js`.
 
 ### Hook
 - Lowers automatically when the saucer is nearly still above an animal and within hook reach. The reach is about 200 px, so the saucer must fly low to reach the ground.
@@ -83,6 +84,11 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Homing rocket** (single use, kept until fired): the next shoot press launches one rocket that steers toward the opponent (limited turn rate, burns out after 4.5 s). A hit gives strong knockback, breaks a pickup, knocks a carried animal loose and stuns the saucer for 2 s: no steering, lifting or shooting.
   - **Twin beam** (15 s): the beam can carry a second animal, hanging under the first. Both are delivered together; a hit knocks the lower one loose.
   - **Pen bomb** (single use): the shoot key drops it. If it lands in a pen, a random number (at least one) of the animals in it are thrown back into the field; they keep their original owner. It hits whichever pen it lands in, including your own. The animals it throws out catch fire (cosmetic only) until a beam picks them up, which puts the fire out in a puff of steam.
+  - **Infinite ammo** (15 s): shots cost no ammo and the clip never needs reloading. Works with an empty gun; the free shots go when it ends.
+  - **Shield** (15 s): a bubble around the saucer. Shots, laser and rockets bounce off: no knockback, no stun, no broken pickup, nothing knocked loose. Bumps don't move it either; the other saucer takes the whole bounce.
+  - **Lambs → cows** (instant): every lamb standing in the field bursts, and a cow parachutes down in its place. Lambs in pens, being lifted or carried, and golden animals are left alone.
+  - **Cows → lambs** (instant): the same, the other way round.
+- Instant power-ups happen the moment they are grabbed; a power-up already held is kept.
 - Single-use power-ups show in the HUD without a timer, and the item hangs under the saucer until used.
 - Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
 
@@ -224,5 +230,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Full screen**
   - F (or double-click) toggles full screen; ESC or F leaves it. The arena stays letterboxed at 16:9 and the mouse cursor is hidden.
   - F and M never skip a result screen.
+- [x] **Infinite ammo, shield, lambs → cows, cows → lambs; supply drops**
+  - Logic, CPU use (it doesn't waste shots on a shield), icons, shield bubble, bursts, announcements and sound. Unit tests for each, and for the supply drop.
+  - Simulator, trailing grabber wins: unlimited 26%, shield 15%, lambs → cows 19%, cows → lambs 15%. The two swaps change the field for both players rather than help the grabber. The CPU gets little out of the shield, since shots rarely decide its rounds.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

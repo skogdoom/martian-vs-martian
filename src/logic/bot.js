@@ -23,7 +23,7 @@ function axis(pos, vel, target, gain, max) {
  *   react        seconds between decisions
  *   aim          how close in height (px) before it fires
  *   hunter       chance to chase an opponent who is lifting
- *   huntWithGun  the same, while holding a laser or triple shot
+ *   huntWithGun  the same, while holding a laser, triple shot or infinite ammo
  *   picky        only shoot at an opponent who is lifting or carrying
  *   sloppy       share of lifts where it lets go of the keys once the beam grabs
  *   jitter       steering noise, px
@@ -75,6 +75,9 @@ export function createBot(side, rng, skill) {
       const weapon = w.weapons[side];
       const laser = hasPower(w.powers, side, 'laser');
       const triple = hasPower(w.powers, side, 'triple');
+      const endless = hasPower(w.powers, side, 'unlimited');
+      // No point chasing or shooting at a shield.
+      const shielded = hasPower(w.powers, other(side), 'shield');
       const rocket = hasPower(w.powers, side, 'rocket');
       const bomb = hasPower(w.powers, side, 'bomb');
       const theirPen = ARENA.pens[other(side)];
@@ -116,12 +119,12 @@ export function createBot(side, rng, skill) {
         tx = hook.target.x;
         ty = s.y;
       } else {
-        const armed = weapon.ammo > 0 || laser || triple;
-        const hunter = laser || triple ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
+        const armed = weapon.ammo > 0 || laser || triple || endless;
+        const hunter = laser || triple || endless ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
         // A carrier is worth chasing too: a hit knocks its animal loose.
         const prey = theirs.target || theirs.carrying;
-        if (mode === 'collect' && prey && armed && rng() < hunter) mode = 'hunt';
-        if (mode === 'hunt' && (!prey || !armed)) mode = 'collect';
+        if (mode === 'collect' && prey && armed && !shielded && rng() < hunter) mode = 'hunt';
+        if (mode === 'hunt' && (!prey || !armed || shielded)) mode = 'collect';
         if (mode === 'hunt') {
           tx = s.x;
           ty = o.y;
@@ -141,7 +144,7 @@ export function createBot(side, rng, skill) {
       const top = SAUCER.maxSpeed * (hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1);
       const aligned = Math.abs(o.y - s.y) < skill.aim + (triple ? POWERUP.tripleSpread : 0);
       const target = theirs.target || theirs.carrying;
-      const worthIt = skill.picky ? target : target || mode === 'hunt' || rng() < 0.05;
+      const worthIt = !shielded && (skill.picky ? target : target || mode === 'hunt' || rng() < 0.05);
       held = {
         x: axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
         y: axis(s.y, s.vy, ty, skill.gain, top),
@@ -152,7 +155,7 @@ export function createBot(side, rng, skill) {
             ? Boolean(target)
             : bomb
               ? dropBomb
-              : Boolean(aligned && worthIt && (weapon.ammo > 0 || triple)),
+              : Boolean(aligned && worthIt && (weapon.ammo > 0 || triple || endless)),
         fire: aligned && laser,
       };
       return held;

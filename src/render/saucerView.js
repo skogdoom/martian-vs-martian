@@ -3,7 +3,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { SAUCER } from '../config.js';
 import { COLORS } from './backdrop.js';
-import { POWER_COLOR, drawRocket, drawBomb } from './powerupView.js';
+import { POWER_COLOR, SHIELD_COLOR, drawRocket, drawBomb } from './powerupView.js';
 
 const SHADE = { red: 0x9e2a2f, blue: 0x1f5bb0 };
 const LIGHTS = 7;
@@ -74,14 +74,21 @@ export function createSaucerView(side) {
   heldRocket.visible = heldBomb.visible = false;
   // Stars circling the dome while stunned.
   const dizzy = new Graphics();
+  // Shield power-up: a bubble around the whole saucer.
+  const shield = new Graphics();
+  shield.ellipse(0, -4, r + 16, SAUCER.top + 6).fill({ color: SHIELD_COLOR, alpha: 0.12 });
+  shield.ellipse(0, -4, r + 16, SAUCER.top + 6).stroke({ color: SHIELD_COLOR, width: 2.5 });
+  shield.ellipse(-r * 0.55, -SAUCER.top * 0.55, 8, 4).fill({ color: 0xffffff, alpha: 0.5 });
+  shield.visible = false;
 
-  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy);
+  view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy, shield);
 
   return {
     view,
     /** `look` is -1/+1 toward the opponent; `hit` fades 1 → 0 after being shot;
+     * `deflect` the same after a shot bounced off the shield;
      * `power` is the active power-up type, if any. */
-    sync(s, t, { look = 1, hit = 0, beam = false, power = null } = {}) {
+    sync(s, t, { look = 1, hit = 0, deflect = 0, beam = false, power = null } = {}) {
       const stunned = s.stun > 0;
       const bob = Math.sin(t * 3 + (side === 'red' ? 0 : 1.7)) * 1.5;
       view.position.set(s.x, s.y + bob);
@@ -122,6 +129,9 @@ export function createSaucerView(side) {
       heldRocket.visible = power === 'rocket';
       heldBomb.visible = power === 'bomb';
       heldRocket.scale.x = look;
+      shield.visible = power === 'shield';
+      shield.alpha = 0.55 + 0.2 * Math.sin(t * 5) + 0.45 * deflect;
+      shield.scale.set(1 + 0.03 * Math.sin(t * 5) + 0.08 * deflect);
 
       dizzy.clear();
       if (stunned) {
