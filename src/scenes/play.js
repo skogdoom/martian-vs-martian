@@ -168,7 +168,7 @@ export function createPlayScene(game, session) {
         }
         if (e.type === 'animalRain') {
           const [from, to] = [`${e.from.toUpperCase()}S`, `${e.to.toUpperCase()}S`];
-          announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} IN THE FIELD TO TURN INTO ${to}`, COLORS[e.side]);
+          announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} TO TURN INTO ${to}`, COLORS[e.side]);
         }
         if (e.type === 'wolfIncoming') announce('A WOLF IS LOOSE! IT EATS LAMBS', 0xcfd6ff);
         if (e.type === 'wolfLand' && e.pen) {

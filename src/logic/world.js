@@ -5,7 +5,7 @@ import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK, RAM, ANIMALS } from 
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers, speed } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
-import { createHerd, updateAnimal, fallHeight, createAnimal, parachute, fieldBounds } from './animal.js';
+import { createHerd, updateAnimal, fallHeight, createAnimal, parachute, fieldBounds, clampToPen } from './animal.js';
 import { createHook, updateHook, interruptHook, dropCarried, releaseCarried, isOverOwnPen } from './hook.js';
 import { createDrop, createCrate, dropSpot, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
@@ -130,21 +130,29 @@ export function fieldEmpty(w) {
   return !w.animals.some((a) => a.state === 'field' || a.state === 'descending');
 }
 
-/** Cow rain / lamb rain: every animal of one kind standing in the field
- * bursts, and one of the other kind parachutes down in its place. */
+/** Cow rain / lamb rain: every animal of one kind standing in the field or
+ * in a pen bursts, and one of the other kind parachutes down in its place.
+ * One replacing a penned animal belongs to that pen from the start (it counts
+ * while still coming down), with the same owner and steal bonus. */
 function animalRain(w, side, power) {
   const [from, to] = power === 'cowRain' ? ['lamb', 'cow'] : ['cow', 'lamb'];
-  const victims = w.animals.filter((a) => a.kind === from && a.state === 'field' && !a.golden);
+  const victims = w.animals.filter((a) => a.kind === from && (a.state === 'field' || a.state === 'penned') && !a.golden);
   const { min, max } = fieldBounds(to);
+  let penned = 0;
   for (const a of victims) {
-    a.state = 'gone';
-    a.onFire = false;
-    w.events.push({ type: 'burst', kind: from, x: a.x, y: a.y });
-    const b = createAnimal(`rain-${w.animals.length}`, to, Math.max(min, Math.min(max, a.x)));
+    const pen = a.state === 'penned' ? a.pen : null;
+    const x = pen ? clampToPen(a.x, to, pen) : Math.max(min, Math.min(max, a.x));
+    const b = createAnimal(`rain-${w.animals.length}`, to, x);
+    if (pen) {
+      Object.assign(b, { pen, owner: a.owner, bonus: a.bonus });
+      penned++;
+    }
     parachute(b);
     w.animals.push(b);
+    w.events.push({ type: 'burst', kind: from, pen, x: a.x, y: a.y });
+    Object.assign(a, { state: 'gone', pen: null, onFire: false });
   }
-  w.events.push({ type: 'animalRain', side, from, to, count: victims.length });
+  w.events.push({ type: 'animalRain', side, from, to, count: victims.length, penned });
 }
 
 const shielded = (w, side) => hasPower(w.powers, side, 'shield');

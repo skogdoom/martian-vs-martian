@@ -4,6 +4,7 @@ import { createWorld, stepWorld, spawnDrop } from '../src/logic/world.js';
 import { createRound, stepRound } from '../src/logic/round.js';
 import { grantPower } from '../src/logic/powerup.js';
 import { createGolden } from '../src/logic/golden.js';
+import { scores } from '../src/logic/scoring.js';
 
 const LOW = ARENA.flightBottom - 10;
 const SHOOT = { red: { x: 0, y: 0, shoot: true } };
@@ -149,23 +150,34 @@ describe('lambs to cows and cows to lambs', () => {
   }
 
   it('every lamb in the field bursts and a cow parachutes down in its place', () => {
-    const { w, e, before, pennedLamb, gold } = grab('cowRain');
+    const { w, e, before, gold } = grab('cowRain');
     const lambs = before.filter((b) => b.kind === 'lamb');
     expect(lambs.length).toBeGreaterThan(0);
-    expect(e).toMatchObject({ side: 'red', from: 'lamb', to: 'cow', count: lambs.length });
-    expect(w.events.filter((x) => x.type === 'burst')).toHaveLength(lambs.length);
+    expect(e).toMatchObject({ side: 'red', from: 'lamb', to: 'cow', count: lambs.length + 1, penned: 1 });
+    expect(w.events.filter((x) => x.type === 'burst')).toHaveLength(lambs.length + 1);
     for (const { a } of lambs) expect(a.state).toBe('gone');
-    const fresh = w.animals.filter((a) => String(a.id).startsWith('rain-'));
+    const fresh = w.animals.filter((a) => String(a.id).startsWith('rain-') && !a.pen);
     expect(fresh).toHaveLength(lambs.length);
     expect(fresh.every((a) => a.kind === 'cow' && a.state === 'descending')).toBe(true);
-    // Cows in the field, lambs in pens and golden animals are left alone.
+    // Cows and golden animals are left alone.
     for (const { a } of before.filter((b) => b.kind === 'cow')) expect(a.state).not.toBe('gone');
-    expect(pennedLamb.state).toBe('penned');
     expect(gold.state).not.toBe('gone');
     // Instant: nothing to count down, and the rocket is still held.
     expect(w.powers.red).toMatchObject({ type: 'rocket' });
     run(w, {}, 8);
     expect(fresh.every((a) => a.state === 'field')).toBe(true);
+  });
+
+  it('lambs in pens are swapped too, and the new cow counts for that pen at once', () => {
+    const { w, pennedLamb } = grab('cowRain');
+    expect(pennedLamb.state).toBe('gone');
+    const cow = w.animals.find((a) => String(a.id).startsWith('rain-') && a.pen === 'blue');
+    expect(cow).toMatchObject({ kind: 'cow', owner: 'blue', state: 'descending' });
+    expect(cow.x).toBeGreaterThanOrEqual(ARENA.pens.blue.left);
+    expect(scores(w.animals).blue).toBe(2); // a cow instead of a lamb, while still coming down
+    run(w, {}, 8);
+    expect(cow.state).toBe('penned');
+    expect(scores(w.animals).blue).toBe(2);
   });
 
   it('and the other way round', () => {

@@ -97,7 +97,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Pen bomb** (single use): the shoot key drops it. If it lands in a pen, a random number (at least one) of the animals in it are thrown back into the field; they keep their original owner. It hits whichever pen it lands in, including your own. The animals it throws out catch fire (cosmetic only) until a beam picks them up, which puts the fire out in a puff of steam.
   - **Infinite ammo** (15 s): shots cost no ammo and the clip never needs reloading. Works with an empty gun; the free shots go when it ends.
   - **Shield** (15 s): a bubble around the saucer. Shots, laser and rockets bounce off: no knockback, no stun, no broken pickup, nothing knocked loose. Bumps don't move it either; the other saucer takes the whole bounce.
-  - **Lambs → cows** (instant): every lamb standing in the field bursts, and a cow parachutes down in its place. Lambs in pens, being lifted or carried, and golden animals are left alone.
+  - **Lambs → cows** (instant): every lamb standing in the field or in a pen bursts, and a cow parachutes down in its place. One replacing a penned lamb lands in the same pen, keeps its owner and steal bonus, and counts for that pen from the moment it appears. Lambs being lifted or carried, and golden animals, are left alone.
   - **Cows → lambs** (instant): the same, the other way round.
   - **Time bomb** (single use): the shoot key drops it and lights an 8 s fuse, with the seconds shown over it and a tick each second. On the ground it can be lifted (0.8 s), carried and dropped again by either player, even out of their own pen; like the wolf it is never let go of automatically. When the fuse runs out on the ground it works like the pen bomb on the pen it lies in (nothing in the field). If it goes off in a beam, that saucer is dazed for 2 s and drops what else it carries. 8 s is enough to fetch it out of your pen from mid-field, but tight to send it all the way back.
 - Instant power-ups happen the moment they are grabbed; a power-up already held is kept.
@@ -264,5 +264,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Simulator: rams 0.30 → 0.34 per round; deliveries and lead changes unchanged.
 - [x] **Shots cost momentum**
   - A hit that turns a saucer more than 30° off its course (`RAM.jolt`) clears its momentum, with a puff as the shock front breaks up. The laser usually slows it below cruising speed first, which clears it as well.
+- [x] **Animal swaps reach the pens**
+  - Lambs → cows and cows → lambs now also swap penned animals; the replacement parachutes into the same pen and counts at once.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.
