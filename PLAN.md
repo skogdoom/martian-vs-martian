@@ -270,5 +270,60 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Dazed by three hits in a row**
   - Logic, "DAZED!" pop-up, announcement and sound; unit tests.
   - Simulator: the trigger-happy bots (27 shots each, 63% hits) daze each other 2.6 times per round in total; lead changes 3.1 → 2.9. Players who shoot less will see fewer.
-- [ ] **9. Later (low priority)**
+- [ ] **9. Controller support**
+  - "Keypad" read as game controllers (Gamepad API). Plain numeric-keypad keys for Blue would be a small extra, if wanted.
+  - Input layer: `input.js` polls pads once per fixed step and merges them with the keys, so `playerInput(side)` stays the one source for scenes and the bot. Presses are edge-detected per step, like keys.
+  - Mapping (standard layout): left stick or d-pad to move, A or right trigger to shoot (and drop), Start to start or confirm, B/Back for the menu. The stick is turned into -1/0/1 with a dead zone, so momentum works as with keys (analog noise would keep changing the heading).
+  - Assignment: the first pad flies Red, the second Blue; keys keep working alongside. In 1 player, any pad flies Red. Plugging in or unplugging mid-game shows a short notice; a pad lost mid-round leaves that saucer idle until it is back.
+  - Browsers don't count pad buttons as a user gesture, so audio and full screen can't start from a pad. The title screen shows "press any key or click for sound" until audio runs.
+  - Optional: a short rumble on hits, rams and dazes where the pad supports it.
+  - The title screen shows the pad controls next to the keys once a pad is seen.
+  - Tests: the pad-to-input mapping, with fake pad states (dead zone, d-pad and stick together, button edges).
+  - Done when: a match can be played start to finish with two pads and no keyboard (apart from the sound unlock).
+
+- [ ] **10. Round length and number of rounds**
+  - Title menu: up/down moves between rows (mode, CPU difficulty, round length, rounds); left/right changes the value. Enter or Space starts; 1/2 stay as shortcuts.
+    - Round length: 60, 90 (default) or 120 s.
+    - Rounds: best of 1, 3 (default), 5 or 7.
+  - The choice is kept for the session and remembered in localStorage (read and written in try/catch; defaults if unavailable).
+  - Match rules for best of N: first to win a majority, early finish when the other can't catch up (as now). Level after N rounds: sudden death, one round at a time, instead of two more. That is a change for best of 3; the alternative is to keep +2 for N ≥ 3 and +1 for N = 1.
+  - Round length becomes a match setting instead of the global `ROUND.length` (used in `round.js`, `bot.js`, `play.js` and `sim.js`). Timed events are already shares of the round and scale by themselves: green-man drops, the early ammo crate, the golden check, the wolf window.
+  - To tune with the simulator (`LENGTH=` and `ROUNDS=` arguments): ammo scaled to the length (12 / 18 / 24?), a third green-man drop in 120 s rounds, restock timing in 60 s rounds.
+  - HUD, round-end and tally screens show the chosen "best of N". The tally stays per mode and difficulty.
+  - Tests: match logic for 1, 3, 5 and 7 rounds (early finish, ties, sudden death), rounds of each length, ammo scaling.
+
+- [ ] **11. Hardening, performance and code review**
+  - Done after milestone 10, so the review covers the finished feature set.
+  - Code review of every module: dead code, naming, comments that no longer match, config values vs `PLAN.md`, duplicated logic (the hazard kinds, the drop views, the helpers repeated across tests).
+  - Robustness:
+    - An exception in one frame must not freeze the game: catch it in the loop, log it, and show an error notice instead of a dead screen.
+    - Guard against NaN and runaway positions.
+    - Cap the herd: restocks and animal swaps can grow it without limit.
+    - Round end with things in flight (a carried wolf, a falling time bomb, a lit laser): nothing leaks into the next round.
+  - Leaks over a long session (10+ matches):
+    - Views, Text objects and key listeners are destroyed on scene changes.
+    - Audio voices are stopped on Esc.
+    - Memory and object counts stay flat.
+  - Tests for interactions not yet covered: both saucers dazed at once, a ram while carrying the time bomb, the wolf plus an animal swap, a supply drop during a restock.
+  - Performance, profiled in Chrome with CPU throttling and in 4K full screen:
+    - Stop rebuilding static `Graphics` every frame (lights, eyes, beams, sparks); only redraw what changes.
+    - Cap and pool particles and pop-up texts.
+    - Cap the number of sounds playing at once.
+    - Cap the render resolution at 2× device pixels.
+    - Check bundle size.
+    - Target: a steady 60 fps on a mid-range laptop.
+  - Tooling: ESLint and Prettier (`npm run lint`), and a GitHub Actions workflow that runs lint, tests and the build on every pull request.
+
+- [ ] **12. Release**
+  - Version 1.0.0 in `package.json`, and a `CHANGELOG.md`.
+  - Deploy to GitHub Pages with a GitHub Actions workflow on pushes to `master` (Vite `base` set for the repository path). The README gets a "Play it here" link.
+  - Polish:
+    - A real favicon (the page has an empty one).
+    - Page description and an Open Graph screenshot.
+    - A "click or press any key" start overlay, which also unlocks audio and gives the page focus.
+    - A notice on touch-only devices that the game needs a keyboard or a controller.
+  - Browser check: Chrome, Firefox, Safari, Edge. Note in the README that some keyboards can't register many keys at once (ghosting), a hardware limit with two players on one keyboard.
+  - Final playtest with a checklist (both modes, all difficulties, all round options, controllers), then tag `v1.0.0` and publish a GitHub release with notes and a zip of `dist/` (also usable for itch.io).
+
+- [ ] **Later (low priority)**
   - Player names and a persistent tally stored in localStorage.
