@@ -41,4 +41,5 @@ Use it at your own risk.
 
 ## License
 
-[MIT](LICENSE)
+Released under the MIT License. Copyright (c) 2026 David Andréasson. See
+[LICENSE](LICENSE) for the full text.
