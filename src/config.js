@@ -48,6 +48,7 @@ export const RAM = {
   speed: 400, // px/s toward the opponent at contact for a ram
   daze: 1.5, // seconds the rammed saucer spins out
   knockback: 500, // px/s extra push on the rammed saucer
+  jolt: 30, // degrees: a hit that turns the saucer's course more than this costs its momentum
 };
 
 export const COMBAT = {

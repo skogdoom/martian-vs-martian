@@ -134,6 +134,10 @@ export function createEffects() {
           popup('POP!', e.x, e.y - 70, 0xffffff);
           shake = Math.max(shake, 4);
           break;
+        case 'momentumLost':
+          // The shock front breaks up.
+          burst(e.x, e.y, { count: 14, colors: [0xffffff, 0xcfd6ff], speed: [60, 200], life: [0.2, 0.45], size: [1.5, 3], gravity: 0 });
+          break;
         case 'ram':
           if (e.shielded) {
             burst(e.x, e.y, { count: 20, colors: [0xffffff, SHIELD_COLOR], speed: [120, 380], life: [0.2, 0.5], size: [1.5, 3.5], gravity: 100, shape: 'star' });

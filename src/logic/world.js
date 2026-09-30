@@ -2,7 +2,7 @@
 // `events` collects things that happened during the last step, for audio and particles.
 
 import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK, RAM, ANIMALS } from '../config.js';
-import { createSaucer, steerSaucer, moveSaucer, bumpSaucers } from './saucer.js';
+import { createSaucer, steerSaucer, moveSaucer, bumpSaucers, speed } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
 import { createHerd, updateAnimal, fallHeight, createAnimal, parachute, fieldBounds } from './animal.js';
@@ -165,6 +165,19 @@ function knockLoose(w, targetSide) {
   if (a) w.events.push({ type: 'knockLoose', side: targetSide, kind: a.kind, x: a.x, y: a.y });
 }
 
+/** A hit knocked `s` off its course (it was going `vx`, `vy`): turned more
+ * than RAM.jolt degrees, it loses its momentum. Pushed on along its way, it
+ * keeps it. */
+function jolt(w, s, vx, vy) {
+  if (s.streak === 0) return;
+  const before = Math.hypot(vx, vy);
+  const after = speed(s);
+  const cos = before && after ? (vx * s.vx + vy * s.vy) / (before * after) : -1;
+  if (cos >= Math.cos((RAM.jolt * Math.PI) / 180)) return;
+  s.streak = 0;
+  w.events.push({ type: 'momentumLost', side: s.side, x: s.x, y: s.y });
+}
+
 /** `side` rammed the opponent, flying along `n` (unit vector toward it):
  * it spins out, lets go of everything it carries and loses its pickup. */
 function ram(w, side, n) {
@@ -298,7 +311,10 @@ function updateLaser(w, side, input, dt) {
     const shield = shielded(w, target.side);
     if (!hadHit) w.events.push({ type: 'hit', side: target.side, x: beam.x1, y: beam.y, dir: beam.dir, laser: true, shielded: shield });
     if (shield) return;
+    // The course it had when the beam caught it: the push turns it bit by bit.
+    if (!hadHit) target.course = { vx: target.vx, vy: target.vy };
     target.vx += beam.dir * POWERUP.laserPush * dt;
+    jolt(w, target, target.course.vx, target.course.vy);
     interrupt(w, target.side, 'laser');
     knockLoose(w, target.side);
   }
@@ -363,7 +379,9 @@ export function stepWorld(w, inputs, dt) {
         continue;
       }
       knockLoose(w, target.side); // before the knockback: it keeps the saucer's own speed
+      const { vx, vy } = target;
       applyKnockback(target, p.dir);
+      jolt(w, target, vx, vy);
       w.events.push({ type: 'hit', side: target.side, x: p.x, y: p.y, dir: p.dir });
       interrupt(w, target.side, 'shot');
     }

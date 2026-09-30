@@ -94,6 +94,46 @@ describe('momentum', () => {
   });
 });
 
+describe('momentum and shots', () => {
+  /** Red flies right at full momentum at y 300; blue waits ahead or behind. */
+  function running(blueX) {
+    const w = createWorld(1);
+    const { red, blue } = w.saucers;
+    hover(red, 60, 300);
+    hover(blue, blueX, 300);
+    run(w, { red: { x: 1, y: 0 } }, FULL + 0.4);
+    expect(momentum(red)).toBe(1);
+    return { w, red, blue };
+  }
+
+  it('a shot that knocks the saucer off its course costs the momentum', () => {
+    const { w, red } = running(1240);
+    const hit = stepUntil(w, { red: { x: 1, y: 0 }, blue: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'hit');
+    expect(hit).toMatchObject({ side: 'red' });
+    expect(w.events.some((e) => e.type === 'momentumLost' && e.side === 'red')).toBe(true);
+    expect(red.streak).toBe(0);
+    run(w, { red: { x: 1, y: 0 } }, 0.3);
+    expect(momentum(red)).toBe(0);
+  });
+
+  it('a shot from behind, pushing it on its way, does not', () => {
+    const { w, red, blue } = running(1240);
+    hover(blue, red.x - 300, 300);
+    stepUntil(w, { red: { x: 1, y: 0 }, blue: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'hit');
+    expect(w.events.some((e) => e.type === 'momentumLost')).toBe(false);
+    expect(momentum(red)).toBe(1);
+  });
+
+  it('the laser pushing it back costs it too', () => {
+    const { w, red } = running(1240);
+    red.x = 200; // room to be pushed back before reaching blue
+    grantPower(w.powers, 'blue', 'laser');
+    // It slows it below cruising speed (or turns it back) within a moment.
+    run(w, { red: { x: 1, y: 0 }, blue: { x: 0, y: 0, fire: true } }, 0.3);
+    expect(red.streak).toBe(0);
+  });
+});
+
 describe('ramming', () => {
   /** Blue carries a cow at (900, 300); red is lined up to the left. */
   function setup(gap) {
