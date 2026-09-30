@@ -33,7 +33,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Movement
 - Free 2D movement with acceleration, drag and a max speed.
 - Saucers are clamped to the flight band and the walls.
-- **Momentum:** holding one direction at full speed builds momentum. After 0.3 s the top speed starts to climb, reaching 1.5× (480 px/s) after another 1.2 s. Changing direction, letting go, being stopped by a wall or slowed below 80% of normal speed loses it. Speed lines show it building; a shock front ahead of the saucer shows it is fast enough to ram. The speed power-up doesn't stack with it: the higher of the two counts.
+- **Momentum:** holding one direction at full speed builds momentum. After 0.2 s the top speed starts to climb, reaching 1.5× (480 px/s) after another 1 s. From a standstill it takes about 1.1 s and 330 px to reach ramming speed. Changing direction, letting go, being stopped by a wall or slowed below 80% of normal speed loses it. Speed lines show it building; a shock front ahead of the saucer shows it is fast enough to ram. The speed power-up doesn't stack with it: the higher of the two counts.
 
 ### Bump
 - When saucers overlap, both get a small impulse pushing them apart.
@@ -51,7 +51,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Hook
 - Lowers automatically when the saucer is nearly still above an animal and within hook reach. The reach is about 200 px, so the saucer must fly low to reach the ground.
 - Lift time is 1.0 s for a lamb and 1.6 s for a cow.
-- The pickup is interrupted if the saucer drifts more than about 30 px horizontally from the animal, or is shot. The animal then drops back to the ground.
+- The pickup is interrupted if the saucer drifts more than 40 px sideways from the animal, gets more than 60 px beyond hook reach above it, or is shot. Flying up or down during a pickup is fine: the animal rises with the beam. The animal then drops back to the ground.
 - A fully lifted animal stays attached when the saucer is bumped, but a hit knocks it loose and it falls where it is (`COMBAT.knockLoose`).
 - A saucer carries one animal at a time.
 - A player can't hook animals in their own pen.
@@ -118,7 +118,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ## Round and match flow
 
-1. **Title screen:** choose 1 player (against the CPU, with a difficulty) or 2 players, and start. The first keypress also unlocks audio.
+1. **Title screen:** choose 1 player (against the CPU, with a difficulty) or 2 players, and start. The first keypress also unlocks audio; every key press or click wakes it up again if the browser suspended it.
 2. **Round:** a 3-2-1 countdown, then 90 seconds of play.
 3. **Round result:** shows the scores and the winner, or a tie, then moves to the next round.
 4. **Match rules:**
@@ -255,5 +255,9 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Time bomb**
   - Logic, CPU use (drops it on the opponent's pen, fetches it out of its own if there is time, lets go before it blows in the beam), art (bomb with countdown and glow, clock-face icon), ticks, announcements. Unit tests.
   - Simulator: with a 10 s fuse the bots sent it back 34% of the time and it hit the target pen 9%; the grabber, when behind, won 21%. With 8 s: 34% hit the target pen, 14% came back, 40% were dropped in the field, and the grabber won 33% when behind.
+- [x] **Tweaks after playtesting**
+  - Ramming needs a shorter run: momentum starts after 0.2 s (was 0.3) and is full after 1 s more (was 1.2), so ramming speed comes after ~330 px instead of ~405 px.
+  - Pickups: flying up or down no longer risks the grip as long as the saucer stays within reach + 60 px of the animal; the sideways limit is 40 px (was 30), since a stray diagonal key while climbing easily drifted 30 px.
+  - Fixed: sound could stay off for the rest of the game. Audio was only unlocked by key presses on the title screen, so if the browser suspended it later (tab switch, sleep, new output device) nothing woke it up. Every key press and click now resumes it, and so does coming back to the tab.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

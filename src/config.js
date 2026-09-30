@@ -42,8 +42,8 @@ export const BUMP = {
 // the top speed climbs, and hitting the opponent fast enough is a ram.
 export const RAM = {
   cruise: 0.8, // momentum builds only while going at least this share of SAUCER.maxSpeed along the input
-  delay: 0.3, // seconds of straight flight before it starts to build
-  build: 1.2, // seconds more to reach full momentum
+  delay: 0.2, // seconds of straight flight before it starts to build
+  build: 1, // seconds more to reach full momentum (ram speed after ~330 px from a standstill)
   boost: 1.5, // top speed at full momentum, times SAUCER.maxSpeed
   speed: 400, // px/s toward the opponent at contact for a ram
   daze: 1.5, // seconds the rammed saucer spins out
@@ -65,7 +65,11 @@ export const HOOK = {
   reach: 200, // from saucer underside to animal top
   grabRadius: 26, // horizontal distance to start a pickup
   stillSpeed: 90, // saucer must be slower than this to lower the hook
-  driftLimit: 30,
+  // A pickup in progress holds while the saucer stays within this far sideways
+  // of the animal, and no more than `stretch` px beyond `reach` above it (the
+  // animal rises with the beam). Flying up or down is fine.
+  driftLimit: 40,
+  stretch: 60,
   // While the beam is lifting, the saucer is heavier: less thrust, more drag.
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration

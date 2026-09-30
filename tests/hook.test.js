@@ -77,6 +77,28 @@ describe('hook pickup', () => {
     }
   });
 
+  it('holds while the saucer flies up or down', () => {
+    for (const y of [-1, 1]) {
+      const { w, a } = setup('cow');
+      const red = w.saucers.red;
+      hover(red, a, y < 0 ? LOW : 420);
+      run(w, {}, 0.1);
+      expect(w.hooks.red.target).toBe(a);
+      const e = stepUntil(w, { red: { x: 0, y } }, 3, (e) => e.type === 'pickup' || e.type === 'interrupt');
+      expect(e).toMatchObject({ type: 'pickup', side: 'red' });
+    }
+  });
+
+  it('breaks if the saucer climbs too far above the animal', () => {
+    const { w, a } = setup('cow');
+    const red = w.saucers.red;
+    hover(red, a, LOW);
+    run(w, {}, 0.1);
+    red.y = a.y - 38 - 14 - HOOK.reach - HOOK.stretch - 5; // cow height, saucer underside
+    const e = stepUntil(w, {}, STEP, (e) => e.type === 'interrupt');
+    expect(e?.reason).toBe('drift');
+  });
+
   it('is interrupted by drifting away from the animal', () => {
     const { w, a } = setup();
     const red = w.saucers.red;

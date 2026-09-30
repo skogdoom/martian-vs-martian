@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { STEP, ARENA, GOLDEN, ROUND, POWERUP } from '../src/config.js';
+import { STEP, ARENA, GOLDEN, ROUND, POWERUP, HOOK } from '../src/config.js';
 import { createWorld, stepWorld, spawnGolden } from '../src/logic/world.js';
 import { createRound, stepRound } from '../src/logic/round.js';
 import { shouldDropGolden } from '../src/logic/golden.js';
@@ -129,7 +129,7 @@ describe('golden animal value', () => {
     const red = w.saucers.red;
     hover(red, g.x);
     stepUntil(w, {}, 0.3, () => false);
-    red.x += 40;
+    red.x += HOOK.driftLimit + 10;
     stepUntil(w, {}, 2, (e) => e.type === 'land');
     expect(g.golden).toBe(true);
     expect(g.state).toBe('field');

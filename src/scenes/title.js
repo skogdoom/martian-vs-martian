@@ -1,4 +1,4 @@
-// Title screen with the mode menu. Any key also unlocks audio.
+// Title screen with the mode menu.
 //   up/down      1 or 2 players
 //   left/right   CPU difficulty (1 player)
 //   1 / 2        pick the mode directly
@@ -6,8 +6,7 @@
 
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT } from '../config.js';
-import { wasPressed, onKey } from '../input.js';
-import { unlockAudio } from '../audio.js';
+import { wasPressed } from '../input.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../session.js';
@@ -70,9 +69,6 @@ export function createTitleScene(game, session) {
 
   view.addChild(red, vs, blue, ...steps, redKeys, blueKeys, onePlayer, twoPlayers, prompt, help);
 
-  // Unlock from inside the key event itself: some browsers insist on it.
-  const unsubscribe = onKey(unlockAudio);
-
   function refreshMenu() {
     const solo = session.players === 1;
     onePlayer.text = `${solo ? '▶' : ' '} 1 PLAYER  vs CPU   ◀ ${session.difficulty.toUpperCase()} ▶`;
@@ -89,7 +85,6 @@ export function createTitleScene(game, session) {
   let t = 0;
   return {
     view,
-    destroy: unsubscribe,
     update(dt) {
       t += dt;
       for (const a of herd) updateAnimal(a, dt, rng);

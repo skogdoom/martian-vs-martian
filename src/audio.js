@@ -1,7 +1,9 @@
 // Synthesized sound effects (Web Audio API). No sample files.
 //
-// Browsers only allow audio after a user gesture, so the title screen calls
-// `unlockAudio()` from its keydown handler. Every sound is a function
+// Browsers only allow audio after a user gesture, so main.js calls
+// `unlockAudio()` from every keydown and pointerdown. That also wakes the audio
+// up again if the browser suspended it mid-game (tab switch, sleep, a new
+// output device). Every sound is a function
 // (ac, out, t, opts) that builds a small node graph starting at time `t`, so
 // the same code can also render into an OfflineAudioContext.
 
@@ -20,7 +22,12 @@ export function unlockAudio() {
     ctx = new AC();
     master = createBus(ctx);
   }
-  if (ctx.state === 'suspended') ctx.resume();
+  resume();
+}
+
+/** Ask a suspended (or, in Safari, interrupted) context to run again. */
+export function resume() {
+  if (ctx && ctx.state !== 'running' && ctx.state !== 'closed') ctx.resume().catch(() => {});
 }
 
 export function toggleMute() {
@@ -468,7 +475,11 @@ function output(x) {
 
 export function play(name, { x, ...opts } = {}) {
   // A missing sound is silence, never a crash in the game loop.
-  if (!ctx || ctx.state !== 'running' || !SOUNDS[name]) return null;
+  if (!ctx || !SOUNDS[name]) return null;
+  if (ctx.state !== 'running') {
+    resume(); // works if the browser allows it now; otherwise the next key press will
+    return null;
+  }
   return SOUNDS[name](ctx, output(x), ctx.currentTime + 0.005, opts);
 }
 

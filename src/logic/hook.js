@@ -136,7 +136,8 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin
 
   if (h.target) {
     const a = h.target;
-    if (Math.abs(s.x - a.x) > HOOK.driftLimit) {
+    const gap = a.y - ANIMALS.size[a.kind].h - (s.y + SAUCER.halfHeight);
+    if (Math.abs(s.x - a.x) > HOOK.driftLimit || gap > HOOK.reach + HOOK.stretch) {
       interruptHook(h);
       events.push({ type: 'interrupt', side: s.side, reason: 'drift', x: a.x, y: a.y });
       return;
