@@ -12,6 +12,7 @@ import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
 import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen, bounceOut } from './ordnance.js';
 import { createGolden, settleGolden } from './golden.js';
+import { createWolf, updateWolf } from './wolf.js';
 
 export const SIDES = ['red', 'blue'];
 
@@ -29,6 +30,7 @@ export function createWorld(seed) {
     rockets: [], // homing rockets in flight
     bombs: [], // pen bombs falling
     drops: [], // things that parachuted in and climb aboard: the green man, ammo crates
+    wolves: [], // hooked and carried like animals, but they eat lambs (wolf.js)
     powers: createPowers(),
     lasers: { red: null, blue: null }, // active laser beams, for hit tests and drawing
     fieldEmptyFor: 0, // seconds the field has had no animals in it
@@ -44,6 +46,13 @@ export function spawnGolden(w, trailing) {
   const a = createGolden(w.rng);
   w.animals.push(a);
   w.events.push({ type: 'goldenIncoming', kind: a.kind, side: trailing, x: a.x });
+}
+
+/** Send in the wolf. */
+export function spawnWolf(w) {
+  const wolf = createWolf(w.rng);
+  w.wolves.push(wolf);
+  w.events.push({ type: 'wolfIncoming', x: wolf.x });
 }
 
 /** Send in the green man carrying `power` (or a mystery package hiding it). */
@@ -292,7 +301,7 @@ export function stepWorld(w, inputs, dt) {
   }
   w.bombs = w.bombs.filter((b) => b.alive);
 
-  const targets = w.drops.length ? [...w.animals, ...w.drops] : w.animals;
+  const targets = w.drops.length || w.wolves.length ? [...w.animals, ...w.drops, ...w.wolves] : w.animals;
   for (const side of SIDES) {
     const stealBonus = hasPower(w.powers, side, 'steal');
     const twin = hasPower(w.powers, side, 'twin');
@@ -312,6 +321,8 @@ export function stepWorld(w, inputs, dt) {
       w.events.push({ type: 'dropLanded', x: d.x, y: d.y });
     }
   }
+
+  for (const wolf of w.wolves) updateWolf(wolf, w.animals, dt, w.rng, w.events);
 
   for (const a of w.animals) {
     const wasFalling = a.state === 'falling';

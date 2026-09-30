@@ -33,7 +33,8 @@ export function isOverOwnPen(s) {
 export function canHook(s, a) {
   if (a.hookedBy !== null) return false;
   if (a.state !== 'field' && a.state !== 'penned') return false;
-  if (a.state === 'penned' && a.pen === s.side) return false;
+  // Not out of your own pen, except a wolf that is eating your lambs.
+  if (a.state === 'penned' && a.pen === s.side && a.kind !== 'wolf') return false;
   if (Math.abs(a.x - s.x) > HOOK.grabRadius) return false;
   const top = a.y - ANIMALS.size[a.kind].h;
   const gap = top - (s.y + SAUCER.halfHeight);
@@ -115,7 +116,9 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin
       a.y = slotY(h, s, a);
     }
     // Released automatically only when low enough for a safe landing.
-    if (isOverOwnPen(s) && fallHeight(h.carrying) <= SPLAT.height) {
+    // Never a wolf: that takes the shoot key.
+    const wolf = h.carrying.kind === 'wolf' || h.second?.kind === 'wolf';
+    if (!wolf && isOverOwnPen(s) && fallHeight(h.carrying) <= SPLAT.height) {
       for (const [a, dx] of [[h.carrying, -10], [h.second, 12]]) {
         if (!a) continue;
         a.x = clampToPen(s.x + (h.second ? dx : 0), a.kind, s.side);

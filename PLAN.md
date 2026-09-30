@@ -70,6 +70,15 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Animals in the opponent's pen can be hooked like any other animal.
 - Each animal remembers who first delivered it. It is worth full value (cow 2, lamb 1) in that player's pen and half value in the other pen (cow 1, lamb 0.5).
 
+### The wolf
+- In about one round in three, at a random time between 25% and 70% of the round, a wolf parachutes into the field.
+- In the field it chases the nearest lamb in the field and eats it (1 s per lamb). Lambs within 220 px run away from it, but it is faster. It ignores cows, lambs in pens and lambs in a beam.
+- It is hooked and carried like an animal (lift 1.3 s), but is never let go of automatically: the shoot key drops it. It always lands on its feet, whatever the height.
+- Dropped into a pen, it eats the lambs in that pen, which takes them off that player's score. Either player can lift it out of any pen, including their own.
+- After 6 s with nothing in reach it howls, gets bored and runs off the screen for good.
+- Values are in `WOLF` in `config.js`.
+- The CPU lifts a wolf out of its own pen and drops any wolf it carries into the opponent's pen. On Normal and Hard it also fetches the wolf from the field when the opponent has 2+ lambs penned.
+
 ### Power-ups
 - Twice per round (at 30% and 60% of the round) there is a 60% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
 - He wanders like an animal and is hooked the same way (lift 0.8 s; shots and drift break the pickup). A saucer carrying an animal can't grab him.
@@ -233,5 +242,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Infinite ammo, shield, lambs → cows, cows → lambs; supply drops**
   - Logic, CPU use (it doesn't waste shots on a shield), icons, shield bubble, bursts, announcements and sound. Unit tests for each, and for the supply drop.
   - Simulator, trailing grabber wins: unlimited 26%, shield 15%, lambs → cows 19%, cows → lambs 15%. The two swaps change the field for both players rather than help the grabber. The CPU gets little out of the shield, since shots rarely decide its rounds.
+- [x] **The wolf**
+  - Logic (`src/logic/wolf.js`), art (`src/render/wolfView.js`: parachute, running, eating, howling), announcements, "CHOMP!", howl, growl and chomp sounds, CPU handling. Unit tests.
+  - Simulator (Hard vs Hard): a wolf in 33% of rounds; it eats about 0.6 lambs in the field and 2.9 in pens per wolf round, since the bots keep dropping it back into each other's pens; it leaves before the end in about half of them.
 - [ ] **9. Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

@@ -249,6 +249,52 @@ export const SOUNDS = {
     o.stop(t + dur + 0.05);
   },
 
+  /** A long wolf howl: rises, holds with a waver, and falls away. */
+  howl(ac, out, t) {
+    const dur = 2.2;
+    const g = gainNode(ac);
+    envelope(g.gain, t, dur, 0.2, 0.35, 1.0);
+    const f = filter(ac, 'lowpass', 1800, 1);
+    f.connect(g).connect(out);
+    for (const [type, mul, peak] of [['sine', 1, 1], ['triangle', 2, 0.25]]) {
+      const o = osc(ac, type, 330 * mul, t);
+      o.frequency.exponentialRampToValueAtTime(560 * mul, t + 0.5);
+      o.frequency.setValueAtTime(560 * mul, t + 1.3);
+      o.frequency.exponentialRampToValueAtTime(300 * mul, t + dur);
+      lfo(ac, 5.5, 9 * mul, o.frequency, t, dur);
+      const og = gainNode(ac, peak);
+      o.connect(og).connect(f);
+      o.start(t);
+      o.stop(t + dur + 0.05);
+    }
+  },
+
+  /** Low snarl when the beam grabs the wolf. */
+  growl(ac, out, t) {
+    const dur = 0.7;
+    const f = filter(ac, 'lowpass', 500, 4);
+    const trem = gainNode(ac, 0.5);
+    lfo(ac, 30, 0.45, trem.gain, t, dur);
+    const g = gainNode(ac);
+    envelope(g.gain, t, dur, 0.5, 0.05, 0.35);
+    f.connect(trem).connect(g).connect(out);
+    const o = osc(ac, 'sawtooth', 85, t);
+    o.frequency.linearRampToValueAtTime(110, t + 0.3);
+    o.frequency.exponentialRampToValueAtTime(70, t + dur);
+    o.connect(f);
+    o.start(t);
+    o.stop(t + dur + 0.05);
+    hiss(ac, out, t, { dur, peak: 0.08, type: 'bandpass', freq: 700, q: 2 });
+  },
+
+  /** Two quick bites. */
+  chomp(ac, out, t) {
+    for (const at of [0, 0.16]) {
+      tone(ac, out, t + at, { type: 'square', freq: 220, to: 60, dur: 0.09, peak: 0.25 });
+      hiss(ac, out, t + at, { dur: 0.1, peak: 0.35, type: 'bandpass', freq: 1200, to: 300, q: 1.2 });
+    }
+  },
+
   /** Bell arpeggio. Stolen (half value) animals get a shorter, lower one. */
   chime(ac, out, t, { full = true } = {}) {
     const notes = full ? [1047, 1319, 1568, 2093] : [880, 1109];
@@ -420,7 +466,7 @@ export function play(name, { x, ...opts } = {}) {
   return SOUNDS[name](ctx, output(x), ctx.currentTime + 0.005, opts);
 }
 
-const HOOK_VOICE = { cow: 'moo', lamb: 'baa', greenman: 'chirp' };
+const HOOK_VOICE = { cow: 'moo', lamb: 'baa', greenman: 'chirp', wolf: 'growl' };
 
 // Sustained voices, one per player, that events start and stop.
 const liftVoices = { red: null, blue: null };
@@ -498,7 +544,18 @@ export function handleEvents(events) {
         play('jingle');
         break;
       case 'release':
-        play(e.kind === 'cow' ? 'moo' : 'baa', { x: e.x });
+        if (HOOK_VOICE[e.kind]) play(HOOK_VOICE[e.kind], { x: e.x });
+        break;
+      case 'wolfIncoming':
+      case 'wolfLeaves':
+        play('howl', { x: e.x });
+        break;
+      case 'wolfEat':
+        play('chomp', { x: e.x });
+        play('baa', { x: e.x });
+        break;
+      case 'wolfLand':
+        play('growl', { x: e.x });
         break;
       case 'splat':
         play('splat', { x: e.x });

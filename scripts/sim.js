@@ -99,6 +99,7 @@ function simulate(seed) {
     golden: null, // { trailing, deliveredBy, diffBefore } when a golden animal dropped
     crates: [], // { for: side that ran out, t, grabbedBy }
     splats: 0,
+    wolf: null, // { eatenField, eatenPen, penDrops: { own, theirs }, left }
     spooked: 0,
     fieldRestocks: 0,
     grabs: [], // { side, t, power, diff, swing }: diff = grabber's lead at the grab, swing = lead gained over the power-up's duration
@@ -156,6 +157,10 @@ function simulate(seed) {
       }
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat') m.splats++;
+      else if (e.type === 'wolfIncoming') m.wolf = { eatenField: 0, eatenPen: 0, own: 0, theirs: 0, left: false };
+      else if (e.type === 'wolfEat') m.wolf[e.pen ? 'eatenPen' : 'eatenField']++;
+      else if (e.type === 'wolfLand' && e.pen && e.by) m.wolf[e.pen === e.by ? 'own' : 'theirs']++;
+      else if (e.type === 'wolfLeaves') m.wolf.left = true;
       else if (e.type === 'spooked') m.spooked++;
       else if (e.type === 'restock' && e.reason === 'emptyField') m.fieldRestocks++;
       else if (e.type === 'crateIncoming') m.crates.push({ for: e.side, t, grabbedBy: null });
@@ -240,6 +245,19 @@ console.table({
 function ROUND_LENGTH() {
   return config.ROUND.length;
 }
+
+// ---- the wolf -----------------------------------------------------------
+
+const wolfRounds = results.filter((r) => r.wolf);
+const wavg = (f) => (wolfRounds.reduce((s, r) => s + f(r.wolf), 0) / Math.max(1, wolfRounds.length)).toFixed(2);
+console.log('\nThe wolf');
+console.table({
+  'rounds with a wolf': `${wolfRounds.length} (${((100 * wolfRounds.length) / results.length).toFixed(0)}%)`,
+  'lambs eaten in the field (avg)': wavg((w) => w.eatenField),
+  'lambs eaten in a pen (avg)': wavg((w) => w.eatenPen),
+  "dropped in the opponent's pen / own pen (avg)": `${wavg((w) => w.theirs)} / ${wavg((w) => w.own)}`,
+  'got bored and left before the end': `${((100 * wolfRounds.filter((r) => r.wolf.left).length) / Math.max(1, wolfRounds.length)).toFixed(0)}%`,
+});
 
 // ---- power-ups ----------------------------------------------------------
 

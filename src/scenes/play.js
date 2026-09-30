@@ -18,6 +18,7 @@ import { createProjectileView } from '../render/projectileView.js';
 import { createAnimalView, createBeamView } from '../render/animalView.js';
 import { createEffects } from '../render/effects.js';
 import { createDropsView, POWER_NAMES, POWER_COLOR } from '../render/powerupView.js';
+import { createWolvesView } from '../render/wolfView.js';
 import { COLORS } from '../render/backdrop.js';
 import { createHud } from '../render/hud.js';
 import { label } from '../render/text.js';
@@ -39,12 +40,14 @@ export function createPlayScene(game, session) {
   const saucerViews = {};
   for (const side of SIDES) saucerViews[side] = createSaucerView(side);
   const dropsView = createDropsView();
+  const wolvesView = createWolvesView();
   const projectileView = createProjectileView();
   const effects = createEffects();
   stage.addChild(
     backdrop.view,
     beamView.view,
     animalView.view,
+    wolvesView.view,
     dropsView.view,
     ...SIDES.map((side) => saucerViews[side].view),
     projectileView.view,
@@ -93,6 +96,7 @@ export function createPlayScene(game, session) {
       });
     }
     dropsView.sync(world.drops, t);
+    wolvesView.sync(world.wolves, t);
     projectileView.sync(world, t);
     announcement.visible = announceLeft > 0;
     announcement.alpha = Math.min(1, announceLeft * 2);
@@ -159,6 +163,13 @@ export function createPlayScene(game, session) {
           const [from, to] = [`${e.from.toUpperCase()}S`, `${e.to.toUpperCase()}S`];
           announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} IN THE FIELD TO TURN INTO ${to}`, COLORS[e.side]);
         }
+        if (e.type === 'wolfIncoming') announce('A WOLF IS LOOSE! IT EATS LAMBS', 0xcfd6ff);
+        if (e.type === 'wolfLand' && e.pen) {
+          if (!e.by) announce(`THE WOLF LANDS IN ${name(e.pen)}'S PEN!`, COLORS[e.pen]);
+          else if (e.by === e.pen) announce(`${name(e.by)} PUTS THE WOLF IN ITS OWN PEN!`, COLORS[e.by]);
+          else announce(`${name(e.by)} PUTS THE WOLF IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
+        }
+        if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
         if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
         if (e.type === 'spooked') announce(`${name(e.side)}'S ANIMALS ARE SPOOKED!`, COLORS[e.side]);
         if (e.type === 'bombBlast') {

@@ -1,7 +1,7 @@
 // A round: 3-2-1 countdown with everything frozen, then the timed play phase.
 
-import { ROUND, POWERUP, GOLDEN, AMMO_CRATE, SUPPLY } from '../config.js';
-import { createWorld, stepWorld, spawnDrop, spawnGolden, spawnCrate, crateInPlay, dropInPlay, fieldEmpty, SIDES } from './world.js';
+import { ROUND, POWERUP, GOLDEN, AMMO_CRATE, SUPPLY, WOLF } from '../config.js';
+import { createWorld, stepWorld, spawnDrop, spawnGolden, spawnCrate, spawnWolf, crateInPlay, dropInPlay, fieldEmpty, SIDES } from './world.js';
 import { planDrop, hasPower } from './powerup.js';
 import { shouldDropGolden } from './golden.js';
 import { scores } from './scoring.js';
@@ -18,6 +18,7 @@ export function createRound(seed) {
       done: false,
     })),
     goldenChecked: false,
+    wolfAt: planWolf(world.rng), // share of the round when the wolf drops, or null
     crates: { red: false, blue: false }, // has this player's crate dropped yet
     stalemate: 0, // seconds the field has been empty with someone out of shots
     supplied: false, // a supply drop already came while the field has been empty
@@ -27,6 +28,12 @@ export function createRound(seed) {
     timeLeft: ROUND.length,
     events: [],
   };
+}
+
+function planWolf(rng) {
+  const [lo, hi] = WOLF.window;
+  const at = lo + rng() * (hi - lo);
+  return rng() < WOLF.chance ? at : null;
 }
 
 /** Out of ammo, with no power-up that shoots for free. */
@@ -104,6 +111,11 @@ export function stepRound(r, inputs, dt) {
       }
     }
     supplyDrop(r, dt);
+    if (r.wolfAt !== null && ROUND.length - r.timeLeft >= ROUND.length * r.wolfAt) {
+      r.wolfAt = null;
+      spawnWolf(r.world);
+      r.events.push(r.world.events.at(-1));
+    }
     if (!r.goldenChecked && ROUND.length - r.timeLeft >= ROUND.length * GOLDEN.checkAt) {
       r.goldenChecked = true;
       const points = scores(r.world.animals);

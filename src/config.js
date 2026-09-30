@@ -58,13 +58,13 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8 },
+  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.3 },
 };
 
 export const ANIMALS = {
   cows: 4,
   lambs: 5,
-  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0 },
+  wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0, wolf: 35 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
   gravity: 1400,
@@ -75,6 +75,7 @@ export const ANIMALS = {
     greenman: { w: 22, h: 30 },
     crate: { w: 30, h: 26 },
     package: { w: 30, h: 28 },
+    wolf: { w: 52, h: 34 },
   },
   value: { cow: 2, lamb: 1 },
   fieldMargin: 30, // keep field animals this far from the pen fences
@@ -156,6 +157,19 @@ export const SPOOK = {
 
 // A rare comeback drop: a golden cow or lamb that evens the score if the
 // trailing player delivers it.
+// The wolf: some rounds it parachutes in and eats every lamb it can reach.
+export const WOLF = {
+  chance: 0.35, // chance of a wolf each round
+  window: [0.25, 0.7], // it drops at a random time in this part of the round
+  speed: 130, // chasing, px/s
+  leaveSpeed: 260, // running off, px/s
+  bite: 30, // px between centres to catch a lamb
+  eatTime: 1, // seconds spent on each lamb
+  boredAfter: 6, // seconds without a lamb in reach before it leaves
+  scareRange: 220, // lambs in the field closer than this run away
+  fleeSpeed: 85, // px/s
+};
+
 export const GOLDEN = {
   checkAt: 2 / 3, // when to check, as a fraction of the round
   minLead: 3, // only when someone leads by at least this many points

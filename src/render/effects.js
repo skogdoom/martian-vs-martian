@@ -134,6 +134,19 @@ export function createEffects() {
           popup('POP!', e.x, e.y - 70, 0xffffff);
           shake = Math.max(shake, 4);
           break;
+        case 'wolfEat':
+          burst(e.x, e.y - 14, { count: 36, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xfdfbf4], up: 1.2, speed: [80, 320], life: [0.4, 0.9], size: [2, 5], gravity: 800 });
+          burst(e.x, e.y - 16, { count: 10, colors: [0xfdfbf4, 0xe8e2d4], speed: [20, 90], life: [0.6, 1.2], size: [4, 7], gravity: 60 }); // wool
+          stains.push({ x: e.x, w: 18 + Math.random() * 10, life: 6, max: 6 });
+          popup('CHOMP!', e.x, e.y - 60, 0xff4050);
+          shake = Math.max(shake, 3);
+          break;
+        case 'wolfLand':
+          burst(e.x, e.y, { count: 12, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 110], life: [0.2, 0.5], gravity: 300 });
+          break;
+        case 'wolfLeaves':
+          burst(e.x, e.y, { count: 10, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
+          break;
         case 'knockLoose':
           burst(e.x, e.y, { count: 20, colors: [0xffffff, 0xff5ce1, COLORS[e.side]], speed: [80, 260], life: [0.3, 0.6], size: [2, 4], gravity: 200, shape: 'star' });
           ring(e.x, e.y, 0xff5ce1, 40);

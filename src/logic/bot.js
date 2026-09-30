@@ -27,7 +27,8 @@ function axis(pos, vel, target, gain, max) {
  *   picky        only shoot at an opponent who is lifting or carrying
  *   sloppy       share of lifts where it lets go of the keys once the beam grabs
  *   jitter       steering noise, px
- *   raid         steal from the opponent's pen when losing in the second half
+ *   raid         steal from the opponent's pen when losing in the second half,
+ *                and fetch a wolf from the field to drop on the opponent's lambs
  *   carryLow     fly home low while carrying, so a hit doesn't splat the animal
  */
 export function createBot(side, rng, skill) {
@@ -46,11 +47,13 @@ export function createBot(side, rng, skill) {
     const losing = skill.raid && p[side] < p[other(side)] && elapsed > ROUND.length / 2;
     const stealPenalty = hasPower(w.powers, side, 'steal') || losing ? -300 : 150;
     const wantsAmmo = w.weapons[side].ammo <= 3;
-    for (const a of [...w.animals, ...w.drops]) {
+    const theirLambs = w.animals.filter((a) => a.kind === 'lamb' && a.state === 'penned' && a.pen === other(side)).length;
+    const wolves = skill.raid && theirLambs >= 2 ? w.wolves : [];
+    for (const a of [...w.animals, ...w.drops, ...wolves]) {
       const eligible = (a.state === 'field' || (a.state === 'penned' && a.pen !== side)) && a.hookedBy === null;
       if (!eligible) continue;
       const unpaidGold = a.golden && a.goldenValue == null;
-      const prize = a.kind === 'greenman' || a.kind === 'package' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
+      const prize = a.kind === 'wolf' || a.kind === 'greenman' || a.kind === 'package' || unpaidGold || (a.kind === 'crate' && wantsAmmo);
       const d = Math.abs(a.x - s.x) + (a.state === 'penned' ? stealPenalty : 0) + (prize ? -400 : 0);
       if (d < bestD) {
         bestD = d;
@@ -86,6 +89,10 @@ export function createBot(side, rng, skill) {
       let tx = s.x;
       let ty = s.y;
       let dropBomb = false;
+      let dropWolf = false;
+      const carriedWolf = [hook.carrying, hook.second].some((a) => a?.kind === 'wolf');
+      // A wolf in our pen: get it out.
+      const wolfHome = w.wolves.find((a) => a.state === 'penned' && a.pen === side && a.hookedBy === null);
 
       // With the twin beam, grab a second animal on the way if one is close.
       const second =
@@ -93,7 +100,12 @@ export function createBot(side, rng, skill) {
           ? w.animals.find((a) => a.state === 'field' && a.hookedBy === null && Math.abs(a.x - s.x) < 300)
           : null;
 
-      if (second) {
+      if (carriedWolf) {
+        // Over their pen and let it go.
+        tx = theirPenX;
+        ty = 330;
+        dropWolf = Math.abs(s.x - theirPenX) < 30;
+      } else if (second) {
         tx = second.x;
         ty = Math.abs(second.x - s.x) > 120 ? 380 : LOW;
       } else if (hook.carrying && !hook.target) {
@@ -118,6 +130,9 @@ export function createBot(side, rng, skill) {
         }
         tx = hook.target.x;
         ty = s.y;
+      } else if (wolfHome) {
+        tx = wolfHome.x;
+        ty = Math.abs(wolfHome.x - s.x) > 120 ? 380 : LOW;
       } else {
         const armed = weapon.ammo > 0 || laser || triple || endless;
         const hunter = laser || triple || endless ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
@@ -148,9 +163,9 @@ export function createBot(side, rng, skill) {
       held = {
         x: axis(s.x, s.vx, tx + (rng() - 0.5) * skill.jitter, skill.gain, top),
         y: axis(s.y, s.vy, ty, skill.gain, top),
-        // While carrying, shoot would drop the animal: never do that.
+        // While carrying, shoot drops what it carries: only ever a wolf, on purpose.
         shoot: hook.carrying
-          ? false
+          ? dropWolf
           : rocket
             ? Boolean(target)
             : bomb
