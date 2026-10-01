@@ -290,7 +290,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Rumble (where the pad supports it) on hits, rams, dazes and a time bomb going off in the beam. A "controller connected / disconnected" notice shows at the bottom for 3 s.
   - A pad has no button for the sound (M) or full screen (F); sound can be switched from the pause menu, and the pause menu can exit to the main menu.
   - Sound start: browsers only start Web Audio from a key press or a click, and a context created outside one can stay blocked for good. So only real key presses and clicks touch the audio (pad buttons never do). If the context isn't running at a key press or click, it is replaced by a fresh one made right there (not if it is under 0.5 s old), which also covers a first key that isn't a gesture, like Esc. Once a pad has been seen and the sound hasn't started yet, a hint at the bottom says "press any key or click once"; it goes away for good when the sound starts and does not come back during pause.
-  - **Pause:** P or Esc on the keyboard, Start on a pad (Start still begins the game on the title screen). The round freezes, the sound is suspended and nothing wakes it while paused. A menu comes up: Resume, Restart the game (a new match; the tally is kept, rounds not finished aren't counted), Sound on/off, Exit to main menu. Up/down and Enter/Space (or d-pad and A). A pad can use all four. Esc, P or Start resume. Esc no longer quits a round at once; it opens this menu.
+  - **Pause:** P or Esc on the keyboard, Start on a pad (Start still begins the game on the title screen). The round freezes, the sound is suspended and nothing wakes it while paused. A menu comes up: Resume, Restart the game (a new match; the tally is kept, rounds not finished aren't counted), Sound on/off, Full screen on/off, Exit to main menu. Up/down and Enter/Space (or d-pad and A). A pad can use all four. Esc, P or Start resume. Esc no longer quits a round at once; it opens this menu.
   - Checked with a fake pad in the browser (menu, start, steering, shooting, unplugging, B to the menu) and 10 unit tests. Not tried with a real pad.
 
 - [x] **10. Round length and number of rounds**
@@ -315,6 +315,10 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Full screen height**
   - `src/layout.js` (`fitWindow`, `sceneShift`); `main.js` puts the scene in a layer that is bottom-aligned for the arena and centred for menus, and sets `ARENA.flightTop`. The backdrop is drawn 400 px beyond the design area in both directions.
   - Checked in the browser at 1280×720, 1024×768, 1000×1100 and 1920×800, and with a resize in the middle of a round. 12 unit tests.
+- [x] **Esc in full screen opens the pause menu**
+  - Browsers keep Esc in full screen (it leaves full screen and the page never sees the key). Chrome and Edge let a page keep it via the Keyboard Lock API, which is requested whenever full screen starts, so Esc opens the pause menu there (holding Esc still leaves full screen).
+  - Firefox and Safari have no such API: when the browser itself ends full screen, the game pauses instead (leaving by F, double-click or the menu doesn't pause). `src/fullscreen.js` reports this through `onUnexpectedExit`.
+  - The pause menu has a "Full screen: on/off" item. A controller can leave full screen from it but, as browsers need a key or a click, not enter it; the menu says so when a pad has been seen.
 - [ ] **11. Hardening, performance and code review**
   - Done after milestone 10, so the review covers the finished feature set.
   - Code review of every module: dead code, naming, comments that no longer match, config values vs `PLAN.md`, duplicated logic (the hazard kinds, the drop views, the helpers repeated across tests).

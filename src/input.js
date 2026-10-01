@@ -16,8 +16,6 @@ const gameKeys = new Set(Object.values(KEYS).flatMap((k) => Object.values(k)));
 window.addEventListener('keydown', (e) => {
   if (gameKeys.has(e.code)) e.preventDefault();
   if (e.repeat) return;
-  // In full screen, ESC belongs to the browser (it leaves full screen), not the game.
-  if (e.code === 'Escape' && (document.fullscreenElement || document.webkitFullscreenElement)) return;
   down.add(e.code);
   pressed.add(e.code);
   for (const fn of listeners) fn(e.code);
