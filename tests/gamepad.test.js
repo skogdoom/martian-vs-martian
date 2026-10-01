@@ -20,11 +20,17 @@ describe('reading a pad', () => {
     expect(readPad(pad(0, { buttons: [PAD.right], axes: [1, 0] }))).toMatchObject({ x: 1 });
   });
 
-  it('shoots with A, X, RB or RT, and menus use A/Start and B/Back', () => {
+  it('shoots with A, X, RB or RT, menus use A/Start, and Start pauses', () => {
     for (const b of PAD.shoot) expect(readPad(pad(0, { buttons: [b] })).fire).toBe(true);
     expect(readPad(pad(0)).fire).toBe(false);
-    expect(readPad(pad(0, { buttons: [9] }))).toMatchObject({ confirm: true, fire: false });
-    expect(readPad(pad(0, { buttons: [1] }))).toMatchObject({ back: true, fire: false });
+    expect(readPad(pad(0, { buttons: [9] }))).toMatchObject({ confirm: true, pause: true, fire: false });
+    expect(readPad(pad(0, { buttons: [0] }))).toMatchObject({ confirm: true, pause: false });
+  });
+
+  it('has no way to quit: B and Back do nothing', () => {
+    const p = createPadPoller();
+    p.poll([pad(0)]);
+    expect(p.poll([pad(0, { buttons: [1, 8] })]).pressed).toEqual([]);
   });
 
   it('copes with a pad that has no buttons or axes', () => {
@@ -53,6 +59,8 @@ describe('polling pads', () => {
     expect(p.poll([pad(0), pad(1)]).pressed).toEqual([]);
     expect(p.poll([pad(0, { buttons: [0] }), pad(1)]).pressed).toEqual(['PadShoot:red', 'PadConfirm']);
     expect(p.poll([pad(0, { buttons: [0] }), pad(1)]).pressed).toEqual([]); // still held
+    expect(p.poll([pad(0), pad(1)]).pressed).toEqual([]);
+    expect(p.poll([pad(0, { buttons: [9] }), pad(1)]).pressed).toEqual(['PadConfirm', 'PadPause']);
     expect(p.poll([pad(0), pad(1)]).pressed).toEqual([]);
     expect(p.poll([pad(0), pad(1, { buttons: [7] })]).pressed).toEqual(['PadShoot:blue']);
   });

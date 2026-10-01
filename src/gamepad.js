@@ -1,7 +1,8 @@
 // Game controllers (Gamepad API), read as plain data so it can be tested.
 //
 // Standard layout: left stick or d-pad moves, A / X / RB / RT shoot (and drop),
-// A or Start confirms in menus, B or Back goes back. The first connected pad
+// A or Start confirms in menus, Start pauses a round. A pad can't leave a round,
+// quit, or touch the sound: that stays on the keyboard. The first connected pad
 // flies Red and the second Blue. Sticks are turned into -1/0/1 per axis, like
 // keys, so momentum works the same way (analog noise would keep changing the
 // heading).
@@ -10,7 +11,7 @@ export const PAD = {
   dead: 0.4, // stick deflection that counts as a direction
   shoot: [0, 2, 5, 7],
   confirm: [0, 9],
-  back: [1, 8],
+  pause: [9],
   up: 12,
   down: 13,
   left: 14,
@@ -32,7 +33,7 @@ export function readPad(pad) {
     y: clamp(stickY + (held(pad, PAD.down) ? 1 : 0) - (held(pad, PAD.up) ? 1 : 0)),
     fire: anyHeld(pad, PAD.shoot),
     confirm: anyHeld(pad, PAD.confirm),
-    back: anyHeld(pad, PAD.back),
+    pause: anyHeld(pad, PAD.pause),
   };
 }
 
@@ -46,7 +47,7 @@ const SIDES = ['red', 'blue'];
  * Returns
  *   slots    { red, blue }: { x, y, fire } or null when no pad is in that slot
  *   pressed  codes for buttons that went down since the last poll:
- *            'PadShoot:red', 'PadShoot:blue', 'PadConfirm', 'PadBack',
+ *            'PadShoot:red', 'PadShoot:blue', 'PadConfirm', 'PadPause',
  *            'PadUp', 'PadDown', 'PadLeft', 'PadRight'
  */
 export function createPadPoller() {
@@ -73,7 +74,7 @@ export function createPadPoller() {
         slots[side] = { x: cur.x, y: cur.y, fire: cur.fire };
         if (cur.fire && !was?.fire) pressed.push(`PadShoot:${side}`);
         if (cur.confirm && !was?.confirm) pressed.push('PadConfirm');
-        if (cur.back && !was?.back) pressed.push('PadBack');
+        if (cur.pause && !was?.pause) pressed.push('PadPause');
         if (cur.y < 0 && !(was?.y < 0)) pressed.push('PadUp');
         if (cur.y > 0 && !(was?.y > 0)) pressed.push('PadDown');
         if (cur.x < 0 && !(was?.x < 0)) pressed.push('PadLeft');

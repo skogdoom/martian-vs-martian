@@ -25,8 +25,19 @@ export function unlockAudio() {
   resume();
 }
 
+let paused = false;
+
+/** Pause or resume all sound with the game. While paused, nothing wakes it up. */
+export function setAudioPaused(on) {
+  paused = on;
+  if (!ctx) return;
+  if (on) ctx.suspend().catch(() => {});
+  else resume();
+}
+
 /** Ask a suspended (or, in Safari, interrupted) context to run again. */
 export function resume() {
+  if (paused) return;
   if (ctx && ctx.state !== 'running' && ctx.state !== 'closed') ctx.resume().catch(() => {});
 }
 

@@ -1,13 +1,13 @@
 // Play scene: one round, from the countdown to the final whistle.
 
-import { Container } from 'pixi.js';
-import { WIDTH, AMMO_CRATE, BOT, ROUND, RAM } from '../config.js';
+import { Container, Graphics } from 'pixi.js';
+import { WIDTH, HEIGHT, AMMO_CRATE, BOT, ROUND, RAM, PAUSE_KEY } from '../config.js';
 import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
 import { sideName, isCpu } from '../session.js';
 import { playerInput, soloInput, wasPressed, rumble } from '../input.js';
-import { handleEvents, stopVoices } from '../audio.js';
+import { handleEvents, stopVoices, setAudioPaused } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
@@ -80,6 +80,22 @@ export function createPlayScene(game, session) {
     announceLeft = 2.2;
   }
 
+  // Pause: P, or Start on a controller. Everything freezes, sound included.
+  let paused = false;
+  const dim = new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.55 });
+  const pausedTitle = label('PAUSED', { size: 72, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  pausedTitle.position.set(WIDTH / 2, 300);
+  const pausedHelp = label('P or Start: resume       ESC (keyboard): quit to the menu', { size: 18, color: 0xcfd6ff, anchorX: 0.5, anchorY: 0.5 });
+  pausedHelp.position.set(WIDTH / 2, 370);
+  const pauseView = new Container();
+  pauseView.addChild(dim, pausedTitle, pausedHelp);
+  pauseView.visible = false;
+  function setPaused(on) {
+    paused = on;
+    pauseView.visible = on;
+    setAudioPaused(on);
+  }
+
   let goFlash = 0;
   let t = 0;
 
@@ -108,7 +124,7 @@ export function createPlayScene(game, session) {
     announcement.visible = announceLeft > 0;
     announcement.alpha = Math.min(1, announceLeft * 2);
     effects.render();
-    const shake = effects.shakeOffset();
+    const shake = paused ? { x: 0, y: 0 } : effects.shakeOffset();
     stage.position.set(shake.x, shake.y);
     hud.sync(world, { timeLeft: round.timeLeft, match });
 
@@ -124,6 +140,7 @@ export function createPlayScene(game, session) {
     } else {
       banner.visible = sub.visible = false;
     }
+    if (paused) banner.visible = sub.visible = false;
   }
 
   function finish() {
@@ -140,16 +157,23 @@ export function createPlayScene(game, session) {
     game.go(createRoundEndScene, session, { number, points, result, outcome, background: view });
   }
 
+  view.addChild(pauseView); // above everything, banners and announcements included
+
   return {
     view,
     round,
-    destroy: stopVoices,
+    destroy() {
+      setAudioPaused(false);
+      stopVoices();
+    },
     update(dt) {
       if (round.phase === 'over') return;
-      if (wasPressed('Escape') || wasPressed('PadBack')) {
+      if (wasPressed('Escape')) {
         game.go(createTitleScene, session);
         return;
       }
+      if (wasPressed(PAUSE_KEY) || wasPressed('PadPause')) setPaused(!paused);
+      if (paused) return;
       t += dt;
       const elapsed = ROUND.length - round.timeLeft;
       const inputs = cpu
