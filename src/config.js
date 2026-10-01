@@ -109,6 +109,8 @@ export const ANIMALS = {
 export const POWERUP = {
   chance: 0.6, // chance that a green man drops at each drop time
   dropTimes: [0.3, 0.6], // when he may drop, as fractions of the round
+  longRoundFrom: 120, // rounds this long (s) or more get a third drop, to keep power-ups as frequent
+  longDropTimes: [0.25, 0.5, 0.75],
   mysteryChance: 0.2, // share of drops that come as a mystery package: power-up unknown until grabbed
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
   types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain', 'timeBomb'],
@@ -217,6 +219,6 @@ export const ROUND = {
   length: 90,
   countdown: 3,
   resultTime: 4,
-  startRounds: 3,
-  extraRounds: 2,
+  startRounds: 3, // default best of (the title menu offers 1, 3, 5 and 7)
+  extraRounds: 1, // sudden death: one more round at a time while wins are level
 };

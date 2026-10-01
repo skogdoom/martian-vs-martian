@@ -5,10 +5,11 @@
 
 import { COMBAT } from '../config.js';
 
-export function createWeapon() {
+export function createWeapon(cap = COMBAT.ammoPerRound) {
   return {
-    clip: Math.min(COMBAT.clipSize, COMBAT.ammoPerRound),
-    ammo: COMBAT.ammoPerRound,
+    cap, // shots per round (scales with the round length)
+    clip: Math.min(COMBAT.clipSize, cap),
+    ammo: cap,
     reload: 0, // seconds left of the current reload, 0 when not reloading
     cooldown: 0,
   };
@@ -40,7 +41,7 @@ export function tryFire(w, free = false, endless = false) {
 
 /** Add shots from an ammo crate, up to the per-round cap. */
 export function addAmmo(w, n) {
-  w.ammo = Math.min(COMBAT.ammoPerRound, w.ammo + n);
+  w.ammo = Math.min(w.cap, w.ammo + n);
 }
 
 // Snap tiny float leftovers to zero so a timer of N steps takes exactly N steps.

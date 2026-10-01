@@ -110,7 +110,8 @@ export function createHud(names = { red: 'RED', blue: 'BLUE' }) {
       timer.text = String(secs);
       const color = secs <= 10 ? 0xff6a6a : 0xffffff;
       if (timer.tint !== color) timer.tint = color;
-      roundInfo.text = `ROUND ${match.results.length + 1} · BEST OF ${match.scheduled}`;
+      const n = match.results.length + 1;
+      roundInfo.text = n > match.rounds ? 'SUDDEN DEATH · NEXT WIN TAKES IT' : `ROUND ${n} · BEST OF ${match.rounds}`;
     },
   };
 }

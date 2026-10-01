@@ -33,7 +33,7 @@ function axis(pos, vel, target, gain, max) {
  *                and fetch a wolf from the field to drop on the opponent's lambs
  *   carryLow     fly home low while carrying, so a hit doesn't splat the animal
  */
-export function createBot(side, rng, skill) {
+export function createBot(side, rng, skill, roundLength = ROUND.length) {
   let letGo = false;
   let lifting = null; // the animal we decided `letGo` for
   let wait = 0;
@@ -46,7 +46,7 @@ export function createBot(side, rng, skill) {
     // Raid the opponent's pen with the steal power-up, or when losing in the
     // second half. Always want the green man and unclaimed gold.
     const p = scores(w.animals);
-    const losing = skill.raid && p[side] < p[other(side)] && elapsed > ROUND.length / 2;
+    const losing = skill.raid && p[side] < p[other(side)] && elapsed > roundLength / 2;
     const stealPenalty = hasPower(w.powers, side, 'steal') || losing ? -300 : 150;
     const wantsAmmo = w.weapons[side].ammo <= 3;
     const theirLambs = w.animals.filter((a) => a.kind === 'lamb' && a.state === 'penned' && a.pen === other(side)).length;

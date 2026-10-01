@@ -3,15 +3,18 @@
 import { ROUND, POWERUP, GOLDEN, AMMO_CRATE, SUPPLY, WOLF } from '../config.js';
 import { createWorld, stepWorld, spawnDrop, spawnGolden, spawnCrate, spawnWolf, crateInPlay, dropInPlay, fieldEmpty, SIDES } from './world.js';
 import { planDrop, hasPower } from './powerup.js';
+import { ammoFor } from '../options.js';
 import { shouldDropGolden } from './golden.js';
 import { scores } from './scoring.js';
 
-export function createRound(seed) {
-  const world = createWorld(seed);
+/** `length` is the play time in seconds; timed events are shares of it and the ammo scales with it. */
+export function createRound(seed, length = ROUND.length) {
+  const world = createWorld(seed, { ammo: ammoFor(length) });
   return {
     world,
+    length,
     // Green-man drops planned for this round: { at, power, mystery, done }.
-    drops: POWERUP.dropTimes.map((at) => ({
+    drops: (length >= POWERUP.longRoundFrom ? POWERUP.longDropTimes : POWERUP.dropTimes).map((at) => ({
       at,
       power: planDrop(world.rng),
       mystery: world.rng() < POWERUP.mysteryChance,
@@ -25,7 +28,7 @@ export function createRound(seed) {
     phase: 'countdown', // 'countdown' | 'play' | 'over'
     countdown: ROUND.countdown,
     shown: null, // last countdown number announced
-    timeLeft: ROUND.length,
+    timeLeft: length,
     events: [],
   };
 }
@@ -96,13 +99,13 @@ export function stepRound(r, inputs, dt) {
     stepWorld(r.world, inputs, dt);
     r.events.push(...r.world.events);
     for (const d of r.drops) {
-      if (d.done || !d.power || ROUND.length - r.timeLeft < ROUND.length * d.at) continue;
+      if (d.done || !d.power || r.length - r.timeLeft < r.length * d.at) continue;
       d.done = true;
       spawnDrop(r.world, d.power, d.mystery);
       r.events.push(r.world.events.at(-1));
     }
     // Out of ammo early: one crate per player per round, one at a time.
-    if (ROUND.length - r.timeLeft < ROUND.length * AMMO_CRATE.before) {
+    if (r.length - r.timeLeft < r.length * AMMO_CRATE.before) {
       for (const side of SIDES) {
         if (r.world.weapons[side].ammo > 0 || r.crates[side] || crateInPlay(r.world)) continue;
         r.crates[side] = true;
@@ -111,12 +114,12 @@ export function stepRound(r, inputs, dt) {
       }
     }
     supplyDrop(r, dt);
-    if (r.wolfAt !== null && ROUND.length - r.timeLeft >= ROUND.length * r.wolfAt) {
+    if (r.wolfAt !== null && r.length - r.timeLeft >= r.length * r.wolfAt) {
       r.wolfAt = null;
       spawnWolf(r.world);
       r.events.push(r.world.events.at(-1));
     }
-    if (!r.goldenChecked && ROUND.length - r.timeLeft >= ROUND.length * GOLDEN.checkAt) {
+    if (!r.goldenChecked && r.length - r.timeLeft >= r.length * GOLDEN.checkAt) {
       r.goldenChecked = true;
       const points = scores(r.world.animals);
       if (shouldDropGolden(points, r.world.rng)) {

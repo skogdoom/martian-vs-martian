@@ -1,6 +1,6 @@
-// Title screen with the mode menu.
-//   up/down      1 or 2 players
-//   left/right   CPU difficulty (1 player)
+// Title screen with the menu: four rows.
+//   up/down      move between mode (1 or 2 players), round length and rounds
+//   left/right   change the value on the row: CPU difficulty, 60/90/120 s, best of 1/3/5/7
 //   1 / 2        pick the mode directly
 //   Enter/Space  start
 
@@ -11,6 +11,7 @@ import { audioUnlocked } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../session.js';
+import { LENGTHS, ROUNDS, step, saveOptions } from '../options.js';
 import { createBackdrop, COLORS } from '../render/backdrop.js';
 import { createAnimalView } from '../render/animalView.js';
 import { createSaucerView } from '../render/saucerView.js';
@@ -53,32 +54,45 @@ export function createTitleScene(game, session) {
   const blueKeys = label('', { size: 20, color: COLORS.blue, anchorX: 0.5 });
   blueKeys.position.set(cx + 220, 290);
 
-  // The menu.
-  const onePlayer = label('', { size: 26, bold: true, anchorX: 0 });
-  onePlayer.position.set(cx - 230, 395);
-  const twoPlayers = label('', { size: 26, bold: true, anchorX: 0 });
-  twoPlayers.position.set(cx - 230, 432);
+  // The menu: four rows. Up/down moves between them, left/right changes a value.
+  //   0  1 PLAYER vs CPU   difficulty
+  //   1  2 PLAYERS
+  //   2  round length
+  //   3  number of rounds
+  const rows = [0, 1, 2, 3].map((i) => {
+    const l = label('', { size: 24, bold: true, anchorX: 0 });
+    l.position.set(cx - 230, 392 + i * 31);
+    return l;
+  });
+  let row = session.players === 1 ? 0 : 1;
 
   const prompt = label('ENTER OR SPACE TO START', { size: 22, color: 0xffffff, bold: true, anchorX: 0.5 });
-  prompt.position.set(cx, 492);
-  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   F  full screen   P / ESC  pause menu', {
+  prompt.position.set(cx, 524);
+  const help = label('↑ ↓  choose   ← →  change   M  sound   F  full screen   P / ESC  pause menu', {
     size: 14,
     color: 0x8a93c0,
     anchorX: 0.5,
   });
-  help.position.set(cx, 528);
+  help.position.set(cx, 556);
   // Shown once a controller has been used. Pad buttons can't start sound.
   const padHelp = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5 });
-  padHelp.position.set(cx, 550);
+  padHelp.position.set(cx, 576);
 
-  view.addChild(red, vs, blue, ...steps, redKeys, blueKeys, onePlayer, twoPlayers, prompt, help, padHelp);
+  view.addChild(red, vs, blue, ...steps, redKeys, blueKeys, ...rows, prompt, help, padHelp);
 
   function refreshMenu() {
     const solo = session.players === 1;
-    onePlayer.text = `${solo ? '▶' : ' '} 1 PLAYER  vs CPU   ◀ ${session.difficulty.toUpperCase()} ▶`;
-    twoPlayers.text = `${solo ? ' ' : '▶'} 2 PLAYERS`;
-    onePlayer.alpha = solo ? 1 : 0.5;
-    twoPlayers.alpha = solo ? 0.5 : 1;
+    const text = [
+      `1 PLAYER  vs CPU   ◀ ${session.difficulty.toUpperCase()} ▶`,
+      '2 PLAYERS',
+      `ROUND LENGTH       ◀ ${session.length} s ▶`,
+      `ROUNDS             ◀ BEST OF ${session.rounds} ▶`,
+    ];
+    rows.forEach((l, i) => {
+      const mode = i < 2 && (i === 0) === solo; // the chosen game mode
+      l.text = `${i === row ? '▶' : mode ? '•' : ' '} ${text[i]}`;
+      l.alpha = i === row ? 1 : 0.5;
+    });
     redKeys.text = solo
       ? 'YOU (RED)\nmove  WASD or ARROWS\nshoot SPACE or ENTER\n(drops what you carry)'
       : 'RED\nmove  W A S D\nshoot SPACE\n(drops what you carry)';
@@ -94,12 +108,17 @@ export function createTitleScene(game, session) {
       for (const a of herd) updateAnimal(a, dt, rng);
       if (t < 0.3) return;
 
-      if (pressed('ArrowUp', 'KeyW', 'Digit1', 'Numpad1', 'PadUp')) session.players = 1;
-      if (pressed('ArrowDown', 'KeyS', 'Digit2', 'Numpad2', 'PadDown')) session.players = 2;
-      if (session.players === 1) {
-        const i = DIFFICULTIES.indexOf(session.difficulty);
-        if (pressed('ArrowLeft', 'KeyA', 'PadLeft')) session.difficulty = DIFFICULTIES[Math.max(0, i - 1)];
-        if (pressed('ArrowRight', 'KeyD', 'PadRight')) session.difficulty = DIFFICULTIES[Math.min(DIFFICULTIES.length - 1, i + 1)];
+      if (pressed('Digit1', 'Numpad1')) row = 0;
+      if (pressed('Digit2', 'Numpad2')) row = 1;
+      if (pressed('ArrowUp', 'KeyW', 'PadUp')) row = Math.max(0, row - 1);
+      if (pressed('ArrowDown', 'KeyS', 'PadDown')) row = Math.min(rows.length - 1, row + 1);
+      if (row < 2) session.players = row === 0 ? 1 : 2;
+      const dir = (pressed('ArrowRight', 'KeyD', 'PadRight') ? 1 : 0) - (pressed('ArrowLeft', 'KeyA', 'PadLeft') ? 1 : 0);
+      if (dir) {
+        if (row === 0) session.difficulty = step(DIFFICULTIES, session.difficulty, dir);
+        if (row === 2) session.length = step(LENGTHS, session.length, dir);
+        if (row === 3) session.rounds = step(ROUNDS, session.rounds, dir);
+        if (row >= 2) saveOptions({ length: session.length, rounds: session.rounds });
       }
       refreshMenu();
       padHelp.text = padSeenYet()

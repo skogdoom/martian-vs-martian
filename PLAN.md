@@ -288,7 +288,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - **Pause:** P or Esc on the keyboard, Start on a pad (Start still begins the game on the title screen). The round freezes, the sound is suspended and nothing wakes it while paused. A menu comes up: Resume, Restart the game (a new match; the tally is kept, rounds not finished aren't counted), Sound on/off, Exit to main menu. Up/down and Enter/Space (or d-pad and A). A pad can use all four. Esc, P or Start resume. Esc no longer quits a round at once; it opens this menu.
   - Checked with a fake pad in the browser (menu, start, steering, shooting, unplugging, B to the menu) and 10 unit tests. Not tried with a real pad.
 
-- [ ] **10. Round length and number of rounds**
+- [x] **10. Round length and number of rounds**
   - Title menu: up/down moves between rows (mode, CPU difficulty, round length, rounds); left/right changes the value. Enter or Space starts; 1/2 stay as shortcuts.
     - Round length: 60, 90 (default) or 120 s.
     - Rounds: best of 1, 3 (default), 5 or 7.
@@ -298,6 +298,14 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - To tune with the simulator (`LENGTH=` and `ROUNDS=` arguments): ammo scaled to the length (12 / 18 / 24?), a third green-man drop in 120 s rounds, restock timing in 60 s rounds.
   - HUD, round-end and tally screens show the chosen "best of N". The tally stays per mode and difficulty.
   - Tests: match logic for 1, 3, 5 and 7 rounds (early finish, ties, sudden death), rounds of each length, ammo scaling.
+  - As built:
+    - `src/options.js` holds the choices (60/90/120 s, best of 1/3/5/7), the localStorage load/save (guarded) and the ammo scaling. The title menu has four rows: 1 player (CPU difficulty), 2 players, round length, rounds; up/down moves, left/right changes. Digits 1 and 2 still pick the mode, and pads work as well.
+    - `createRound(seed, length)` takes the length; the round, the bot (`createBot(..., roundLength)`) and the simulator (`LENGTH=60`) use it instead of the global. `createMatch(rounds)` takes best of N.
+    - Ammo per round is 12 / 18 / 24, and the ammo crate refills half of it. 120 s rounds get a third green-man drop (at 25%, 50% and 75%).
+    - Ties go to sudden death, one extra round at a time (`ROUND.extraRounds` is 1; it was 2 more rounds). The HUD shows "SUDDEN DEATH · NEXT WIN TAKES IT" and the round banner "SUDDEN DEATH".
+    - The tally screen shows the rules used.
+  - Simulator (800 rounds each, 60 / 90 / 120 s): deliveries 10.2 / 13.7 / 17.0; lead changes 2.35 / 2.87 / 3.23; ammo runs out after the same share of the round (about a quarter); ties 11% / 9% / 7%; green men grabbed per round 1.3 / 1.7 / 2.5 (with the third drop; 2.0 without it).
+  - The simulator found a crash in the laser code from the daze work (a laser beam on a saucer whose shield ran out mid-beam); fixed, with a test.
 
 - [ ] **11. Hardening, performance and code review**
   - Done after milestone 10, so the review covers the finished feature set.

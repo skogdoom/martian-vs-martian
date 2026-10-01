@@ -2,8 +2,9 @@
 
 A two-player couch game for the browser. Two flying saucers share one keyboard
 and race to abduct cows and lambs into their own pen. Shoot, ram and steal
-from each other; grab power-ups dropped by little green men. Best of three
-90-second rounds. There is also a single-player mode against the CPU.
+from each other; grab power-ups dropped by little green men. Rounds of
+60, 90 or 120 seconds, best of 1, 3, 5 or 7 (ties go to sudden death).
+There is also a single-player mode against the CPU.
 
 ## Controls
 

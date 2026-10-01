@@ -44,7 +44,7 @@ export function createRoundEndScene(game, session, { number, points, result, out
   if (outcome === 'over') {
     add(`${name(match.winner)} WINS THE MATCH!`, { size: 36, color: COLORS[match.winner], bold: true }, 450);
   } else if (outcome === 'extended') {
-    add(`ALL SQUARE — TWO MORE ROUNDS (BEST OF ${match.scheduled})`, { size: 22, color: 0xffffff }, 450);
+    add('ALL SQUARE — SUDDEN DEATH: ONE MORE ROUND, THE WINNER TAKES IT ALL', { size: 22, color: 0xffffff }, 450);
   }
 
   const prompt = add('', { size: 16, color: 0xcfd6ff }, 530);

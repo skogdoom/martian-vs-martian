@@ -130,6 +130,20 @@ describe('shield', () => {
   });
 });
 
+describe('laser against a shield that runs out', () => {
+  it('keeps pushing without crashing when the shield ends mid-beam', () => {
+    const w = createWorld(1);
+    hover(w.saucers.red, 400, 300);
+    hover(w.saucers.blue, 700, 300);
+    grantPower(w.powers, 'red', 'laser');
+    grantPower(w.powers, 'blue', 'shield');
+    w.powers.blue.timeLeft = 0.2;
+    run(w, { red: { x: 0, y: 0, fire: true } }, 0.5);
+    expect(w.powers.blue).toBe(null);
+    expect(w.saucers.blue.vx).toBeGreaterThan(0);
+  });
+});
+
 describe('lambs to cows and cows to lambs', () => {
   function grab(power) {
     const w = createWorld(3);
