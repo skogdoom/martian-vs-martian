@@ -3,7 +3,7 @@
 import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT, STEP, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
 import { endStep, onKey, pollPads } from './input.js';
-import { toggleMute, unlockAudio, resume as resumeAudio } from './audio.js';
+import { toggleMute, isMuted, unlockAudio, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
 import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
@@ -66,7 +66,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 onKey((code) => {
-  if (code === MUTE_KEY) mutedLabel.visible = toggleMute();
+  if (code === MUTE_KEY) toggleMute();
   // Must run inside the key event: browsers only allow full screen from a user gesture.
   if (code === FULLSCREEN_KEY) toggleFullscreen();
 });
@@ -101,6 +101,7 @@ app.ticker.add((ticker) => {
   }
   padNoticeLeft = Math.max(0, padNoticeLeft - Math.min(ticker.deltaMS / 1000, MAX_FRAME));
   padLabel.visible = padNoticeLeft > 0;
+  mutedLabel.visible = isMuted(); // also changes from the pause menu
   scene.render();
 });
 

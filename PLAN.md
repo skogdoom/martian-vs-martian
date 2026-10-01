@@ -284,7 +284,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - A pad keeps its slot while connected: if Red's pad drops out, Blue's does not become Red. A new pad takes the free slot. In 1 player, every input steers Red.
   - Rumble (where the pad supports it) on hits, rams, dazes and a time bomb going off in the beam. A "controller connected / disconnected" notice shows at the bottom for 3 s.
   - A pad can't quit a round, go back to the menu or touch the sound or full screen; those stay on the keyboard (Esc, M, F). Browsers don't allow them from a pad anyway for sound and full screen.
-  - **Pause:** P on the keyboard, Start on a pad (Start still begins the game on the title screen). The round freezes with a dimmed "PAUSED" overlay, the sound is suspended and nothing wakes it while paused. Esc still quits to the menu from the pause screen.
+  - **Pause:** P or Esc on the keyboard, Start on a pad (Start still begins the game on the title screen). The round freezes, the sound is suspended and nothing wakes it while paused. A menu comes up: Resume, Restart the game (a new match; the tally is kept, rounds not finished aren't counted), Sound on/off, Exit to main menu. Up/down and Enter/Space (or d-pad and A). A pad can resume and restart, but exit and sound are keyboard-only. Esc, P or Start resume. Esc no longer quits a round at once; it opens this menu.
   - Checked with a fake pad in the browser (menu, start, steering, shooting, unplugging, B to the menu) and 10 unit tests. Not tried with a real pad.
 
 - [ ] **10. Round length and number of rounds**

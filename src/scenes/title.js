@@ -61,7 +61,7 @@ export function createTitleScene(game, session) {
 
   const prompt = label('ENTER OR SPACE TO START', { size: 22, color: 0xffffff, bold: true, anchorX: 0.5 });
   prompt.position.set(cx, 492);
-  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   F  full screen   P  pause   ESC  back to this menu', {
+  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   F  full screen   P / ESC  pause menu', {
     size: 14,
     color: 0x8a93c0,
     anchorX: 0.5,

@@ -14,11 +14,11 @@ from each other; grab power-ups dropped by little green men. Best of three
 
 Game controllers work too: the first one flies Red and the second Blue
 (stick or d-pad to move, A or a trigger to shoot, Start to begin or pause).
-Controllers can't quit a round or change the sound; that stays on the keyboard. Browsers don't let a controller button switch the sound on, so press
+Controllers can't exit to the main menu or change the sound; that stays on the keyboard. Browsers don't let a controller button switch the sound on, so press
 any key or click once.
 
 Shooting while carrying an animal drops it. Hover low and still over an animal
-to beam it up. **P** pauses, **M** toggles sound, **F** toggles full screen, **Esc** returns
+to beam it up. **P** or **Esc** pauses (the pause menu can restart, change the sound or exit to the main menu), **M** toggles sound, **F** toggles full screen, **Esc** returns
 to the menu. In single-player you fly Red with either set of keys.
 
 ## Running it
