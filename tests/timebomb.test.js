@@ -3,37 +3,10 @@ import { STEP, ARENA, POWERUP, COMBAT } from '../src/config.js';
 import { createWorld, stepWorld } from '../src/logic/world.js';
 import { grantPower } from '../src/logic/powerup.js';
 import { clampToPen } from '../src/logic/animal.js';
+import { LOW, SHOOT, run, stepUntil, collect, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
-const SHOOT = { red: { x: 0, y: 0, shoot: true } };
 const BLUE_PEN_X = (ARENA.pens.blue.left + ARENA.pens.blue.right) / 2;
 const RED_PEN_X = (ARENA.pens.red.left + ARENA.pens.red.right) / 2;
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
-
-function collect(w, inputs, seconds, types) {
-  const found = [];
-  for (let t = 0; t < seconds - 1e-9; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    found.push(...w.events.filter((e) => types.includes(e.type)));
-  }
-  return found;
-}
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
-}
 
 /** Blue has three animals penned; red holds a time bomb over `x`. */
 function setup(x = BLUE_PEN_X, y = 300) {

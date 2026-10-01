@@ -1,10 +1,9 @@
 // Tally: match wins and total cows and lambs across the session.
 // "Play again" starts a new match and keeps the tally.
 
-import { Container, Graphics } from 'pixi.js';
+import { Container } from 'pixi.js';
 import { WIDTH } from '../config.js';
-import { PAD } from '../layout.js';
-import { centerUi } from '../render/uiLayer.js';
+import { centerUi, dimmer } from '../render/uiLayer.js';
 import { anyPressed, wasPressed } from '../input.js';
 import { startMatch, sideName, modeName, rulesName } from '../session.js';
 import { createTitleScene } from './title.js';
@@ -17,7 +16,7 @@ export function createTallyScene(game, session) {
   const view = new Container();
   const backdrop = createBackdrop();
   view.addChild(backdrop.view);
-  view.addChild(new Graphics().rect(-0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.6 }));
+  view.addChild(dimmer(0.6));
 
   const cx = WIDTH / 2;
   const put = (t, x, y) => {

@@ -51,8 +51,8 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - A hit applies a strong horizontal knockback to the opponent.
 - **Dazed:** three shot hits in a row, each within 2 s of the last, daze the saucer for 1.5 s (no steering, lifting or shooting). Shots landing at once (triple shot) count as one hit; shots that bounce off a shield don't count. Hits while dazed and for 1 s after don't count toward the next daze, so nobody can be kept dazed. Values are `dazeHits`, `dazeWindow`, `dazeTime` and `dazeGrace` in `COMBAT`.
 - Each clip holds 3 shots and reloads automatically in 1.5 s when empty.
-- Each player has 18 shots per round. The cap resets every round.
-- **Ammo crate:** if a player runs out before halfway (45 s), a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +9 shots (up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
+- Each player has 18 shots per 90 s round (12 in a 60 s round, 24 in a 120 s one). The cap resets every round.
+- **Ammo crate:** if a player runs out before halfway, a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +9 shots in a 90 s round (scaled with the round length, up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
 - **Supply drop:** if every animal has been abducted (none left in the field) and a player is out of shots, then after 3 s either an ammo crate (for that player) or a green man with a random power-up parachutes in, 50/50. Once each time the field empties, and not while another drop is in play. Values are in `SUPPLY` in `config.js`.
 
 ### Hook
@@ -66,7 +66,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Delivery
 - A carried animal is released automatically when the saucer is over its own pen and low enough for a safe landing (a fall of at most 260 px). Higher up, it stays on until you come down.
 - **Dropping and throwing by hand:** while carrying, the shoot key lets go of the (lowest) animal instead of firing. It keeps the saucer's speed, so it can be lobbed; whether it's a delivery is decided by where it lands (your own pen). Animals knocked loose by a hit also fly off with the saucer's speed from before the hit.
-- **Restock:** if every cow and lamb has splatted, 3 new ones (random kinds) parachute into the field; if the field has stood empty for 10 s, 2 do (`RESTOCK` in `config.js`).
+- **Restock:** if every cow and lamb has splatted, 3 new ones (random kinds) parachute into the field; if the field has stood empty for 10 s, 2 do, unless 24 or more animals are already alive (`RESTOCK` in `config.js`).
 - **Spooked pens:** a saucer hovering over its own pen for more than 3 s spooks the animals in it: they get nervous (a "!"), then one jumps the fence into the field every 2 s, landing safely (`SPOOK` in `config.js`). Stops pen camping.
 - **Splat:** a cow or lamb that falls more than 260 px (measured from the top of its arc) (dropped by hand, knocked loose by a shot, or dropped mid-lift) bursts in a cartoon cloud of blood and is out of the round: no points for anyone. Animals thrown out of a pen by a bomb land safely. `SPLAT.height` in `config.js`.
 - The animal drops into the pen, stays there and stops wandering.
@@ -84,12 +84,12 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - In the field it chases the nearest lamb in the field and eats it (1 s per lamb). Lambs within 220 px run away from it, but it is faster. It ignores cows, lambs in pens and lambs in a beam.
 - It is hooked and carried like an animal (lift 1.3 s), but is never let go of automatically: the shoot key drops it. It always lands on its feet, whatever the height. Dropped from more than 140 px above the ground (`WOLF.chuteHeight`) it opens a parachute as it lets go and floats down slowly (it can't be lifted until it lands); a low drop falls as before. The CPU drops it from low down.
 - Dropped into a pen, it eats the lambs in that pen, which takes them off that player's score. Either player can lift it out of any pen, including their own.
-- After 6 s with nothing in reach it howls, gets bored and runs off the screen for good.
+- After 6 s with nothing in reach it howls, gets bored and runs off the screen for good. Lambs parachuting into the field (cows → lambs) keep it waiting.
 - Values are in `WOLF` in `config.js`.
 - The CPU lifts a wolf out of its own pen and drops any wolf it carries into the opponent's pen. On Normal and Hard it also fetches the wolf from the field when the opponent has 2+ lambs penned.
 
 ### Power-ups
-- Twice per round (at 30% and 60% of the round) there is a 60% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
+- Twice per round (at 30% and 60% of the round; three times in a 120 s round, at 25%, 50% and 75%) there is a 60% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
 - He wanders like an animal and is hooked the same way (lift 0.8 s; shots and drift break the pickup). A saucer carrying an animal can't grab him.
 - Fully lifted, he climbs into the saucer and the power-up starts. It lasts 15 s.
 - The power-ups:
@@ -125,14 +125,14 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ## Round and match flow
 
-1. **Title screen:** choose 1 player (against the CPU, with a difficulty) or 2 players, and start. The first keypress also unlocks audio; every key press or click wakes it up again if the browser suspended it.
-2. **Round:** a 3-2-1 countdown, then 90 seconds of play.
+1. **Title screen:** choose 1 player (against the CPU, with a difficulty) or 2 players, the round length (60, 90 or 120 s) and the number of rounds (best of 1, 3, 5 or 7), and start. Settings (sound, full screen, 16:9) are a menu item too. The first keypress also unlocks audio; every key press or click wakes it up again if the browser suspended it.
+2. **Round:** a 3-2-1 countdown, then 60, 90 or 120 seconds of play (90 by default). P, Esc or Start pauses, with a menu to resume, restart, change the settings or exit.
 3. **Round result:** shows the scores and the winner, or a tie, then moves to the next round.
 4. **Match rules:**
-   - A match starts as best of 3.
+   - A match is best of 1, 3, 5 or 7 (3 by default).
    - A tied round gives no one a win.
    - The match ends early as soon as one player can't be caught (their wins exceed the opponent's wins plus the remaining rounds).
-   - If round wins are level after the scheduled rounds, two more rounds are added (best of 3 → 5 → 7, and so on).
+   - If round wins are level after the scheduled rounds, sudden death: one more round at a time until someone wins one.
 5. **Tally screen:** shows each player's match wins, total cows and total lambs.
    - Totals count the animals in each pen at the end of every round, including stolen ones.
 6. **Play again:** starts a new match and keeps the tally. Reloading the page resets it.
@@ -143,19 +143,27 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - The round timer.
 - Round wins for each player.
 - The shots left in the current clip, the total ammo remaining, and a reload indicator.
+- The active power-up, with the time left.
 
 ## Code structure
 
 ```
 index.html
-src/main.js            boot, scaling, fixed-step loop, scene manager
+src/main.js            boot, scaling, fixed-step loop, scene manager, error recovery
 src/config.js          all tuning constants and key bindings
-src/input.js           keyboard state
+src/layout.js          how the game area fills the window (16:9 or the whole height)
+src/input.js           keyboard and controller state
+src/gamepad.js         controller mapping (Gamepad API)
 src/audio.js           synthesized sound effects
-src/logic/             pure logic: saucer, projectile, hook, animal, scoring, match, tally
-src/render/            Pixi drawing per entity, HUD, backdrop, particles
-src/scenes/            title, play, roundEnd, tally
-tests/                 Vitest unit tests for the logic
+src/fullscreen.js      full screen, and Esc while in it
+src/options.js         round length, rounds and 16:9, remembered in localStorage
+src/session.js         what lives for the page: mode, match, tallies
+src/logic/             pure logic: world, round, saucer, hook, animal, weapon, projectile,
+                       ordnance, power-ups, wolf, golden, scoring, match, tally, bot
+src/render/            Pixi drawing per entity, HUD, backdrop, particles, menus
+src/scenes/            title, settings, play (with the pause menu), roundEnd, tally
+scripts/sim.js         balance simulator, bot against bot (`npm run sim`)
+tests/                 Vitest tests for the logic
 ```
 
 ## Starting values (`config.js`)
@@ -169,7 +177,7 @@ tests/                 Vitest unit tests for the logic
 | Hook reach        | 200 px         |
 | Lamb lift time    | 1.0 s          |
 | Cow lift time     | 1.6 s          |
-| Hook drift limit  | 30 px          |
+| Hook drift limit  | 40 px          |
 | Animals per round | 4 cows, 5 lambs|
 
 Also in `config.js`: projectile speed, knockback strength, bump strength, saucer acceleration, drag and max speed, and animal wander speed.
@@ -325,27 +333,23 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - **16:9 yes** keeps a 16:9 game area with black bars where the window is taller (the layout before the full-height change); **no** (the default) uses the whole height. It applies at once, is remembered in localStorage with the other options, and is also in the pause menu.
 - [x] **Same ground height in menus and rounds**
   - The menu scenes used to be centred, so the ground jumped between the title screen and a round. All scenes are now bottom-aligned; `centerUi` lifts only the menu text. Checked at 1024×768 on the title, in a round and on the result screen.
-- [ ] **11. Hardening, performance and code review**
+- [x] **11. Hardening, performance and code review**
   - Done after milestone 10, so the review covers the finished feature set.
-  - Code review of every module: dead code, naming, comments that no longer match, config values vs `PLAN.md`, duplicated logic (the hazard kinds, the drop views, the helpers repeated across tests).
+  - Tooling: ESLint and Prettier (`npm run lint`, `npm run format`), and a GitHub Actions workflow (`.github/workflows/ci.yml`) that runs lint, tests and the build on pull requests and pushes to master.
   - Robustness:
-    - An exception in one frame must not freeze the game: catch it in the loop, log it, and show an error notice instead of a dead screen.
-    - Guard against NaN and runaway positions.
-    - Cap the herd: restocks and animal swaps can grow it without limit.
-    - Round end with things in flight (a carried wolf, a falling time bomb, a lit laser): nothing leaks into the next round.
-  - Leaks over a long session (10+ matches):
-    - Views, Text objects and key listeners are destroyed on scene changes.
-    - Audio voices are stopped on Esc.
-    - Memory and object counts stay flat.
-  - Tests for interactions not yet covered: both saucers dazed at once, a ram while carrying the time bomb, the wolf plus an animal swap, a supply drop during a restock.
-  - Performance, profiled in Chrome with CPU throttling and in 4K full screen:
-    - Stop rebuilding static `Graphics` every frame (lights, eyes, beams, sparks); only redraw what changes.
-    - Cap and pool particles and pop-up texts.
-    - Cap the number of sounds playing at once.
-    - Cap the render resolution at 2× device pixels.
-    - Check bundle size.
-    - Target: a steady 60 fps on a mid-range laptop.
-  - Tooling: ESLint and Prettier (`npm run lint`), and a GitHub Actions workflow that runs lint, tests and the build on every pull request.
+    - An exception in a frame is caught in the loop: it is logged, the game goes back to the menu and says so. More than 3 errors in 5 s stop the loop with a "please reload" notice instead of looping on the error.
+    - `guardFinite` at the end of every world step: a saucer at NaN/Infinity goes back to its start; an animal, drop, wolf or time bomb is taken out (and out of any beam); a shot or rocket is dropped.
+    - Herd cap: no empty-field restock while 24 or more animals are alive (`RESTOCK.maxAlive`). Bots never get past 16 alive in 300 simulated rounds.
+    - Round end with things in flight: each round builds a new world, so nothing carries over; sustained sounds (beam, laser) stop at the end of a round and when the play screen closes.
+  - Leaks: 24 matches in a row grew the heap from 34 to 54.5 MB. Pixi's `destroy({ children: true })` doesn't free a `Graphics` object's own geometry or a `Text`'s style; every screen and pop-up is now destroyed with `DESTROY_ALL` (`render/text.js`) and the heap stays at 30–32 MB. What still grows is Pixi's text measuring cache, which is capped at 1000 entries.
+  - Performance:
+    - Eyes, rim lights, dizzy stars, fire and the HUD clip pips are only redrawn when they change: `Graphics.clear()` calls per frame went from 21 to 7.
+    - Caps: 1500 particles, 12 score pop-ups (the oldest goes), and at most 3 of the same sound per 0.08 s and 24 sounds per 0.25 s.
+    - Render resolution capped at 2× device pixels.
+    - Bundle: about 195 kB gzipped in all; 48.5 kB of it is the game and its own code, the rest Pixi, whose renderers load as separate chunks.
+    - Frame time in headless Chromium (software WebGL) is dominated by filling pixels, so it can't stand in for a real laptop; check 60 fps on real hardware in the release playtest.
+  - Tests for combinations (`tests/interactions.test.js`): a ram knocking a carried time bomb loose, the animal swaps with the wolf in a pen and in the field, a time bomb blast in a pen with the wolf in it, a supply drop during a restock, a round with everything going on at once. Both saucers dazed at once was already covered (head-on ram). The swap test found that lambs parachuting in took longer to land than the wolf waits, so it always left first; they now keep it waiting.
+  - Code review: shared test helpers (`tests/helpers.js`), one list view for drops, wolves and time bombs (`render/listView.js`), one `dimmer` for the menus' dark veil, an announcement helper for things landing in a pen, an `options.step` fix for values not on offer, and comments and this plan brought up to date (sudden death, round lengths, drift limit, code structure).
 
 - [ ] **12. Release**
   - Version 1.0.0 in `package.json`, and a `CHANGELOG.md`.

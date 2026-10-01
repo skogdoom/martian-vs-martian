@@ -4,8 +4,14 @@
 // every child of `view` from index `first` on moves into a layer that is
 // lifted by half the extra height, and `sync()` keeps it there on resizes.
 
-import { Container } from 'pixi.js';
-import { menuLift } from '../layout.js';
+import { Container, Graphics } from 'pixi.js';
+import { WIDTH, HEIGHT } from '../config.js';
+import { menuLift, PAD } from '../layout.js';
+
+/** A black veil over the whole scene, however tall the screen, to put text on. */
+export function dimmer(alpha) {
+  return new Graphics().rect(0, -PAD, WIDTH, HEIGHT + 2 * PAD).fill({ color: 0x000000, alpha });
+}
 
 export function centerUi(view, first) {
   const ui = new Container();

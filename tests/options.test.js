@@ -3,7 +3,13 @@ import { LENGTHS, ROUNDS, DEFAULT_OPTIONS, step, sanitize, loadOptions, saveOpti
 
 function fakeStorage(initial = {}) {
   const data = { ...initial };
-  return { getItem: (k) => data[k] ?? null, setItem: (k, v) => { data[k] = v; }, data };
+  return {
+    getItem: (k) => data[k] ?? null,
+    setItem: (k, v) => {
+      data[k] = v;
+    },
+    data,
+  };
 }
 
 describe('options', () => {
@@ -24,6 +30,8 @@ describe('options', () => {
     expect(step(LENGTHS, 60, -1)).toBe(60);
     expect(step(ROUNDS, 3, 1)).toBe(5);
     expect(step(ROUNDS, 1, -1)).toBe(1);
+    expect(step(ROUNDS, 4, 1)).toBe(3); // not on offer: from the first
+    expect(step(LENGTHS, undefined, -1)).toBe(60);
   });
 
   it('scales the ammo with the round length', () => {
@@ -47,7 +55,14 @@ describe('options', () => {
   it('survives missing, broken or blocked storage', () => {
     expect(loadOptions(null)).toEqual(DEFAULT_OPTIONS);
     expect(loadOptions(fakeStorage({ 'martian-vs-martian.options': '{nope' }))).toEqual(DEFAULT_OPTIONS);
-    const blocked = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('full'); } };
+    const blocked = {
+      getItem() {
+        throw new Error('blocked');
+      },
+      setItem() {
+        throw new Error('full');
+      },
+    };
     expect(loadOptions(blocked)).toEqual(DEFAULT_OPTIONS);
     expect(() => saveOptions({ length: 60, rounds: 1 }, blocked)).not.toThrow();
   });

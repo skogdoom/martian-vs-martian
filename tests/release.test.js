@@ -3,24 +3,9 @@ import { STEP, ARENA, COMBAT, SPLAT } from '../src/config.js';
 import { createWorld, stepWorld } from '../src/logic/world.js';
 import { grantPower } from '../src/logic/powerup.js';
 import { scores, penCounts } from '../src/logic/scoring.js';
+import { LOW, SHOOT, run, stepUntil } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
 const PEN_X = (ARENA.pens.red.left + ARENA.pens.red.right) / 2;
-const SHOOT = { red: { x: 0, y: 0, shoot: true } };
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
-
 function place(s, x, y) {
   Object.assign(s, { x, y, vx: 0, vy: 0 });
 }

@@ -4,32 +4,14 @@ import { createWorld, stepWorld, spawnWolf } from '../src/logic/world.js';
 import { createRound, stepRound } from '../src/logic/round.js';
 import { clampToPen } from '../src/logic/animal.js';
 import { scores } from '../src/logic/scoring.js';
+import { LOW, SHOOT, run, stepUntil, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
-const SHOOT = { red: { x: 0, y: 0, shoot: true } };
 const saved = { chance: WOLF.chance, power: POWERUP.chance, golden: GOLDEN.chance };
 afterEach(() => {
   WOLF.chance = saved.chance;
   POWERUP.chance = saved.power;
   GOLDEN.chance = saved.golden;
 });
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
-}
 
 /** A world with the wolf standing in the field at `x`, saucers parked high. */
 function withWolf(x = 640) {
@@ -48,7 +30,9 @@ const pen = (w, side, kind) => w.animals.filter((a) => a.kind === kind && a.pen 
 /** Put `n` lambs and one cow in `side`'s pen, delivered by `side`. */
 function fillPen(w, side, n) {
   const herd = [...lambs(w).slice(0, n), w.animals.find((a) => a.kind === 'cow')];
-  herd.forEach((a, i) => Object.assign(a, { state: 'penned', pen: side, owner: side, vx: 0, x: clampToPen((side === 'red' ? 30 : 1130) + i * 35, a.kind, side) }));
+  herd.forEach((a, i) =>
+    Object.assign(a, { state: 'penned', pen: side, owner: side, vx: 0, x: clampToPen((side === 'red' ? 30 : 1130) + i * 35, a.kind, side) }),
+  );
   return herd;
 }
 

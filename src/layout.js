@@ -1,8 +1,7 @@
 // How the 1280x720 game area fills the screen.
 //
 // The width is always 1280 logical px. Unless the 16:9 setting is on, a window
-// that is taller than 16:9 gets
-// extra height instead of black bars: up to MAX_EXTRA more logical px, so the
+// that is taller than 16:9 gets extra height instead of black bars: up to MAX_EXTRA more logical px, so the
 // game uses the whole height of the screen. In the arena (the play and
 // round-end scenes) the ground stays at the bottom and the extra is more sky,
 // which saucers can fly into. The menu scenes keep the ground in the same
@@ -11,7 +10,7 @@
 
 import { HEIGHT, WIDTH } from './config.js';
 
-export const MAX_EXTRA = 360; // up to 1280x1080 logical px, 4:3.4
+export const MAX_EXTRA = 360; // up to 1280x1080 logical px (32:27)
 export const PAD = 400; // scenery is drawn this far above and below the design area
 
 export const layout = {

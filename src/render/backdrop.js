@@ -73,7 +73,9 @@ function ground(g) {
   const rng = createRng(7);
   for (let i = 0; i < 90; i++) {
     const x = rng() * WIDTH;
-    g.moveTo(x, GROUND + 2).lineTo(x + (rng() - 0.5) * 6, GROUND - 5 - rng() * 5).stroke({ color: 0x5cae52, width: 2 });
+    g.moveTo(x, GROUND + 2)
+      .lineTo(x + (rng() - 0.5) * 6, GROUND - 5 - rng() * 5)
+      .stroke({ color: 0x5cae52, width: 2 });
   }
   for (let i = 0; i < 40; i++) {
     g.circle(rng() * WIDTH, GROUND + 22 + rng() * 34, 1.5 + rng() * 2).fill(0x5d4330);

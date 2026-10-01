@@ -2,12 +2,14 @@
 
 import { Container, Graphics } from 'pixi.js';
 import { COLORS } from './backdrop.js';
-import { label } from './text.js';
+import { label, DESTROY_ALL } from './text.js';
 import { ARENA } from '../config.js';
 import { POWER_COLOR, SHIELD_COLOR } from './powerupView.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const rand = (lo, hi) => lo + Math.random() * (hi - lo);
+const MAX_PARTICLES = 1500;
+const MAX_POPUPS = 12;
 
 export function createEffects() {
   const view = new Container();
@@ -23,7 +25,9 @@ export function createEffects() {
 
   /** Spray `count` particles. `dir` biases them sideways (-1/+1), `up` upward. */
   function burst(x, y, { count, colors, speed = [60, 240], life = [0.3, 0.7], size = [1.5, 3.5], gravity = 400, dir = 0, up = 0, shape = 'dot' }) {
-    for (let i = 0; i < count; i++) {
+    // Many bursts at once (a cow rain, a bomb) must not pile up without end.
+    const room = Math.max(0, MAX_PARTICLES - particles.length);
+    for (let i = 0; i < Math.min(count, room); i++) {
       let angle = rand(0, Math.PI * 2);
       if (dir) angle = (dir > 0 ? 0 : Math.PI) + rand(-0.9, 0.9);
       if (up) angle = -Math.PI / 2 + rand(-up, up);
@@ -50,6 +54,10 @@ export function createEffects() {
   }
 
   function popup(text, x, y, color) {
+    if (popups.length >= MAX_POPUPS) {
+      const oldest = popups.shift();
+      oldest.t.destroy(DESTROY_ALL);
+    }
     const t = label(text, { size: 26, color, bold: true, anchorX: 0.5, anchorY: 0.5 });
     t.position.set(x, y);
     view.addChild(t);
@@ -64,13 +72,29 @@ export function createEffects() {
           break;
         case 'hit':
           if (e.shielded) {
-            burst(e.x, e.y, { count: 16, colors: [0xffffff, SHIELD_COLOR], dir: -e.dir, speed: [120, 360], life: [0.2, 0.45], size: [1.5, 3], gravity: 100, shape: 'star' });
+            burst(e.x, e.y, {
+              count: 16,
+              colors: [0xffffff, SHIELD_COLOR],
+              dir: -e.dir,
+              speed: [120, 360],
+              life: [0.2, 0.45],
+              size: [1.5, 3],
+              gravity: 100,
+              shape: 'star',
+            });
             ring(e.x, e.y, SHIELD_COLOR, 30, 0.25);
             deflect[e.side] = 1;
             shake = Math.max(shake, 2);
             break;
           }
-          burst(e.x, e.y, { count: 34, colors: [0xffffff, COLORS[other(e.side)], 0xfff3a0], dir: e.dir, speed: [140, 480], life: [0.35, 0.8], size: [2, 4.5] });
+          burst(e.x, e.y, {
+            count: 34,
+            colors: [0xffffff, COLORS[other(e.side)], 0xfff3a0],
+            dir: e.dir,
+            speed: [140, 480],
+            life: [0.35, 0.8],
+            size: [2, 4.5],
+          });
           ring(e.x, e.y, COLORS[other(e.side)], 56);
           hitFlash[e.side] = 1;
           shake = Math.max(shake, 7);
@@ -89,16 +113,39 @@ export function createEffects() {
           burst(e.x, e.y, { count: 8, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
           break;
         case 'powerup':
-          burst(e.x, e.y - 15, { count: 36, colors: [POWER_COLOR, 0xffffff, 0xfff3a0], speed: [80, 320], life: [0.5, 1], size: [2, 4], gravity: -40, shape: 'star' });
+          burst(e.x, e.y - 15, {
+            count: 36,
+            colors: [POWER_COLOR, 0xffffff, 0xfff3a0],
+            speed: [80, 320],
+            life: [0.5, 1],
+            size: [2, 4],
+            gravity: -40,
+            shape: 'star',
+          });
           ring(e.x, e.y - 15, POWER_COLOR, 80, 0.5);
           break;
         case 'ammoCrate':
-          burst(e.x, e.y - 15, { count: 24, colors: [0xd9a93a, 0xffd76a, 0xffffff], speed: [80, 260], life: [0.4, 0.8], size: [2, 4], gravity: -30, shape: 'star' });
+          burst(e.x, e.y - 15, {
+            count: 24,
+            colors: [0xd9a93a, 0xffd76a, 0xffffff],
+            speed: [80, 260],
+            life: [0.4, 0.8],
+            size: [2, 4],
+            gravity: -30,
+            shape: 'star',
+          });
           ring(e.x, e.y - 15, 0xffd76a, 60, 0.4);
           break;
         case 'explosion':
           if (e.big) {
-            burst(e.x, e.y, { count: 50, colors: [0xffd24a, 0xff8a3a, 0xff4a2a, 0xffffff], speed: [120, 520], life: [0.3, 0.9], size: [2.5, 6], gravity: 250 });
+            burst(e.x, e.y, {
+              count: 50,
+              colors: [0xffd24a, 0xff8a3a, 0xff4a2a, 0xffffff],
+              speed: [120, 520],
+              life: [0.3, 0.9],
+              size: [2.5, 6],
+              gravity: 250,
+            });
             burst(e.x, e.y, { count: 16, colors: [0x5a5f6a, 0x7a7f8a], speed: [30, 120], life: [0.8, 1.4], size: [5, 9], gravity: -60 });
             ring(e.x, e.y, 0xffa53a, 110, 0.45);
             shake = Math.max(shake, 11);
@@ -114,11 +161,27 @@ export function createEffects() {
           break;
         case 'extinguish':
           // Put out: a puff of steam.
-          burst(e.x, e.y, { count: 22, colors: [0xffffff, 0xdfe6ee, 0xb8c0cc], up: 0.9, speed: [40, 160], life: [0.5, 1.1], size: [4, 8], gravity: -90 });
+          burst(e.x, e.y, {
+            count: 22,
+            colors: [0xffffff, 0xdfe6ee, 0xb8c0cc],
+            up: 0.9,
+            speed: [40, 160],
+            life: [0.5, 1.1],
+            size: [4, 8],
+            gravity: -90,
+          });
           break;
         case 'splat':
           // A cartoon cloud of blood, a stain on the grass, and a "SPLAT!".
-          burst(e.x, e.y - 12, { count: 60, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0x6e0a12], up: 1.3, speed: [120, 480], life: [0.5, 1.1], size: [2.5, 6], gravity: 900 });
+          burst(e.x, e.y - 12, {
+            count: 60,
+            colors: [0xd21f2a, 0xa3121c, 0xff4050, 0x6e0a12],
+            up: 1.3,
+            speed: [120, 480],
+            life: [0.5, 1.1],
+            size: [2.5, 6],
+            gravity: 900,
+          });
           burst(e.x, e.y - 18, { count: 18, colors: [0xb5171f, 0xe0303a], speed: [20, 90], life: [0.6, 1.2], size: [6, 11], gravity: -20 });
           ring(e.x, e.y - 12, 0xd21f2a, 60, 0.35);
           stains.push({ x: e.x, w: 30 + Math.random() * 20, life: 8, max: 8 });
@@ -127,7 +190,15 @@ export function createEffects() {
           break;
         case 'burst':
           // Cow rain / lamb rain: it goes pop to make room for the new ones.
-          burst(e.x, e.y - 14, { count: 40, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xffffff], up: 1.4, speed: [100, 420], life: [0.5, 1], size: [2.5, 5.5], gravity: 800 });
+          burst(e.x, e.y - 14, {
+            count: 40,
+            colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xffffff],
+            up: 1.4,
+            speed: [100, 420],
+            life: [0.5, 1],
+            size: [2.5, 5.5],
+            gravity: 800,
+          });
           burst(e.x, e.y - 20, { count: 10, colors: [0xffffff, 0xf3eee2, 0x222222], speed: [30, 120], life: [0.6, 1.1], size: [5, 9], gravity: -20 });
           ring(e.x, e.y - 14, 0xffffff, 50, 0.35);
           stains.push({ x: e.x, w: 24 + Math.random() * 16, life: 6, max: 6 });
@@ -144,13 +215,29 @@ export function createEffects() {
           break;
         case 'ram':
           if (e.shielded) {
-            burst(e.x, e.y, { count: 20, colors: [0xffffff, SHIELD_COLOR], speed: [120, 380], life: [0.2, 0.5], size: [1.5, 3.5], gravity: 100, shape: 'star' });
+            burst(e.x, e.y, {
+              count: 20,
+              colors: [0xffffff, SHIELD_COLOR],
+              speed: [120, 380],
+              life: [0.2, 0.5],
+              size: [1.5, 3.5],
+              gravity: 100,
+              shape: 'star',
+            });
             ring(e.x, e.y, SHIELD_COLOR, 50, 0.3);
             deflect[e.victim] = 1;
             shake = Math.max(shake, 5);
             break;
           }
-          burst(e.x, e.y, { count: 44, colors: [0xffffff, COLORS[e.side], 0xfff3a0], speed: [160, 560], life: [0.35, 0.8], size: [2, 5], gravity: 200, shape: 'star' });
+          burst(e.x, e.y, {
+            count: 44,
+            colors: [0xffffff, COLORS[e.side], 0xfff3a0],
+            speed: [160, 560],
+            life: [0.35, 0.8],
+            size: [2, 5],
+            gravity: 200,
+            shape: 'star',
+          });
           burst(e.x, e.y, { count: 14, colors: [0x9aa0ab, 0x6a707b], speed: [30, 120], life: [0.6, 1.1], size: [4, 8], gravity: -40 });
           ring(e.x, e.y, COLORS[e.side], 90, 0.4);
           hitFlash[e.victim] = 1;
@@ -158,7 +245,15 @@ export function createEffects() {
           shake = Math.max(shake, 12);
           break;
         case 'wolfEat':
-          burst(e.x, e.y - 14, { count: 36, colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xfdfbf4], up: 1.2, speed: [80, 320], life: [0.4, 0.9], size: [2, 5], gravity: 800 });
+          burst(e.x, e.y - 14, {
+            count: 36,
+            colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xfdfbf4],
+            up: 1.2,
+            speed: [80, 320],
+            life: [0.4, 0.9],
+            size: [2, 5],
+            gravity: 800,
+          });
           burst(e.x, e.y - 16, { count: 10, colors: [0xfdfbf4, 0xe8e2d4], speed: [20, 90], life: [0.6, 1.2], size: [4, 7], gravity: 60 }); // wool
           stains.push({ x: e.x, w: 18 + Math.random() * 10, life: 6, max: 6 });
           popup('CHOMP!', e.x, e.y - 60, 0xff4050);
@@ -176,16 +271,42 @@ export function createEffects() {
           burst(e.x, e.y, { count: 10, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
           break;
         case 'knockLoose':
-          burst(e.x, e.y, { count: 20, colors: [0xffffff, 0xff5ce1, COLORS[e.side]], speed: [80, 260], life: [0.3, 0.6], size: [2, 4], gravity: 200, shape: 'star' });
+          burst(e.x, e.y, {
+            count: 20,
+            colors: [0xffffff, 0xff5ce1, COLORS[e.side]],
+            speed: [80, 260],
+            life: [0.3, 0.6],
+            size: [2, 4],
+            gravity: 200,
+            shape: 'star',
+          });
           ring(e.x, e.y, 0xff5ce1, 40);
           break;
         case 'land':
           if (e.delivered && e.golden) {
-            burst(e.x, e.y - 10, { count: 70, colors: [0xffcf3a, 0xfff3a0, 0xffffff], up: 1.1, speed: [200, 560], life: [0.8, 1.6], size: [3, 6], gravity: 500, shape: 'star' });
+            burst(e.x, e.y - 10, {
+              count: 70,
+              colors: [0xffcf3a, 0xfff3a0, 0xffffff],
+              up: 1.1,
+              speed: [200, 560],
+              life: [0.8, 1.6],
+              size: [3, 6],
+              gravity: 500,
+              shape: 'star',
+            });
             ring(e.x, e.y - 14, 0xffcf3a, 120, 0.7);
             popup(`+${e.value}`, e.x, e.y - 70, 0xffcf3a);
           } else if (e.delivered) {
-            burst(e.x, e.y - 10, { count: 44, colors: [COLORS[e.pen], 0xffd76a, 0xffffff], up: 0.7, speed: [200, 460], life: [0.8, 1.3], size: [3, 5.5], gravity: 650, shape: 'confetti' });
+            burst(e.x, e.y - 10, {
+              count: 44,
+              colors: [COLORS[e.pen], 0xffd76a, 0xffffff],
+              up: 0.7,
+              speed: [200, 460],
+              life: [0.8, 1.3],
+              size: [3, 5.5],
+              gravity: 650,
+              shape: 'confetti',
+            });
             ring(e.x, e.y - 14, 0xffd76a, 70, 0.45);
             popup(`+${e.value}`, e.x, e.y - 60, e.stolen ? 0xcfd6ff : 0xffd76a);
           } else {
@@ -202,8 +323,25 @@ export function createEffects() {
     for (const a of world.animals) {
       if (!a.onFire || a.state === 'gone' || Math.random() > 0.5) continue;
       const top = a.y - (a.kind === 'cow' ? 44 : 36);
-      burst(a.x + rand(-16, 16), top, { count: 1, colors: [0xffb03a, 0xff6a1a], up: 0.5, speed: [30, 90], life: [0.3, 0.6], size: [1.5, 2.5], gravity: -80 });
-      if (Math.random() < 0.4) burst(a.x + rand(-10, 10), top - 6, { count: 1, colors: [0x5a5f6a, 0x7a7f8a], up: 0.3, speed: [15, 40], life: [0.8, 1.4], size: [4, 7], gravity: -40 });
+      burst(a.x + rand(-16, 16), top, {
+        count: 1,
+        colors: [0xffb03a, 0xff6a1a],
+        up: 0.5,
+        speed: [30, 90],
+        life: [0.3, 0.6],
+        size: [1.5, 2.5],
+        gravity: -80,
+      });
+      if (Math.random() < 0.4)
+        burst(a.x + rand(-10, 10), top - 6, {
+          count: 1,
+          colors: [0x5a5f6a, 0x7a7f8a],
+          up: 0.3,
+          speed: [15, 40],
+          life: [0.8, 1.4],
+          size: [4, 7],
+          gravity: -40,
+        });
     }
     // Rockets leave a smoke trail.
     for (const r of world.rockets) {
@@ -250,7 +388,7 @@ export function createEffects() {
     }
     for (let i = popups.length - 1; i >= 0; i--) {
       if (popups[i].life <= 0) {
-        popups[i].t.destroy();
+        popups[i].t.destroy(DESTROY_ALL);
         popups.splice(i, 1);
       }
     }
@@ -265,7 +403,7 @@ export function createEffects() {
   function render() {
     g.clear();
     for (const s of stains) {
-      const alpha = Math.min(0.85, s.life / s.max * 1.5);
+      const alpha = Math.min(0.85, (s.life / s.max) * 1.5);
       g.ellipse(s.x, ARENA.groundY + 3, s.w, 6).fill({ color: 0x7a0c14, alpha });
       g.ellipse(s.x - s.w * 0.3, ARENA.groundY + 2, s.w * 0.35, 3).fill({ color: 0xa3121c, alpha });
     }
@@ -274,7 +412,7 @@ export function createEffects() {
       g.circle(r.x, r.y, 6 + r.radius * Math.sqrt(u)).stroke({ color: r.color, width: 4 * (1 - u) + 1, alpha: 1 - u });
     }
     for (const p of particles) {
-      const alpha = Math.min(1, p.life / p.max * 2);
+      const alpha = Math.min(1, (p.life / p.max) * 2);
       if (p.shape === 'confetti') {
         const w = p.size * 1.6 * Math.abs(Math.cos(p.spin));
         g.rect(p.x - w / 2, p.y - p.size / 2, Math.max(0.5, w), p.size).fill({ color: p.color, alpha });

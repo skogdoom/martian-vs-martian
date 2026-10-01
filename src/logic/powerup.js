@@ -1,10 +1,12 @@
 // Drops from the sky that climb aboard when lifted, instead of being carried home:
-// - Power-ups. Some rounds, halfway through, a little green man parachutes
-//   into the field carrying one power-up. Fully lifted, he vanishes into the
-//   ship and the power-up starts.
+// - Power-ups. At set points in some rounds (see POWERUP.dropTimes), a little
+//   green man parachutes into the field carrying one. Fully lifted, he
+//   vanishes into the ship and the power-up starts.
 //   About one drop in five is a mystery package instead: the power-up inside
 //   is only revealed when it is grabbed.
 // - Ammo crates, when a player runs out of shots early (see round.js).
+// Both also come as a supply drop when the field is empty and someone is out
+// of shots.
 
 import { WIDTH, SAUCER, POWERUP } from '../config.js';
 import { createAnimal, fieldBounds, parachute } from './animal.js';

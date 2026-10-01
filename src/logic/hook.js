@@ -123,7 +123,10 @@ export function updateHook(h, s, targets, dt, events, { stealBonus = false, twin
     // Never a wolf or a time bomb: that takes the shoot key.
     const hazard = HAZARDS.has(h.carrying.kind) || HAZARDS.has(h.second?.kind);
     if (!hazard && isOverOwnPen(s) && fallHeight(h.carrying) <= SPLAT.height) {
-      for (const [a, dx] of [[h.carrying, -10], [h.second, 12]]) {
+      for (const [a, dx] of [
+        [h.carrying, -10],
+        [h.second, 12],
+      ]) {
         if (!a) continue;
         a.x = clampToPen(s.x + (h.second ? dx : 0), a.kind, s.side);
         drop(a, { by: s.side });

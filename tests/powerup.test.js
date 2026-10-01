@@ -6,25 +6,12 @@ import { planDrop, grantPower } from '../src/logic/powerup.js';
 import { clampToPen } from '../src/logic/animal.js';
 import { scores } from '../src/logic/scoring.js';
 import { speed } from '../src/logic/saucer.js';
+import { run, stepUntil, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
 const chance = POWERUP.chance;
 afterEach(() => {
   POWERUP.chance = chance;
 });
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
 
 /** World with the green man standing in the field and both saucers parked high. */
 function withGreenMan(power = 'speed') {
@@ -35,16 +22,12 @@ function withGreenMan(power = 'speed') {
   return { w, g: w.drops.find((d) => d.kind === 'greenman') };
 }
 
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
-}
-
 describe('the drop', () => {
   it('is planned by chance, with one of the four types', () => {
     POWERUP.chance = 1;
     const seen = new Set();
     let seed = 1;
-    const rng = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    const rng = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
     for (let i = 0; i < 200; i++) seen.add(planDrop(rng));
     expect([...seen].sort()).toEqual([...POWERUP.types].sort());
     POWERUP.chance = 0;
@@ -168,7 +151,7 @@ describe('power-ups', () => {
     expect(w.events.map((e) => e.type)).toEqual(expect.arrayContaining(['laserOn', 'hit', 'interrupt']));
     expect(w.projectiles).toHaveLength(0);
     run(w, { red: { x: 0, y: 0, shoot: false, fire: true } }, 0.5);
-    expect(blue.x - (lamb.x)).toBeGreaterThan(100);
+    expect(blue.x - lamb.x).toBeGreaterThan(100);
     expect(w.weapons.red.ammo).toBe(COMBAT.ammoPerRound);
     stepWorld(w, {}, STEP);
     expect(w.events.some((e) => e.type === 'laserOff')).toBe(true);

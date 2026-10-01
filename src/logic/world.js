@@ -1,7 +1,7 @@
 // One round's simulation state. Pure: no rendering, no DOM.
 // `events` collects things that happened during the last step, for audio and particles.
 
-import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK, RAM, ANIMALS } from '../config.js';
+import { HOOK, COMBAT, POWERUP, AMMO_CRATE, RESTOCK, SPOOK, RAM, ANIMALS, SAUCER } from '../config.js';
 import { createSaucer, steerSaucer, moveSaucer, bumpSaucers, speed } from './saucer.js';
 import { createWeapon, tryFire, updateWeapon, addAmmo } from './weapon.js';
 import { createProjectile, updateProjectile, applyKnockback, fireDirection } from './projectile.js';
@@ -81,7 +81,7 @@ function restock(w, dt) {
     return;
   }
   const inField = w.animals.some((a) => a.state === 'field' || a.state === 'descending');
-  w.fieldEmptyFor = inField ? 0 : w.fieldEmptyFor + dt;
+  w.fieldEmptyFor = inField || alive >= RESTOCK.maxAlive ? 0 : w.fieldEmptyFor + dt;
   if (w.fieldEmptyFor >= RESTOCK.emptyFieldAfter) {
     w.fieldEmptyFor = 0;
     parachuteAnimals(w, RESTOCK.emptyFieldCount, 'emptyField');
@@ -488,4 +488,26 @@ export function stepWorld(w, inputs, dt) {
 
   spookPens(w, dt);
   restock(w, dt);
+  guardFinite(w);
+}
+
+const finite = (o) => Number.isFinite(o.x) && Number.isFinite(o.y);
+
+/** A safety net: nothing should ever end up at NaN or Infinity, but if it
+ * does (a division by zero somewhere), it must not spread or freeze the
+ * round. A saucer goes back to its start; anything else is taken out. */
+function guardFinite(w) {
+  for (const s of Object.values(w.saucers)) {
+    if (finite(s) && Number.isFinite(s.vx) && Number.isFinite(s.vy)) continue;
+    Object.assign(s, { x: SAUCER.startX[s.side], y: SAUCER.startY, vx: 0, vy: 0 });
+  }
+  for (const list of [w.animals, w.drops, w.wolves, w.timeBombs]) {
+    for (const a of list) {
+      if (a.state === 'gone' || finite(a)) continue;
+      for (const side of SIDES) unhook(w, side, a);
+      Object.assign(a, { state: 'gone', pen: null });
+    }
+  }
+  for (const p of w.projectiles) if (!finite(p)) p.alive = false;
+  for (const r of w.rockets) if (!finite(r)) r.alive = false;
 }

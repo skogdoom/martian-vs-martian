@@ -88,9 +88,12 @@ export function updateWolf(wolf, animals, dt, rng, events) {
   }
   const prey = nearest(wolf, reachableLambs(wolf, animals));
   if (!prey) {
-    wolf.bored += dt;
+    // Lambs parachuting into the field are worth waiting for.
+    const coming = state === 'field' && animals.some((a) => a.kind === 'lamb' && a.state === 'descending');
+    wolf.bored = coming ? 0 : wolf.bored + dt;
     if (wolf.bored >= WOLF.boredAfter) leave(wolf, events);
-    else if (state === 'field') updateAnimal(wolf, dt, rng); // pace about
+    else if (state === 'field')
+      updateAnimal(wolf, dt, rng); // pace about
     else wolf.vx = 0;
     return;
   }

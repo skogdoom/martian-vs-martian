@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { STEP, ARENA, SAUCER, RAM } from '../src/config.js';
+import { STEP, SAUCER, RAM } from '../src/config.js';
 import { createSaucer, steerSaucer, moveSaucer, momentum, speed } from '../src/logic/saucer.js';
-import { createWorld, stepWorld } from '../src/logic/world.js';
+import { createWorld } from '../src/logic/world.js';
 import { grantPower } from '../src/logic/powerup.js';
+import { run, stepUntil, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
 const FULL = RAM.delay + RAM.build;
 
 function fly(s, input, seconds) {
@@ -12,23 +12,6 @@ function fly(s, input, seconds) {
     steerSaucer(s, input, STEP);
     moveSaucer(s, STEP);
   }
-}
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
 }
 
 describe('momentum', () => {
@@ -55,7 +38,10 @@ describe('momentum', () => {
   }
 
   it('is kept when diving: turning down, or down alone', () => {
-    for (const dive of [{ x: 1, y: 1 }, { x: 0, y: 1 }]) {
+    for (const dive of [
+      { x: 1, y: 1 },
+      { x: 0, y: 1 },
+    ]) {
       const s = atFullMomentum();
       fly(s, dive, 0.5);
       expect(momentum(s)).toBe(1);
@@ -67,7 +53,13 @@ describe('momentum', () => {
   });
 
   it('is lost by pressing up, turning back or letting go', () => {
-    for (const input of [{ x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 0 }]) {
+    for (const input of [
+      { x: 1, y: -1 },
+      { x: 0, y: -1 },
+      { x: -1, y: 0 },
+      { x: -1, y: 1 },
+      { x: 0, y: 0 },
+    ]) {
       const s = atFullMomentum();
       fly(s, input, STEP);
       expect(s.streak).toBe(0);

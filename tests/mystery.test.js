@@ -3,22 +3,13 @@ import { STEP, ARENA, POWERUP, RESTOCK } from '../src/config.js';
 import { createWorld, stepWorld, spawnDrop } from '../src/logic/world.js';
 import { createRound } from '../src/logic/round.js';
 import { canHook } from '../src/logic/hook.js';
+import { LOW, stepUntil } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
 const saved = { mystery: POWERUP.mysteryChance, chance: POWERUP.chance };
 afterEach(() => {
   POWERUP.mysteryChance = saved.mystery;
   POWERUP.chance = saved.chance;
 });
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
 
 function place(s, x, y) {
   Object.assign(s, { x, y, vx: 0, vy: 0 });

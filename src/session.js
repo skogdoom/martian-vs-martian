@@ -11,7 +11,7 @@ export function createSession() {
   return {
     players: 2, // 1: Red against the CPU, 2: Red against Blue
     difficulty: 'normal',
-    ...loadOptions(), // length (round seconds) and rounds (best of), remembered between visits
+    ...loadOptions(), // length (round seconds), rounds (best of) and ratio169, remembered between visits
     tallies: {}, // one per mode, e.g. '2p', '1p-hard'
     tally: null,
     match: null,

@@ -32,4 +32,3 @@ export function penCounts(animals, side) {
   }
   return counts;
 }
-

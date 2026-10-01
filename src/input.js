@@ -2,7 +2,7 @@
 // `pressed` holds keys that went down since the last `endStep()`,
 // so a tap between two fixed steps is never lost. Controller buttons are
 // polled once per step (`pollPads`) and show up in the same `pressed` set
-// under pseudo codes ('PadConfirm', 'PadBack', 'PadUp', ... see gamepad.js).
+// under pseudo codes ('PadConfirm', 'PadPause', 'PadUp', ... see gamepad.js).
 
 import { KEYS, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
 import { createPadPoller } from './gamepad.js';

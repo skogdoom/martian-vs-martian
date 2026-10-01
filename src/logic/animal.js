@@ -1,17 +1,16 @@
-// Cows and lambs: wandering, falling and landing in pens.
+// Cows and lambs: wandering, falling and landing in pens. Drops, the wolf and
+// the time bomb move the same way, so they use this too.
 //
 // States:
-//   field    wandering between the pen fences
-//   penned   standing still in a pen
-//   lifting  frozen in a tractor beam (see hook.js)
-//   carried  attached under a saucer
-//   falling  dropped from a beam or a delivery
-//   gone     burst after falling too far (see SPLAT), out of the round
-//
-// Drops from the sky (the green man, golden animals) start out
-//   descending  floating down under a parachute
-// and the green man ends as
-//   gone        climbed into a saucer
+//   field       wandering between the pen fences
+//   penned      standing still in a pen
+//   lifting     frozen in a tractor beam (see hook.js)
+//   carried     attached under a saucer
+//   falling     let go of, knocked loose, or thrown out of a pen by a bomb
+//   descending  floating down under a parachute (restocks, cow/lamb rain,
+//               golden animals, the green man, crates, the wolf)
+//   gone        out of the round: splatted, eaten, burst by cow/lamb rain,
+//               or (a drop) climbed into a saucer
 //
 // `y` is the animal's feet. `pen` is the pen it counts toward, `owner` the
 // player who first delivered it.
