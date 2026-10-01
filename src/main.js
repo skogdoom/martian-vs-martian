@@ -2,7 +2,7 @@
 
 import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, STEP, MUTE_KEY, FULLSCREEN_KEY, ARENA } from './config.js';
-import { fitWindow, sceneShift, layout } from './layout.js';
+import { fitWindow, sceneShift, layout, setFixed169, onRefit } from './layout.js';
 import { endStep, onKey, pollPads, padSeenYet } from './input.js';
 import { toggleMute, isMuted, unlockAudio, audioUnlocked, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
@@ -49,12 +49,11 @@ function fit() {
 // otherwise the old view is destroyed.
 let scene = null;
 
-/** Put the scene in the middle of the screen (menus) or at the bottom (the arena),
- * and let the arena's saucers use the extra sky above it. */
+/** Every scene sits at the bottom of the screen, so the ground is always at the
+ * same height; the extra height above it is sky, which saucers may use. */
 function alignScene() {
-  const bottom = scene?.align === 'bottom';
-  layer.y = sceneShift(scene?.align);
-  ARENA.flightTop = bottom ? -layout.extra : 0;
+  layer.y = sceneShift();
+  ARENA.flightTop = -layout.extra;
 }
 
 const game = {
@@ -109,8 +108,10 @@ window.addEventListener('gamepaddisconnected', () => padNotice('CONTROLLER DISCO
 
 // Lives for the page: reloading resets the tally.
 const session = createSession();
+setFixed169(session.ratio169);
 root.addChild(mutedLabel, padLabel, soundHint);
 app.renderer.on('resize', fit);
+onRefit(fit); // the 16:9 setting changed
 fit();
 game.go(createTitleScene, session);
 

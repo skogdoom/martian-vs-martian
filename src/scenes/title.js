@@ -7,17 +7,19 @@
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH } from '../config.js';
 import { PAD } from '../layout.js';
+import { centerUi } from '../render/uiLayer.js';
 import { wasPressed, padSeenYet } from '../input.js';
 import { audioUnlocked } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../session.js';
-import { LENGTHS, ROUNDS, step, saveOptions } from '../options.js';
+import { LENGTHS, ROUNDS, step, saveOptions, pickOptions } from '../options.js';
 import { createBackdrop, COLORS } from '../render/backdrop.js';
 import { createAnimalView } from '../render/animalView.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { label } from '../render/text.js';
 import { createPlayScene } from './play.js';
+import { createSettingsScene } from './settings.js';
 
 const pressed = (...codes) => codes.some(wasPressed);
 
@@ -60,24 +62,25 @@ export function createTitleScene(game, session) {
   //   1  2 PLAYERS
   //   2  round length
   //   3  number of rounds
-  const rows = [0, 1, 2, 3].map((i) => {
+  //   4  settings (opens the settings screen: sound, full screen, 16:9)
+  const rows = [0, 1, 2, 3, 4].map((i) => {
     const l = label('', { size: 24, bold: true, anchorX: 0 });
-    l.position.set(cx - 230, 392 + i * 31);
+    l.position.set(cx - 230, 388 + i * 29);
     return l;
   });
   let row = session.players === 1 ? 0 : 1;
 
   const prompt = label('ENTER OR SPACE TO START', { size: 22, color: 0xffffff, bold: true, anchorX: 0.5 });
-  prompt.position.set(cx, 524);
+  prompt.position.set(cx, 548);
   const help = label('↑ ↓  choose   ← →  change   M  sound   F  full screen   P / ESC  pause menu', {
     size: 14,
     color: 0x8a93c0,
     anchorX: 0.5,
   });
-  help.position.set(cx, 556);
+  help.position.set(cx, 576);
   // Shown once a controller has been used. Pad buttons can't start sound.
   const padHelp = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5 });
-  padHelp.position.set(cx, 576);
+  padHelp.position.set(cx, 596);
 
   view.addChild(red, vs, blue, ...steps, redKeys, blueKeys, ...rows, prompt, help, padHelp);
 
@@ -88,6 +91,7 @@ export function createTitleScene(game, session) {
       '2 PLAYERS',
       `ROUND LENGTH       ◀ ${session.length} s ▶`,
       `ROUNDS             ◀ BEST OF ${session.rounds} ▶`,
+      'SETTINGS',
     ];
     rows.forEach((l, i) => {
       const mode = i < 2 && (i === 0) === solo; // the chosen game mode
@@ -100,6 +104,9 @@ export function createTitleScene(game, session) {
     blueKeys.text = solo ? `CPU (BLUE)\n${session.difficulty.toUpperCase()}` : 'BLUE\nmove  ARROWS\nshoot ENTER\n(drops what you carry)';
   }
   refreshMenu();
+
+  // Backdrop, herd, saucers and the dimming stay put; the text is centred.
+  const centered = centerUi(view, 5);
 
   let t = 0;
   return {
@@ -119,20 +126,26 @@ export function createTitleScene(game, session) {
         if (row === 0) session.difficulty = step(DIFFICULTIES, session.difficulty, dir);
         if (row === 2) session.length = step(LENGTHS, session.length, dir);
         if (row === 3) session.rounds = step(ROUNDS, session.rounds, dir);
-        if (row >= 2) saveOptions({ length: session.length, rounds: session.rounds });
+        if (row >= 2) saveOptions(pickOptions(session));
       }
       refreshMenu();
+      prompt.text = row === 4 ? 'ENTER OR SPACE FOR SETTINGS' : 'ENTER OR SPACE TO START';
       padHelp.text = padSeenYet()
         ? 'CONTROLLER  stick or d-pad: move   A / trigger: shoot   A / Start: begin   Start: pause' +
           (audioUnlocked() ? '' : '\nthe sound starts after one key press or click')
         : '';
 
       if (pressed('Enter', 'Space', 'NumpadEnter', 'PadConfirm')) {
-        startMatch(session);
-        game.go(createPlayScene, session);
+        if (row === 4) {
+          game.go(createSettingsScene, session);
+        } else {
+          startMatch(session);
+          game.go(createPlayScene, session);
+        }
       }
     },
     render() {
+      centered.sync();
       backdrop.tick(t);
       herdView.sync(t);
       saucers.red.sync({ x: 190 + Math.sin(t * 0.7) * 30, y: 330 + Math.sin(t * 1.1) * 18, vx: Math.cos(t * 0.7) * 21 * 10 }, t, { look: 1 });

@@ -3,6 +3,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, ROUND } from '../config.js';
 import { PAD } from '../layout.js';
+import { centerUi } from '../render/uiLayer.js';
 import { anyPressed } from '../input.js';
 import { COLORS } from '../render/backdrop.js';
 import { label } from '../render/text.js';
@@ -50,6 +51,9 @@ export function createRoundEndScene(game, session, { number, points, result, out
 
   const prompt = add('', { size: 16, color: 0xcfd6ff }, 530);
 
+  // The round stays behind as it was; the result text is centred.
+  const centered = centerUi(view, 2);
+
   let t = 0;
   return {
     view,
@@ -61,6 +65,7 @@ export function createRoundEndScene(game, session, { number, points, result, out
       }
     },
     render() {
+      centered.sync();
       const next = match.over ? 'tally' : `round ${number + 1}`;
       prompt.text = t > 1 ? `Press any key for ${next}` : '';
     },

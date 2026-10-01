@@ -19,8 +19,9 @@ Browsers only allow sound after a key press or click, so with a controller
 only, press any key or click the page once to switch the sound on.
 
 Shooting while carrying an animal drops it. Hover low and still over an animal
-to beam it up. **P** or **Esc** pauses and opens a menu (resume, restart, sound,
-exit to the main menu). **M** toggles sound and **F** toggles full screen. In
+to beam it up. **P** or **Esc** pauses and opens a menu (resume, restart, sound, full screen,
+16:9, exit to the main menu); the same settings are on the title screen under
+Settings. **M** toggles sound and **F** toggles full screen. In
 single-player you fly Red with either set of keys.
 
 ## Running it
