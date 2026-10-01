@@ -55,6 +55,7 @@ export function createAnimal(id, kind, x) {
     droppedBy: null, // the player who let go of it (a delivery if it lands in their pen)
     fallFrom: 0, // y it started falling from
     safeFall: false, // thrown by a bomb: lands safely whatever the height
+    chute: false, // a wolf dropped from up high: parachute open (see wolf.js)
     onFire: false, // cosmetic: set by a bomb blast, put out when picked up
     bonus: false, // stolen during a steal power-up: worth extra in its pen
     wanderTimer: 0,
@@ -118,7 +119,13 @@ export function updateAnimal(a, dt, rng) {
   }
 
   if (a.state === 'falling') {
-    a.vy += ANIMALS.gravity * dt;
+    if (a.chute) {
+      // Under a parachute: ease to the slow descent speed and lose sideways speed.
+      a.vy += (POWERUP.fallSpeed - a.vy) * Math.min(1, 6 * dt);
+      a.vx *= Math.exp(-2 * dt);
+    } else {
+      a.vy += ANIMALS.gravity * dt;
+    }
     a.x += a.vx * dt; // thrown from a moving saucer, or out of a pen by a bomb
     a.y += a.vy * dt;
     a.fallFrom = Math.min(a.fallFrom, a.y); // a throw upward falls from its highest point
@@ -143,6 +150,7 @@ function land(a) {
   const fell = ARENA.groundY - a.fallFrom;
   const safe = a.safeFall || (a.kind !== 'cow' && a.kind !== 'lamb');
   a.safeFall = false;
+  a.chute = false;
   a.y = ARENA.groundY;
   a.vy = 0;
   a.vx = 0;
@@ -170,6 +178,7 @@ function land(a) {
  * velocity, e.g. the saucer's when thrown. */
 export function drop(a, { by = null, vx = 0, vy = 0 } = {}) {
   a.state = 'falling';
+  a.chute = false;
   a.hookedBy = null;
   a.droppedBy = by;
   a.vx = vx;

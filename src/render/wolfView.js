@@ -73,7 +73,7 @@ export function createWolfSprite() {
       if (w.vx !== 0) facing = Math.sign(w.vx);
       view.position.set(w.x, w.y);
       view.scale.x = facing;
-      chute.visible = w.state === 'descending';
+      chute.visible = w.state === 'descending' || (w.state === 'falling' && w.chute);
 
       const aloft = ['lifting', 'carried', 'falling', 'descending'].includes(w.state);
       if (aloft) {

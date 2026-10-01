@@ -9,7 +9,7 @@
 //   leaving  running off the edge of the screen; then gone
 
 import { WIDTH, WOLF } from '../config.js';
-import { createAnimal, parachute, updateAnimal, fieldBounds, clampToPen } from './animal.js';
+import { createAnimal, parachute, updateAnimal, fieldBounds, clampToPen, fallHeight } from './animal.js';
 import { dropSpot } from './powerup.js';
 
 export function createWolf(rng) {
@@ -56,6 +56,11 @@ function leave(wolf, events) {
 export function updateWolf(wolf, animals, dt, rng, events) {
   const { state } = wolf;
   if (state === 'descending' || state === 'falling') {
+    // Dropped from up high: a parachute opens on the way down.
+    if (state === 'falling' && !wolf.chute && fallHeight(wolf) > WOLF.chuteHeight) {
+      wolf.chute = true;
+      events.push({ type: 'wolfChute', x: wolf.x, y: wolf.y });
+    }
     const result = updateAnimal(wolf, dt, rng);
     if (result === 'touchdown') events.push({ type: 'dropLanded', x: wolf.x, y: wolf.y });
     else if (state === 'falling' && wolf.state !== 'falling') {

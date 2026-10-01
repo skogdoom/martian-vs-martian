@@ -200,6 +200,7 @@ export const WOLF = {
   boredAfter: 6, // seconds without a lamb in reach before it leaves
   scareRange: 220, // lambs in the field closer than this run away
   fleeSpeed: 85, // px/s
+  chuteHeight: 140, // dropped from higher than this (px above the ground), it opens a parachute
 };
 
 export const GOLDEN = {

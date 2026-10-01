@@ -112,9 +112,10 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
           : null;
 
       if (carriedHazard) {
-        // Over their pen and let it go.
+        // Over their pen and let it go. Low down: a wolf dropped from up high opens a
+        // parachute and takes seconds to land; a bomb is nearer its target as well.
         tx = theirPenX;
-        ty = 330;
+        ty = LOW - 20;
         letGoOfIt = bail || Math.abs(s.x - theirPenX) < 30;
       } else if (second) {
         tx = second.x;

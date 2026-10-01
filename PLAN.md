@@ -82,7 +82,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### The wolf
 - In about one round in three, at a random time between 25% and 70% of the round, a wolf parachutes into the field.
 - In the field it chases the nearest lamb in the field and eats it (1 s per lamb). Lambs within 220 px run away from it, but it is faster. It ignores cows, lambs in pens and lambs in a beam.
-- It is hooked and carried like an animal (lift 1.3 s), but is never let go of automatically: the shoot key drops it. It always lands on its feet, whatever the height.
+- It is hooked and carried like an animal (lift 1.3 s), but is never let go of automatically: the shoot key drops it. It always lands on its feet, whatever the height. Dropped from more than 140 px above the ground (`WOLF.chuteHeight`) it opens a parachute as it lets go and floats down slowly (it can't be lifted until it lands); a low drop falls as before. The CPU drops it from low down.
 - Dropped into a pen, it eats the lambs in that pen, which takes them off that player's score. Either player can lift it out of any pen, including their own.
 - After 6 s with nothing in reach it howls, gets bored and runs off the screen for good.
 - Values are in `WOLF` in `config.js`.
