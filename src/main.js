@@ -49,12 +49,11 @@ function fit() {
 // otherwise the old view is destroyed.
 let scene = null;
 
-/** Put the scene in the middle of the screen (menus) or at the bottom (the arena),
- * and let the arena's saucers use the extra sky above it. */
+/** Every scene sits at the bottom of the screen, so the ground is always at the
+ * same height; the extra height above it is sky, which saucers may use. */
 function alignScene() {
-  const bottom = scene?.align === 'bottom';
-  layer.y = sceneShift(scene?.align);
-  ARENA.flightTop = bottom ? -layout.extra : 0;
+  layer.y = sceneShift();
+  ARENA.flightTop = -layout.extra;
 }
 
 const game = {

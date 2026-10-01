@@ -210,7 +210,6 @@ export function createPlayScene(game, session) {
 
   return {
     view,
-    align: 'bottom', // the ground stays at the bottom of the screen; extra height is sky
     round,
     destroy() {
       stopWatchingFullscreen();

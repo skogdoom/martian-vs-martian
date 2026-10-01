@@ -7,6 +7,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH } from '../config.js';
 import { PAD } from '../layout.js';
+import { centerUi } from '../render/uiLayer.js';
 import { wasPressed, padSeenYet } from '../input.js';
 import { audioUnlocked } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
@@ -104,6 +105,9 @@ export function createTitleScene(game, session) {
   }
   refreshMenu();
 
+  // Backdrop, herd, saucers and the dimming stay put; the text is centred.
+  const centered = centerUi(view, 5);
+
   let t = 0;
   return {
     view,
@@ -141,6 +145,7 @@ export function createTitleScene(game, session) {
       }
     },
     render() {
+      centered.sync();
       backdrop.tick(t);
       herdView.sync(t);
       saucers.red.sync({ x: 190 + Math.sin(t * 0.7) * 30, y: 330 + Math.sin(t * 1.1) * 18, vx: Math.cos(t * 0.7) * 21 * 10 }, t, { look: 1 });

@@ -6,6 +6,7 @@ import { WIDTH } from '../config.js';
 import { PAD } from '../layout.js';
 import { wasPressed, padSeenYet } from '../input.js';
 import { createBackdrop } from '../render/backdrop.js';
+import { centerUi } from '../render/uiLayer.js';
 import { createMenu, settingsItems } from '../render/menu.js';
 import { label } from '../render/text.js';
 import { createTitleScene } from './title.js';
@@ -32,6 +33,7 @@ export function createSettingsScene(game, session) {
   });
   note.position.set(WIDTH / 2, 600);
   view.addChild(title, menu.view, help, note);
+  const centered = centerUi(view, 2);
 
   let t = 0;
   return {
@@ -46,6 +48,7 @@ export function createSettingsScene(game, session) {
       if (id === 'back' || wasPressed('Escape')) game.go(createTitleScene, session);
     },
     render() {
+      centered.sync();
       backdrop.tick(t);
     },
   };

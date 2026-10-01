@@ -5,8 +5,9 @@
 // extra height instead of black bars: up to MAX_EXTRA more logical px, so the
 // game uses the whole height of the screen. In the arena (the play and
 // round-end scenes) the ground stays at the bottom and the extra is more sky,
-// which saucers can fly into. The menu scenes sit in the middle of the
-// taller area, with the scenery stretched to fill it.
+// which saucers can fly into. The menu scenes keep the ground in the same
+// place, so it doesn't jump between menu and round; only their text is
+// centred on the taller screen.
 
 import { HEIGHT, WIDTH } from './config.js';
 
@@ -47,7 +48,14 @@ export function fitWindow(w, h) {
   };
 }
 
-/** How far down the scene's origin sits: all the extra for the arena, half of it for menus. */
-export function sceneShift(align) {
-  return align === 'bottom' ? layout.extra : layout.extra / 2;
+/** How far down the scenes' origin sits: all the extra height. Every scene
+ * does this, so the ground and the sky are at the same height in the menus and
+ * in a round. Menu text is moved back up by half of it (`menuLift`) to stay in
+ * the middle of the screen. */
+export function sceneShift() {
+  return layout.extra;
+}
+
+export function menuLift() {
+  return -layout.extra / 2;
 }

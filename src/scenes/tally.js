@@ -4,6 +4,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH } from '../config.js';
 import { PAD } from '../layout.js';
+import { centerUi } from '../render/uiLayer.js';
 import { anyPressed, wasPressed } from '../input.js';
 import { startMatch, sideName, modeName, rulesName } from '../session.js';
 import { createTitleScene } from './title.js';
@@ -52,6 +53,8 @@ export function createTallyScene(game, session) {
   const prompt = put(label('PRESS ANY KEY TO PLAY AGAIN', { size: 24, color: 0xffffff, bold: true, anchorX: 0.5 }), cx, 520);
   const note = put(label('ESC: back to the menu. The tally resets when the page is reloaded.', { size: 14, color: 0x8a93c0, anchorX: 0.5 }), cx, 560);
 
+  const centered = centerUi(view, 2);
+
   let t = 0;
   return {
     view,
@@ -65,6 +68,7 @@ export function createTallyScene(game, session) {
       }
     },
     render() {
+      centered.sync();
       prompt.visible = note.visible = t > 1.2;
       prompt.alpha = 0.55 + 0.45 * Math.sin(t * 4);
     },

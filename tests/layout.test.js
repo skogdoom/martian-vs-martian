@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { STEP, ARENA, SAUCER, WIDTH, HEIGHT } from '../src/config.js';
-import { fitWindow, sceneShift, layout, MAX_EXTRA } from '../src/layout.js';
+import { fitWindow, sceneShift, menuLift, layout, MAX_EXTRA } from '../src/layout.js';
 import { createWorld, stepWorld, spawnDrop } from '../src/logic/world.js';
 import { createRocket, updateRocket } from '../src/logic/ordnance.js';
 import { createSaucer, steerSaucer, moveSaucer } from '../src/logic/saucer.js';
@@ -48,11 +48,13 @@ describe('fitting the window', () => {
     expect(f.x).toBe(360);
   });
 
-  it('the arena sits at the bottom, menus in the middle', () => {
+  it('every scene sits at the bottom, so the ground never moves; menu text is lifted by half the extra', () => {
     fitWindow(1024, 768);
-    expect(sceneShift('bottom')).toBeCloseTo(240);
-    expect(sceneShift('center')).toBeCloseTo(120);
-    expect(sceneShift(undefined)).toBeCloseTo(120);
+    expect(sceneShift()).toBeCloseTo(240);
+    expect(menuLift()).toBeCloseTo(-120);
+    fitWindow(1280, 720);
+    expect(sceneShift()).toBe(0);
+    expect(menuLift()).toBeCloseTo(0);
   });
 });
 

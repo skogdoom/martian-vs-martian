@@ -20,7 +20,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ## Screen layout (`src/layout.js`)
 - The game always uses the whole height of the window. The scale is the smaller of width/1280 and height/720; a window taller than 16:9 then shows up to 360 more logical px of height (so up to 1280×1080), and only beyond that, in a portrait window, are there bars above and below.
-- In the arena (play and round-end) the ground stays at the bottom of the screen and the extra is sky. The HUD and announcements hang from the top of the screen, and saucers can fly up into the extra sky (`ARENA.flightTop` is set to minus the extra while a round is on; green men and rockets follow it). Menu scenes sit in the middle of the taller area, and the scenery (sky, stars, dirt) is stretched to fill it.
+- In the arena (play and round-end) the ground stays at the bottom of the screen and the extra is sky. The HUD and announcements hang from the top of the screen, and saucers can fly up into the extra sky (`ARENA.flightTop` is set to minus the extra while a round is on; green men and rockets follow it). Every scene, menus included, sits at the bottom, so the ground and the sky are at the same height in the menus and in a round; the menu text alone is lifted by half the extra height to stay centred on the screen (`src/render/uiLayer.js`).
 - The "16:9" setting (settings and pause menus) turns the extra height off: the game area stays 16:9, with bars where the window is taller.
 - It follows window resizes and full screen, also mid-round. The balance numbers from the simulator are for a 16:9 window; with more sky the playfield is only larger, nothing else changes.
 
@@ -323,6 +323,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Settings menu and the 16:9 option**
   - The title menu has a fifth row, Settings, which opens a settings screen with the same items as the pause menu: sound, full screen, 16:9 yes/no, and Back (Esc also goes back). The items and the menu are shared (`src/render/menu.js`: `createMenu`, `settingsItems`), so the pause menu and the settings screen can't drift apart.
   - **16:9 yes** keeps a 16:9 game area with black bars where the window is taller (the layout before the full-height change); **no** (the default) uses the whole height. It applies at once, is remembered in localStorage with the other options, and is also in the pause menu.
+- [x] **Same ground height in menus and rounds**
+  - The menu scenes used to be centred, so the ground jumped between the title screen and a round. All scenes are now bottom-aligned; `centerUi` lifts only the menu text. Checked at 1024×768 on the title, in a round and on the result screen.
 - [ ] **11. Hardening, performance and code review**
   - Done after milestone 10, so the review covers the finished feature set.
   - Code review of every module: dead code, naming, comments that no longer match, config values vs `PLAN.md`, duplicated logic (the hazard kinds, the drop views, the helpers repeated across tests).
