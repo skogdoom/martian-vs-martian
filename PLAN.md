@@ -352,15 +352,15 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Code review: shared test helpers (`tests/helpers.js`), one list view for drops, wolves and time bombs (`render/listView.js`), one `dimmer` for the menus' dark veil, an announcement helper for things landing in a pen, an `options.step` fix for values not on offer, and comments and this plan brought up to date (sudden death, round lengths, drift limit, code structure).
 
 - [ ] **12. Release**
-  - Version 1.0.0 in `package.json`, and a `CHANGELOG.md`.
-  - Deploy to GitHub Pages with a GitHub Actions workflow on pushes to `master` (Vite `base` set for the repository path). The README gets a "Play it here" link.
+  - [x] Version 1.0.0 in `package.json`, and a `CHANGELOG.md`.
+  - [x] Deploy to GitHub Pages with a workflow on pushes to `master` (`.github/workflows/pages.yml`; Vite `base` is `./`, so the build works from any folder). The README has a "Play it here" link. Needs Pages set to "GitHub Actions" under Settings → Pages once.
   - Polish:
-    - A real favicon (the page has an empty one).
-    - Page description and an Open Graph screenshot.
-    - A "click or press any key" start overlay, which also unlocks audio and gives the page focus.
-    - A notice on touch-only devices that the game needs a keyboard or a controller.
-  - Browser check: Chrome, Firefox, Safari, Edge. Note in the README that some keyboards can't register many keys at once (ghosting), a hardware limit with two players on one keyboard.
-  - Final playtest with a checklist (both modes, all difficulties, all round options, controllers), then tag `v1.0.0` and publish a GitHub release with notes and a zip of `dist/` (also usable for itch.io).
+    - [x] Favicon (`public/favicon.svg`), page description and an Open Graph image (`public/og.png`).
+    - [x] A "click or press any key" start overlay. The key or click that dismisses it unlocks the sound and focuses the page, and isn't passed on to the game.
+    - [x] A notice on touch-only devices that the game needs a keyboard or a controller.
+  - [x] README note on keyboard ghosting.
+  - [ ] Browser check: Chrome, Firefox, Safari, Edge. Only Chromium is available in the development environment, so Firefox, Safari and Edge are for a person to check.
+  - [ ] Final playtest with a checklist (both modes, all difficulties, all round options, controllers, 60 fps on a real laptop), then tag `v1.0.0` and publish a GitHub release with notes and a zip of `dist/` (also usable for itch.io).
 
 - [ ] **Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

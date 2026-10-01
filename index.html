@@ -4,7 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Martian vs Martian</title>
-    <link rel="icon" href="data:," />
+    <meta
+      name="description"
+      content="A two-player couch game for the browser: two flying saucers abduct cows and lambs. Shoot, ram and steal from each other."
+    />
+    <meta property="og:title" content="Martian vs Martian" />
+    <meta property="og:description" content="Two saucers, one keyboard. Abduct the animals, ram your friend, profit." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://skogdoom.github.io/martian-vs-martian/" />
+    <meta property="og:image" content="https://skogdoom.github.io/martian-vs-martian/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <style>
       html,
       body {
@@ -19,9 +29,40 @@
       :fullscreen canvas {
         cursor: none;
       }
+      #start {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        background: rgba(5, 8, 24, 0.82);
+        color: #fff;
+        font:
+          bold 28px system-ui,
+          sans-serif;
+        text-align: center;
+        cursor: pointer;
+      }
+      #start small {
+        font-size: 16px;
+        font-weight: normal;
+        color: #cfd6ff;
+      }
+      #start .warn {
+        color: #ffd76a;
+        max-width: 28em;
+      }
     </style>
   </head>
   <body>
+    <div id="start">
+      <div>CLICK OR PRESS ANY KEY TO PLAY</div>
+      <small>Two players share the keyboard; controllers work too.</small>
+      <small class="warn" id="touch-note" hidden>This game needs a keyboard or a game controller, so it won't work with touch alone.</small>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

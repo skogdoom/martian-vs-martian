@@ -6,6 +6,8 @@ from each other; grab power-ups dropped by little green men. Rounds of
 60, 90 or 120 seconds, best of 1, 3, 5 or 7 (ties go to sudden death).
 There is also a single-player mode against the CPU.
 
+**[Play it here](https://skogdoom.github.io/martian-vs-martian/)**
+
 ## Controls
 
 |            | Red          | Blue           |
@@ -23,6 +25,12 @@ to beam it up. **P** or **Esc** pauses and opens a menu (resume, restart, sound,
 16:9, exit to the main menu); the same settings are on the title screen under
 Settings. **M** toggles sound and **F** toggles full screen. In
 single-player you fly Red with either set of keys.
+
+Two players on one keyboard need a keyboard that registers several keys at
+once. Cheap keyboards can ghost (drop a key press when many are held), which
+is a hardware limit; if a key seems dead, try another key combination or a
+game controller. A keyboard or controller is required: it doesn't work with
+touch alone.
 
 ## Running it
 
