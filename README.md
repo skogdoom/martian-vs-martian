@@ -18,8 +18,9 @@ Controllers can't exit to the main menu or change the sound; that stays on the k
 any key or click once.
 
 Shooting while carrying an animal drops it. Hover low and still over an animal
-to beam it up. **P** or **Esc** pauses (the pause menu can restart, change the sound or exit to the main menu), **M** toggles sound, **F** toggles full screen, **Esc** returns
-to the menu. In single-player you fly Red with either set of keys.
+to beam it up. **P** or **Esc** pauses and opens a menu (resume, restart, sound,
+exit to the main menu). **M** toggles sound and **F** toggles full screen. In
+single-player you fly Red with either set of keys.
 
 ## Running it
 
