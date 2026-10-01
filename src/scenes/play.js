@@ -3,13 +3,14 @@
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, AMMO_CRATE, BOT, RAM, PAUSE_KEY } from '../config.js';
 import { layout, PAD } from '../layout.js';
-import { toggleFullscreen, isFullscreen, onUnexpectedExit } from '../fullscreen.js';
+import { onUnexpectedExit } from '../fullscreen.js';
+import { createMenu, settingsItems } from '../render/menu.js';
 import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
 import { sideName, isCpu, startMatch } from '../session.js';
 import { playerInput, soloInput, wasPressed, rumble, padSeenYet } from '../input.js';
-import { handleEvents, stopVoices, setAudioPaused, toggleMute, isMuted } from '../audio.js';
+import { handleEvents, stopVoices, setAudioPaused } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
@@ -89,32 +90,26 @@ export function createPlayScene(game, session) {
   // Pause: P or Esc, or Start on a controller. Everything freezes, sound included,
   // and a menu comes up, which a controller can use fully.
   let paused = false;
-  let choice = 0;
   const dim = new Graphics().rect(0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.6 });
   const pausedTitle = label('PAUSED', { size: 72, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
-  pausedTitle.position.set(WIDTH / 2, 205);
-  const ITEMS = [
-    { id: 'resume', text: () => 'RESUME', padOk: true },
-    { id: 'restart', text: () => 'RESTART THE GAME', padOk: true },
-    { id: 'sound', text: () => `SOUND: ${isMuted() ? 'OFF' : 'ON'}`, padOk: true },
-    { id: 'fullscreen', text: () => `FULL SCREEN: ${isFullscreen() ? 'ON' : 'OFF'}`, padOk: true },
-    { id: 'exit', text: () => 'EXIT TO MAIN MENU', padOk: true },
-  ];
-  const itemLabels = ITEMS.map((_, i) => {
-    const l = label('', { size: 30, bold: true, anchorX: 0.5, anchorY: 0.5 });
-    l.position.set(WIDTH / 2, 290 + i * 50);
-    return l;
+  pausedTitle.position.set(WIDTH / 2, 165);
+  const pauseMenuView = createMenu({
+    y0: 255,
+    gap: 48,
+    items: [
+      { id: 'resume', text: () => 'RESUME' },
+      { id: 'restart', text: () => 'RESTART THE GAME' },
+      ...settingsItems(session),
+      { id: 'exit', text: () => 'EXIT TO MAIN MENU' },
+    ],
   });
   const pausedHelp = label('', { size: 16, color: 0x8a93c0, anchorX: 0.5, anchorY: 0.5 });
-  pausedHelp.position.set(WIDTH / 2, 555);
+  pausedHelp.position.set(WIDTH / 2, 580);
   const pauseView = new Container();
-  pauseView.addChild(dim, pausedTitle, ...itemLabels, pausedHelp);
+  pauseView.addChild(dim, pausedTitle, pauseMenuView.view, pausedHelp);
   pauseView.visible = false;
   function refreshPauseMenu() {
-    ITEMS.forEach((item, i) => {
-      itemLabels[i].text = `${i === choice ? '▶ ' : '  '}${item.text()}${i === choice ? ' ◀' : '  '}`;
-      itemLabels[i].tint = i === choice ? 0xffffff : 0x8a93c0;
-    });
+    pauseMenuView.refresh();
     pausedHelp.text = padSeenYet()
       ? '↑ ↓ choose   ENTER / A: select   P / Start / ESC: resume\n(a controller can leave full screen but not enter it: the browser wants a key or click)'
       : '↑ ↓ choose   ENTER or SPACE: select   P or ESC: resume';
@@ -124,7 +119,7 @@ export function createPlayScene(game, session) {
     pauseView.visible = on;
     setAudioPaused(on);
     if (on) {
-      choice = 0;
+      pauseMenuView.reset();
       refreshPauseMenu();
     }
   }
@@ -135,25 +130,15 @@ export function createPlayScene(game, session) {
   });
   /** Run the pause menu for this step. Returns true if the scene changed. */
   function pauseMenu() {
-    const up = wasPressed('ArrowUp') || wasPressed('KeyW') || wasPressed('PadUp');
-    const down = wasPressed('ArrowDown') || wasPressed('KeyS') || wasPressed('PadDown');
-    if (up) choice = (choice + ITEMS.length - 1) % ITEMS.length;
-    if (down) choice = (choice + 1) % ITEMS.length;
-    const byKey = ['Enter', 'Space', 'NumpadEnter'].some(wasPressed);
-    const byPad = wasPressed('PadConfirm');
-    if (byKey || (byPad && ITEMS[choice].padOk)) {
-      const { id } = ITEMS[choice];
-      if (id === 'resume') setPaused(false);
-      else if (id === 'sound') toggleMute();
-      else if (id === 'fullscreen') toggleFullscreen();
-      else if (id === 'restart') {
-        startMatch(session);
-        game.go(createPlayScene, session);
-        return true;
-      } else if (id === 'exit') {
-        game.go(createTitleScene, session);
-        return true;
-      }
+    const id = pauseMenuView.selected();
+    if (id === 'resume') setPaused(false);
+    else if (id === 'restart') {
+      startMatch(session);
+      game.go(createPlayScene, session);
+      return true;
+    } else if (id === 'exit') {
+      game.go(createTitleScene, session);
+      return true;
     }
     refreshPauseMenu();
     return false;
