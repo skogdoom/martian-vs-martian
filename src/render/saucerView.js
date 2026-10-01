@@ -47,7 +47,12 @@ export function createSaucerView(side) {
   const aura = new Graphics().ellipse(0, 0, r + 14, h + 14).stroke({ color: POWER_COLOR, width: 3 });
   aura.visible = false;
   const streaks = new Graphics();
-  for (const [y, len] of [[-6, 30], [2, 44], [9, 26]]) streaks.rect(-r - len - 6, y - 1, len, 2).fill({ color: 0xffffff, alpha: 0.6 });
+  for (const [y, len] of [
+    [-6, 30],
+    [2, 44],
+    [9, 26],
+  ])
+    streaks.rect(-r - len - 6, y - 1, len, 2).fill({ color: 0xffffff, alpha: 0.6 });
   streaks.visible = false;
 
   const back = new Graphics().ellipse(0, domeY, 15, domeRy).fill({ color: 0x0c1830, alpha: 0.85 });
@@ -82,8 +87,14 @@ export function createSaucerView(side) {
   shield.visible = false;
   // Fast enough to ram: a shock front ahead of the saucer.
   const shock = new Graphics();
-  for (const [dx, w, a] of [[0, 3, 0.9], [9, 2, 0.5]]) {
-    shock.moveTo(r + 2 + dx, -h - 8).quadraticCurveTo(r + 18 + dx, 0, r + 2 + dx, h + 8).stroke({ color: 0xffffff, width: w, alpha: a });
+  for (const [dx, w, a] of [
+    [0, 3, 0.9],
+    [9, 2, 0.5],
+  ]) {
+    shock
+      .moveTo(r + 2 + dx, -h - 8)
+      .quadraticCurveTo(r + 18 + dx, 0, r + 2 + dx, h + 8)
+      .stroke({ color: 0xffffff, width: w, alpha: a });
   }
   shock.visible = false;
 

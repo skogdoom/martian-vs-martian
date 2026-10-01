@@ -44,7 +44,7 @@ describe('the drop', () => {
     POWERUP.chance = 1;
     const seen = new Set();
     let seed = 1;
-    const rng = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    const rng = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
     for (let i = 0; i < 200; i++) seen.add(planDrop(rng));
     expect([...seen].sort()).toEqual([...POWERUP.types].sort());
     POWERUP.chance = 0;
@@ -168,7 +168,7 @@ describe('power-ups', () => {
     expect(w.events.map((e) => e.type)).toEqual(expect.arrayContaining(['laserOn', 'hit', 'interrupt']));
     expect(w.projectiles).toHaveLength(0);
     run(w, { red: { x: 0, y: 0, shoot: false, fire: true } }, 0.5);
-    expect(blue.x - (lamb.x)).toBeGreaterThan(100);
+    expect(blue.x - lamb.x).toBeGreaterThan(100);
     expect(w.weapons.red.ammo).toBe(COMBAT.ammoPerRound);
     stepWorld(w, {}, STEP);
     expect(w.events.some((e) => e.type === 'laserOff')).toBe(true);

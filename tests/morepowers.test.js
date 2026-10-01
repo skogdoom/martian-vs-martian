@@ -243,7 +243,10 @@ describe('supply drop', () => {
     const kinds = new Set();
     for (let i = 0; i < 20; i++) {
       const r = stalemate({ red: 0, blue: 0 });
-      r.world.rng = ((s) => () => ((s = (s * 16807) % 2147483647) / 2147483647))(((i + 1) * 97531) % 2147483647);
+      r.world.rng = (
+        (s) => () =>
+          (s = (s * 16807) % 2147483647) / 2147483647
+      )(((i + 1) * 97531) % 2147483647);
       kinds.add(collect(r, SUPPLY.after + 0.2)[0]?.type);
     }
     expect([...kinds].sort()).toEqual(['crateIncoming', 'dropIncoming']);

@@ -30,7 +30,14 @@ function hover(s, x, y = LOW) {
 /** Put `n` of the herd's cows in `side`'s pen, owned by `side`. */
 function pen(w, side, cows) {
   const herd = w.animals.filter((a) => a.kind === 'cow' && !a.golden).slice(0, cows);
-  herd.forEach((a, i) => Object.assign(a, { state: 'penned', pen: side, owner: side, x: clampToPen((ARENA.pens[side].left + ARENA.pens[side].right) / 2 + i * 10, 'cow', side) }));
+  herd.forEach((a, i) =>
+    Object.assign(a, {
+      state: 'penned',
+      pen: side,
+      owner: side,
+      x: clampToPen((ARENA.pens[side].left + ARENA.pens[side].right) / 2 + i * 10, 'cow', side),
+    }),
+  );
 }
 
 /** A world where blue leads 6-0 and a golden animal has landed in the field. */

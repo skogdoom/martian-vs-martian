@@ -48,7 +48,9 @@ const pen = (w, side, kind) => w.animals.filter((a) => a.kind === kind && a.pen 
 /** Put `n` lambs and one cow in `side`'s pen, delivered by `side`. */
 function fillPen(w, side, n) {
   const herd = [...lambs(w).slice(0, n), w.animals.find((a) => a.kind === 'cow')];
-  herd.forEach((a, i) => Object.assign(a, { state: 'penned', pen: side, owner: side, vx: 0, x: clampToPen((side === 'red' ? 30 : 1130) + i * 35, a.kind, side) }));
+  herd.forEach((a, i) =>
+    Object.assign(a, { state: 'penned', pen: side, owner: side, vx: 0, x: clampToPen((side === 'red' ? 30 : 1130) + i * 35, a.kind, side) }),
+  );
   return herd;
 }
 

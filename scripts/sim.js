@@ -152,8 +152,7 @@ function simulate(seed) {
       else if (e.type === 'pickup') {
         m.pickups++;
         if (e.kind === 'timebomb' && m.timeBombs.length) m.timeBombs.at(-1).moves++;
-      }
-      else if (e.type === 'land' && e.delivered) {
+      } else if (e.type === 'land' && e.delivered) {
         m.deliveries++;
         if (e.stolen) m.steals++;
         m.firstDelivery ??= t;
@@ -164,12 +163,10 @@ function simulate(seed) {
         if (t - m.lastBump < 0.3) m.bumpRepeats++;
         m.lastBump = t;
         bumpedAt.red = bumpedAt.blue = t;
-      }
-      else if (e.type === 'ram' && !e.shielded) {
+      } else if (e.type === 'ram' && !e.shielded) {
         m.rams++;
         m.ramDrops += round.events.filter((x) => x.type === 'knockLoose' && x.side === e.victim).length;
-      }
-      else if (e.type === 'dazed') m.dazes++;
+      } else if (e.type === 'dazed') m.dazes++;
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat') m.splats++;
       else if (e.type === 'timeBombDrop') m.timeBombs.push({ owner: e.side, moves: 0, outcome: null, count: 0 });
@@ -178,8 +175,7 @@ function simulate(seed) {
         const b = m.timeBombs.at(-1);
         b.outcome = !e.pen ? 'field' : e.pen === b.owner ? 'own' : 'theirs';
         b.count = e.count;
-      }
-      else if (e.type === 'wolfIncoming') m.wolf = { eatenField: 0, eatenPen: 0, own: 0, theirs: 0, left: false };
+      } else if (e.type === 'wolfIncoming') m.wolf = { eatenField: 0, eatenPen: 0, own: 0, theirs: 0, left: false };
       else if (e.type === 'wolfEat') m.wolf[e.pen ? 'eatenPen' : 'eatenField']++;
       else if (e.type === 'wolfLand' && e.pen && e.by) m.wolf[e.pen === e.by ? 'own' : 'theirs']++;
       else if (e.type === 'wolfLeaves') m.wolf.left = true;
@@ -252,8 +248,16 @@ console.table({
   'first delivery (median s)': median(results.map((r) => r.firstDelivery)),
   'field emptied (median s)': `${median(results.map((r) => r.fieldEmptyAt))} (${pct((r) => r.fieldEmptyAt !== null)} of rounds)`,
   'shots per player': (avg((r) => r.shots) / 2).toFixed(1),
-  'hit rate': `${((100 * avg((r) => r.hits)) / Math.max(1, avg((r) => r.shots))).toFixed(0)}%`,
-  [`after ${PIVOT} s: hooks / pickups / broken by shot / by drift`]: ['hooks', 'pickups', 'shot', 'drift'].map((k) => avg((r) => r.late[k]).toFixed(1)).join(' / '),
+  'hit rate': `${(
+    (100 * avg((r) => r.hits)) /
+    Math.max(
+      1,
+      avg((r) => r.shots),
+    )
+  ).toFixed(0)}%`,
+  [`after ${PIVOT} s: hooks / pickups / broken by shot / by drift`]: ['hooks', 'pickups', 'shot', 'drift']
+    .map((k) => avg((r) => r.late[k]).toFixed(1))
+    .join(' / '),
   [`after ${PIVOT} s: share of time a saucer is neither lifting nor carrying`]: `${((100 * avg((r) => r.late.idle)) / (LENGTH - PIVOT)).toFixed(0)}%`,
   'lead changes per round': avg((r) => r.leadChanges).toFixed(2),
   'score still changing in the last 10 s': pct((r) => r.lastScoreChange > LENGTH - 10),
@@ -293,7 +297,10 @@ console.table({
   'lifted again (avg times)': (tbs.reduce((s, b) => s + b.moves, 0) / Math.max(1, tbs.length)).toFixed(2),
   "went off in the opponent's pen / dropper's own pen": `${share('theirs')} / ${share('own')}`,
   'in the field / in a beam / not before the end': `${share('field')} / ${share('held')} / ${share(null)}`,
-  'animals blown out per pen blast': (tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').reduce((s, b) => s + b.count, 0) / Math.max(1, tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').length)).toFixed(2),
+  'animals blown out per pen blast': (
+    tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').reduce((s, b) => s + b.count, 0) /
+    Math.max(1, tbs.filter((b) => b.outcome === 'theirs' || b.outcome === 'own').length)
+  ).toFixed(2),
 });
 
 // ---- power-ups ----------------------------------------------------------
@@ -308,14 +315,23 @@ if (withDrop.length) {
     'rounds with at least one drop': `${withDrop.length} (${pct((r) => r.hasDrops)})`,
     'green men grabbed per round': avg((r) => r.grabs.length).toFixed(2),
     'grabber wins the round': rate(grabs, won),
-    'grabber wins when behind at the grab': rate(grabs.filter((g) => g.diff < 0), won),
-    'grabber wins when behind by 2+': rate(grabs.filter((g) => g.diff <= -2), won),
+    'grabber wins when behind at the grab': rate(
+      grabs.filter((g) => g.diff < 0),
+      won,
+    ),
+    'grabber wins when behind by 2+': rate(
+      grabs.filter((g) => g.diff <= -2),
+      won,
+    ),
   });
   const mean = (xs) => (xs.length ? (xs.reduce((a, b) => a + b, 0) / xs.length).toFixed(2) : '-');
   for (const type of config.POWERUP.types) {
     const gs = grabs.filter((g) => g.power === type);
     const swings = gs.map((g) => g.swing).filter((x) => x !== null);
-    powerRows[`${type}: lead gained during power / wins when behind`] = `${mean(swings)} pts / ${rate(gs.filter((g) => g.diff < 0), won)}`;
+    powerRows[`${type}: lead gained during power / wins when behind`] = `${mean(swings)} pts / ${rate(
+      gs.filter((g) => g.diff < 0),
+      won,
+    )}`;
   }
 }
 // Baseline: how often the player trailing at PIVOT wins when no power-up is in play.
@@ -323,9 +339,13 @@ const none = results.filter((r) => !r.hasDrops && r.diffAtPivot);
 if (none.length) {
   const trailingWins = (r) => (r.diffAtPivot < 0 ? r.result === 'red' : r.result === 'blue');
   powerRows[`no power-up: trailing at ${PIVOT} s wins`] = rate(none, trailingWins);
-  powerRows[`no power-up: trailing by 2+ at ${PIVOT} s wins`] = rate(none.filter((r) => Math.abs(r.diffAtPivot) >= 2), trailingWins);
+  powerRows[`no power-up: trailing by 2+ at ${PIVOT} s wins`] = rate(
+    none.filter((r) => Math.abs(r.diffAtPivot) >= 2),
+    trailingWins,
+  );
   const base = results.filter((r) => !r.hasDrops && r.baseSwing !== null).map((r) => r.baseSwing);
-  powerRows['no power-up: lead change over the same window (avg of |x|)'] = `${(base.reduce((a, b) => a + Math.abs(b), 0) / Math.max(1, base.length)).toFixed(2)} pts`;
+  powerRows['no power-up: lead change over the same window (avg of |x|)'] =
+    `${(base.reduce((a, b) => a + Math.abs(b), 0) / Math.max(1, base.length)).toFixed(2)} pts`;
 }
 console.log('\nPower-ups');
 console.table(powerRows);

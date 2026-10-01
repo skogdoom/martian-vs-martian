@@ -3,7 +3,13 @@ import { LENGTHS, ROUNDS, DEFAULT_OPTIONS, step, sanitize, loadOptions, saveOpti
 
 function fakeStorage(initial = {}) {
   const data = { ...initial };
-  return { getItem: (k) => data[k] ?? null, setItem: (k, v) => { data[k] = v; }, data };
+  return {
+    getItem: (k) => data[k] ?? null,
+    setItem: (k, v) => {
+      data[k] = v;
+    },
+    data,
+  };
 }
 
 describe('options', () => {
@@ -47,7 +53,14 @@ describe('options', () => {
   it('survives missing, broken or blocked storage', () => {
     expect(loadOptions(null)).toEqual(DEFAULT_OPTIONS);
     expect(loadOptions(fakeStorage({ 'martian-vs-martian.options': '{nope' }))).toEqual(DEFAULT_OPTIONS);
-    const blocked = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('full'); } };
+    const blocked = {
+      getItem() {
+        throw new Error('blocked');
+      },
+      setItem() {
+        throw new Error('full');
+      },
+    };
     expect(loadOptions(blocked)).toEqual(DEFAULT_OPTIONS);
     expect(() => saveOptions({ length: 60, rounds: 1 }, blocked)).not.toThrow();
   });

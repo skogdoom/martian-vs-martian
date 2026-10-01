@@ -93,7 +93,8 @@ export function createWolfSprite() {
       const howling = !aloft && !eating && w.bored > WOLF.boredAfter - 1.8;
       if (eating) head.rotation = 0.55 + 0.18 * Math.sin(t * 22);
       else if (howling) head.rotation = -0.9;
-      else if (aloft) head.rotation = Math.sin(t * 9) * 0.25; // snapping
+      else if (aloft)
+        head.rotation = Math.sin(t * 9) * 0.25; // snapping
       else head.rotation = 0;
       blood.visible = eating;
     },

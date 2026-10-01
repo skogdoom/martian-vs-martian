@@ -90,7 +90,8 @@ export function updateWolf(wolf, animals, dt, rng, events) {
   if (!prey) {
     wolf.bored += dt;
     if (wolf.bored >= WOLF.boredAfter) leave(wolf, events);
-    else if (state === 'field') updateAnimal(wolf, dt, rng); // pace about
+    else if (state === 'field')
+      updateAnimal(wolf, dt, rng); // pace about
     else wolf.vx = 0;
     return;
   }

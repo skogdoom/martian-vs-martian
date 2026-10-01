@@ -134,4 +134,11 @@ app.ticker.add((ticker) => {
 });
 
 // Handy for debugging in the console.
-window.__game = { app, game, session, get scene() { return scene; } };
+window.__game = {
+  app,
+  game,
+  session,
+  get scene() {
+    return scene;
+  },
+};

@@ -9,12 +9,18 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "sim": "node scripts/sim.js"
+    "sim": "node scripts/sim.js",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "pixi.js": "^8.21.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.11.0",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.9",
     "vite": "^8.3.1",
     "vitest": "^5.0.2"
   }

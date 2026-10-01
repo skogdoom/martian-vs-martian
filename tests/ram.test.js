@@ -55,7 +55,10 @@ describe('momentum', () => {
   }
 
   it('is kept when diving: turning down, or down alone', () => {
-    for (const dive of [{ x: 1, y: 1 }, { x: 0, y: 1 }]) {
+    for (const dive of [
+      { x: 1, y: 1 },
+      { x: 0, y: 1 },
+    ]) {
       const s = atFullMomentum();
       fly(s, dive, 0.5);
       expect(momentum(s)).toBe(1);
@@ -67,7 +70,13 @@ describe('momentum', () => {
   });
 
   it('is lost by pressing up, turning back or letting go', () => {
-    for (const input of [{ x: 1, y: -1 }, { x: 0, y: -1 }, { x: -1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 0 }]) {
+    for (const input of [
+      { x: 1, y: -1 },
+      { x: 0, y: -1 },
+      { x: -1, y: 0 },
+      { x: -1, y: 1 },
+      { x: 0, y: 0 },
+    ]) {
       const s = atFullMomentum();
       fly(s, input, STEP);
       expect(s.streak).toBe(0);

@@ -42,9 +42,7 @@ export function createSettingsScene(game, session) {
       t += dt;
       if (t < 0.2) return; // the press that opened this screen
       const id = menu.selected();
-      help.text = padSeenYet()
-        ? '↑ ↓ choose   ENTER / A: select   ESC: back'
-        : '↑ ↓ choose   ENTER or SPACE: select   ESC: back';
+      help.text = padSeenYet() ? '↑ ↓ choose   ENTER / A: select   ESC: back' : '↑ ↓ choose   ENTER or SPACE: select   ESC: back';
       if (id === 'back' || wasPressed('Escape')) game.go(createTitleScene, session);
     },
     render() {

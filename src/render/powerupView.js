@@ -34,7 +34,9 @@ export function drawBomb(g, r, spark = true) {
   g.circle(0, 0, r).fill(0x22252b);
   g.circle(-r * 0.35, -r * 0.35, r * 0.28).fill({ color: 0xffffff, alpha: 0.35 });
   g.rect(-r * 0.25, -r * 1.25, r * 0.5, r * 0.4).fill(0x6b6f78);
-  g.moveTo(0, -r * 1.25).quadraticCurveTo(r * 0.4, -r * 1.7, r * 0.7, -r * 1.55).stroke({ color: 0xc9a46a, width: Math.max(1, r * 0.15) });
+  g.moveTo(0, -r * 1.25)
+    .quadraticCurveTo(r * 0.4, -r * 1.7, r * 0.7, -r * 1.55)
+    .stroke({ color: 0xc9a46a, width: Math.max(1, r * 0.15) });
   if (spark) g.circle(r * 0.72, -r * 1.58, r * 0.28).fill(0xffd24a);
 }
 
@@ -65,13 +67,20 @@ export function createPowerIcon(type, r = 14) {
     if (type === 'timeBomb') {
       // A clock face on the bomb.
       g.circle(0, 0, 4.2 * s).fill(0xffffff);
-      g.moveTo(0, 0).lineTo(0, -3.2 * s).stroke({ color: 0xd0202a, width: 1.2 * s });
-      g.moveTo(0, 0).lineTo(2.4 * s, 0.8 * s).stroke({ color: 0x111111, width: 1.2 * s });
+      g.moveTo(0, 0)
+        .lineTo(0, -3.2 * s)
+        .stroke({ color: 0xd0202a, width: 1.2 * s });
+      g.moveTo(0, 0)
+        .lineTo(2.4 * s, 0.8 * s)
+        .stroke({ color: 0x111111, width: 1.2 * s });
     }
   } else if (type === 'twin') {
     // Two animals rising in two beams.
     for (const dx of [-4.5, 4.5]) {
-      g.poly([dx * s - 2 * s, -9 * s, dx * s + 2 * s, -9 * s, dx * s + 4 * s, 8 * s, dx * s - 4 * s, 8 * s]).fill({ color: POWER_COLOR, alpha: 0.35 });
+      g.poly([dx * s - 2 * s, -9 * s, dx * s + 2 * s, -9 * s, dx * s + 4 * s, 8 * s, dx * s - 4 * s, 8 * s]).fill({
+        color: POWER_COLOR,
+        alpha: 0.35,
+      });
       g.roundRect(dx * s - 3.5 * s, 0, 7 * s, 5 * s, 2 * s).fill(0xffffff);
     }
   } else if (type === 'shield') {
@@ -82,8 +91,12 @@ export function createPowerIcon(type, r = 14) {
     g.circle(-4 * s, -5.5 * s, 1.6 * s).fill({ color: 0xffffff, alpha: 0.7 });
   } else if (type === 'cowRain') {
     // A cow's face: horns, a black patch and a pink muzzle.
-    g.moveTo(-5 * s, -6 * s).lineTo(-9 * s, -10 * s).stroke({ color: 0xf2e6c8, width: 2 * s });
-    g.moveTo(5 * s, -6 * s).lineTo(9 * s, -10 * s).stroke({ color: 0xf2e6c8, width: 2 * s });
+    g.moveTo(-5 * s, -6 * s)
+      .lineTo(-9 * s, -10 * s)
+      .stroke({ color: 0xf2e6c8, width: 2 * s });
+    g.moveTo(5 * s, -6 * s)
+      .lineTo(9 * s, -10 * s)
+      .stroke({ color: 0xf2e6c8, width: 2 * s });
     g.ellipse(-9 * s, -3 * s, 3 * s, 1.8 * s).fill(0xffffff);
     g.ellipse(9 * s, -3 * s, 3 * s, 1.8 * s).fill(0xffffff);
     g.roundRect(-6.5 * s, -8 * s, 13 * s, 15 * s, 5 * s).fill(0xffffff);
@@ -144,9 +157,15 @@ function drawGreenMan(body) {
 
 export function drawParachute(g) {
   const top = -78;
-  g.moveTo(-26, top + 16).quadraticCurveTo(0, top - 18, 26, top + 16).lineTo(-26, top + 16).fill(0xf2f2f2);
+  g.moveTo(-26, top + 16)
+    .quadraticCurveTo(0, top - 18, 26, top + 16)
+    .lineTo(-26, top + 16)
+    .fill(0xf2f2f2);
   for (const x of [-13, 13]) g.rect(x - 4, top - 2, 8, 18).fill({ color: 0xe5484d, alpha: 0.85 });
-  for (const x of [-24, -8, 8, 24]) g.moveTo(x, top + 16).lineTo(0, -30).stroke({ color: 0xdddddd, width: 1 });
+  for (const x of [-24, -8, 8, 24])
+    g.moveTo(x, top + 16)
+      .lineTo(0, -30)
+      .stroke({ color: 0xdddddd, width: 1 });
 }
 
 /** Green man: parachute on the way down, a power-up sign over his head. */
@@ -247,7 +266,13 @@ export function createCrateView() {
   box.rect(-15, -26, 30, 26).fill(0x9c6b3a);
   for (const y of [-18, -9]) box.rect(-15, y, 30, 1.5).fill(0x6e4a26);
   box.rect(-15, -26, 30, 26).stroke({ color: 0x5a3b1c, width: 2 });
-  for (const [x, y] of [[-15, -26], [15, -26], [-15, 0], [15, 0]]) box.rect(x - 3, y - 3, 6, 6).fill(0x8a8f99);
+  for (const [x, y] of [
+    [-15, -26],
+    [15, -26],
+    [-15, 0],
+    [15, 0],
+  ])
+    box.rect(x - 3, y - 3, 6, 6).fill(0x8a8f99);
   for (const x of [-7, 0, 7]) {
     box.rect(x - 2.2, -19, 4.4, 9).fill(0xd9a93a);
     box.circle(x, -19, 2.2).fill(0xe8c15a);

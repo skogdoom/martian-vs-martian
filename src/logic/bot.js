@@ -88,8 +88,8 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
       const theirPen = ARENA.pens[other(side)];
       const theirPenX = (theirPen.left + theirPen.right) / 2;
       const inTheirPen = w.animals.filter((a) => a.state === 'penned' && a.pen === other(side)).length;
-      let tx = s.x;
-      let ty = s.y;
+      let tx; // where to steer: every branch below sets both
+      let ty;
       let dropBomb = false;
       let letGoOfIt = false;
       let ramming = false;

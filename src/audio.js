@@ -303,7 +303,10 @@ export const SOUNDS = {
     envelope(g.gain, t, dur, 0.2, 0.35, 1.0);
     const f = filter(ac, 'lowpass', 1800, 1);
     f.connect(g).connect(out);
-    for (const [type, mul, peak] of [['sine', 1, 1], ['triangle', 2, 0.25]]) {
+    for (const [type, mul, peak] of [
+      ['sine', 1, 1],
+      ['triangle', 2, 0.25],
+    ]) {
       const o = osc(ac, type, 330 * mul, t);
       o.frequency.exponentialRampToValueAtTime(560 * mul, t + 0.5);
       o.frequency.setValueAtTime(560 * mul, t + 1.3);
@@ -464,7 +467,10 @@ export const SOUNDS = {
 
   /** Two low horn blasts as an ammo crate comes down. */
   horn(ac, out, t) {
-    for (const [at, freq] of [[0, 196], [0.28, 262]]) {
+    for (const [at, freq] of [
+      [0, 196],
+      [0.28, 262],
+    ]) {
       const f = filter(ac, 'lowpass', 1100, 1);
       f.connect(out);
       tone(ac, f, t + at, { type: 'sawtooth', freq, dur: 0.26, peak: 0.2, attack: 0.02, hold: 0.12 });
