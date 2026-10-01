@@ -159,7 +159,7 @@ export const SUPPLY = {
 // Either player can grab it; it goes into the ship like the green man.
 export const AMMO_CRATE = {
   before: 0.5, // only when someone runs out before this share of the round
-  refill: 9, // shots it gives (up to COMBAT.ammoPerRound)
+  refill: 9, // shots it gives in a 90 s round, scaled with the round length (up to the round's cap)
 };
 
 // Animals that fall further than this burst in a cloud of blood and are lost

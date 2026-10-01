@@ -2,6 +2,7 @@
 
 import { Container, Graphics } from 'pixi.js';
 import { label } from './text.js';
+import { createListView } from './listView.js';
 
 export const POWER_NAMES = {
   speed: 'SPEED BOOST',
@@ -297,20 +298,5 @@ export function createCrateView() {
 
 /** Draws every drop in the world, making views for new ones as they arrive. */
 export function createDropsView() {
-  const view = new Container();
-  const views = new Map();
-  return {
-    view,
-    sync(drops, t) {
-      for (const d of drops) {
-        if (!views.has(d)) {
-          const make = { crate: createCrateView, package: createPackageView }[d.kind] ?? createGreenManView;
-          const v = make();
-          views.set(d, v);
-          view.addChild(v.view);
-        }
-        views.get(d).sync(d, t);
-      }
-    },
-  };
+  return createListView((d) => ({ crate: createCrateView, package: createPackageView })[d.kind]?.() ?? createGreenManView());
 }

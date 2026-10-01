@@ -5,6 +5,7 @@ import { Container, Graphics } from 'pixi.js';
 import { ANIMALS } from '../config.js';
 import { drawBomb } from './powerupView.js';
 import { label } from './text.js';
+import { createListView } from './listView.js';
 
 const R = 15;
 
@@ -53,19 +54,5 @@ export function createTimeBombSprite() {
 }
 
 export function createTimeBombsView() {
-  const view = new Container();
-  const views = new Map();
-  return {
-    view,
-    sync(bombs, t) {
-      for (const b of bombs) {
-        if (!views.has(b)) {
-          const v = createTimeBombSprite();
-          views.set(b, v);
-          view.addChild(v.view);
-        }
-        views.get(b).sync(b, t);
-      }
-    },
-  };
+  return createListView(createTimeBombSprite);
 }

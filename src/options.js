@@ -16,10 +16,11 @@ export function ammoFor(length) {
 
 const KEY = 'martian-vs-martian.options';
 
-/** The next value in `list` after `value`, one step in `dir` (-1/+1), stopping at the ends. */
+/** The next value in `list` after `value`, one step in `dir` (-1/+1), stopping
+ * at the ends. A value not in the list steps from the first one. */
 export function step(list, value, dir) {
-  const i = list.indexOf(value);
-  return list[Math.max(0, Math.min(list.length - 1, (i < 0 ? list.indexOf(DEFAULT_OPTIONS.length) : i) + dir))];
+  const i = Math.max(0, list.indexOf(value));
+  return list[Math.max(0, Math.min(list.length - 1, i + dir))];
 }
 
 /** Check a stored value; anything not on offer falls back to the default. */

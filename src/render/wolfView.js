@@ -4,6 +4,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { WOLF } from '../config.js';
 import { drawParachute } from './powerupView.js';
+import { createListView } from './listView.js';
 
 const FUR = 0x8a9099;
 const DARK = 0x5f656e;
@@ -103,19 +104,5 @@ export function createWolfSprite() {
 
 /** Draws every wolf in the world, making views for new ones as they arrive. */
 export function createWolvesView() {
-  const view = new Container();
-  const views = new Map();
-  return {
-    view,
-    sync(wolves, t) {
-      for (const w of wolves) {
-        if (!views.has(w)) {
-          const v = createWolfSprite();
-          views.set(w, v);
-          view.addChild(v.view);
-        }
-        views.get(w).sync(w, t);
-      }
-    },
-  };
+  return createListView(createWolfSprite);
 }

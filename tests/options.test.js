@@ -30,6 +30,8 @@ describe('options', () => {
     expect(step(LENGTHS, 60, -1)).toBe(60);
     expect(step(ROUNDS, 3, 1)).toBe(5);
     expect(step(ROUNDS, 1, -1)).toBe(1);
+    expect(step(ROUNDS, 4, 1)).toBe(3); // not on offer: from the first
+    expect(step(LENGTHS, undefined, -1)).toBe(60);
   });
 
   it('scales the ammo with the round length', () => {

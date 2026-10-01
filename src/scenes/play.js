@@ -1,8 +1,8 @@
 // Play scene: one round, from the countdown to the final whistle.
 
-import { Container, Graphics } from 'pixi.js';
+import { Container } from 'pixi.js';
 import { WIDTH, AMMO_CRATE, BOT, RAM, PAUSE_KEY } from '../config.js';
-import { layout, PAD } from '../layout.js';
+import { layout } from '../layout.js';
 import { onUnexpectedExit } from '../fullscreen.js';
 import { createMenu, settingsItems } from '../render/menu.js';
 import { momentum, speed } from '../logic/saucer.js';
@@ -27,6 +27,7 @@ import { createTimeBombsView } from '../render/timeBombView.js';
 import { COLORS } from '../render/backdrop.js';
 import { createHud } from '../render/hud.js';
 import { label } from '../render/text.js';
+import { dimmer } from '../render/uiLayer.js';
 import { createRoundEndScene } from './roundEnd.js';
 import { createTitleScene } from './title.js';
 
@@ -86,11 +87,17 @@ export function createPlayScene(game, session) {
     announcement.tint = color;
     announceLeft = 2.2;
   }
+  /** Trouble (the wolf, a time bomb) landed in a pen: whose, and who put it there. */
+  function landsInPen(what, { pen, by }) {
+    if (!by) announce(`${what} LANDS IN ${name(pen)}'S PEN!`, COLORS[pen]);
+    else if (by === pen) announce(`${name(by)} PUTS ${what} IN ITS OWN PEN!`, COLORS[by]);
+    else announce(`${name(by)} PUTS ${what} IN ${name(pen)}'S PEN!`, COLORS[by]);
+  }
 
   // Pause: P or Esc, or Start on a controller. Everything freezes, sound included,
   // and a menu comes up, which a controller can use fully.
   let paused = false;
-  const dim = new Graphics().rect(0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.6 });
+  const dim = dimmer(0.6);
   const pausedTitle = label('PAUSED', { size: 72, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
   pausedTitle.position.set(WIDTH / 2, 165);
   const pauseMenuView = createMenu({
@@ -247,11 +254,7 @@ export function createPlayScene(game, session) {
           announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} TO TURN INTO ${to}`, COLORS[e.side]);
         }
         if (e.type === 'wolfIncoming') announce('A WOLF IS LOOSE! IT EATS LAMBS', 0xcfd6ff);
-        if (e.type === 'wolfLand' && e.pen) {
-          if (!e.by) announce(`THE WOLF LANDS IN ${name(e.pen)}'S PEN!`, COLORS[e.pen]);
-          else if (e.by === e.pen) announce(`${name(e.by)} PUTS THE WOLF IN ITS OWN PEN!`, COLORS[e.by]);
-          else announce(`${name(e.by)} PUTS THE WOLF IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
-        }
+        if (e.type === 'wolfLand' && e.pen) landsInPen('THE WOLF', e);
         if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
         if (e.type === 'hit' && !e.shielded) rumble(e.side, 150, 0.7);
         if (e.type === 'ram' && !e.shielded) rumble(e.victim, 300, 1);
@@ -260,11 +263,7 @@ export function createPlayScene(game, session) {
         if (e.type === 'ram') {
           announce(e.shielded ? `${name(e.side)}'S RAM BOUNCES OFF THE SHIELD` : `${name(e.side)} RAMS ${name(e.victim)}!`, COLORS[e.side]);
         }
-        if (e.type === 'timeBombLand' && e.pen) {
-          if (!e.by) announce(`THE TIME BOMB LANDS IN ${name(e.pen)}'S PEN!`, COLORS[e.pen]);
-          else if (e.by === e.pen) announce(`${name(e.by)} PUTS THE TIME BOMB IN ITS OWN PEN!`, COLORS[e.by]);
-          else announce(`${name(e.by)} PUTS THE TIME BOMB IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
-        }
+        if (e.type === 'timeBombLand' && e.pen) landsInPen('THE TIME BOMB', e);
         if (e.type === 'timeBombHeld') announce(`${name(e.side)} WAS HOLDING THE TIME BOMB!`, COLORS[e.side]);
         if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
         if (e.type === 'spooked') announce(`${name(e.side)}'S ANIMALS ARE SPOOKED!`, COLORS[e.side]);

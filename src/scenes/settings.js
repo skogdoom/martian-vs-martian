@@ -1,12 +1,11 @@
 // Settings, from the title screen: the same sound, full screen and 16:9
 // items as the pause menu. Esc or "Back" returns to the title screen.
 
-import { Container, Graphics } from 'pixi.js';
+import { Container } from 'pixi.js';
 import { WIDTH } from '../config.js';
-import { PAD } from '../layout.js';
 import { wasPressed, padSeenYet } from '../input.js';
 import { createBackdrop } from '../render/backdrop.js';
-import { centerUi } from '../render/uiLayer.js';
+import { centerUi, dimmer } from '../render/uiLayer.js';
 import { createMenu, settingsItems } from '../render/menu.js';
 import { label } from '../render/text.js';
 import { createTitleScene } from './title.js';
@@ -15,7 +14,7 @@ export function createSettingsScene(game, session) {
   const view = new Container();
   const backdrop = createBackdrop();
   view.addChild(backdrop.view);
-  view.addChild(new Graphics().rect(0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.6 }));
+  view.addChild(dimmer(0.6));
 
   const title = label('SETTINGS', { size: 72, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
   title.position.set(WIDTH / 2, 190);

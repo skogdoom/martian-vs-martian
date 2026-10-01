@@ -1,13 +1,12 @@
-// Title screen with the menu: four rows.
-//   up/down      move between mode (1 or 2 players), round length and rounds
+// Title screen with the menu: five rows.
+//   up/down      move between the rows: 1 player, 2 players, round length, rounds, settings
 //   left/right   change the value on the row: CPU difficulty, 60/90/120 s, best of 1/3/5/7
 //   1 / 2        pick the mode directly
-//   Enter/Space  start
+//   Enter/Space  start (or open the settings)
 
-import { Container, Graphics } from 'pixi.js';
+import { Container } from 'pixi.js';
 import { WIDTH } from '../config.js';
-import { PAD } from '../layout.js';
-import { centerUi } from '../render/uiLayer.js';
+import { centerUi, dimmer } from '../render/uiLayer.js';
 import { wasPressed, padSeenYet } from '../input.js';
 import { audioUnlocked } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
@@ -34,7 +33,7 @@ export function createTitleScene(game, session) {
   const herdView = createAnimalView(herd);
   const saucers = { red: createSaucerView('red'), blue: createSaucerView('blue') };
   view.addChild(herdView.view, saucers.red.view, saucers.blue.view);
-  view.addChild(new Graphics().rect(0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.25 }));
+  view.addChild(dimmer(0.25));
 
   const cx = WIDTH / 2;
   const red = label('MARTIAN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
@@ -57,7 +56,7 @@ export function createTitleScene(game, session) {
   const blueKeys = label('', { size: 20, color: COLORS.blue, anchorX: 0.5 });
   blueKeys.position.set(cx + 220, 290);
 
-  // The menu: four rows. Up/down moves between them, left/right changes a value.
+  // The menu. Up/down moves between the rows, left/right changes a value.
   //   0  1 PLAYER vs CPU   difficulty
   //   1  2 PLAYERS
   //   2  round length

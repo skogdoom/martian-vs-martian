@@ -504,16 +504,8 @@ function guardFinite(w) {
   for (const list of [w.animals, w.drops, w.wolves, w.timeBombs]) {
     for (const a of list) {
       if (a.state === 'gone' || finite(a)) continue;
-      for (const side of SIDES) {
-        const h = w.hooks[side];
-        if (h.target === a) h.target = null;
-        if (h.second === a) h.second = null;
-        if (h.carrying === a) {
-          h.carrying = h.second;
-          h.second = null;
-        }
-      }
-      Object.assign(a, { state: 'gone', pen: null, hookedBy: null });
+      for (const side of SIDES) unhook(w, side, a);
+      Object.assign(a, { state: 'gone', pen: null });
     }
   }
   for (const p of w.projectiles) if (!finite(p)) p.alive = false;
