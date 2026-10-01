@@ -1,11 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { STEP, ROUND } from '../src/config.js';
-import { createMatch, recordRound, roundWinner, roundNumber } from '../src/logic/match.js';
+import { createMatch, recordRound, roundWinner, roundNumber, isSuddenDeath } from '../src/logic/match.js';
 import { createTally, addRoundToTally, addMatchToTally } from '../src/logic/tally.js';
 import { createRound, stepRound } from '../src/logic/round.js';
+import { createWorld, stepWorld, spawnCrate } from '../src/logic/world.js';
+import { addAmmo } from '../src/logic/weapon.js';
+import { ammoFor } from '../src/options.js';
 
-function play(results) {
-  const m = createMatch();
+function play(results, rounds = 3) {
+  const m = createMatch(rounds);
   const outcomes = results.map((r) => recordRound(m, r));
   return { m, outcomes };
 }
@@ -48,31 +51,27 @@ describe('match rules', () => {
     expect(b.m.winner).toBe('red');
   });
 
-  it('adds two rounds when wins are level after the scheduled rounds', () => {
+  it('goes to sudden death when wins are level after the scheduled rounds', () => {
     const { m, outcomes } = play(['red', 'blue', 'tie']);
     expect(outcomes[2]).toBe('extended');
-    expect(m.scheduled).toBe(5);
+    expect(m.scheduled).toBe(4);
+    expect(m.rounds).toBe(3);
     expect(m.over).toBe(false);
+    expect(isSuddenDeath(m)).toBe(true);
   });
 
-  it('keeps extending: best of 3 → 5 → 7', () => {
-    const { m } = play(['tie', 'tie', 'tie', 'tie', 'tie']);
-    expect(m.scheduled).toBe(7);
+  it('keeps playing one round at a time until someone wins one', () => {
+    const { m } = play(['red', 'blue', 'tie', 'tie', 'tie']);
+    expect(m.scheduled).toBe(6);
     expect(m.over).toBe(false);
-    recordRound(m, 'blue');
-    expect(m.over).toBe(false); // 0-1 with one round left
-    recordRound(m, 'blue');
-    expect(m.over).toBe(true);
+    expect(recordRound(m, 'blue')).toBe('over');
     expect(m.winner).toBe('blue');
   });
 
-  it('ends early inside an extension', () => {
-    const { m, outcomes } = play(['red', 'blue', 'tie', 'blue']);
-    expect(m.scheduled).toBe(5);
-    expect(outcomes[3]).toBe('continue'); // 1-2 with one left
-    recordRound(m, 'tie');
-    expect(m.over).toBe(true);
-    expect(m.winner).toBe('blue');
+  it('ends early inside sudden death only on a win', () => {
+    const { m, outcomes } = play(['red', 'blue', 'tie', 'red']);
+    expect(outcomes[3]).toBe('over');
+    expect(m.winner).toBe('red');
   });
 
   it('refuses rounds after the match is over', () => {
@@ -116,5 +115,102 @@ describe('round timing', () => {
     }
     expect(events.map((e) => e.n ?? e.type)).toEqual([3, 2, 1, 'go', 'roundEnd']);
     expect(steps * STEP).toBeCloseTo(ROUND.countdown + ROUND.length, 1);
+  });
+});
+
+describe('best of 1, 5 and 7', () => {
+  it('best of 1: the first win takes it', () => {
+    const { m, outcomes } = play(['blue'], 1);
+    expect(outcomes).toEqual(['over']);
+    expect(m.winner).toBe('blue');
+  });
+
+  it('best of 1: a tie is followed by sudden death', () => {
+    const { m, outcomes } = play(['tie'], 1);
+    expect(outcomes).toEqual(['extended']);
+    expect(isSuddenDeath(m)).toBe(true);
+    expect(recordRound(m, 'red')).toBe('over');
+    expect(m.winner).toBe('red');
+  });
+
+  it('best of 5 needs three wins and ends as soon as they are in', () => {
+    const { m, outcomes } = play(['red', 'blue', 'red', 'tie', 'red'], 5);
+    expect(outcomes).toEqual(['continue', 'continue', 'continue', 'continue', 'over']);
+    expect(m.winner).toBe('red');
+  });
+
+  it('best of 5 ends early when the rest cannot change it', () => {
+    const { m, outcomes } = play(['blue', 'blue', 'blue'], 5);
+    expect(outcomes[2]).toBe('over');
+    expect(m.results).toHaveLength(3);
+  });
+
+  it('best of 7 goes the distance when it stays close', () => {
+    const results = ['red', 'blue', 'red', 'blue', 'red', 'blue', 'tie'];
+    const { m, outcomes } = play(results, 7);
+    expect(outcomes.slice(0, 6)).toEqual(Array(6).fill('continue'));
+    expect(outcomes[6]).toBe('extended');
+    expect(m.scheduled).toBe(8);
+  });
+
+  it('the default is best of 3', () => {
+    expect(createMatch().rounds).toBe(3);
+  });
+});
+
+describe('round lengths', () => {
+  for (const length of [60, 90, 120]) {
+    it(`${length} s: counts down, plays ${length} s, and scales its timed events`, () => {
+      const r = createRound(1, length);
+      expect(r.length).toBe(length);
+      expect(r.timeLeft).toBe(length);
+      let steps = 0;
+      let wolf = null;
+      const drops = [];
+      while (r.phase !== 'over' && steps < 20000) {
+        stepRound(r, {}, STEP);
+        steps++;
+        if (r.phase !== 'play') continue;
+        for (const e of r.events) if (e.type === 'dropIncoming') drops.push(length - r.timeLeft);
+        if (r.events.some((e) => e.type === 'wolfIncoming')) wolf = length - r.timeLeft;
+      }
+      expect(steps * STEP).toBeCloseTo(ROUND.countdown + length, 1);
+      if (wolf !== null) expect(wolf / length).toBeGreaterThan(0.2);
+      for (const t of drops) expect(t / length).toBeGreaterThan(0.25);
+    });
+  }
+
+  it('120 s rounds plan a third green-man drop, shorter ones two', () => {
+    expect(createRound(1, 60).drops).toHaveLength(2);
+    expect(createRound(1, 90).drops).toHaveLength(2);
+    expect(createRound(1, 120).drops).toHaveLength(3);
+  });
+
+  it('ammo scales with the length: 12, 18 and 24 shots', () => {
+    expect(ammoFor(60)).toBe(12);
+    expect(ammoFor(90)).toBe(18);
+    expect(ammoFor(120)).toBe(24);
+    for (const length of [60, 90, 120]) {
+      const r = createRound(1, length);
+      expect(r.world.weapons.red.ammo).toBe(ammoFor(length));
+      expect(r.world.weapons.blue.cap).toBe(ammoFor(length));
+    }
+  });
+
+  it('the ammo crate refills half the ammo, up to the cap', () => {
+    for (const length of [60, 90, 120]) {
+      const w = createWorld(1, { ammo: ammoFor(length) });
+      w.saucers.blue.y = 100;
+      spawnCrate(w, 'red');
+      for (let t = 0; t < 12 && !w.events.some((e) => e.type === 'dropLanded'); t += STEP) stepWorld(w, {}, STEP);
+      const crate = w.drops[0];
+      w.weapons.red.ammo = 0;
+      Object.assign(w.saucers.red, { x: crate.x, y: 470, vx: 0, vy: 0 });
+      for (let t = 0; t < 3 && !w.events.some((e) => e.type === 'ammoCrate'); t += STEP) stepWorld(w, {}, STEP);
+      expect(w.weapons.red.ammo).toBe(ammoFor(length) / 2);
+    }
+    const w = createWorld(1, { ammo: 12 });
+    addAmmo(w.weapons.red, 100);
+    expect(w.weapons.red.ammo).toBe(12);
   });
 });

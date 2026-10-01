@@ -3,6 +3,7 @@
 
 import { createMatch } from './logic/match.js';
 import { createTally } from './logic/tally.js';
+import { loadOptions } from './options.js';
 
 export const DIFFICULTIES = ['easy', 'normal', 'hard'];
 
@@ -10,6 +11,7 @@ export function createSession() {
   return {
     players: 2, // 1: Red against the CPU, 2: Red against Blue
     difficulty: 'normal',
+    ...loadOptions(), // length (round seconds) and rounds (best of), remembered between visits
     tallies: {}, // one per mode, e.g. '2p', '1p-hard'
     tally: null,
     match: null,
@@ -20,7 +22,7 @@ export function createSession() {
 export function startMatch(session) {
   const key = session.players === 1 ? `1p-${session.difficulty}` : '2p';
   session.tally = session.tallies[key] ??= createTally();
-  session.match = createMatch();
+  session.match = createMatch(session.rounds);
 }
 
 export function isCpu(session, side) {
@@ -31,6 +33,11 @@ export function isCpu(session, side) {
 export function sideName(session, side) {
   if (isCpu(session, side)) return 'CPU';
   return side.toUpperCase();
+}
+
+/** E.g. "BEST OF 3 · 90 S ROUNDS". */
+export function rulesName(session) {
+  return `BEST OF ${session.rounds} · ${session.length} S ROUNDS`;
 }
 
 /** A short description of the mode, e.g. "1 PLAYER vs CPU (HARD)". */

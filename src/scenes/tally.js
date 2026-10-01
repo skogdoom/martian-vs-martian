@@ -4,7 +4,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT } from '../config.js';
 import { anyPressed, wasPressed } from '../input.js';
-import { startMatch, sideName, modeName } from '../session.js';
+import { startMatch, sideName, modeName, rulesName } from '../session.js';
 import { createTitleScene } from './title.js';
 import { createBackdrop, COLORS } from '../render/backdrop.js';
 import { label } from '../render/text.js';
@@ -29,6 +29,8 @@ export function createTallyScene(game, session) {
     put(label(`${name} WINS THE MATCH`, { size: 48, color: COLORS[match.winner], bold: true, anchorX: 0.5 }), cx, 110);
   }
   put(label(`TALLY · ${modeName(session)}`, { size: 24, color: 0xcfd6ff, bold: true, anchorX: 0.5 }), cx, 190);
+
+  put(label(rulesName(session), { size: 15, color: 0x8a93c0, anchorX: 0.5 }), cx, 220);
 
   const colX = { label: cx - 260, red: cx + 20, blue: cx + 220 };
   put(label(sideName(session, 'red'), { size: 26, color: COLORS.red, bold: true, anchorX: 0.5 }), colX.red, 250);

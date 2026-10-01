@@ -1,7 +1,7 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { Container, Graphics } from 'pixi.js';
-import { WIDTH, HEIGHT, AMMO_CRATE, BOT, ROUND, RAM, PAUSE_KEY } from '../config.js';
+import { WIDTH, HEIGHT, AMMO_CRATE, BOT, RAM, PAUSE_KEY } from '../config.js';
 import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
@@ -11,7 +11,7 @@ import { handleEvents, stopVoices, setAudioPaused, toggleMute, isMuted } from '.
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
-import { roundWinner, recordRound, roundNumber } from '../logic/match.js';
+import { roundWinner, recordRound, roundNumber, isSuddenDeath } from '../logic/match.js';
 import { addRoundToTally, addMatchToTally } from '../logic/tally.js';
 import { createBackdrop } from '../render/backdrop.js';
 import { createSaucerView } from '../render/saucerView.js';
@@ -30,7 +30,7 @@ import { createTitleScene } from './title.js';
 export function createPlayScene(game, session) {
   const { match, tally } = session;
   const number = roundNumber(match);
-  const round = createRound();
+  const round = createRound(undefined, session.length);
   const { world } = round;
 
   // `stage` holds the arena and shakes; the HUD and banners sit above it and don't.
@@ -60,12 +60,12 @@ export function createPlayScene(game, session) {
   const hud = createHud({ red: sideName(session, 'red'), blue: sideName(session, 'blue') });
   const name = (side) => sideName(session, side);
   // In a 1-player game the CPU flies Blue and the player may use either key set.
-  const cpu = isCpu(session, 'blue') ? createBot('blue', createRng(), BOT[session.difficulty]) : null;
+  const cpu = isCpu(session, 'blue') ? createBot('blue', createRng(), BOT[session.difficulty], session.length) : null;
   view.addChild(stage, hud.view);
 
   const banner = label('', { size: 96, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
   banner.position.set(WIDTH / 2, 280);
-  const sub = label(`ROUND ${number}`, { size: 28, color: 0xcfd6ff, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  const sub = label(isSuddenDeath(match) ? 'SUDDEN DEATH' : `ROUND ${number}`, { size: 28, color: 0xcfd6ff, bold: true, anchorX: 0.5, anchorY: 0.5 });
   sub.position.set(WIDTH / 2, 200);
   view.addChild(banner, sub);
 
@@ -227,7 +227,7 @@ export function createPlayScene(game, session) {
         return;
       }
       t += dt;
-      const elapsed = ROUND.length - round.timeLeft;
+      const elapsed = round.length - round.timeLeft;
       const inputs = cpu
         ? { red: soloInput(), blue: round.phase === 'play' ? cpu.think(world, dt, elapsed) : undefined }
         : { red: playerInput('red'), blue: playerInput('blue') };

@@ -6,6 +6,7 @@
 //   npm run sim -- 1000          more rounds
 //   npm run sim -- 300 HOOK.stillSpeed=50 SAUCER.drag=4   try overrides
 //   npm run sim -- 500 RED=easy BLUE=hard                  pit CPU difficulties
+//   npm run sim -- 500 LENGTH=60                            round length in seconds (ammo scales with it)
 //
 // Bots press keys like people do (-1/0/+1 per axis), re-decide every
 // ~0.1 s, and have a bit of aim and steering noise.
@@ -22,6 +23,7 @@ const { STEP, ANIMALS } = config;
 // ---- command line -------------------------------------------------------
 
 const args = process.argv.slice(2);
+let LENGTH = config.ROUND.length;
 let SLOPPY = 0;
 let PICKY = 0; // PICKY=1: only shoot at an opponent who is lifting or carrying
 let HUNT_WITH_GUN = 0.8; // how keen bots are to chase the opponent with a laser or triple shot
@@ -29,11 +31,12 @@ const LEVELS = { red: null, blue: null }; // RED=easy BLUE=hard: named difficult
 const rounds = Number(args.find((a) => /^\d+$/.test(a)) ?? 300);
 for (const a of args.filter((a) => a.includes('='))) {
   const [path, value] = a.split('=');
+  if (path === 'LENGTH') LENGTH = Number(value);
   if (path === 'SLOPPY') SLOPPY = Number(value);
   if (path === 'PICKY') PICKY = Number(value);
   if (path === 'HUNT_WITH_GUN') HUNT_WITH_GUN = Number(value);
   if (path === 'RED' || path === 'BLUE') LEVELS[path.toLowerCase()] = value;
-  if (['SLOPPY', 'PICKY', 'HUNT_WITH_GUN', 'RED', 'BLUE'].includes(path)) continue;
+  if (['LENGTH', 'SLOPPY', 'PICKY', 'HUNT_WITH_GUN', 'RED', 'BLUE'].includes(path)) continue;
   const keys = path.split('.');
   let obj = config;
   for (const k of keys.slice(0, -1)) obj = obj[k];
@@ -43,7 +46,7 @@ for (const a of args.filter((a) => a.includes('='))) {
 
 // Reference time for "late game" and comeback baselines: about when the
 // last green man is usually grabbed.
-const PIVOT = Math.round(config.ROUND.length * config.POWERUP.dropTimes.at(-1) + 6);
+const PIVOT = Math.round(LENGTH * (LENGTH >= config.POWERUP.longRoundFrom ? config.POWERUP.longDropTimes : config.POWERUP.dropTimes).at(-1) + 6);
 
 // ---- bots ---------------------------------------------------------------
 
@@ -71,9 +74,9 @@ function skillFor(side, rng) {
 
 function simulate(seed) {
   const rng = createRng(seed);
-  const round = createRound(seed);
+  const round = createRound(seed, LENGTH);
   const w = round.world;
-  const bots = { red: createBot('red', rng, skillFor('red', rng)), blue: createBot('blue', rng, skillFor('blue', rng)) };
+  const bots = { red: createBot('red', rng, skillFor('red', rng), LENGTH), blue: createBot('blue', rng, skillFor('blue', rng), LENGTH) };
   const m = {
     hooks: 0,
     accidental: 0, // hook broken by drift within 0.25 s
@@ -203,7 +206,7 @@ function simulate(seed) {
       if (now !== 'tie' && leader !== 'tie' && now !== leader) m.leadChanges++;
       if (now !== 'tie') leader = now;
     }
-    if (m.leadAtCheck === null && t >= config.ROUND.length * config.GOLDEN.checkAt) m.leadAtCheck = Math.abs(p.red - p.blue);
+    if (m.leadAtCheck === null && t >= LENGTH * config.GOLDEN.checkAt) m.leadAtCheck = Math.abs(p.red - p.blue);
     if (m.diffAtPivot === null && t >= PIVOT) m.diffAtPivot = p.red - p.blue;
     for (const g of m.grabs) {
       if (g.swing === null && t >= g.t + config.POWERUP.duration) g.swing = p[g.side] - p[other(g.side)] - g.diff;
@@ -251,9 +254,9 @@ console.table({
   'shots per player': (avg((r) => r.shots) / 2).toFixed(1),
   'hit rate': `${((100 * avg((r) => r.hits)) / Math.max(1, avg((r) => r.shots))).toFixed(0)}%`,
   [`after ${PIVOT} s: hooks / pickups / broken by shot / by drift`]: ['hooks', 'pickups', 'shot', 'drift'].map((k) => avg((r) => r.late[k]).toFixed(1)).join(' / '),
-  [`after ${PIVOT} s: share of time a saucer is neither lifting nor carrying`]: `${((100 * avg((r) => r.late.idle)) / (config.ROUND.length - PIVOT)).toFixed(0)}%`,
+  [`after ${PIVOT} s: share of time a saucer is neither lifting nor carrying`]: `${((100 * avg((r) => r.late.idle)) / (LENGTH - PIVOT)).toFixed(0)}%`,
   'lead changes per round': avg((r) => r.leadChanges).toFixed(2),
-  'score still changing in the last 10 s': pct((r) => r.lastScoreChange > config.ROUND.length - 10),
+  'score still changing in the last 10 s': pct((r) => r.lastScoreChange > LENGTH - 10),
   'ammo used up (median s)': median(results.flatMap((r) => [r.ammoOutAt.red, r.ammoOutAt.blue])),
   bumps: `${avg((r) => r.bumps).toFixed(1)} (${avg((r) => r.bumpRepeats).toFixed(1)} within 0.3 s of the last)`,
   'dazed by three hits in a row': avg((r) => r.dazes).toFixed(2),
@@ -264,7 +267,7 @@ console.table({
 });
 
 function ROUND_LENGTH() {
-  return config.ROUND.length;
+  return LENGTH;
 }
 
 // ---- the wolf -----------------------------------------------------------
@@ -339,7 +342,7 @@ console.table(powerRows);
   const byLeader = dropped.filter((r) => r.golden.deliveredBy && r.golden.deliveredBy !== r.golden.trailing);
   console.log('\nGolden animals');
   console.table({
-    [`lead at ${Math.round(config.ROUND.length * config.GOLDEN.checkAt)} s: 2+ / 3+ / 4+ / 5+`]: [2, 3, 4, 5].map(share).join(' / '),
+    [`lead at ${Math.round(LENGTH * config.GOLDEN.checkAt)} s: 2+ / 3+ / 4+ / 5+`]: [2, 3, 4, 5].map(share).join(' / '),
     'rounds with a golden animal': `${dropped.length} (${pct((r) => r.golden)})`,
     'delivered by the trailing player': rate(dropped, (r) => r.golden.deliveredBy === r.golden.trailing),
     'delivered by the leader': rate(dropped, (r) => r.golden.deliveredBy && r.golden.deliveredBy !== r.golden.trailing),

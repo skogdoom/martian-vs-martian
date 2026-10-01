@@ -20,10 +20,10 @@ export function opponent(side) {
   return side === 'red' ? 'blue' : 'red';
 }
 
-export function createWorld(seed) {
+export function createWorld(seed, { ammo = COMBAT.ammoPerRound } = {}) {
   return {
     saucers: { red: createSaucer('red'), blue: createSaucer('blue') },
-    weapons: { red: createWeapon(), blue: createWeapon() },
+    weapons: { red: createWeapon(ammo), blue: createWeapon(ammo) },
     hooks: { red: createHook('red'), blue: createHook('blue') },
     animals: createHerd(),
     projectiles: [],
@@ -332,7 +332,7 @@ function updateLaser(w, side, input, dt) {
     if (!hadHit) w.events.push({ type: 'hit', side: target.side, x: beam.x1, y: beam.y, dir: beam.dir, laser: true, shielded: shield });
     if (shield) return;
     // The course it had when the beam caught it: the push turns it bit by bit.
-    if (!hadHit) target.course = { vx: target.vx, vy: target.vy };
+    if (!hadHit || !target.course) target.course = { vx: target.vx, vy: target.vy };
     target.vx += beam.dir * POWERUP.laserPush * dt;
     jolt(w, target, target.course.vx, target.course.vy);
     interrupt(w, target.side, 'laser');
@@ -448,7 +448,11 @@ export function stepWorld(w, inputs, dt) {
   for (const e of [...w.events]) {
     if (e.type === 'powerup' && POWERUP.instant.includes(e.power)) animalRain(w, e.side, e.power);
     else if (e.type === 'powerup') grantPower(w.powers, e.side, e.power);
-    if (e.type === 'ammoCrate') addAmmo(w.weapons[e.side], AMMO_CRATE.refill);
+    if (e.type === 'ammoCrate') {
+      // The refill is a share of the round's ammo (half, as in a 90 s round).
+      const weapon = w.weapons[e.side];
+      addAmmo(weapon, Math.round((AMMO_CRATE.refill * weapon.cap) / COMBAT.ammoPerRound));
+    }
   }
 
   for (const d of w.drops) {
