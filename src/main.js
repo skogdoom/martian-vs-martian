@@ -148,6 +148,25 @@ function recover(err) {
   }
 }
 
+// The start overlay: the first key press or click dismisses it. That is also the
+// gesture that unlocks the sound and gives the page focus, and the press is not
+// passed on to the game (it would start a match from the title screen).
+const startOverlay = document.getElementById('start');
+let started = !startOverlay;
+if (startOverlay) {
+  // No hover and a coarse pointer: a phone or tablet.
+  if (window.matchMedia?.('(hover: none) and (pointer: coarse)').matches) document.getElementById('touch-note').hidden = false;
+  const begin = () => {
+    if (started) return;
+    started = true;
+    startOverlay.remove();
+    window.focus();
+    endStep(); // the key that got us here is not a game key press
+  };
+  startOverlay.addEventListener('pointerdown', begin);
+  onKey(begin);
+}
+
 // Fixed-step loop.
 const MAX_FRAME = 0.25;
 let acc = 0;
@@ -157,7 +176,7 @@ app.ticker.add((ticker) => {
     acc += dt;
     while (acc >= STEP) {
       pollPads();
-      scene.update(STEP);
+      if (started) scene.update(STEP);
       endStep();
       acc -= STEP;
     }
