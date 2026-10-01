@@ -4,7 +4,7 @@ import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, STEP, MUTE_KEY, FULLSCREEN_KEY, ARENA } from './config.js';
 import { fitWindow, sceneShift, layout, setFixed169, onRefit } from './layout.js';
 import { endStep, onKey, pollPads, padSeenYet } from './input.js';
-import { toggleMute, isMuted, unlockAudio, audioUnlocked, resume as resumeAudio } from './audio.js';
+import { toggleMute, isMuted, unlockAudio, audioUnlocked, stopVoices, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
 import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
@@ -115,22 +115,62 @@ onRefit(fit); // the 16:9 setting changed
 fit();
 game.go(createTitleScene, session);
 
+// An error in one frame must not leave a frozen screen: log it, go back to
+// the menu and say so. If errors keep coming, stop and ask for a reload.
+const errorLabel = label('', { size: 16, color: 0xff9a8a, bold: true, anchorX: 0.5, anchorY: 0.5 });
+errorLabel.visible = false;
+root.addChild(errorLabel);
+let errorLeft = 0;
+const recentErrors = [];
+function recover(err) {
+  console.error(err);
+  const now = performance.now();
+  recentErrors.push(now);
+  while (recentErrors[0] < now - 5000) recentErrors.shift();
+  errorLabel.position.set(WIDTH / 2, visibleHeight / 2);
+  errorLabel.visible = true;
+  if (recentErrors.length > 3) {
+    app.ticker.stop();
+    errorLabel.text = 'Something keeps going wrong. Please reload the page.';
+    app.render();
+    return;
+  }
+  errorLabel.text = 'Something went wrong, so the game went back to the menu.';
+  errorLabel.y = 24;
+  errorLeft = 5;
+  try {
+    stopVoices();
+    game.go(createTitleScene, session);
+  } catch (again) {
+    console.error(again);
+  }
+}
+
 // Fixed-step loop.
 const MAX_FRAME = 0.25;
 let acc = 0;
 app.ticker.add((ticker) => {
-  acc += Math.min(ticker.deltaMS / 1000, MAX_FRAME);
-  while (acc >= STEP) {
-    pollPads();
-    scene.update(STEP);
+  const dt = Math.min(ticker.deltaMS / 1000, MAX_FRAME);
+  try {
+    acc += dt;
+    while (acc >= STEP) {
+      pollPads();
+      scene.update(STEP);
+      endStep();
+      acc -= STEP;
+    }
+    padNoticeLeft = Math.max(0, padNoticeLeft - dt);
+    padLabel.visible = padNoticeLeft > 0;
+    mutedLabel.visible = isMuted(); // also changes from the pause menu
+    soundHint.visible = padSeenYet() && !audioUnlocked() && !isMuted();
+    scene.render();
+  } catch (err) {
+    acc = 0;
     endStep();
-    acc -= STEP;
+    recover(err);
   }
-  padNoticeLeft = Math.max(0, padNoticeLeft - Math.min(ticker.deltaMS / 1000, MAX_FRAME));
-  padLabel.visible = padNoticeLeft > 0;
-  mutedLabel.visible = isMuted(); // also changes from the pause menu
-  soundHint.visible = padSeenYet() && !audioUnlocked() && !isMuted();
-  scene.render();
+  errorLeft = Math.max(0, errorLeft - dt);
+  if (errorLeft === 0 && app.ticker.started) errorLabel.visible = false;
 });
 
 // Handy for debugging in the console.

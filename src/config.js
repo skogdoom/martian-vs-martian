@@ -177,6 +177,7 @@ export const RESTOCK = {
   count: 3,
   emptyFieldAfter: 10, // seconds the field may stand empty
   emptyFieldCount: 2,
+  maxAlive: 24, // no field restock while this many animals are alive (a safety cap; bots never reach 20)
 };
 
 // A saucer hovering over its own pen too long spooks the animals in it:
