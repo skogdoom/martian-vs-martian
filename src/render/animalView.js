@@ -112,6 +112,7 @@ function createAnimalSprite(a) {
   let walk = Math.random() * 10;
   const wobble = Math.random() * 10; // phase, so dangling animals don't swing in step
   let owner;
+  let burning = false;
 
   return {
     view,
@@ -130,7 +131,9 @@ function createAnimalSprite(a) {
         body.tint = tint;
         if (a.kind === 'cow') legs.forEach((leg) => (leg.tint = tint));
       }
-      fire.clear();
+      // Only redrawn while burning (and once more to clear it).
+      if (a.onFire || burning) fire.clear();
+      burning = a.onFire;
       if (a.onFire) {
         for (let i = 0; i < 4; i++) {
           const x = -18 + i * 12;

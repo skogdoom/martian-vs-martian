@@ -38,6 +38,7 @@ function createPanel(side, title) {
   view.addChild(power);
   let icon = null;
   let iconType = null;
+  let pipsKey = null;
 
   return {
     view,
@@ -68,6 +69,11 @@ function createPanel(side, title) {
         // Blink for the last three seconds.
         power.alpha = timed && active.timeLeft < 3 ? 0.55 + 0.45 * Math.sin(active.timeLeft * 18) : 1;
       }
+      // Clip pips and reload bar: redrawn only when they change.
+      const progress = reloadProgress(weapon);
+      const key = `${weapon.clip}|${progress === null ? '' : progress.toFixed(3)}`;
+      if (key === pipsKey) return;
+      pipsKey = key;
       pips.clear();
       const r = 7;
       const gap = 20;
@@ -76,7 +82,6 @@ function createPanel(side, title) {
         if (i < weapon.clip) pips.circle(cx, 34, r).fill(COLORS[side]);
         else pips.circle(cx, 34, r).stroke({ color: COLORS[side], width: 2, alpha: 0.5 });
       }
-      const progress = reloadProgress(weapon);
       if (progress !== null) {
         const w = COMBAT.clipSize * gap;
         const x = left ? 0 : PANEL_W - w;

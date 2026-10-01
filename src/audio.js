@@ -519,6 +519,22 @@ function output(x) {
   return p;
 }
 
+// Many copies of one sound at once (nine animals bursting in the same step)
+// are no louder or better than three, and cost audio nodes: cap them.
+const SAME_SOUND_MAX = 3; // starts of one sound within SAME_SOUND_WINDOW
+const SAME_SOUND_WINDOW = 0.08; // seconds
+const ALL_SOUNDS_MAX = 24; // starts of any sound within ALL_SOUNDS_WINDOW
+const ALL_SOUNDS_WINDOW = 0.25;
+const recent = []; // { name, at } in audio-clock seconds
+
+function tooMany(name, now) {
+  while (recent.length && recent[0].at < now - ALL_SOUNDS_WINDOW) recent.shift();
+  if (recent.length >= ALL_SOUNDS_MAX) return true;
+  let same = 0;
+  for (const r of recent) if (r.name === name && r.at >= now - SAME_SOUND_WINDOW) same++;
+  return same >= SAME_SOUND_MAX;
+}
+
 export function play(name, { x, ...opts } = {}) {
   // A missing sound is silence, never a crash in the game loop.
   if (!ctx || !SOUNDS[name]) return null;
@@ -526,7 +542,10 @@ export function play(name, { x, ...opts } = {}) {
     resume(); // works if the browser allows it now; otherwise the next key press will
     return null;
   }
-  return SOUNDS[name](ctx, output(x), ctx.currentTime + 0.005, opts);
+  const now = ctx.currentTime;
+  if (tooMany(name, now)) return null;
+  recent.push({ name, at: now });
+  return SOUNDS[name](ctx, output(x), now + 0.005, opts);
 }
 
 const HOOK_VOICE = { cow: 'moo', lamb: 'baa', greenman: 'chirp', wolf: 'growl' };

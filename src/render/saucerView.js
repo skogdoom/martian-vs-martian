@@ -98,6 +98,21 @@ export function createSaucerView(side) {
   }
   shock.visible = false;
 
+  // What the eyes, lights and stars were last drawn as, so they are only
+  // redrawn when that changes rather than every frame.
+  const drawn = { eyes: null, lights: null, dizzy: false };
+  function drawEyes(blinking, ex) {
+    if (blinking) {
+      eyes.rect(-7 + ex, -15, 5, 1.5).fill(0x111111);
+      eyes.rect(2 + ex, -15, 5, 1.5).fill(0x111111);
+    } else {
+      eyes.ellipse(-4 + ex, -15, 3, 4).fill(0x111111);
+      eyes.ellipse(4 + ex, -15, 3, 4).fill(0x111111);
+      eyes.circle(-3 + ex, -17, 1).fill(0xffffff);
+      eyes.circle(5 + ex, -17, 1).fill(0xffffff);
+    }
+  }
+
   view.addChild(aura, streaks, glow, heldRocket, heldBomb, back, martian, eyes, glass, hull, lights, flash, dizzy, shield, shock);
 
   return {
@@ -116,25 +131,26 @@ export function createSaucerView(side) {
       // Eyes: big and dark, glancing toward the opponent; the odd blink.
       const blinking = (t + (side === 'red' ? 0 : 1.9)) % 3.7 < 0.12;
       const ex = look * 1.5;
-      eyes.clear();
-      if (blinking) {
-        eyes.rect(-7 + ex, -15, 5, 1.5).fill(0x111111);
-        eyes.rect(2 + ex, -15, 5, 1.5).fill(0x111111);
-      } else {
-        eyes.ellipse(-4 + ex, -15, 3, 4).fill(0x111111);
-        eyes.ellipse(4 + ex, -15, 3, 4).fill(0x111111);
-        eyes.circle(-3 + ex, -17, 1).fill(0xffffff);
-        eyes.circle(5 + ex, -17, 1).fill(0xffffff);
+      // Redrawn only when they change (a blink, or a glance the other way).
+      const eyesKey = blinking ? -ex : ex + 10;
+      if (eyesKey !== drawn.eyes) {
+        drawn.eyes = eyesKey;
+        eyes.clear();
+        drawEyes(blinking, ex);
       }
 
-      // Chasing rim lights.
-      lights.clear();
-      for (let i = 0; i < LIGHTS; i++) {
-        const u = i / (LIGHTS - 1);
-        const x = (u - 0.5) * r * 1.6;
-        const y = 3 + Math.sin(u * Math.PI) * 3;
-        const on = (Math.floor(t * 8) + i) % 3 === 0;
-        lights.circle(x, y, 2.2).fill(on ? 0xfff6b0 : 0x6b5a2a);
+      // Chasing rim lights: one step every 1/8 s.
+      const phase = Math.floor(t * 8) % 3;
+      if (phase !== drawn.lights) {
+        drawn.lights = phase;
+        lights.clear();
+        for (let i = 0; i < LIGHTS; i++) {
+          const u = i / (LIGHTS - 1);
+          const x = (u - 0.5) * r * 1.6;
+          const y = 3 + Math.sin(u * Math.PI) * 3;
+          const on = (phase + i) % 3 === 0;
+          lights.circle(x, y, 2.2).fill(on ? 0xfff6b0 : 0x6b5a2a);
+        }
       }
       glow.alpha = beam ? 1 : 0.7 + 0.3 * Math.sin(t * 4);
       flash.alpha = hit * 0.7;
@@ -158,7 +174,8 @@ export function createSaucerView(side) {
       shield.alpha = 0.55 + 0.2 * Math.sin(t * 5) + 0.45 * deflect;
       shield.scale.set(1 + 0.03 * Math.sin(t * 5) + 0.08 * deflect);
 
-      dizzy.clear();
+      if (stunned || drawn.dizzy) dizzy.clear();
+      drawn.dizzy = stunned;
       if (stunned) {
         for (let i = 0; i < 4; i++) {
           const a = t * 6 + (i * Math.PI) / 2;

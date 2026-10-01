@@ -8,6 +8,8 @@ import { POWER_COLOR, SHIELD_COLOR } from './powerupView.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const rand = (lo, hi) => lo + Math.random() * (hi - lo);
+const MAX_PARTICLES = 1500;
+const MAX_POPUPS = 12;
 
 export function createEffects() {
   const view = new Container();
@@ -23,7 +25,9 @@ export function createEffects() {
 
   /** Spray `count` particles. `dir` biases them sideways (-1/+1), `up` upward. */
   function burst(x, y, { count, colors, speed = [60, 240], life = [0.3, 0.7], size = [1.5, 3.5], gravity = 400, dir = 0, up = 0, shape = 'dot' }) {
-    for (let i = 0; i < count; i++) {
+    // Many bursts at once (a cow rain, a bomb) must not pile up without end.
+    const room = Math.max(0, MAX_PARTICLES - particles.length);
+    for (let i = 0; i < Math.min(count, room); i++) {
       let angle = rand(0, Math.PI * 2);
       if (dir) angle = (dir > 0 ? 0 : Math.PI) + rand(-0.9, 0.9);
       if (up) angle = -Math.PI / 2 + rand(-up, up);
@@ -50,6 +54,10 @@ export function createEffects() {
   }
 
   function popup(text, x, y, color) {
+    if (popups.length >= MAX_POPUPS) {
+      const oldest = popups.shift();
+      oldest.t.destroy();
+    }
     const t = label(text, { size: 26, color, bold: true, anchorX: 0.5, anchorY: 0.5 });
     t.position.set(x, y);
     view.addChild(t);

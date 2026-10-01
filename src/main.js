@@ -15,7 +15,9 @@ await app.init({
   resizeTo: window,
   background: 0x000000,
   antialias: true,
-  resolution: window.devicePixelRatio || 1,
+  // Sharp on high-DPI screens, but no more than 2x: a 3x phone or a 4K screen at
+  // 2x+ would multiply the pixels to fill for no visible gain.
+  resolution: Math.min(window.devicePixelRatio || 1, 2),
   autoDensity: true,
 });
 document.body.appendChild(app.canvas);
