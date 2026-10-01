@@ -6,7 +6,8 @@
 
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT } from '../config.js';
-import { wasPressed } from '../input.js';
+import { wasPressed, padSeenYet } from '../input.js';
+import { audioUnlocked } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../session.js';
@@ -60,14 +61,17 @@ export function createTitleScene(game, session) {
 
   const prompt = label('ENTER OR SPACE TO START', { size: 22, color: 0xffffff, bold: true, anchorX: 0.5 });
   prompt.position.set(cx, 492);
-  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   F  full screen   ESC  back to this menu', {
+  const help = label('↑ ↓  mode   ← →  difficulty   M  sound   F  full screen   P / ESC  pause menu', {
     size: 14,
     color: 0x8a93c0,
     anchorX: 0.5,
   });
   help.position.set(cx, 528);
+  // Shown once a controller has been used. Pad buttons can't start sound.
+  const padHelp = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5 });
+  padHelp.position.set(cx, 550);
 
-  view.addChild(red, vs, blue, ...steps, redKeys, blueKeys, onePlayer, twoPlayers, prompt, help);
+  view.addChild(red, vs, blue, ...steps, redKeys, blueKeys, onePlayer, twoPlayers, prompt, help, padHelp);
 
   function refreshMenu() {
     const solo = session.players === 1;
@@ -90,16 +94,20 @@ export function createTitleScene(game, session) {
       for (const a of herd) updateAnimal(a, dt, rng);
       if (t < 0.3) return;
 
-      if (pressed('ArrowUp', 'KeyW', 'Digit1', 'Numpad1')) session.players = 1;
-      if (pressed('ArrowDown', 'KeyS', 'Digit2', 'Numpad2')) session.players = 2;
+      if (pressed('ArrowUp', 'KeyW', 'Digit1', 'Numpad1', 'PadUp')) session.players = 1;
+      if (pressed('ArrowDown', 'KeyS', 'Digit2', 'Numpad2', 'PadDown')) session.players = 2;
       if (session.players === 1) {
         const i = DIFFICULTIES.indexOf(session.difficulty);
-        if (pressed('ArrowLeft', 'KeyA')) session.difficulty = DIFFICULTIES[Math.max(0, i - 1)];
-        if (pressed('ArrowRight', 'KeyD')) session.difficulty = DIFFICULTIES[Math.min(DIFFICULTIES.length - 1, i + 1)];
+        if (pressed('ArrowLeft', 'KeyA', 'PadLeft')) session.difficulty = DIFFICULTIES[Math.max(0, i - 1)];
+        if (pressed('ArrowRight', 'KeyD', 'PadRight')) session.difficulty = DIFFICULTIES[Math.min(DIFFICULTIES.length - 1, i + 1)];
       }
       refreshMenu();
+      padHelp.text = padSeenYet()
+        ? 'CONTROLLER  stick or d-pad: move   A / trigger: shoot   A / Start: begin   Start: pause' +
+          (audioUnlocked() ? '' : '\nthe sound starts after one key press or click')
+        : '';
 
-      if (pressed('Enter', 'Space', 'NumpadEnter')) {
+      if (pressed('Enter', 'Space', 'NumpadEnter', 'PadConfirm')) {
         startMatch(session);
         game.go(createPlayScene, session);
       }

@@ -15,18 +15,51 @@ let muted = false;
 let noiseBuffer = null;
 const VOLUME = 0.55;
 
+let paused = false;
+let unlocked = false; // sound has run at least once this session
+let createdAt = 0;
+
+/**
+ * Call from a real key press or click, and only from those: a context made
+ * outside a user gesture can stay blocked for good in some browsers. If the
+ * current context is not running, it is replaced by a fresh one made right
+ * here, inside the gesture (unless it was made a moment ago and is still
+ * starting up). While the game is paused, nothing wakes the sound.
+ */
 export function unlockAudio() {
-  if (!ctx) {
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return;
-    ctx = new AC();
-    master = createBus(ctx);
+  if (paused) return;
+  if (ctx && (ctx.state === 'running' || performance.now() - createdAt < 500)) return;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return;
+  if (ctx) {
+    const old = ctx;
+    ctx = null;
+    master = null;
+    noiseBuffer = null;
+    old.close().catch(() => {});
   }
-  resume();
+  const fresh = new AC();
+  ctx = fresh;
+  master = createBus(fresh);
+  createdAt = performance.now();
+  fresh.addEventListener('statechange', () => {
+    if (fresh.state === 'running') unlocked = true;
+  });
+  if (fresh.state === 'running') unlocked = true;
+  else fresh.resume().catch(() => {});
+}
+
+/** Pause or resume all sound with the game. While paused, nothing wakes it up. */
+export function setAudioPaused(on) {
+  paused = on;
+  if (!ctx) return;
+  if (on) ctx.suspend().catch(() => {});
+  else resume();
 }
 
 /** Ask a suspended (or, in Safari, interrupted) context to run again. */
 export function resume() {
+  if (paused) return;
   if (ctx && ctx.state !== 'running' && ctx.state !== 'closed') ctx.resume().catch(() => {});
 }
 
@@ -34,6 +67,13 @@ export function toggleMute() {
   muted = !muted;
   if (master) master.gain.setTargetAtTime(muted ? 0 : VOLUME, master.context.currentTime, 0.02);
   return muted;
+}
+
+/** Has sound started yet this session? False until the browser has allowed it;
+ * stays true afterwards, also while the game is paused. */
+export function audioUnlocked() {
+  if (ctx && ctx.state === 'running') unlocked = true;
+  return unlocked;
 }
 
 export function isMuted() {

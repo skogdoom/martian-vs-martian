@@ -12,9 +12,15 @@ from each other; grab power-ups dropped by little green men. Best of three
 | Move       | W A S D      | Arrow keys     |
 | Shoot      | Space        | Enter          |
 
+Game controllers work too: the first one flies Red and the second Blue
+(stick or d-pad to move, A or a trigger to shoot, Start to begin or pause).
+Browsers only allow sound after a key press or click, so with a controller
+only, press any key or click the page once to switch the sound on.
+
 Shooting while carrying an animal drops it. Hover low and still over an animal
-to beam it up. **M** toggles sound, **F** toggles full screen, **Esc** returns
-to the menu. In single-player you fly Red with either set of keys.
+to beam it up. **P** or **Esc** pauses and opens a menu (resume, restart, sound,
+exit to the main menu). **M** toggles sound and **F** toggles full screen. In
+single-player you fly Red with either set of keys.
 
 ## Running it
 

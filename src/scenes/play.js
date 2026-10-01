@@ -1,13 +1,13 @@
 // Play scene: one round, from the countdown to the final whistle.
 
-import { Container } from 'pixi.js';
-import { WIDTH, AMMO_CRATE, BOT, ROUND, RAM } from '../config.js';
+import { Container, Graphics } from 'pixi.js';
+import { WIDTH, HEIGHT, AMMO_CRATE, BOT, ROUND, RAM, PAUSE_KEY } from '../config.js';
 import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
-import { sideName, isCpu } from '../session.js';
-import { playerInput, soloInput, wasPressed } from '../input.js';
-import { handleEvents, stopVoices } from '../audio.js';
+import { sideName, isCpu, startMatch } from '../session.js';
+import { playerInput, soloInput, wasPressed, rumble, padSeenYet } from '../input.js';
+import { handleEvents, stopVoices, setAudioPaused, toggleMute, isMuted } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
@@ -80,6 +80,72 @@ export function createPlayScene(game, session) {
     announceLeft = 2.2;
   }
 
+  // Pause: P or Esc, or Start on a controller. Everything freezes, sound included,
+  // and a menu comes up, which a controller can use fully.
+  let paused = false;
+  let choice = 0;
+  const dim = new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.6 });
+  const pausedTitle = label('PAUSED', { size: 72, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  pausedTitle.position.set(WIDTH / 2, 215);
+  const ITEMS = [
+    { id: 'resume', text: () => 'RESUME', padOk: true },
+    { id: 'restart', text: () => 'RESTART THE GAME', padOk: true },
+    { id: 'sound', text: () => `SOUND: ${isMuted() ? 'OFF' : 'ON'}`, padOk: true },
+    { id: 'exit', text: () => 'EXIT TO MAIN MENU', padOk: true },
+  ];
+  const itemLabels = ITEMS.map((_, i) => {
+    const l = label('', { size: 30, bold: true, anchorX: 0.5, anchorY: 0.5 });
+    l.position.set(WIDTH / 2, 300 + i * 52);
+    return l;
+  });
+  const pausedHelp = label('', { size: 16, color: 0x8a93c0, anchorX: 0.5, anchorY: 0.5 });
+  pausedHelp.position.set(WIDTH / 2, 530);
+  const pauseView = new Container();
+  pauseView.addChild(dim, pausedTitle, ...itemLabels, pausedHelp);
+  pauseView.visible = false;
+  function refreshPauseMenu() {
+    ITEMS.forEach((item, i) => {
+      itemLabels[i].text = `${i === choice ? '▶ ' : '  '}${item.text()}${i === choice ? ' ◀' : '  '}`;
+      itemLabels[i].tint = i === choice ? 0xffffff : 0x8a93c0;
+    });
+    pausedHelp.text = padSeenYet()
+      ? '↑ ↓ choose   ENTER / A: select   P / Start / ESC: resume'
+      : '↑ ↓ choose   ENTER or SPACE: select   P or ESC: resume';
+  }
+  function setPaused(on) {
+    paused = on;
+    pauseView.visible = on;
+    setAudioPaused(on);
+    if (on) {
+      choice = 0;
+      refreshPauseMenu();
+    }
+  }
+  /** Run the pause menu for this step. Returns true if the scene changed. */
+  function pauseMenu() {
+    const up = wasPressed('ArrowUp') || wasPressed('KeyW') || wasPressed('PadUp');
+    const down = wasPressed('ArrowDown') || wasPressed('KeyS') || wasPressed('PadDown');
+    if (up) choice = (choice + ITEMS.length - 1) % ITEMS.length;
+    if (down) choice = (choice + 1) % ITEMS.length;
+    const byKey = ['Enter', 'Space', 'NumpadEnter'].some(wasPressed);
+    const byPad = wasPressed('PadConfirm');
+    if (byKey || (byPad && ITEMS[choice].padOk)) {
+      const { id } = ITEMS[choice];
+      if (id === 'resume') setPaused(false);
+      else if (id === 'sound') toggleMute();
+      else if (id === 'restart') {
+        startMatch(session);
+        game.go(createPlayScene, session);
+        return true;
+      } else if (id === 'exit') {
+        game.go(createTitleScene, session);
+        return true;
+      }
+    }
+    refreshPauseMenu();
+    return false;
+  }
+
   let goFlash = 0;
   let t = 0;
 
@@ -108,7 +174,7 @@ export function createPlayScene(game, session) {
     announcement.visible = announceLeft > 0;
     announcement.alpha = Math.min(1, announceLeft * 2);
     effects.render();
-    const shake = effects.shakeOffset();
+    const shake = paused ? { x: 0, y: 0 } : effects.shakeOffset();
     stage.position.set(shake.x, shake.y);
     hud.sync(world, { timeLeft: round.timeLeft, match });
 
@@ -124,6 +190,7 @@ export function createPlayScene(game, session) {
     } else {
       banner.visible = sub.visible = false;
     }
+    if (paused) banner.visible = sub.visible = false;
   }
 
   function finish() {
@@ -140,14 +207,23 @@ export function createPlayScene(game, session) {
     game.go(createRoundEndScene, session, { number, points, result, outcome, background: view });
   }
 
+  view.addChild(pauseView); // above everything, banners and announcements included
+
   return {
     view,
     round,
-    destroy: stopVoices,
+    destroy() {
+      setAudioPaused(false);
+      stopVoices();
+    },
     update(dt) {
       if (round.phase === 'over') return;
-      if (wasPressed('Escape')) {
-        game.go(createTitleScene, session);
+      if (wasPressed(PAUSE_KEY) || wasPressed('PadPause') || wasPressed('Escape')) {
+        setPaused(!paused);
+        return;
+      }
+      if (paused) {
+        pauseMenu();
         return;
       }
       t += dt;
@@ -177,6 +253,9 @@ export function createPlayScene(game, session) {
           else announce(`${name(e.by)} PUTS THE WOLF IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
         }
         if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
+        if (e.type === 'hit' && !e.shielded) rumble(e.side, 150, 0.7);
+        if (e.type === 'ram' && !e.shielded) rumble(e.victim, 300, 1);
+        if (e.type === 'dazed' || e.type === 'timeBombHeld') rumble(e.side, 400, 1);
         if (e.type === 'dazed') announce(`${name(e.side)} IS DAZED BY THREE HITS!`, COLORS[e.side === 'red' ? 'blue' : 'red']);
         if (e.type === 'ram') {
           announce(e.shielded ? `${name(e.side)}'S RAM BOUNCES OFF THE SHIELD` : `${name(e.side)} RAMS ${name(e.victim)}!`, COLORS[e.side]);
