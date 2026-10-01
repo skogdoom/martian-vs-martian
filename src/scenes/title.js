@@ -104,7 +104,7 @@ export function createTitleScene(game, session) {
       refreshMenu();
       padHelp.text = padSeenYet()
         ? 'CONTROLLER  stick or d-pad: move   A / trigger: shoot   A / Start: begin   Start: pause' +
-          (audioRunning() ? '' : '\npress any key or click once to switch the sound on')
+          (audioRunning() ? '' : '\nthe sound starts after one key press or click')
         : '';
 
       if (pressed('Enter', 'Space', 'NumpadEnter', 'PadConfirm')) {

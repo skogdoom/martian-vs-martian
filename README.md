@@ -14,8 +14,8 @@ from each other; grab power-ups dropped by little green men. Best of three
 
 Game controllers work too: the first one flies Red and the second Blue
 (stick or d-pad to move, A or a trigger to shoot, Start to begin or pause).
-Controllers can't exit to the main menu; that stays on the keyboard. Browsers don't let a controller button switch the sound on, so press
-any key or click once.
+Browsers only allow sound after a key press or click, so with a controller
+only, press any key or click the page once to switch the sound on.
 
 Shooting while carrying an animal drops it. Hover low and still over an animal
 to beam it up. **P** or **Esc** pauses and opens a menu (resume, restart, sound,

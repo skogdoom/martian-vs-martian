@@ -69,7 +69,12 @@ export function pollPads() {
   const result = poller.poll(pads);
   padSlots = result.slots;
   if (padSlots.red || padSlots.blue) padSeen = true;
-  for (const code of result.pressed) pressed.add(code);
+  for (const code of result.pressed) {
+    pressed.add(code);
+    // Listeners (audio unlock) hear pad buttons too. Browsers that count a
+    // pad button as a user gesture then start the sound; others need a key or click.
+    for (const fn of listeners) fn(code);
+  }
 }
 
 /** Has a controller been used this session? */

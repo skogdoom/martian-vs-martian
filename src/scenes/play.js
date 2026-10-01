@@ -81,8 +81,7 @@ export function createPlayScene(game, session) {
   }
 
   // Pause: P or Esc, or Start on a controller. Everything freezes, sound included,
-  // and a menu comes up. A controller can use it, except for exiting to the
-  // main menu, which is keyboard-only.
+  // and a menu comes up, which a controller can use fully.
   let paused = false;
   let choice = 0;
   const dim = new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.6 });
@@ -92,7 +91,7 @@ export function createPlayScene(game, session) {
     { id: 'resume', text: () => 'RESUME', padOk: true },
     { id: 'restart', text: () => 'RESTART THE GAME', padOk: true },
     { id: 'sound', text: () => `SOUND: ${isMuted() ? 'OFF' : 'ON'}`, padOk: true },
-    { id: 'exit', text: () => 'EXIT TO MAIN MENU', padOk: false },
+    { id: 'exit', text: () => 'EXIT TO MAIN MENU', padOk: true },
   ];
   const itemLabels = ITEMS.map((_, i) => {
     const l = label('', { size: 30, bold: true, anchorX: 0.5, anchorY: 0.5 });
@@ -110,7 +109,7 @@ export function createPlayScene(game, session) {
       itemLabels[i].tint = i === choice ? 0xffffff : 0x8a93c0;
     });
     pausedHelp.text = padSeenYet()
-      ? '↑ ↓ choose   ENTER / A: select   P / Start / ESC: resume   (exit: keyboard only)'
+      ? '↑ ↓ choose   ENTER / A: select   P / Start / ESC: resume'
       : '↑ ↓ choose   ENTER or SPACE: select   P or ESC: resume';
   }
   function setPaused(on) {

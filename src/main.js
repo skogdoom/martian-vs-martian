@@ -2,8 +2,8 @@
 
 import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT, STEP, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
-import { endStep, onKey, pollPads } from './input.js';
-import { toggleMute, isMuted, unlockAudio, resume as resumeAudio } from './audio.js';
+import { endStep, onKey, pollPads, padSeenYet } from './input.js';
+import { toggleMute, isMuted, unlockAudio, audioRunning, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
 import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
@@ -72,6 +72,12 @@ onKey((code) => {
 });
 app.canvas.addEventListener('dblclick', toggleFullscreen);
 
+// Browsers only start sound from a key press or a click, not from a controller
+// button. Until it runs, say so (once a controller has been used).
+const soundHint = label('NO SOUND YET: PRESS ANY KEY OR CLICK THE PAGE ONCE', { size: 13, color: 0xffd76a, anchorX: 0.5, anchorY: 1 });
+soundHint.position.set(WIDTH / 2, HEIGHT - 10);
+soundHint.visible = false;
+
 // Controllers coming and going.
 const padLabel = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5, anchorY: 1 });
 padLabel.position.set(WIDTH / 2, HEIGHT - 32);
@@ -85,7 +91,7 @@ window.addEventListener('gamepaddisconnected', () => padNotice('CONTROLLER DISCO
 
 // Lives for the page: reloading resets the tally.
 const session = createSession();
-root.addChild(mutedLabel, padLabel);
+root.addChild(mutedLabel, padLabel, soundHint);
 game.go(createTitleScene, session);
 
 // Fixed-step loop.
@@ -102,6 +108,7 @@ app.ticker.add((ticker) => {
   padNoticeLeft = Math.max(0, padNoticeLeft - Math.min(ticker.deltaMS / 1000, MAX_FRAME));
   padLabel.visible = padNoticeLeft > 0;
   mutedLabel.visible = isMuted(); // also changes from the pause menu
+  soundHint.visible = padSeenYet() && !audioRunning() && !isMuted();
   scene.render();
 });
 
