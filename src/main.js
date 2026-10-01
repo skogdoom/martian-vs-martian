@@ -6,7 +6,7 @@ import { fitWindow, sceneShift, layout, setFixed169, onRefit } from './layout.js
 import { endStep, onKey, pollPads, padSeenYet } from './input.js';
 import { toggleMute, isMuted, unlockAudio, audioUnlocked, stopVoices, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
-import { label } from './render/text.js';
+import { label, DESTROY_ALL } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
 import { createSession } from './session.js';
 
@@ -68,7 +68,7 @@ const game = {
     scene = factory(game, ...args);
     layer.addChild(scene.view);
     alignScene();
-    if (old && !old.view.parent) old.view.destroy({ children: true });
+    if (old && !old.view.parent) old.view.destroy(DESTROY_ALL);
   },
 };
 

@@ -6,7 +6,7 @@ import { SIDES } from '../logic/world.js';
 import { reloadProgress } from '../logic/weapon.js';
 import { scores } from '../logic/scoring.js';
 import { COLORS } from './backdrop.js';
-import { label } from './text.js';
+import { label, DESTROY_ALL } from './text.js';
 import { createPowerIcon, POWER_NAMES, POWER_COLOR } from './powerupView.js';
 
 const PANEL_W = 180;
@@ -51,7 +51,7 @@ function createPanel(side, title) {
       power.visible = active !== null;
       if (active) {
         if (iconType !== active.type) {
-          icon?.destroy({ children: true });
+          icon?.destroy(DESTROY_ALL);
           icon = createPowerIcon(active.type, 11);
           icon.position.set(left ? 11 : PANEL_W - 11, 8);
           power.addChild(icon);

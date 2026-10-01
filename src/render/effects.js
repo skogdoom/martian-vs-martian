@@ -2,7 +2,7 @@
 
 import { Container, Graphics } from 'pixi.js';
 import { COLORS } from './backdrop.js';
-import { label } from './text.js';
+import { label, DESTROY_ALL } from './text.js';
 import { ARENA } from '../config.js';
 import { POWER_COLOR, SHIELD_COLOR } from './powerupView.js';
 
@@ -56,7 +56,7 @@ export function createEffects() {
   function popup(text, x, y, color) {
     if (popups.length >= MAX_POPUPS) {
       const oldest = popups.shift();
-      oldest.t.destroy();
+      oldest.t.destroy(DESTROY_ALL);
     }
     const t = label(text, { size: 26, color, bold: true, anchorX: 0.5, anchorY: 0.5 });
     t.position.set(x, y);
@@ -388,7 +388,7 @@ export function createEffects() {
     }
     for (let i = popups.length - 1; i >= 0; i--) {
       if (popups[i].life <= 0) {
-        popups[i].t.destroy();
+        popups[i].t.destroy(DESTROY_ALL);
         popups.splice(i, 1);
       }
     }
