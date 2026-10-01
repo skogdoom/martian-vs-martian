@@ -3,7 +3,7 @@
 import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT, STEP, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
 import { endStep, onKey, pollPads, padSeenYet } from './input.js';
-import { toggleMute, isMuted, unlockAudio, audioRunning, resume as resumeAudio } from './audio.js';
+import { toggleMute, isMuted, unlockAudio, audioUnlocked, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
 import { label } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
@@ -108,7 +108,7 @@ app.ticker.add((ticker) => {
   padNoticeLeft = Math.max(0, padNoticeLeft - Math.min(ticker.deltaMS / 1000, MAX_FRAME));
   padLabel.visible = padNoticeLeft > 0;
   mutedLabel.visible = isMuted(); // also changes from the pause menu
-  soundHint.visible = padSeenYet() && !audioRunning() && !isMuted();
+  soundHint.visible = padSeenYet() && !audioUnlocked() && !isMuted();
   scene.render();
 });
 

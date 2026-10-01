@@ -7,7 +7,7 @@
 import { Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT } from '../config.js';
 import { wasPressed, padSeenYet } from '../input.js';
-import { audioRunning } from '../audio.js';
+import { audioUnlocked } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../session.js';
@@ -104,7 +104,7 @@ export function createTitleScene(game, session) {
       refreshMenu();
       padHelp.text = padSeenYet()
         ? 'CONTROLLER  stick or d-pad: move   A / trigger: shoot   A / Start: begin   Start: pause' +
-          (audioRunning() ? '' : '\nthe sound starts after one key press or click')
+          (audioUnlocked() ? '' : '\nthe sound starts after one key press or click')
         : '';
 
       if (pressed('Enter', 'Space', 'NumpadEnter', 'PadConfirm')) {
