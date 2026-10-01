@@ -2,22 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { STEP, ARENA, SAUCER, RESTOCK, SPOOK, SPLAT } from '../src/config.js';
 import { createWorld, stepWorld } from '../src/logic/world.js';
 import { clampToPen } from '../src/logic/animal.js';
-
-const LOW = ARENA.flightBottom - 10;
-const SHOOT = { red: { x: 0, y: 0, shoot: true } };
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
+import { LOW, SHOOT, run, stepUntil } from './helpers.js';
 
 function place(s, x, y, vx = 0, vy = 0) {
   Object.assign(s, { x, y, vx, vy });

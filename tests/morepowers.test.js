@@ -5,31 +5,13 @@ import { createRound, stepRound } from '../src/logic/round.js';
 import { grantPower } from '../src/logic/powerup.js';
 import { createGolden } from '../src/logic/golden.js';
 import { scores } from '../src/logic/scoring.js';
+import { SHOOT, run, stepUntil, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
-const SHOOT = { red: { x: 0, y: 0, shoot: true } };
 const saved = { power: POWERUP.chance, golden: GOLDEN.chance };
 afterEach(() => {
   POWERUP.chance = saved.power;
   GOLDEN.chance = saved.golden;
 });
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
-}
 
 /** Press shoot `n` times, far enough apart for the fire cooldown. */
 function shootTimes(w, n) {

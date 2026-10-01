@@ -1,31 +1,18 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { STEP, ARENA, GOLDEN, ROUND, POWERUP, HOOK } from '../src/config.js';
-import { createWorld, stepWorld, spawnGolden } from '../src/logic/world.js';
+import { createWorld, spawnGolden } from '../src/logic/world.js';
 import { createRound, stepRound } from '../src/logic/round.js';
 import { shouldDropGolden } from '../src/logic/golden.js';
 import { canHook } from '../src/logic/hook.js';
 import { clampToPen } from '../src/logic/animal.js';
 import { scores } from '../src/logic/scoring.js';
+import { LOW, stepUntil, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
 const saved = { chance: GOLDEN.chance, powerChance: POWERUP.chance };
 afterEach(() => {
   GOLDEN.chance = saved.chance;
   POWERUP.chance = saved.powerChance;
 });
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
-}
 
 /** Put `n` of the herd's cows in `side`'s pen, owned by `side`. */
 function pen(w, side, cows) {

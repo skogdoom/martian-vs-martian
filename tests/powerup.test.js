@@ -6,25 +6,12 @@ import { planDrop, grantPower } from '../src/logic/powerup.js';
 import { clampToPen } from '../src/logic/animal.js';
 import { scores } from '../src/logic/scoring.js';
 import { speed } from '../src/logic/saucer.js';
+import { run, stepUntil, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
 const chance = POWERUP.chance;
 afterEach(() => {
   POWERUP.chance = chance;
 });
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
 
 /** World with the green man standing in the field and both saucers parked high. */
 function withGreenMan(power = 'speed') {
@@ -33,10 +20,6 @@ function withGreenMan(power = 'speed') {
   spawnDrop(w, power);
   stepUntil(w, {}, 10, (e) => e.type === 'dropLanded');
   return { w, g: w.drops.find((d) => d.kind === 'greenman') };
-}
-
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
 }
 
 describe('the drop', () => {

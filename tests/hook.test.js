@@ -4,22 +4,7 @@ import { createWorld, stepWorld } from '../src/logic/world.js';
 import { canHook } from '../src/logic/hook.js';
 import { clampToPen } from '../src/logic/animal.js';
 import { scores } from '../src/logic/scoring.js';
-
-const LOW = ARENA.flightBottom - 10;
-
-/** Step until `pred(events)` is true or `seconds` run out. Returns the matching event. */
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
+import { LOW, run, stepUntil } from './helpers.js';
 
 /** A world with both saucers parked out of the way and one animal picked out. */
 function setup(kind = 'lamb') {

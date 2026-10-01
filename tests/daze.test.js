@@ -2,12 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { STEP, COMBAT, POWERUP } from '../src/config.js';
 import { createWorld, stepWorld } from '../src/logic/world.js';
 import { grantPower } from '../src/logic/powerup.js';
-
-const SHOOT = { red: { x: 0, y: 0, shoot: true } };
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
+import { SHOOT, run } from './helpers.js';
 
 function hover(s, x, y) {
   Object.assign(s, { x, y, vx: 0, vy: 0 });

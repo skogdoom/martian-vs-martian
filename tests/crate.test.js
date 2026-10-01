@@ -1,27 +1,14 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { STEP, ARENA, COMBAT, ROUND, AMMO_CRATE, POWERUP, GOLDEN } from '../src/config.js';
-import { createWorld, stepWorld, spawnCrate } from '../src/logic/world.js';
+import { STEP, COMBAT, ROUND, AMMO_CRATE, POWERUP, GOLDEN } from '../src/config.js';
+import { createWorld, spawnCrate } from '../src/logic/world.js';
 import { createRound, stepRound } from '../src/logic/round.js';
+import { stepUntil, hover } from './helpers.js';
 
-const LOW = ARENA.flightBottom - 10;
 const saved = { power: POWERUP.chance, golden: GOLDEN.chance };
 afterEach(() => {
   POWERUP.chance = saved.power;
   GOLDEN.chance = saved.golden;
 });
-
-function stepUntil(w, inputs, seconds, pred) {
-  for (let t = 0; t < seconds; t += STEP) {
-    stepWorld(w, inputs, STEP);
-    const e = w.events.find(pred);
-    if (e) return e;
-  }
-  return null;
-}
-
-function hover(s, x, y = LOW) {
-  Object.assign(s, { x, y, vx: 0, vy: 0 });
-}
 
 /** Play a round with no other drops; `each(r, t)` runs every play step. */
 function playRound(each) {

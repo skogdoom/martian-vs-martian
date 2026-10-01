@@ -1,10 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { STEP, ARENA, SAUCER, RESTOCK } from '../src/config.js';
 import { createWorld, stepWorld } from '../src/logic/world.js';
-
-function run(w, inputs, seconds) {
-  for (let t = 0; t < seconds - 1e-9; t += STEP) stepWorld(w, inputs, STEP);
-}
+import { run } from './helpers.js';
 
 describe('safety net against NaN', () => {
   it('a saucer at NaN goes back to its start instead of spreading NaN', () => {
