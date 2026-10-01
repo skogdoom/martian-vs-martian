@@ -1,8 +1,11 @@
-// Keyboard state. Keys are tracked by `KeyboardEvent.code`.
+// Keyboard and controller state. Keys are tracked by `KeyboardEvent.code`.
 // `pressed` holds keys that went down since the last `endStep()`,
-// so a tap between two fixed steps is never lost.
+// so a tap between two fixed steps is never lost. Controller buttons are
+// polled once per step (`pollPads`) and show up in the same `pressed` set
+// under pseudo codes ('PadConfirm', 'PadBack', 'PadUp', ... see gamepad.js).
 
 import { KEYS, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
+import { createPadPoller } from './gamepad.js';
 
 const down = new Set();
 const pressed = new Set();
@@ -34,14 +37,55 @@ export function wasPressed(code) {
   return pressed.has(code);
 }
 
-/** Any key except the mute and full screen toggles, so they never skip a screen. */
+// Never count as "any key": toggles, and stick flicks.
+const NOT_ANY = new Set([MUTE_KEY, FULLSCREEN_KEY, 'PadUp', 'PadDown', 'PadLeft', 'PadRight']);
+
+/** Any key or pad button, except the toggles and stick directions, so they never skip a screen. */
 export function anyPressed() {
-  for (const code of pressed) if (code !== MUTE_KEY && code !== FULLSCREEN_KEY) return true;
+  for (const code of pressed) if (!NOT_ANY.has(code)) return true;
   return false;
 }
 
 export function endStep() {
   pressed.clear();
+}
+
+// ---- controllers ----------------------------------------------------------
+
+const poller = createPadPoller();
+let padSlots = { red: null, blue: null };
+let padSeen = false;
+
+/** Read the controllers. Call once per fixed step, before the scene updates. */
+export function pollPads() {
+  const getPads = navigator.getGamepads?.bind(navigator);
+  if (!getPads) return;
+  let pads;
+  try {
+    pads = getPads();
+  } catch {
+    return; // blocked (e.g. by a permissions policy): keys only
+  }
+  const result = poller.poll(pads);
+  padSlots = result.slots;
+  if (padSlots.red || padSlots.blue) padSeen = true;
+  for (const code of result.pressed) pressed.add(code);
+}
+
+/** Has a controller been used this session? */
+export function padSeenYet() {
+  return padSeen;
+}
+
+/** A short rumble on `side`'s pad, where the pad supports it. */
+export function rumble(side, ms = 150, strength = 0.7) {
+  try {
+    const index = poller.padIndex(side);
+    const pad = index === null ? null : navigator.getGamepads?.()[index];
+    pad?.vibrationActuator?.playEffect?.('dual-rumble', { duration: ms, strongMagnitude: strength, weakMagnitude: strength });
+  } catch {
+    // no rumble: nothing to do
+  }
 }
 
 /** Called on every fresh keydown. Returns an unsubscribe function. */
@@ -53,15 +97,17 @@ export function onKey(fn) {
 /** Control state for one player, in the shape the logic expects. */
 export function playerInput(side) {
   const k = KEYS[side];
+  const pad = padSlots[side];
+  const clamp = (v) => Math.max(-1, Math.min(1, v));
   return {
-    x: (isDown(k.right) ? 1 : 0) - (isDown(k.left) ? 1 : 0),
-    y: (isDown(k.down) ? 1 : 0) - (isDown(k.up) ? 1 : 0),
-    shoot: wasPressed(k.shoot),
-    fire: isDown(k.shoot), // held, for the laser
+    x: clamp((isDown(k.right) ? 1 : 0) - (isDown(k.left) ? 1 : 0) + (pad?.x ?? 0)),
+    y: clamp((isDown(k.down) ? 1 : 0) - (isDown(k.up) ? 1 : 0) + (pad?.y ?? 0)),
+    shoot: wasPressed(k.shoot) || wasPressed(`PadShoot:${side}`),
+    fire: isDown(k.shoot) || Boolean(pad?.fire), // held, for the laser
   };
 }
 
-/** One player on the whole keyboard: either key set steers the same saucer. */
+/** One player on the whole keyboard (and any controller): every input steers the same saucer. */
 export function soloInput() {
   const a = playerInput('red');
   const b = playerInput('blue');

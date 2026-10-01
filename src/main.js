@@ -2,7 +2,7 @@
 
 import { Application, Container, Graphics } from 'pixi.js';
 import { WIDTH, HEIGHT, STEP, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
-import { endStep, onKey } from './input.js';
+import { endStep, onKey, pollPads } from './input.js';
 import { toggleMute, unlockAudio, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
 import { label } from './render/text.js';
@@ -72,9 +72,20 @@ onKey((code) => {
 });
 app.canvas.addEventListener('dblclick', toggleFullscreen);
 
+// Controllers coming and going.
+const padLabel = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5, anchorY: 1 });
+padLabel.position.set(WIDTH / 2, HEIGHT - 32);
+let padNoticeLeft = 0;
+function padNotice(text) {
+  padLabel.text = text;
+  padNoticeLeft = 3;
+}
+window.addEventListener('gamepadconnected', (e) => padNotice(`CONTROLLER CONNECTED: ${String(e.gamepad.id).slice(0, 40)}`));
+window.addEventListener('gamepaddisconnected', () => padNotice('CONTROLLER DISCONNECTED'));
+
 // Lives for the page: reloading resets the tally.
 const session = createSession();
-root.addChild(mutedLabel);
+root.addChild(mutedLabel, padLabel);
 game.go(createTitleScene, session);
 
 // Fixed-step loop.
@@ -83,10 +94,13 @@ let acc = 0;
 app.ticker.add((ticker) => {
   acc += Math.min(ticker.deltaMS / 1000, MAX_FRAME);
   while (acc >= STEP) {
+    pollPads();
     scene.update(STEP);
     endStep();
     acc -= STEP;
   }
+  padNoticeLeft = Math.max(0, padNoticeLeft - Math.min(ticker.deltaMS / 1000, MAX_FRAME));
+  padLabel.visible = padNoticeLeft > 0;
   scene.render();
 });
 

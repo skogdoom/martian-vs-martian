@@ -55,7 +55,7 @@ export function createTallyScene(game, session) {
     update(dt) {
       t += dt;
       if (t <= 1.2) return;
-      if (wasPressed('Escape')) game.go(createTitleScene, session);
+      if (wasPressed('Escape') || wasPressed('PadBack')) game.go(createTitleScene, session);
       else if (anyPressed()) {
         startMatch(session);
         game.go(createPlayScene, session);

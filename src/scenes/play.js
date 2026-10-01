@@ -6,7 +6,7 @@ import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
 import { sideName, isCpu } from '../session.js';
-import { playerInput, soloInput, wasPressed } from '../input.js';
+import { playerInput, soloInput, wasPressed, rumble } from '../input.js';
 import { handleEvents, stopVoices } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
@@ -146,7 +146,7 @@ export function createPlayScene(game, session) {
     destroy: stopVoices,
     update(dt) {
       if (round.phase === 'over') return;
-      if (wasPressed('Escape')) {
+      if (wasPressed('Escape') || wasPressed('PadBack')) {
         game.go(createTitleScene, session);
         return;
       }
@@ -177,6 +177,9 @@ export function createPlayScene(game, session) {
           else announce(`${name(e.by)} PUTS THE WOLF IN ${name(e.pen)}'S PEN!`, COLORS[e.by]);
         }
         if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
+        if (e.type === 'hit' && !e.shielded) rumble(e.side, 150, 0.7);
+        if (e.type === 'ram' && !e.shielded) rumble(e.victim, 300, 1);
+        if (e.type === 'dazed' || e.type === 'timeBombHeld') rumble(e.side, 400, 1);
         if (e.type === 'dazed') announce(`${name(e.side)} IS DAZED BY THREE HITS!`, COLORS[e.side === 'red' ? 'blue' : 'red']);
         if (e.type === 'ram') {
           announce(e.shielded ? `${name(e.side)}'S RAM BOUNCES OFF THE SHIELD` : `${name(e.side)} RAMS ${name(e.victim)}!`, COLORS[e.side]);

@@ -270,7 +270,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
 - [x] **Dazed by three hits in a row**
   - Logic, "DAZED!" pop-up, announcement and sound; unit tests.
   - Simulator: the trigger-happy bots (27 shots each, 63% hits) daze each other 2.6 times per round in total; lead changes 3.1 → 2.9. Players who shoot less will see fewer.
-- [ ] **9. Controller support**
+- [x] **9. Controller support**
   - "Keypad" read as game controllers (Gamepad API). Plain numeric-keypad keys for Blue would be a small extra, if wanted.
   - Input layer: `input.js` polls pads once per fixed step and merges them with the keys, so `playerInput(side)` stays the one source for scenes and the bot. Presses are edge-detected per step, like keys.
   - Mapping (standard layout): left stick or d-pad to move, A or right trigger to shoot (and drop), Start to start or confirm, B/Back for the menu. The stick is turned into -1/0/1 with a dead zone, so momentum works as with keys (analog noise would keep changing the heading).
@@ -280,6 +280,10 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - The title screen shows the pad controls next to the keys once a pad is seen.
   - Tests: the pad-to-input mapping, with fake pad states (dead zone, d-pad and stick together, button edges).
   - Done when: a match can be played start to finish with two pads and no keyboard (apart from the sound unlock).
+  - As built: `src/gamepad.js` (pure: `readPad`, `createPadPoller`) and `pollPads()` in `input.js`, called once per fixed step. Pad buttons appear in the `pressed` set as pseudo codes (`PadConfirm`, `PadBack`, `PadUp/Down/Left/Right`, `PadShoot:red/blue`), so the scenes only had to learn those names. Stick flicks never count as "any key" on the result screens.
+  - A pad keeps its slot while connected: if Red's pad drops out, Blue's does not become Red. A new pad takes the free slot. In 1 player, every input steers Red.
+  - Rumble (where the pad supports it) on hits, rams, dazes and a time bomb going off in the beam. A "controller connected / disconnected" notice shows at the bottom for 3 s.
+  - Checked with a fake pad in the browser (menu, start, steering, shooting, unplugging, B to the menu) and 10 unit tests. Not tried with a real pad.
 
 - [ ] **10. Round length and number of rounds**
   - Title menu: up/down moves between rows (mode, CPU difficulty, round length, rounds); left/right changes the value. Enter or Space starts; 1/2 stay as shortcuts.

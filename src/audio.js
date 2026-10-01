@@ -36,6 +36,11 @@ export function toggleMute() {
   return muted;
 }
 
+/** Is sound up and running? False until the browser has allowed it. */
+export function audioRunning() {
+  return ctx !== null && ctx.state === 'running';
+}
+
 export function isMuted() {
   return muted;
 }
