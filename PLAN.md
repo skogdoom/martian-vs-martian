@@ -7,16 +7,21 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - Vite, PixiJS v8, plain JavaScript (ES modules), Vitest for logic tests.
 - No physics engine. Movement uses a custom fixed-timestep loop at 60 Hz.
 - All graphics are drawn in code with `PIXI.Graphics`, and all sounds are synthesized with the Web Audio API. No asset files.
-- Fixed logical resolution of 1280×720, scaled to fit the window with letterboxing.
+- Logical width of 1280, scaled to fit the window. The height is 720 for a 16:9 window; a taller window shows more sky instead of black bars (see "Screen layout" below). Only a wider window gets bars, at the sides.
 - Game logic (`src/logic/`) is pure and has no Pixi imports, so it can be unit tested. Rendering only reads the logic state.
 
 ## Arena
 
 - One shared screen enclosed by walls on all four sides.
-- **Flight band:** saucers can only fly in the top two-thirds of the screen (y 0–480).
+- **Flight band:** saucers can only fly in the top two-thirds of the screen (y 0–480), and in a taller window also in the extra sky above.
 - **Ground:** at y ≈ 660. Animals walk on it.
 - **Pens:** Red's pen is on the left (x 0–180), Blue's on the right (x 1100–1280). Fences keep field animals from wandering into the pens.
 - Red starts on the left, Blue on the right.
+
+## Screen layout (`src/layout.js`)
+- The game always uses the whole height of the window. The scale is the smaller of width/1280 and height/720; a window taller than 16:9 then shows up to 360 more logical px of height (so up to 1280×1080), and only beyond that, in a portrait window, are there bars above and below.
+- In the arena (play and round-end) the ground stays at the bottom of the screen and the extra is sky. The HUD and announcements hang from the top of the screen, and saucers can fly up into the extra sky (`ARENA.flightTop` is set to minus the extra while a round is on; green men and rockets follow it). Menu scenes sit in the middle of the taller area, and the scenery (sky, stars, dirt) is stretched to fill it.
+- It follows window resizes and full screen, also mid-round. The balance numbers from the simulator are for a 16:9 window; with more sky the playfield is only larger, nothing else changes.
 
 ## Controls
 
@@ -241,7 +246,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Throwing with the saucer's momentum; splat height 220 → 260 px.
   - Simulator: lead changes 2.75 → 3.1 per round; about 1.6 field restocks and 0.05 splats per round.
 - [x] **Full screen**
-  - F (or double-click) toggles full screen; ESC or F leaves it. The arena stays letterboxed at 16:9 and the mouse cursor is hidden.
+  - F (or double-click) toggles full screen; ESC or F leaves it. The game fills the whole screen (see "Screen layout") and the mouse cursor is hidden.
   - F and M never skip a result screen.
 - [x] **Infinite ammo, shield, lambs → cows, cows → lambs; supply drops**
   - Logic, CPU use (it doesn't waste shots on a shield), icons, shield bubble, bursts, announcements and sound. Unit tests for each, and for the supply drop.
@@ -285,7 +290,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Rumble (where the pad supports it) on hits, rams, dazes and a time bomb going off in the beam. A "controller connected / disconnected" notice shows at the bottom for 3 s.
   - A pad has no button for the sound (M) or full screen (F); sound can be switched from the pause menu, and the pause menu can exit to the main menu.
   - Sound start: browsers only start Web Audio from a key press or a click, and a context created outside one can stay blocked for good. So only real key presses and clicks touch the audio (pad buttons never do). If the context isn't running at a key press or click, it is replaced by a fresh one made right there (not if it is under 0.5 s old), which also covers a first key that isn't a gesture, like Esc. Once a pad has been seen and the sound hasn't started yet, a hint at the bottom says "press any key or click once"; it goes away for good when the sound starts and does not come back during pause.
-  - **Pause:** P or Esc on the keyboard, Start on a pad (Start still begins the game on the title screen). The round freezes, the sound is suspended and nothing wakes it while paused. A menu comes up: Resume, Restart the game (a new match; the tally is kept, rounds not finished aren't counted), Sound on/off, Exit to main menu. Up/down and Enter/Space (or d-pad and A). A pad can use all four. Esc, P or Start resume. Esc no longer quits a round at once; it opens this menu.
+  - **Pause:** P or Esc on the keyboard, Start on a pad (Start still begins the game on the title screen). The round freezes, the sound is suspended and nothing wakes it while paused. A menu comes up: Resume, Restart the game (a new match; the tally is kept, rounds not finished aren't counted), Sound on/off, Full screen on/off, Exit to main menu. Up/down and Enter/Space (or d-pad and A). A pad can use all four. Esc, P or Start resume. Esc no longer quits a round at once; it opens this menu.
   - Checked with a fake pad in the browser (menu, start, steering, shooting, unplugging, B to the menu) and 10 unit tests. Not tried with a real pad.
 
 - [x] **10. Round length and number of rounds**
@@ -307,6 +312,13 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Simulator (800 rounds each, 60 / 90 / 120 s): deliveries 10.2 / 13.7 / 17.0; lead changes 2.35 / 2.87 / 3.23; ammo runs out after the same share of the round (about a quarter); ties 11% / 9% / 7%; green men grabbed per round 1.3 / 1.7 / 2.5 (with the third drop; 2.0 without it).
   - The simulator found a crash in the laser code from the daze work (a laser beam on a saucer whose shield ran out mid-beam); fixed, with a test.
 
+- [x] **Full screen height**
+  - `src/layout.js` (`fitWindow`, `sceneShift`); `main.js` puts the scene in a layer that is bottom-aligned for the arena and centred for menus, and sets `ARENA.flightTop`. The backdrop is drawn 400 px beyond the design area in both directions.
+  - Checked in the browser at 1280×720, 1024×768, 1000×1100 and 1920×800, and with a resize in the middle of a round. 12 unit tests.
+- [x] **Esc in full screen opens the pause menu**
+  - Browsers keep Esc in full screen (it leaves full screen and the page never sees the key). Chrome and Edge let a page keep it via the Keyboard Lock API, which is requested whenever full screen starts, so Esc opens the pause menu there (holding Esc still leaves full screen).
+  - Firefox and Safari have no such API: when the browser itself ends full screen, the game pauses instead (leaving by F, double-click or the menu doesn't pause). `src/fullscreen.js` reports this through `onUnexpectedExit`.
+  - The pause menu has a "Full screen: on/off" item. A controller can leave full screen from it but, as browsers need a key or a click, not enter it; the menu says so when a pad has been seen.
 - [ ] **11. Hardening, performance and code review**
   - Done after milestone 10, so the review covers the finished feature set.
   - Code review of every module: dead code, naming, comments that no longer match, config values vs `PLAN.md`, duplicated logic (the hazard kinds, the drop views, the helpers repeated across tests).

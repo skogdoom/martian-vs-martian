@@ -1,7 +1,8 @@
 // Round result, drawn over the frozen field. Moves on by itself, or on a key.
 
 import { Container, Graphics } from 'pixi.js';
-import { WIDTH, HEIGHT, ROUND } from '../config.js';
+import { WIDTH, ROUND } from '../config.js';
+import { PAD } from '../layout.js';
 import { anyPressed } from '../input.js';
 import { COLORS } from '../render/backdrop.js';
 import { label } from '../render/text.js';
@@ -14,7 +15,7 @@ export function createRoundEndScene(game, session, { number, points, result, out
   const name = (side) => sideName(session, side);
   const view = new Container();
   if (background) view.addChild(background);
-  view.addChild(new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.6 }));
+  view.addChild(new Graphics().rect(0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.6 }));
 
   const cx = WIDTH / 2;
   const lines = [];

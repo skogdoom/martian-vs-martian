@@ -41,7 +41,7 @@ export function updateRocket(r, target, dt) {
     r.alive = false;
     return 'hit';
   }
-  if (r.life <= 0 || r.x < 0 || r.x > WIDTH || r.y < 0 || r.y > HEIGHT) {
+  if (r.life <= 0 || r.x < 0 || r.x > WIDTH || r.y < ARENA.flightTop || r.y > HEIGHT) {
     r.alive = false;
     return 'expired';
   }

@@ -1,7 +1,9 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { Container, Graphics } from 'pixi.js';
-import { WIDTH, HEIGHT, AMMO_CRATE, BOT, RAM, PAUSE_KEY } from '../config.js';
+import { WIDTH, AMMO_CRATE, BOT, RAM, PAUSE_KEY } from '../config.js';
+import { layout, PAD } from '../layout.js';
+import { toggleFullscreen, isFullscreen, onUnexpectedExit } from '../fullscreen.js';
 import { momentum, speed } from '../logic/saucer.js';
 import { createBot } from '../logic/bot.js';
 import { createRng } from '../logic/rng.js';
@@ -61,7 +63,11 @@ export function createPlayScene(game, session) {
   const name = (side) => sideName(session, side);
   // In a 1-player game the CPU flies Blue and the player may use either key set.
   const cpu = isCpu(session, 'blue') ? createBot('blue', createRng(), BOT[session.difficulty], session.length) : null;
-  view.addChild(stage, hud.view);
+  // The HUD and announcements hang from the top of the screen, which is above
+  // the arena when the window is taller than 16:9 (see layout.js).
+  const top = new Container();
+  top.addChild(hud.view);
+  view.addChild(stage, top);
 
   const banner = label('', { size: 96, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
   banner.position.set(WIDTH / 2, 280);
@@ -72,7 +78,7 @@ export function createPlayScene(game, session) {
   // Power-up announcements under the HUD.
   const announcement = label('', { size: 30, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
   announcement.position.set(WIDTH / 2, 150);
-  view.addChild(announcement);
+  top.addChild(announcement);
   let announceLeft = 0;
   function announce(text, color) {
     announcement.text = text;
@@ -84,22 +90,23 @@ export function createPlayScene(game, session) {
   // and a menu comes up, which a controller can use fully.
   let paused = false;
   let choice = 0;
-  const dim = new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.6 });
+  const dim = new Graphics().rect(0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.6 });
   const pausedTitle = label('PAUSED', { size: 72, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
-  pausedTitle.position.set(WIDTH / 2, 215);
+  pausedTitle.position.set(WIDTH / 2, 205);
   const ITEMS = [
     { id: 'resume', text: () => 'RESUME', padOk: true },
     { id: 'restart', text: () => 'RESTART THE GAME', padOk: true },
     { id: 'sound', text: () => `SOUND: ${isMuted() ? 'OFF' : 'ON'}`, padOk: true },
+    { id: 'fullscreen', text: () => `FULL SCREEN: ${isFullscreen() ? 'ON' : 'OFF'}`, padOk: true },
     { id: 'exit', text: () => 'EXIT TO MAIN MENU', padOk: true },
   ];
   const itemLabels = ITEMS.map((_, i) => {
     const l = label('', { size: 30, bold: true, anchorX: 0.5, anchorY: 0.5 });
-    l.position.set(WIDTH / 2, 300 + i * 52);
+    l.position.set(WIDTH / 2, 290 + i * 50);
     return l;
   });
   const pausedHelp = label('', { size: 16, color: 0x8a93c0, anchorX: 0.5, anchorY: 0.5 });
-  pausedHelp.position.set(WIDTH / 2, 530);
+  pausedHelp.position.set(WIDTH / 2, 555);
   const pauseView = new Container();
   pauseView.addChild(dim, pausedTitle, ...itemLabels, pausedHelp);
   pauseView.visible = false;
@@ -109,7 +116,7 @@ export function createPlayScene(game, session) {
       itemLabels[i].tint = i === choice ? 0xffffff : 0x8a93c0;
     });
     pausedHelp.text = padSeenYet()
-      ? '↑ ↓ choose   ENTER / A: select   P / Start / ESC: resume'
+      ? '↑ ↓ choose   ENTER / A: select   P / Start / ESC: resume\n(a controller can leave full screen but not enter it: the browser wants a key or click)'
       : '↑ ↓ choose   ENTER or SPACE: select   P or ESC: resume';
   }
   function setPaused(on) {
@@ -121,6 +128,11 @@ export function createPlayScene(game, session) {
       refreshPauseMenu();
     }
   }
+  // Where Esc can't be caught in full screen (Firefox, Safari), the browser
+  // leaves full screen itself: pause, as Esc would have.
+  const stopWatchingFullscreen = onUnexpectedExit(() => {
+    if (!paused && round.phase !== 'over') setPaused(true);
+  });
   /** Run the pause menu for this step. Returns true if the scene changed. */
   function pauseMenu() {
     const up = wasPressed('ArrowUp') || wasPressed('KeyW') || wasPressed('PadUp');
@@ -133,6 +145,7 @@ export function createPlayScene(game, session) {
       const { id } = ITEMS[choice];
       if (id === 'resume') setPaused(false);
       else if (id === 'sound') toggleMute();
+      else if (id === 'fullscreen') toggleFullscreen();
       else if (id === 'restart') {
         startMatch(session);
         game.go(createPlayScene, session);
@@ -171,6 +184,7 @@ export function createPlayScene(game, session) {
     wolvesView.sync(world.wolves, t);
     timeBombsView.sync(world.timeBombs, t);
     projectileView.sync(world, t);
+    top.y = -layout.extra;
     announcement.visible = announceLeft > 0;
     announcement.alpha = Math.min(1, announceLeft * 2);
     effects.render();
@@ -211,8 +225,10 @@ export function createPlayScene(game, session) {
 
   return {
     view,
+    align: 'bottom', // the ground stays at the bottom of the screen; extra height is sky
     round,
     destroy() {
+      stopWatchingFullscreen();
       setAudioPaused(false);
       stopVoices();
     },
