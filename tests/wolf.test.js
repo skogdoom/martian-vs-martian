@@ -128,7 +128,7 @@ describe('the wolf in a pen', () => {
     const before = scores(w.animals).blue;
     hover(w.saucers.red, 1190, 300);
     stepWorld(w, SHOOT, STEP); // let go from high up: a wolf lands on its feet
-    const land = stepUntil(w, {}, 2, (e) => e.type === 'wolfLand');
+    const land = stepUntil(w, {}, 6, (e) => e.type === 'wolfLand'); // floats down under a parachute
     expect(land).toMatchObject({ pen: 'blue', by: 'red' });
     expect(wolf.state).toBe('penned');
     run(w, {}, 3 * (WOLF.eatTime + 1.5));
@@ -160,9 +160,51 @@ describe('the wolf in a pen', () => {
     hover(w.saucers.red, 640, 150);
     hover(w.saucers.blue, 900, 150);
     stepUntil(w, { blue: { x: 0, y: 0, shoot: true } }, 1, (e) => e.type === 'knockLoose');
-    const land = stepUntil(w, {}, 2, (e) => e.type === 'wolfLand' || e.type === 'splat');
+    const land = stepUntil(w, {}, 6, (e) => e.type === 'wolfLand' || e.type === 'splat');
     expect(land).toMatchObject({ type: 'wolfLand', pen: null, by: null });
     expect(wolf.state).toBe('field');
+  });
+});
+
+describe('the wolf and its parachute', () => {
+  /** Red carries the wolf at height `y` over blue's pen and drops it. */
+  function drop(y) {
+    const { w, wolf } = withWolf();
+    lambs(w).forEach((a) => Object.assign(a, { state: 'gone' }));
+    hover(w.saucers.red, wolf.x, LOW);
+    stepUntil(w, {}, 3, (e) => e.type === 'pickup');
+    hover(w.saucers.red, 640, y);
+    stepWorld(w, SHOOT, STEP);
+    return { w, wolf };
+  }
+
+  it('opens one when dropped from up high, and floats down slowly', () => {
+    const { w, wolf } = drop(150);
+    expect(w.events.some((e) => e.type === 'wolfChute')).toBe(true); // opened as it let go
+    expect(wolf.chute).toBe(true);
+    run(w, {}, 0.6);
+    expect(wolf.vy).toBeGreaterThan(0);
+    expect(wolf.vy).toBeLessThanOrEqual(110 + 1); // POWERUP.fallSpeed
+    const land = stepUntil(w, {}, 6, (e) => e.type === 'wolfLand');
+    expect(land).toMatchObject({ pen: null });
+    expect(wolf.state).toBe('field');
+    expect(wolf.chute).toBe(false);
+  });
+
+  it('takes much longer than a free fall', () => {
+    const { w, wolf } = drop(150);
+    let t = 0;
+    for (; t < 10 && wolf.state === 'falling'; t += STEP) stepWorld(w, {}, STEP);
+    const freeFall = Math.sqrt((2 * (ARENA.groundY - 150 - 60)) / 1400);
+    expect(t).toBeGreaterThan(freeFall * 2);
+  });
+
+  it('a low drop gets no parachute', () => {
+    const { w, wolf } = drop(LOW);
+    run(w, {}, 0.1);
+    expect(wolf.chute).toBe(false);
+    expect(w.events.some((e) => e.type === 'wolfChute')).toBe(false);
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'wolfLand')).toBeTruthy();
   });
 });
 
