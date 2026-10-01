@@ -82,7 +82,7 @@ export function createHerd() {
 /** Start `a` floating down from above the arena under a parachute. */
 export function parachute(a) {
   a.state = 'descending';
-  a.y = -20;
+  a.y = ARENA.flightTop - 20; // just above the top of the screen
 }
 
 /** Advance one step. Returns the pen it landed in (or null) on the step it

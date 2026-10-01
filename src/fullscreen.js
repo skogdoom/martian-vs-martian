@@ -1,5 +1,5 @@
 // Full screen toggle (F key or double-click). The canvas already follows the
-// window size, so going full screen just rescales the letterboxed arena.
+// window size, so going full screen just refits the game area (see layout.js).
 
 const el = document.documentElement;
 

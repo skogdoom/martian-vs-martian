@@ -5,7 +5,8 @@
 //   Enter/Space  start
 
 import { Container, Graphics } from 'pixi.js';
-import { WIDTH, HEIGHT } from '../config.js';
+import { WIDTH } from '../config.js';
+import { PAD } from '../layout.js';
 import { wasPressed, padSeenYet } from '../input.js';
 import { audioUnlocked } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
@@ -31,7 +32,7 @@ export function createTitleScene(game, session) {
   const herdView = createAnimalView(herd);
   const saucers = { red: createSaucerView('red'), blue: createSaucerView('blue') };
   view.addChild(herdView.view, saucers.red.view, saucers.blue.view);
-  view.addChild(new Graphics().rect(0, 0, WIDTH, HEIGHT).fill({ color: 0x000000, alpha: 0.25 }));
+  view.addChild(new Graphics().rect(0, -PAD, WIDTH, 720 + 2 * PAD).fill({ color: 0x000000, alpha: 0.25 }));
 
   const cx = WIDTH / 2;
   const red = label('MARTIAN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });

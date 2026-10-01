@@ -1,7 +1,8 @@
 // Boot, scaling, fixed-step loop and scene manager.
 
 import { Application, Container, Graphics } from 'pixi.js';
-import { WIDTH, HEIGHT, STEP, MUTE_KEY, FULLSCREEN_KEY } from './config.js';
+import { WIDTH, STEP, MUTE_KEY, FULLSCREEN_KEY, ARENA } from './config.js';
+import { fitWindow, sceneShift, layout } from './layout.js';
 import { endStep, onKey, pollPads, padSeenYet } from './input.js';
 import { toggleMute, isMuted, unlockAudio, audioUnlocked, resume as resumeAudio } from './audio.js';
 import { toggleFullscreen } from './fullscreen.js';
@@ -19,43 +20,60 @@ await app.init({
 });
 document.body.appendChild(app.canvas);
 
-// Everything is drawn into `root` at the 1280x720 logical resolution.
+// Everything is drawn into `root`, 1280 logical px wide and as tall as the
+// window allows (see layout.js). The scene sits in `layer` inside it.
 const root = new Container();
-const rootMask = new Graphics().rect(0, 0, WIDTH, HEIGHT).fill(0xffffff);
+const rootMask = new Graphics();
 root.addChild(rootMask);
 root.mask = rootMask;
+const layer = new Container();
+root.addChild(layer);
 app.stage.addChild(root);
 
+let visibleHeight = 720;
 function fit() {
-  const w = app.screen.width;
-  const h = app.screen.height;
-  const scale = Math.min(w / WIDTH, h / HEIGHT);
-  root.scale.set(scale);
-  root.position.set(Math.round((w - WIDTH * scale) / 2), Math.round((h - HEIGHT * scale) / 2));
+  const f = fitWindow(app.screen.width, app.screen.height);
+  visibleHeight = f.visible;
+  root.scale.set(f.scale);
+  root.position.set(f.x, f.y);
+  rootMask.clear().rect(0, 0, WIDTH, f.visible).fill(0xffffff);
+  alignScene();
+  // The notices along the bottom edge.
+  mutedLabel.position.set(WIDTH / 2, visibleHeight - 10);
+  soundHint.position.set(WIDTH / 2, visibleHeight - 10);
+  padLabel.position.set(WIDTH / 2, visibleHeight - 32);
 }
-app.renderer.on('resize', fit);
-fit();
 
 // Scene manager. A scene is { view, update(dt), render(), destroy?() }.
 // A new scene may adopt the previous scene's view (e.g. as a backdrop);
 // otherwise the old view is destroyed.
 let scene = null;
+
+/** Put the scene in the middle of the screen (menus) or at the bottom (the arena),
+ * and let the arena's saucers use the extra sky above it. */
+function alignScene() {
+  const bottom = scene?.align === 'bottom';
+  layer.y = sceneShift(scene?.align);
+  ARENA.flightTop = bottom ? -layout.extra : 0;
+}
+
 const game = {
   go(factory, ...args) {
     const old = scene;
     if (old) {
-      root.removeChild(old.view);
+      layer.removeChild(old.view);
       old.destroy?.();
     }
     scene = factory(game, ...args);
-    root.addChildAt(scene.view, 1); // above the mask, below the mute label
+    layer.addChild(scene.view);
+    alignScene();
     if (old && !old.view.parent) old.view.destroy({ children: true });
   },
 };
 
 // Sound toggle, with a small reminder while muted. It sits above every scene.
 const mutedLabel = label('SOUND OFF  (M)', { size: 13, color: 0xcfd6ff, anchorX: 0.5, anchorY: 1 });
-mutedLabel.position.set(WIDTH / 2, HEIGHT - 10);
+mutedLabel.position.set(WIDTH / 2, 710);
 mutedLabel.visible = false;
 // Audio needs a user gesture to start, and may need one again after the
 // browser suspends it, so every key press and click tries to wake it up.
@@ -75,12 +93,12 @@ app.canvas.addEventListener('dblclick', toggleFullscreen);
 // Browsers only start sound from a key press or a click, not from a controller
 // button. Until it runs, say so (once a controller has been used).
 const soundHint = label('NO SOUND YET: PRESS ANY KEY OR CLICK THE PAGE ONCE', { size: 13, color: 0xffd76a, anchorX: 0.5, anchorY: 1 });
-soundHint.position.set(WIDTH / 2, HEIGHT - 10);
+soundHint.position.set(WIDTH / 2, 710);
 soundHint.visible = false;
 
 // Controllers coming and going.
 const padLabel = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5, anchorY: 1 });
-padLabel.position.set(WIDTH / 2, HEIGHT - 32);
+padLabel.position.set(WIDTH / 2, 688);
 let padNoticeLeft = 0;
 function padNotice(text) {
   padLabel.text = text;
@@ -92,6 +110,8 @@ window.addEventListener('gamepaddisconnected', () => padNotice('CONTROLLER DISCO
 // Lives for the page: reloading resets the tally.
 const session = createSession();
 root.addChild(mutedLabel, padLabel, soundHint);
+app.renderer.on('resize', fit);
+fit();
 game.go(createTitleScene, session);
 
 // Fixed-step loop.

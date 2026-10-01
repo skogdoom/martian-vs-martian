@@ -3,6 +3,7 @@
 
 import { Container, Graphics, FillGradient } from 'pixi.js';
 import { WIDTH, HEIGHT, ARENA } from '../config.js';
+import { PAD } from '../layout.js';
 import { createRng } from '../logic/rng.js';
 import { label } from './text.js';
 
@@ -27,15 +28,16 @@ function sky(g) {
     ],
     textureSpace: 'local',
   });
-  g.rect(0, 0, WIDTH, GROUND).fill(gradient);
+  g.rect(0, -PAD, WIDTH, GROUND + PAD).fill(gradient);
 }
 
 function stars(rng) {
   // Three groups that twinkle out of phase.
   const groups = [new Graphics(), new Graphics(), new Graphics()];
-  for (let i = 0; i < 150; i++) {
+  const count = Math.round(150 * (1 + PAD / GROUND)); // the sky reaches PAD px above the arena
+  for (let i = 0; i < count; i++) {
     const x = rng() * WIDTH;
-    const y = rng() * rng() * (GROUND - 120);
+    const y = -PAD + rng() * (rng() < 0.5 ? 1 : rng()) * (GROUND - 120 + PAD);
     const r = rng() < 0.12 ? 1.8 : 0.6 + rng() * 0.8;
     groups[i % 3].circle(x, y, r).fill({ color: 0xffffff, alpha: 0.5 + rng() * 0.5 });
   }
@@ -65,7 +67,7 @@ function hills(g, base, amp, color, phase) {
 }
 
 function ground(g) {
-  g.rect(0, GROUND, WIDTH, HEIGHT - GROUND).fill(0x4a3322);
+  g.rect(0, GROUND, WIDTH, HEIGHT - GROUND + PAD).fill(0x4a3322); // dirt runs on below the arena
   g.rect(0, GROUND, WIDTH, 14).fill(0x3f8a3a);
   g.rect(0, GROUND, WIDTH, 4).fill(0x5cae52);
   const rng = createRng(7);
@@ -152,9 +154,6 @@ export function createBackdrop() {
     t.position.set((left + right) / 2, GROUND + 32);
     view.addChild(t);
   }
-
-  const border = new Graphics().rect(0, 0, WIDTH, HEIGHT).stroke({ color: 0x2a3566, width: 4, alignment: 1 });
-  view.addChild(border);
 
   function tick(t) {
     starGroups.forEach((g, i) => {
