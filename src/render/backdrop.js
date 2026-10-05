@@ -3,7 +3,7 @@
 
 import { Container, Graphics, FillGradient } from 'pixi.js';
 import { WIDTH, HEIGHT, ARENA } from '../config.js';
-import { PAD } from '../layout.js';
+import { PAD, menuLift } from '../layout.js';
 import { createRng } from '../logic/rng.js';
 import { label } from './text.js';
 
@@ -44,15 +44,63 @@ function stars(rng) {
   return groups;
 }
 
-function moon(g) {
-  const x = 930;
-  const y = 120;
-  g.circle(x, y, 60).fill({ color: 0xfff6d8, alpha: 0.06 });
-  g.circle(x, y, 44).fill({ color: 0xfff6d8, alpha: 0.08 });
-  g.circle(x, y, 32).fill(0xf3ecd2);
-  g.circle(x - 10, y - 6, 7).fill(0xdcd3b4);
-  g.circle(x + 9, y + 9, 5).fill(0xdcd3b4);
-  g.circle(x + 12, y - 12, 3).fill(0xdcd3b4);
+// The moon's phase, picked once when the page loads, so the menu and every
+// round of the session share it. `lit` is where the light is (+1 right, -1
+// left); `bulge` is the terminator: -1 new, 0 half, +1 full.
+export const MOON_PHASES = {
+  waning: { lit: -1, bulge: -0.45 }, // a crescent, lit on the left
+  quarter: { lit: 1, bulge: 0 }, // half
+  waxing: { lit: 1, bulge: 0.55 }, // more than half, lit on the right
+  full: { lit: 1, bulge: 1 },
+};
+const PHASE_NAMES = Object.keys(MOON_PHASES);
+// Where it hangs: just right of the title on the menu, half below it. Every
+// scene puts it in the same place on screen, so it doesn't move when a round
+// starts (on a tall screen that means lifting it with the menu text).
+export const MOON_AT = { x: 1002, y: 188 };
+export const moonPhase = PHASE_NAMES[Math.floor(Math.random() * PHASE_NAMES.length)];
+
+/** Outline of the lit part of a moon of radius `r` centred on (0, 0): down the
+ * lit limb, then back up along the terminator. */
+export function moonLitOutline(phase, r, steps = 24) {
+  const { lit, bulge } = MOON_PHASES[phase];
+  const pts = [];
+  for (let i = 0; i <= steps; i++) {
+    const y = -r + (2 * r * i) / steps;
+    pts.push(lit * Math.sqrt(Math.max(0, r * r - y * y)), y);
+  }
+  for (let i = steps; i >= 0; i--) {
+    const y = -r + (2 * r * i) / steps;
+    pts.push(-lit * bulge * Math.sqrt(Math.max(0, r * r - y * y)), y);
+  }
+  return pts;
+}
+
+/** Is the point (dx, dy) from the centre on the lit part? */
+function isLit(phase, r, dx, dy) {
+  const { lit, bulge } = MOON_PHASES[phase];
+  return lit * dx >= -bulge * Math.sqrt(Math.max(0, r * r - dy * dy));
+}
+
+/** Drawn around (0, 0); the backdrop puts it at MOON_AT. */
+function moon(g, phase = moonPhase) {
+  const x = 0;
+  const y = 0;
+  const r = 32;
+  // The glow is fainter the less of it is lit.
+  const glow = (1 + MOON_PHASES[phase].bulge) / 2;
+  g.circle(x, y, 60).fill({ color: 0xfff6d8, alpha: 0.02 + 0.04 * glow });
+  g.circle(x, y, 44).fill({ color: 0xfff6d8, alpha: 0.03 + 0.05 * glow });
+  // The dark side, just visible against the sky.
+  g.circle(x, y, r).fill({ color: 0x2b3150, alpha: 0.9 });
+  g.poly(moonLitOutline(phase, r).map((v, i) => v + (i % 2 ? y : x))).fill(0xf3ecd2);
+  for (const [dx, dy, cr] of [
+    [-10, -6, 7],
+    [9, 9, 5],
+    [12, -12, 3],
+  ]) {
+    if (isLit(phase, r, dx, dy)) g.circle(x + dx, y + dy, cr).fill(0xdcd3b4);
+  }
 }
 
 /** A band of rolling hills from `base` down to the ground. */
@@ -133,8 +181,11 @@ export function createBackdrop() {
 
   const back = new Graphics();
   sky(back);
-  moon(back);
   const starGroups = stars(rng);
+  const moonView = new Graphics();
+  moon(moonView);
+  const placeMoon = () => moonView.position.set(MOON_AT.x, MOON_AT.y + menuLift());
+  placeMoon();
 
   const land = new Graphics();
   hills(land, 560, 50, 0x1c2544, 0.8);
@@ -147,7 +198,7 @@ export function createBackdrop() {
 
   const flags = [flag('red'), flag('blue')];
 
-  view.addChild(back, ...starGroups, land, ...flags.map((f) => f.g));
+  view.addChild(back, ...starGroups, moonView, land, ...flags.map((f) => f.g));
 
   for (const side of ['red', 'blue']) {
     const { left, right } = ARENA.pens[side];
@@ -162,6 +213,7 @@ export function createBackdrop() {
       g.alpha = 0.65 + 0.35 * Math.sin(t * (1.3 + i * 0.4) + i * 2.1);
     });
     for (const f of flags) f.tick(t);
+    placeMoon(); // the screen may have changed shape
   }
   tick(0);
 

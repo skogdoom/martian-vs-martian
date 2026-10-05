@@ -73,7 +73,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - The animal drops into the pen, stays there and stops wandering.
 
 ### Animals
-- Each round starts with a fixed set of 4 cows and 5 lambs, placed in the field (13 points in all).
+- Each round starts with a fixed set of 4 cows and 7 lambs, placed in the field (15 points in all), as a mirror image so neither player starts nearer the cows.
 - They wander the field and freeze while being hooked.
 
 ### Stealing
@@ -90,8 +90,8 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - The CPU lifts a wolf out of its own pen and drops any wolf it carries into the opponent's pen. On Normal and Hard it also fetches the wolf from the field when the opponent has 2+ lambs penned.
 
 ### Power-ups
-- Twice per round (at 30% and 60% of the round; three times in a 120 s round, at 25%, 50% and 75%) there is a 60% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
-- He wanders like an animal and is hooked the same way (lift 1 s; shots and drift break the pickup). A saucer carrying an animal can't grab him. Like a cow or lamb he splats if he falls too far (in green); 3 s later another green man parachutes in with the same power-up (`POWERUP.greenmanRespawn`). The mystery package and the ammo crate don't break. Left standing in the field for 15 s without being picked up (`POWERUP.dropLife`), he holds his head, says "Oh, no!" and 1.5 s later explodes, power-up and all, and no other one comes instead. Hooking him in that moment saves him. Mystery packages and ammo crates wait as long as it takes.
+- Twice per round (at 30% and 60% of the round; three times in a 120 s round, at 25%, 50% and 75%) there is a 70% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
+- He wanders like an animal and is hooked the same way (lift 1 s; shots and drift break the pickup). A saucer carrying an animal can't grab him. Like a cow or lamb he splats if he falls too far (in green); 3 s later another green man parachutes in with the same power-up (`POWERUP.greenmanRespawn`). The mystery package and the ammo crate don't break. Left standing in the field for 10 s without being picked up (`POWERUP.dropLife`), he holds his head, says "Oh, no!" and 1.5 s later explodes, power-up and all, and no other one comes instead. Hooking him in that moment saves him. Mystery packages and ammo crates wait as long as it takes.
 - Fully lifted, he climbs into the saucer and the power-up starts. It lasts 15 s.
 - The power-ups:
   - **Speed boost:** 60% faster top speed, 50% more thrust.
@@ -180,7 +180,7 @@ tests/                 Vitest tests for the logic
 | Lamb lift time    | 0.9 s          |
 | Cow lift time     | 1.45 s         |
 | Hook drift limit  | 40 px          |
-| Animals per round | 4 cows, 5 lambs|
+| Animals per round | 4 cows, 7 lambs|
 
 Also in `config.js`: projectile speed, knockback strength, bump strength, saucer acceleration, drag and max speed, and animal wander speed.
 
@@ -375,9 +375,11 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Lambs → cows and cows → lambs also burst animals of that kind being lifted or carried.
   - Out of ammo: 10% more top speed and thrust, so ramming speed comes after 0.7 s instead of 1 s.
   - New power-up, parachutes: for 15 s, whatever falls from your beam and would splat floats down under a parachute.
+  - Power-up drop chance 60% → 70% per drop time; a green man nobody picks up gives up after 10 s (was 15). Simulator: green men grabbed per round 1.57 → 1.72; ones lost to waiting 0.01 → 0.04.
+  - Herd 4 cows and 7 lambs (was 5 lambs), laid out as a mirror image (alternating from the left put all four cows in the left half). Simulator: the field empties at 43 s (median, was 36.5 s with 5 lambs), final score per player 5.9 (was 5.0), lead changes 3.2, red and blue win equally often.
   - End-of-match stats on the tally screen: cows and lambs splatted and times dazed, per player.
   - Power-up pickups slower: the green man and the mystery package lift in 1 s (was 0.8; crates stay at 0.8). Dazes 0.3 s longer: three hits and rams 1.8 s, the time bomb in a beam and a rocket hit 2.3 s. In the simulator the round stats barely move (lead changes 3.35, dazes by three hits 3.1 per round).
-  - A green man left in the field for 15 s says "Oh, no!" and explodes, power-up and all, without a replacement. Mystery packages and crates are unaffected. The CPU grabs green men quickly, so in the simulator this happens in 1 round in 100.
+  - A green man left in the field for 10 s (first 15) says "Oh, no!" and explodes, power-up and all, without a replacement. Mystery packages and crates are unaffected. The CPU grabs green men quickly, so in the simulator this happens in 1 round in 100.
   - Simulator after these (1000 rounds of 90 s): splatted animals 0.04 → 1.6 per round, nearly all the Easy CPU's, which flies home at a height that is now unsafe (Normal and Hard: about 0.15); final score per player 5.5 → 5.0, lead changes 3.3, rams 0.30 → 0.36. Normal still beats Easy 96% of rounds, Hard beats Normal 84%.
   - Simulator, 1000 rounds of 90 s (master → now): lead changes per round 2.79 → 3.42, dazes 2.64 → 3.23, pickups broken by a shot 16.2 → 16.0 of 41.9 → 43.1 started, deliveries 13.8 → 15.0, field emptied at 40.5 → 35.9 s (median), winning margin 2.95 → 2.77. CPU difficulties keep their spread (Hard beats Normal 83%, Normal beats Easy 95%).
   - Without the faster lifts, more shots alone broke more pickups and slowed the game down (field emptied at 45 s); without the CPU cruising above the reach band it hooked from the top of it mostly; cruising at hooking height made both saucers line up for shots (7.7 dazes per round).

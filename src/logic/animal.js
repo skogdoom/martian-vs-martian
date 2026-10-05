@@ -65,19 +65,30 @@ export function createAnimal(id, kind, x) {
   };
 }
 
-/** The fixed starting herd: lambs and cows alternating, symmetric about the centre. */
-export function createHerd() {
-  const left = { cow: ANIMALS.cows, lamb: ANIMALS.lambs };
+/** The kinds of the starting herd, left to right: a mirror image, so both
+ * players start the same distance from the same animals. Each half
+ * alternates, starting with the more numerous kind; an odd one out stands in
+ * the middle. (With an odd number of both, the middle two differ.) */
+export function herdKinds(cows = ANIMALS.cows, lambs = ANIMALS.lambs) {
+  const half = { cow: Math.floor(cows / 2), lamb: Math.floor(lambs / 2) };
   const other = (k) => (k === 'cow' ? 'lamb' : 'cow');
-  // Alternate, starting with whichever is more numerous, so the layout mirrors.
-  let next = left.lamb >= left.cow ? 'lamb' : 'cow';
-  const kinds = [];
-  while (left.cow + left.lamb > 0) {
-    const kind = left[next] > 0 ? next : other(next);
-    kinds.push(kind);
-    left[kind]--;
+  let next = half.lamb >= half.cow ? 'lamb' : 'cow';
+  const side = [];
+  while (half.cow + half.lamb > 0) {
+    const kind = half[next] > 0 ? next : other(next);
+    side.push(kind);
+    half[kind]--;
     next = other(kind);
   }
+  const middle = [];
+  if (cows % 2) middle.push('cow');
+  if (lambs % 2) middle.push('lamb');
+  return [...side, ...middle, ...[...side].reverse()];
+}
+
+/** The fixed starting herd, spread evenly across the field. */
+export function createHerd() {
+  const kinds = herdKinds();
   const { min, max } = fieldBounds('cow');
   const gap = (max - min) / (kinds.length + 1);
   return kinds.map((kind, i) => createAnimal(i, kind, min + gap * (i + 1)));

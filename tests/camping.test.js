@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { STEP, ARENA, SAUCER, RESTOCK, SPOOK, SPLAT } from '../src/config.js';
+import { STEP, ARENA, SAUCER, RESTOCK, SPOOK, SPLAT, ANIMALS } from '../src/config.js';
 import { createWorld, stepWorld } from '../src/logic/world.js';
 import { clampToPen } from '../src/logic/animal.js';
 import { LOW, SHOOT, run, stepUntil } from './helpers.js';
+
+const HERD = ANIMALS.cows + ANIMALS.lambs; // the starting herd
 
 function place(s, x, y, vx = 0, vy = 0) {
   Object.assign(s, { x, y, vx, vy });
@@ -87,19 +89,19 @@ describe('field restock', () => {
     place(w.saucers.blue, 700, 100);
     w.animals.forEach((a, i) => Object.assign(a, { state: 'penned', pen: i % 2 ? 'red' : 'blue', owner: i % 2 ? 'red' : 'blue' }));
     run(w, {}, RESTOCK.emptyFieldAfter - 0.5);
-    expect(w.animals).toHaveLength(9);
+    expect(w.animals).toHaveLength(HERD);
     const e = stepUntil(w, {}, 1, (e) => e.type === 'restock');
     expect(e).toMatchObject({ count: RESTOCK.emptyFieldCount, reason: 'emptyField' });
-    expect(w.animals.slice(9).every((a) => a.state === 'descending')).toBe(true);
+    expect(w.animals.slice(HERD).every((a) => a.state === 'descending')).toBe(true);
     // Not again while they are around.
     run(w, {}, RESTOCK.emptyFieldAfter + 1);
-    expect(w.animals).toHaveLength(9 + RESTOCK.emptyFieldCount);
+    expect(w.animals).toHaveLength(HERD + RESTOCK.emptyFieldCount);
   });
 
   it('does not restock while there are animals in the field', () => {
     const w = createWorld(1);
     run(w, {}, RESTOCK.emptyFieldAfter + 1);
-    expect(w.animals).toHaveLength(9);
+    expect(w.animals).toHaveLength(HERD);
   });
 });
 

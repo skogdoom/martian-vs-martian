@@ -18,13 +18,23 @@
 - Out of ammo, a saucer flies 10% faster, so ramming speed comes sooner.
 - New power-up, parachutes: for 15 s, anything that falls from your beam high
   enough to splat floats down under a parachute instead.
-- A green man nobody picks up within 15 s holds his head, says "Oh, no!" and
+- A green man nobody picks up within 10 s holds his head, says "Oh, no!" and
   explodes, taking his power-up with him. Mystery packages and ammo crates
   wait.
+- Power-ups drop a little more often (70% chance at each drop time, was
+  60%).
+- Two more lambs at the start of each round (4 cows and 7 lambs), to go with
+  the faster game.
 - The tally at the end of a match shows how many cows and lambs each player
   splatted and how often each was dazed.
 - Power-ups take a little longer to beam up (1 s instead of 0.8), and dazes
   last 0.3 s longer.
+- A tidier title screen: each player's keys are in their top corner, with
+  their saucer idling below, and the menu sits higher.
+- Now and then a shooting star crosses the sky on the title screen.
+- The title screen shows which version is running, above the title.
+- The moon is no longer always full: each visit it is waning, at a quarter,
+  waxing or full, the same for the menu and every game.
 - Fixed: a golden animal that splatted (or was eaten by the wolf) kept
   glittering where it had been.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9
