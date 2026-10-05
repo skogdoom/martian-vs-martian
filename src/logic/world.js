@@ -10,7 +10,7 @@ import { createHook, updateHook, interruptHook, dropCarried, releaseCarried, isO
 import { createDrop, createCrate, dropSpot, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
-import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen, bounceOut, createTimeBomb } from './ordnance.js';
+import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blast, bounceOut, createTimeBomb } from './ordnance.js';
 import { createGolden, settleGolden } from './golden.js';
 import { createWolf, updateWolf } from './wolf.js';
 
@@ -273,8 +273,9 @@ function unhook(w, side, b) {
   b.hookedBy = null;
 }
 
-/** Fuses burn down wherever the bombs are. On the ground it blasts the pen it
- * is in, like the pen bomb; in a beam, it dazes that saucer instead. */
+/** Fuses burn down wherever the bombs are. On the ground it goes off like the
+ * pen bomb (the pen it is in, or the animals near it in the field); in a beam,
+ * it dazes that saucer instead. */
 function updateTimeBombs(w, dt) {
   for (const b of w.timeBombs) {
     if (b.state === 'gone') continue;
@@ -306,7 +307,7 @@ function updateTimeBombs(w, dt) {
       s.stun = Math.max(s.stun, POWERUP.timeBombDaze);
       w.events.push({ type: 'timeBombHeld', side: held, x, y });
     } else if (grounded) {
-      const { pen, launched } = blastPen(w.animals, x, w.rng);
+      const { pen, launched } = blast(w.animals, x, w.rng);
       w.events.push({ type: 'bombBlast', side: b.lastBy, pen, count: launched.length, timed: true, x, y });
     }
   }
@@ -431,7 +432,7 @@ export function stepWorld(w, inputs, dt) {
 
   for (const b of w.bombs) {
     if (!updateBomb(b, dt)) continue;
-    const { pen, launched } = blastPen(w.animals, b.x, w.rng);
+    const { pen, launched } = blast(w.animals, b.x, w.rng);
     w.events.push({ type: 'explosion', x: b.x, y: b.y, big: true });
     w.events.push({ type: 'bombBlast', side: b.owner, pen, count: launched.length, x: b.x, y: b.y });
   }
@@ -451,7 +452,8 @@ export function stepWorld(w, inputs, dt) {
     if (e.type === 'ammoCrate') {
       // The refill is a share of the round's ammo (half, as in a 90 s round).
       const weapon = w.weapons[e.side];
-      addAmmo(weapon, Math.round((AMMO_CRATE.refill * weapon.cap) / COMBAT.ammoPerRound));
+      e.amount = Math.round((AMMO_CRATE.refill * weapon.cap) / COMBAT.ammoPerRound);
+      addAmmo(weapon, e.amount);
     }
   }
 

@@ -27,9 +27,9 @@ export const SAUCER = {
   radius: 34, // collision radius
   halfHeight: 14, // distance from centre to underside
   top: 30, // distance from centre to top of dome
-  accel: 1400, // px/s^2
+  accel: 1575, // px/s^2
   drag: 3, // 1/s, exponential
-  maxSpeed: 320, // px/s, cap for self-propelled speed
+  maxSpeed: 360, // px/s, cap for self-propelled speed
   startY: 200,
   startX: { red: 110, blue: 1170 },
 };
@@ -44,9 +44,9 @@ export const BUMP = {
 export const RAM = {
   cruise: 0.8, // momentum builds only while going at least this share of SAUCER.maxSpeed along the input
   delay: 0.2, // seconds of straight flight before it starts to build
-  build: 1, // seconds more to reach full momentum (ram speed after ~330 px from a standstill)
+  build: 1, // seconds more to reach full momentum
   boost: 1.5, // top speed at full momentum, times SAUCER.maxSpeed
-  speed: 400, // px/s toward the opponent at contact for a ram
+  speed: 430, // px/s toward the opponent at contact for a ram
   daze: 1.5, // seconds the rammed saucer spins out
   knockback: 500, // px/s extra push on the rammed saucer
   jolt: 30, // degrees: a hit that turns the saucer's course more than this costs its momentum
@@ -58,8 +58,8 @@ export const COMBAT = {
   knockback: 900, // px/s horizontal impulse on hit
   knockLoose: true, // a hit also knocks a fully lifted (carried) animal loose
   clipSize: 3,
-  reloadTime: 1.5,
-  ammoPerRound: 18,
+  reloadTime: 1,
+  ammoPerRound: 24, // in a 90 s round; scaled with the round length
   fireCooldown: 0.15,
   // Hit this many times in a row, each within `dazeWindow` s of the last, a
   // saucer is dazed for `dazeTime` s. Shots at once (triple shot) count once.
@@ -70,7 +70,7 @@ export const COMBAT = {
 };
 
 export const HOOK = {
-  reach: 200, // from saucer underside to animal top
+  reach: 240, // from saucer underside to animal top
   grabRadius: 26, // horizontal distance to start a pickup
   stillSpeed: 90, // saucer must be slower than this to lower the hook
   // A pickup in progress holds while the saucer stays within this far sideways
@@ -82,7 +82,7 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.3, timebomb: 0.8 },
+  liftTime: { lamb: 0.9, cow: 1.45, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.2, timebomb: 0.8 },
 };
 
 export const ANIMALS = {
@@ -135,6 +135,11 @@ export const POWERUP = {
   rocketStun: 2, // seconds the hit saucer spins out: no steering, lifting or shooting
   // bomb: dropped with the shoot key; blows animals out of the pen it lands in
   bombLaunch: [650, 950], // upward speed range of the animals thrown out
+  // Landing in the field instead, it throws the cows and lambs near it away
+  // from the blast, on fire. They always land safely, and never in a pen.
+  fieldBlastRadius: 150, // px either side of the bomb
+  fieldBlastThrow: [80, 260], // px they are thrown, away from the bomb
+  fieldBlastLaunch: [450, 700], // upward speed range: lower arcs than out of a pen
   // twin: the beam can carry a second animal
   // steal: stolen animals delivered while active are worth this times full value
   stealMultiplier: 2,
@@ -159,7 +164,7 @@ export const SUPPLY = {
 // Either player can grab it; it goes into the ship like the green man.
 export const AMMO_CRATE = {
   before: 0.5, // only when someone runs out before this share of the round
-  refill: 9, // shots it gives in a 90 s round, scaled with the round length (up to the round's cap)
+  refill: 12, // shots it gives in a 90 s round, scaled with the round length (up to the round's cap)
 };
 
 // Animals that fall further than this burst in a cloud of blood and are lost

@@ -92,9 +92,26 @@ describe('time bomb', () => {
     expect(herd.every((a) => a.state === 'penned')).toBe(true);
   });
 
-  it('in the field it just goes off', () => {
+  it('in the field it scatters the animals near it, on fire', () => {
     const { w } = setup(640, LOW);
+    for (const a of w.animals) if (a.state === 'field') a.state = 'gone';
+    const lamb = w.animals.find((a) => a.kind === 'lamb' && a.state === 'gone');
+    Object.assign(lamb, { state: 'field', x: 560, vx: 0, wanderTimer: 99 });
     stepWorld(w, SHOOT, STEP);
+    hover(w.saucers.red, 640, 100); // out of the way: don't hook it
+    const blast = stepUntil(w, {}, POWERUP.timeBombFuse + 0.5, (e) => e.type === 'bombBlast');
+    expect(blast).toMatchObject({ pen: null, count: 1, timed: true });
+    expect(lamb.onFire).toBe(true);
+    run(w, {}, 3);
+    expect(lamb.state).toBe('field');
+    expect(lamb.x).toBeLessThan(560);
+  });
+
+  it('in an empty stretch of field it just goes off', () => {
+    const { w } = setup(640, LOW);
+    for (const a of w.animals) if (a.state === 'field') a.state = 'gone';
+    stepWorld(w, SHOOT, STEP);
+    hover(w.saucers.red, 640, 100);
     const blast = stepUntil(w, {}, POWERUP.timeBombFuse + 0.5, (e) => e.type === 'bombBlast');
     expect(blast).toMatchObject({ pen: null, count: 0 });
   });

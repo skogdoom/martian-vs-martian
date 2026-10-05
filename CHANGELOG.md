@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Faster and more chaotic: saucers are 12.5% faster, reloading takes 1 s
+  instead of 1.5 s, and there are a third more shots per round (24 in a 90 s
+  round). Ramming is slightly easier.
+- Animals can be grabbed from about 40 px higher, and lifting is about 10%
+  quicker. The CPU grabs from varying heights too.
+- Bombs that go off in the field throw the cows and lambs near them around,
+  on fire. They all survive.
+- The ammo crate announcement shows how much ammo it actually gave (it said +9
+  whatever the round length).
+
 ## 1.0.0
 
 First release.
