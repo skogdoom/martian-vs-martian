@@ -1,4 +1,5 @@
-// Arena scenery: night sky, stars, moon, hills, ground and the two pens.
+// Arena scenery: night sky, stars, moon, hills, ground and the two pens, and
+// on special days a Santa hat and snow, or fireworks (see occasion.js).
 // `createBackdrop()` returns { view, tick(t) }; tick animates stars and flags.
 
 import { Container, Graphics, FillGradient } from 'pixi.js';
@@ -6,6 +7,8 @@ import { WIDTH, HEIGHT, ARENA } from '../config.js';
 import { PAD, menuLift } from '../layout.js';
 import { createRng } from '../logic/rng.js';
 import { label } from './text.js';
+import { occasion } from '../occasion.js';
+import { createSantaHat, createSnow, createFireworks } from './festive.js';
 
 export const COLORS = {
   red: 0xe5484d,
@@ -184,7 +187,14 @@ export function createBackdrop() {
   const starGroups = stars(rng);
   const moonView = new Graphics();
   moon(moonView);
-  const placeMoon = () => moonView.position.set(MOON_AT.x, MOON_AT.y + menuLift());
+  // Special days (occasion.js): a Santa hat and snow, or fireworks.
+  const hat = occasion === 'christmas' ? createSantaHat() : null;
+  const snow = occasion === 'christmas' ? createSnow() : null;
+  const fireworks = occasion === 'newYearsEve' ? createFireworks() : null;
+  const placeMoon = () => {
+    moonView.position.set(MOON_AT.x, MOON_AT.y + menuLift());
+    hat?.position.copyFrom(moonView.position);
+  };
   placeMoon();
 
   const land = new Graphics();
@@ -198,7 +208,8 @@ export function createBackdrop() {
 
   const flags = [flag('red'), flag('blue')];
 
-  view.addChild(back, ...starGroups, moonView, land, ...flags.map((f) => f.g));
+  // Fireworks go off behind the hills; snow falls in front of everything here.
+  view.addChild(back, ...starGroups, ...(fireworks ? [fireworks.view] : []), moonView, ...(hat ? [hat] : []), land, ...flags.map((f) => f.g));
 
   for (const side of ['red', 'blue']) {
     const { left, right } = ARENA.pens[side];
@@ -207,6 +218,7 @@ export function createBackdrop() {
     t.position.set((left + right) / 2, GROUND + 32);
     view.addChild(t);
   }
+  if (snow) view.addChild(snow.view);
 
   function tick(t) {
     starGroups.forEach((g, i) => {
@@ -214,6 +226,8 @@ export function createBackdrop() {
     });
     for (const f of flags) f.tick(t);
     placeMoon(); // the screen may have changed shape
+    snow?.tick(t);
+    fireworks?.tick(t);
   }
   tick(0);
 

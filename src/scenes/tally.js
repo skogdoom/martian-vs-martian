@@ -76,6 +76,7 @@ export function createTallyScene(game, session) {
     },
     render() {
       centered.sync();
+      backdrop.tick(t); // twinkling stars, and snow or fireworks on special days
       prompt.visible = note.visible = t > 1.2;
       prompt.alpha = 0.55 + 0.45 * Math.sin(t * 4);
     },
