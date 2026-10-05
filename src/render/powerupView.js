@@ -17,6 +17,7 @@ export const POWER_NAMES = {
   cowRain: 'LAMBS → COWS',
   lambRain: 'COWS → LAMBS',
   timeBomb: 'TIME BOMB',
+  parachute: 'PARACHUTES',
 };
 
 export const SHIELD_COLOR = 0x7fe8ff;
@@ -119,6 +120,20 @@ export function createPowerIcon(type, r = 14) {
     g.circle(-2 * s, -0.5 * s, 1.1 * s).fill(0xffffff);
     g.circle(2 * s, -0.5 * s, 1.1 * s).fill(0xffffff);
     g.circle(0, -6 * s, 3 * s).fill(0xf3eee2);
+  } else if (type === 'parachute') {
+    // A canopy with a lamb hanging under it.
+    g.moveTo(-10 * s, -2 * s)
+      .quadraticCurveTo(0, -16 * s, 10 * s, -2 * s)
+      .lineTo(-10 * s, -2 * s)
+      .fill(0xf2f2f2);
+    g.rect(-5.5 * s, -9.5 * s, 3 * s, 7 * s).fill(0xe5484d);
+    g.rect(2.5 * s, -9.5 * s, 3 * s, 7 * s).fill(0xe5484d);
+    for (const x of [-9, 9])
+      g.moveTo(x * s, -2 * s)
+        .lineTo(0, 4 * s)
+        .stroke({ color: 0xdddddd, width: 1 * s });
+    g.roundRect(-4.5 * s, 3.5 * s, 9 * s, 6 * s, 3 * s).fill(0xf3eee2);
+    g.circle(-4 * s, 5.5 * s, 2 * s).fill(0x3a3a3a);
   } else if (type === 'triple') {
     for (const dy of [-6, 0, 6]) {
       g.rect(-8 * s, (dy - 1) * s, 9 * s, 2 * s).fill({ color: 0xffffff, alpha: 0.5 });
@@ -138,14 +153,21 @@ export function createPowerIcon(type, r = 14) {
   return view;
 }
 
-function drawGreenMan(body) {
+/** `panic`: both hands on his head and his mouth open ("Oh, no!"). */
+function drawGreenMan(body, panic = false) {
   const green = 0x5fd35f;
   const dark = 0x2f8a3a;
   // Body, arms and head (feet at y = 0 are the separate legs).
   body.roundRect(-6, -17, 12, 10, 4).fill(green);
-  body.moveTo(-6, -15).lineTo(-10, -9).stroke({ color: green, width: 3 });
-  body.moveTo(6, -15).lineTo(10, -22).stroke({ color: green, width: 3 }); // waving
+  if (panic) {
+    body.moveTo(-6, -15).lineTo(-12, -20).lineTo(-8, -27).stroke({ color: green, width: 3 });
+    body.moveTo(6, -15).lineTo(12, -20).lineTo(8, -27).stroke({ color: green, width: 3 });
+  } else {
+    body.moveTo(-6, -15).lineTo(-10, -9).stroke({ color: green, width: 3 });
+    body.moveTo(6, -15).lineTo(10, -22).stroke({ color: green, width: 3 }); // waving
+  }
   body.ellipse(0, -24, 9, 7.5).fill(green);
+  if (panic) body.ellipse(0, -19.5, 2, 2.4).fill(0x111111);
   body.moveTo(-4, -30).lineTo(-6, -35).stroke({ color: dark, width: 1.5 });
   body.moveTo(4, -30).lineTo(6, -35).stroke({ color: dark, width: 1.5 });
   body.circle(-6, -35, 1.8).fill(0xfff3a0);
@@ -181,10 +203,25 @@ export function createGreenManView() {
   });
   const body = new Graphics();
   drawGreenMan(body);
+  const panicBody = new Graphics();
+  drawGreenMan(panicBody, true);
+  panicBody.visible = false;
   const sign = new Container();
   const glow = new Graphics().circle(0, 0, 22).fill({ color: POWER_COLOR, alpha: 0.18 });
   sign.addChild(glow);
-  view.addChild(chute, ...legs, body, sign);
+  // Speech bubble while he panics.
+  const bubble = new Container();
+  const words = label('Oh, no!', { size: 15, color: 0x111111, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  const pad = 7;
+  const bubbleBg = new Graphics()
+    .roundRect(-words.width / 2 - pad, -words.height / 2 - pad + 1, words.width + 2 * pad, words.height + 2 * pad - 2, 8)
+    .fill(0xffffff)
+    .poly([-14, words.height / 2 + pad - 2, -4, words.height / 2 + pad - 2, -18, words.height / 2 + pad + 8])
+    .fill(0xffffff);
+  bubble.addChild(bubbleBg, words);
+  bubble.position.set(34, -52);
+  bubble.visible = false;
+  view.addChild(chute, ...legs, body, panicBody, sign, bubble);
   view.visible = false;
 
   let icon = null;
@@ -200,10 +237,13 @@ export function createGreenManView() {
         sign.addChild(icon);
       }
       if (d.vx !== 0) facing = Math.sign(d.vx);
-      view.position.set(d.x, d.y);
+      const panic = d.panic != null;
+      view.position.set(d.x + (panic ? Math.sin(t * 70) * 1.2 : 0), d.y);
       body.scale.x = facing;
-      chute.visible = d.state === 'descending';
-      view.rotation = d.state === 'descending' ? Math.sin(t * 2.2) * 0.12 : 0;
+      body.visible = !panic;
+      panicBody.visible = bubble.visible = panic;
+      chute.visible = d.state === 'descending' || (d.state === 'falling' && d.chute);
+      view.rotation = chute.visible ? Math.sin(t * 2.2) * 0.12 : 0;
 
       const aloft = d.state === 'lifting' || d.state === 'falling';
       legs.forEach((leg, i) => {
@@ -213,7 +253,7 @@ export function createGreenManView() {
       });
 
       // The sign rides on the canopy on the way down, then bobs above his head.
-      if (d.state === 'descending') sign.position.set(0, -72);
+      if (chute.visible) sign.position.set(0, -72);
       else sign.position.set(0, -58 + Math.sin(t * 4) * 3);
       glow.scale.set(1 + 0.15 * Math.sin(t * 6));
     },

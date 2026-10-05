@@ -393,6 +393,29 @@ export const SOUNDS = {
     tone(ac, out, t + 0.3, { type: 'triangle', freq: 1568, dur: 0.6, peak: 0.18, hold: 0.15 });
   },
 
+  /** The green man: a squeaky little "oh... no!", falling. */
+  ohNo(ac, out, t) {
+    for (const [at, from, to, dur] of [
+      [0, 900, 780, 0.22],
+      [0.3, 1100, 520, 0.42],
+    ]) {
+      const o = osc(ac, 'triangle', from, t + at);
+      o.frequency.exponentialRampToValueAtTime(to, t + at + dur);
+      lfo(ac, 9, 40, o.frequency, t + at, dur);
+      const g = gainNode(ac);
+      envelope(g.gain, t + at, dur, 0.2, 0.02, dur * 0.4);
+      o.connect(g).connect(out);
+      o.start(t + at);
+      o.stop(t + at + dur + 0.05);
+    }
+  },
+
+  /** A parachute snapping open: a soft flap of cloth. */
+  flap(ac, out, t) {
+    hiss(ac, out, t, { dur: 0.18, peak: 0.22, type: 'bandpass', freq: 500, to: 1400, q: 0.8, attack: 0.01 });
+    hiss(ac, out, t + 0.07, { dur: 0.12, peak: 0.12, type: 'bandpass', freq: 900, to: 400, q: 0.8 });
+  },
+
   powerDown(ac, out, t) {
     tone(ac, out, t, { type: 'triangle', freq: 784, dur: 0.15, peak: 0.12, hold: 0.05 });
     tone(ac, out, t + 0.14, { type: 'triangle', freq: 392, dur: 0.3, peak: 0.12, hold: 0.08 });
@@ -596,6 +619,7 @@ export function handleEvents(events) {
         play('womp', { x: e.x });
         break;
       case 'burst':
+        if (e.lifting) stopLift(e.lifting);
         play('splat', { x: e.x });
         break;
       case 'animalRain':
@@ -676,6 +700,15 @@ export function handleEvents(events) {
         break;
       case 'explosion':
         play('boom', { x: e.x, big: e.big });
+        break;
+      case 'chuteOpen':
+        play('flap', { x: e.x });
+        break;
+      case 'greenmanPanic':
+        play('ohNo', { x: e.x });
+        break;
+      case 'greenmanGone':
+        play('splat', { x: e.x });
         break;
       case 'crateIncoming':
         play('horn', { x: e.x });

@@ -90,24 +90,26 @@ export function createTimeBomb(s, id) {
   return b;
 }
 
-/** Throw `a` out of its pen in an arc that lands safely somewhere in the
- * field. A bomb also sets it on fire (cosmetic). */
-export function bounceOut(a, rng, { fire = true } = {}) {
+/** Throw `a` in an arc that lands safely in the field: at `tx` if given,
+ * otherwise anywhere. Out of a pen by default; `launch` is the range of
+ * upward speeds. A bomb also sets it on fire (cosmetic). */
+export function bounceOut(a, rng, { fire = true, tx = null, launch = POWERUP.bombLaunch } = {}) {
   spendGolden(a);
   a.bonus = false;
   a.pen = null;
   a.hookedBy = null;
   a.droppedBy = null;
+  a.fellFrom = null;
   a.state = 'falling';
   a.fallFrom = a.y;
   a.safeFall = true;
   a.onFire = fire; // cosmetic only: it burns until a beam picks it up
   const { min, max } = fieldBounds(a.kind);
-  const tx = min + rng() * (max - min);
-  const [lo, hi] = POWERUP.bombLaunch;
+  const to = tx === null ? min + rng() * (max - min) : Math.max(min, Math.min(max, tx));
+  const [lo, hi] = launch;
   a.vy = -(lo + rng() * (hi - lo));
   const flight = (-2 * a.vy) / ANIMALS.gravity;
-  a.vx = (tx - a.x) / flight;
+  a.vx = (to - a.x) / flight;
 }
 
 /** The bomb went off at `x`. If that is in a pen, a random number (at least
@@ -126,4 +128,24 @@ export function blastPen(animals, x, rng) {
   const launched = inPen.slice(0, count);
   for (const a of launched) bounceOut(a, rng);
   return { pen, launched };
+}
+
+/** The bomb went off in the field at `x`: every cow and lamb standing within
+ * POWERUP.fieldBlastRadius is thrown away from it, on fire, and lands safely
+ * further along the field. Returns the animals thrown. */
+export function blastField(animals, x, rng) {
+  const near = animals.filter((a) => a.state === 'field' && (a.kind === 'cow' || a.kind === 'lamb') && Math.abs(a.x - x) <= POWERUP.fieldBlastRadius);
+  const [lo, hi] = POWERUP.fieldBlastThrow;
+  for (const a of near) {
+    const away = Math.sign(a.x - x) || (rng() < 0.5 ? -1 : 1);
+    bounceOut(a, rng, { tx: a.x + away * (lo + rng() * (hi - lo)), launch: POWERUP.fieldBlastLaunch });
+  }
+  return near;
+}
+
+/** A bomb (pen bomb or time bomb) on the ground at `x`: it blasts the pen it
+ * is in, or scatters the animals near it in the field. Returns { pen, launched }. */
+export function blast(animals, x, rng) {
+  if (penAt(x)) return blastPen(animals, x, rng);
+  return { pen: null, launched: blastField(animals, x, rng) };
 }

@@ -1,4 +1,5 @@
-// Tally: match wins and total cows and lambs across the session.
+// Tally: match wins and total cows and lambs across the session, and the
+// splats and dazes of the match just played.
 // "Play again" starts a new match and keeps the tally.
 
 import { Container } from 'pixi.js';
@@ -27,27 +28,34 @@ export function createTallyScene(game, session) {
 
   if (match?.winner) {
     const name = sideName(session, match.winner);
-    put(label(`${name} WINS THE MATCH`, { size: 48, color: COLORS[match.winner], bold: true, anchorX: 0.5 }), cx, 110);
+    put(label(`${name} WINS THE MATCH`, { size: 48, color: COLORS[match.winner], bold: true, anchorX: 0.5 }), cx, 86);
   }
-  put(label(`TALLY · ${modeName(session)}`, { size: 24, color: 0xcfd6ff, bold: true, anchorX: 0.5 }), cx, 190);
+  put(label(`TALLY · ${modeName(session)}`, { size: 24, color: 0xcfd6ff, bold: true, anchorX: 0.5 }), cx, 160);
 
-  put(label(rulesName(session), { size: 15, color: 0x8a93c0, anchorX: 0.5 }), cx, 220);
+  put(label(rulesName(session), { size: 15, color: 0x8a93c0, anchorX: 0.5 }), cx, 190);
 
   const colX = { label: cx - 260, red: cx + 20, blue: cx + 220 };
-  put(label(sideName(session, 'red'), { size: 26, color: COLORS.red, bold: true, anchorX: 0.5 }), colX.red, 250);
-  put(label(sideName(session, 'blue'), { size: 26, color: COLORS.blue, bold: true, anchorX: 0.5 }), colX.blue, 250);
+  put(label(sideName(session, 'red'), { size: 26, color: COLORS.red, bold: true, anchorX: 0.5 }), colX.red, 218);
+  put(label(sideName(session, 'blue'), { size: 26, color: COLORS.blue, bold: true, anchorX: 0.5 }), colX.blue, 218);
 
-  const rows = [
-    ['Match wins', tally.matchWins],
-    ['Cows', tally.cows],
-    ['Lambs', tally.lambs],
-  ];
-  rows.forEach(([name, values], i) => {
-    const y = 305 + i * 50;
-    put(label(name, { size: 24, color: 0xffffff }), colX.label, y);
-    put(label(String(values.red), { size: 28, color: 0xffffff, bold: true, anchorX: 0.5 }), colX.red, y - 2);
-    put(label(String(values.blue), { size: 28, color: 0xffffff, bold: true, anchorX: 0.5 }), colX.blue, y - 2);
-  });
+  /** A row of numbers per player. */
+  const row = (name, values, y) => {
+    put(label(name, { size: 22, color: 0xffffff }), colX.label, y);
+    put(label(String(values.red), { size: 26, color: 0xffffff, bold: true, anchorX: 0.5 }), colX.red, y - 2);
+    put(label(String(values.blue), { size: 26, color: 0xffffff, bold: true, anchorX: 0.5 }), colX.blue, y - 2);
+  };
+  // Across the session (this mode).
+  row('Match wins', tally.matchWins, 262);
+  row('Cows', tally.cows, 298);
+  row('Lambs', tally.lambs, 334);
+  // This match only.
+  if (match) {
+    const stat = (key) => ({ red: match.stats.red[key], blue: match.stats.blue[key] });
+    put(label('THIS MATCH', { size: 14, color: 0x8a93c0, bold: true }), colX.label, 380);
+    row('Cows splatted', stat('cowsSplatted'), 402);
+    row('Lambs splatted', stat('lambsSplatted'), 438);
+    row('Times dazed', stat('dazed'), 474);
+  }
 
   const prompt = put(label('PRESS ANY KEY TO PLAY AGAIN', { size: 24, color: 0xffffff, bold: true, anchorX: 0.5 }), cx, 520);
   const note = put(label('ESC: back to the menu. The tally resets when the page is reloaded.', { size: 14, color: 0x8a93c0, anchorX: 0.5 }), cx, 560);

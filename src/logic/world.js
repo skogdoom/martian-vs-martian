@@ -10,7 +10,7 @@ import { createHook, updateHook, interruptHook, dropCarried, releaseCarried, isO
 import { createDrop, createCrate, dropSpot, createPowers, grantPower, hasPower, updatePowers, laserBeam } from './powerup.js';
 import { createRng } from './rng.js';
 import { animalValue } from './scoring.js';
-import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blastPen, bounceOut, createTimeBomb } from './ordnance.js';
+import { createRocket, updateRocket, rocketKnockback, createBomb, updateBomb, blast, bounceOut, createTimeBomb } from './ordnance.js';
 import { createGolden, settleGolden } from './golden.js';
 import { createWolf, updateWolf } from './wolf.js';
 
@@ -18,6 +18,10 @@ export const SIDES = ['red', 'blue'];
 
 export function opponent(side) {
   return side === 'red' ? 'blue' : 'red';
+}
+
+export function createStats() {
+  return { cowsSplatted: 0, lambsSplatted: 0, dazed: 0 };
 }
 
 export function createWorld(seed, { ammo = COMBAT.ammoPerRound } = {}) {
@@ -30,6 +34,7 @@ export function createWorld(seed, { ammo = COMBAT.ammoPerRound } = {}) {
     rockets: [], // homing rockets in flight
     bombs: [], // pen bombs falling
     drops: [], // things that parachuted in and climb aboard: the green man, ammo crates
+    respawns: [], // green men who splatted, coming back: { left (s), power }
     wolves: [], // hooked and carried like animals, but they eat lambs (wolf.js)
     timeBombs: [], // dropped time bombs, also hooked and carried like animals
     powers: createPowers(),
@@ -38,6 +43,9 @@ export function createWorld(seed, { ammo = COMBAT.ammoPerRound } = {}) {
     spook: { red: 0, blue: 0 }, // seconds each saucer has hovered over its own pen
     spookNext: { red: 0, blue: 0 }, // countdown to the next animal jumping out
     events: [],
+    // Counted for the end-of-match stats: cows and lambs that splatted after
+    // falling from each player's beam, and how often each player was dazed.
+    stats: { red: createStats(), blue: createStats() },
     rng: createRng(seed),
   };
 }
@@ -122,7 +130,7 @@ export function crateInPlay(w) {
 }
 
 export function dropInPlay(w) {
-  return w.drops.some((d) => d.state !== 'gone');
+  return w.respawns.length > 0 || w.drops.some((d) => d.state !== 'gone');
 }
 
 /** No cows or lambs left in the field (or on their way down to it). */
@@ -130,13 +138,16 @@ export function fieldEmpty(w) {
   return !w.animals.some((a) => a.state === 'field' || a.state === 'descending');
 }
 
-/** Cow rain / lamb rain: every animal of one kind standing in the field or
- * in a pen bursts, and one of the other kind parachutes down in its place.
+const RAIN_VICTIMS = new Set(['field', 'penned', 'lifting', 'carried']);
+
+/** Cow rain / lamb rain: every animal of one kind in the field, in a pen or on
+ * a beam bursts, and one of the other kind parachutes down in its place.
  * One replacing a penned animal belongs to that pen from the start (it counts
- * while still coming down), with the same owner and steal bonus. */
+ * while still coming down), with the same owner and steal bonus. One replacing
+ * an animal on a beam comes down in the field below it. */
 function animalRain(w, side, power) {
   const [from, to] = power === 'cowRain' ? ['lamb', 'cow'] : ['cow', 'lamb'];
-  const victims = w.animals.filter((a) => a.kind === from && (a.state === 'field' || a.state === 'penned') && !a.golden);
+  const victims = w.animals.filter((a) => a.kind === from && RAIN_VICTIMS.has(a.state) && !a.golden);
   const { min, max } = fieldBounds(to);
   let penned = 0;
   for (const a of victims) {
@@ -149,13 +160,21 @@ function animalRain(w, side, power) {
     }
     parachute(b);
     w.animals.push(b);
-    w.events.push({ type: 'burst', kind: from, pen, x: a.x, y: a.y });
+    // `lifting`: whose beam was lifting it, so the lift sound stops.
+    w.events.push({ type: 'burst', kind: from, pen, lifting: a.state === 'lifting' ? a.hookedBy : null, x: a.x, y: a.y });
+    if (a.hookedBy) unhook(w, a.hookedBy, a);
     Object.assign(a, { state: 'gone', pen: null, onFire: false });
   }
   w.events.push({ type: 'animalRain', side, from, to, count: victims.length, penned });
 }
 
 const shielded = (w, side) => hasPower(w.powers, side, 'shield');
+
+/** Out of ammo, with no power-up that shoots for free. */
+export function outOfShots(w, side) {
+  if (w.weapons[side].ammo > 0) return false;
+  return !['triple', 'laser', 'unlimited'].some((type) => hasPower(w.powers, side, type));
+}
 
 const NO_INPUT = { x: 0, y: 0, shoot: false, fire: false };
 
@@ -273,8 +292,9 @@ function unhook(w, side, b) {
   b.hookedBy = null;
 }
 
-/** Fuses burn down wherever the bombs are. On the ground it blasts the pen it
- * is in, like the pen bomb; in a beam, it dazes that saucer instead. */
+/** Fuses burn down wherever the bombs are. On the ground it goes off like the
+ * pen bomb (the pen it is in, or the animals near it in the field); in a beam,
+ * it dazes that saucer instead. */
 function updateTimeBombs(w, dt) {
   for (const b of w.timeBombs) {
     if (b.state === 'gone') continue;
@@ -306,10 +326,40 @@ function updateTimeBombs(w, dt) {
       s.stun = Math.max(s.stun, POWERUP.timeBombDaze);
       w.events.push({ type: 'timeBombHeld', side: held, x, y });
     } else if (grounded) {
-      const { pen, launched } = blastPen(w.animals, x, w.rng);
+      const { pen, launched } = blast(w.animals, x, w.rng);
       w.events.push({ type: 'bombBlast', side: b.lastBy, pen, count: launched.length, timed: true, x, y });
     }
   }
+}
+
+/** A green man left standing in the field too long panics ("Oh, no!") and
+ * then explodes, power-up and all. Hooking him while he panics saves him.
+ * Returns true if he is gone. */
+function expire(w, d, dt) {
+  if (d.state !== 'field') {
+    if (d.panic !== null && d.state === 'lifting') {
+      // Saved. If the pickup breaks, he gets a little while longer.
+      d.panic = null;
+      d.life = POWERUP.panicTime;
+    }
+    return false;
+  }
+  if (d.panic === null) {
+    d.life -= dt;
+    if (d.life > 0) return false;
+    d.panic = POWERUP.panicTime;
+    d.vx = 0;
+    w.events.push({ type: 'greenmanPanic', power: d.power, x: d.x, y: d.y });
+  }
+  d.vx = 0;
+  d.wanderTimer = 1; // stands still, holding his head
+  d.panic -= dt;
+  if (d.panic > 1e-9) return false;
+  d.state = 'gone';
+  d.panic = null;
+  w.events.push({ type: 'explosion', x: d.x, y: d.y - 15, big: false });
+  w.events.push({ type: 'greenmanGone', power: d.power, x: d.x, y: d.y });
+  return true;
 }
 
 /** Holding shoot with the laser power-up: a beam that pushes the opponent. */
@@ -347,6 +397,7 @@ export function stepWorld(w, inputs, dt) {
   const { red, blue } = w.saucers;
 
   updatePowers(w.powers, dt, w.events);
+  for (const side of SIDES) w.hooks[side].chutes = hasPower(w.powers, side, 'parachute');
 
   for (const side of SIDES) {
     const s = w.saucers[side];
@@ -373,6 +424,8 @@ export function stepWorld(w, inputs, dt) {
       opts.speedScale = POWERUP.speedBoost;
       opts.accelScale = (opts.accelScale ?? 1) * POWERUP.accelBoost;
     }
+    // Nothing left to shoot with: a little faster, so ramming is the way to fight.
+    if (outOfShots(w, side)) opts.boost = SAUCER.outOfAmmoBoost;
     steerSaucer(s, input, dt, opts);
     moveSaucer(s, dt);
   }
@@ -431,7 +484,7 @@ export function stepWorld(w, inputs, dt) {
 
   for (const b of w.bombs) {
     if (!updateBomb(b, dt)) continue;
-    const { pen, launched } = blastPen(w.animals, b.x, w.rng);
+    const { pen, launched } = blast(w.animals, b.x, w.rng);
     w.events.push({ type: 'explosion', x: b.x, y: b.y, big: true });
     w.events.push({ type: 'bombBlast', side: b.owner, pen, count: launched.length, x: b.x, y: b.y });
   }
@@ -451,27 +504,41 @@ export function stepWorld(w, inputs, dt) {
     if (e.type === 'ammoCrate') {
       // The refill is a share of the round's ammo (half, as in a 90 s round).
       const weapon = w.weapons[e.side];
-      addAmmo(weapon, Math.round((AMMO_CRATE.refill * weapon.cap) / COMBAT.ammoPerRound));
+      e.amount = Math.round((AMMO_CRATE.refill * weapon.cap) / COMBAT.ammoPerRound);
+      addAmmo(weapon, e.amount);
     }
   }
 
   for (const d of w.drops) {
     if (d.state === 'gone') continue;
+    if (d.kind === 'greenman' && expire(w, d, dt)) continue;
     const wasFalling = d.state === 'falling';
-    if (updateAnimal(d, dt, w.rng) === 'touchdown' || (wasFalling && d.state !== 'falling')) {
+    const hadChute = d.chute;
+    const result = updateAnimal(d, dt, w.rng);
+    if (d.chute && !hadChute) w.events.push({ type: 'chuteOpen', kind: d.kind, x: d.x, y: d.y });
+    if (result === 'splat') {
+      // The green man fell too far. Another one brings the same power-up.
+      w.events.push({ type: 'splat', kind: d.kind, x: d.x, y: d.y });
+      w.respawns.push({ left: POWERUP.greenmanRespawn, power: d.power });
+    } else if (result === 'touchdown' || (wasFalling && d.state !== 'falling')) {
       w.events.push({ type: 'dropLanded', x: d.x, y: d.y });
     }
   }
+  for (const r of w.respawns) r.left -= dt;
+  for (const r of w.respawns.filter((r) => r.left <= 1e-9)) spawnDrop(w, r.power);
+  w.respawns = w.respawns.filter((r) => r.left > 1e-9);
 
   for (const wolf of w.wolves) updateWolf(wolf, w.animals, dt, w.rng, w.events);
   updateTimeBombs(w, dt);
 
   for (const a of w.animals) {
     const wasFalling = a.state === 'falling';
+    const hadChute = a.chute;
     const result = updateAnimal(a, dt, w.rng);
+    if (a.chute && !hadChute) w.events.push({ type: 'chuteOpen', kind: a.kind, x: a.x, y: a.y });
     if (result === 'touchdown') w.events.push({ type: 'dropLanded', x: a.x, y: a.y });
     if (result === 'splat') {
-      w.events.push({ type: 'splat', id: a.id, kind: a.kind, golden: Boolean(a.golden), x: a.x, y: a.y });
+      w.events.push({ type: 'splat', id: a.id, kind: a.kind, side: a.fellFrom, golden: Boolean(a.golden), x: a.x, y: a.y });
       a.droppedBy = null;
     } else if (wasFalling && a.state !== 'falling') {
       const pen = result;
@@ -489,6 +556,25 @@ export function stepWorld(w, inputs, dt) {
   spookPens(w, dt);
   restock(w, dt);
   guardFinite(w);
+  countStats(w);
+}
+
+/** Every way to be dazed (spin out): three hits in a row, being rammed, the
+ * time bomb going off in your beam, a rocket hit. */
+function dazedSide(e) {
+  if (e.type === 'dazed' || e.type === 'timeBombHeld') return e.side;
+  if (e.type === 'ram' && !e.shielded) return e.victim;
+  if (e.type === 'hit' && e.rocket && !e.shielded) return e.side;
+  return null;
+}
+
+function countStats(w) {
+  for (const e of w.events) {
+    const dazed = dazedSide(e);
+    if (dazed) w.stats[dazed].dazed++;
+    if (e.type === 'splat' && e.side && (e.kind === 'cow' || e.kind === 'lamb'))
+      w.stats[e.side][e.kind === 'cow' ? 'cowsSplatted' : 'lambsSplatted']++;
+  }
 }
 
 const finite = (o) => Number.isFinite(o.x) && Number.isFinite(o.y);

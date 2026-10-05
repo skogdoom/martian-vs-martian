@@ -35,7 +35,7 @@ describe('options', () => {
   });
 
   it('scales the ammo with the round length', () => {
-    expect(LENGTHS.map(ammoFor)).toEqual([12, 18, 24]);
+    expect(LENGTHS.map(ammoFor)).toEqual([16, 24, 32]);
   });
 
   it('replaces anything not on offer with the default', () => {

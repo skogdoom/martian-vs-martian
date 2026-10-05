@@ -186,10 +186,10 @@ describe('round lengths', () => {
     expect(createRound(1, 120).drops).toHaveLength(3);
   });
 
-  it('ammo scales with the length: 12, 18 and 24 shots', () => {
-    expect(ammoFor(60)).toBe(12);
-    expect(ammoFor(90)).toBe(18);
-    expect(ammoFor(120)).toBe(24);
+  it('ammo scales with the length: 16, 24 and 32 shots', () => {
+    expect(ammoFor(60)).toBe(16);
+    expect(ammoFor(90)).toBe(24);
+    expect(ammoFor(120)).toBe(32);
     for (const length of [60, 90, 120]) {
       const r = createRound(1, length);
       expect(r.world.weapons.red.ammo).toBe(ammoFor(length));

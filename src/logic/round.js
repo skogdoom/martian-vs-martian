@@ -1,8 +1,20 @@
 // A round: 3-2-1 countdown with everything frozen, then the timed play phase.
 
 import { ROUND, POWERUP, GOLDEN, AMMO_CRATE, SUPPLY, WOLF } from '../config.js';
-import { createWorld, stepWorld, spawnDrop, spawnGolden, spawnCrate, spawnWolf, crateInPlay, dropInPlay, fieldEmpty, SIDES } from './world.js';
-import { planDrop, hasPower } from './powerup.js';
+import {
+  createWorld,
+  stepWorld,
+  spawnDrop,
+  spawnGolden,
+  spawnCrate,
+  spawnWolf,
+  crateInPlay,
+  dropInPlay,
+  fieldEmpty,
+  outOfShots,
+  SIDES,
+} from './world.js';
+import { planDrop } from './powerup.js';
 import { ammoFor } from '../options.js';
 import { shouldDropGolden } from './golden.js';
 import { scores } from './scoring.js';
@@ -37,12 +49,6 @@ function planWolf(rng) {
   const [lo, hi] = WOLF.window;
   const at = lo + rng() * (hi - lo);
   return rng() < WOLF.chance ? at : null;
-}
-
-/** Out of ammo, with no power-up that shoots for free. */
-function outOfShots(w, side) {
-  if (w.weapons[side].ammo > 0) return false;
-  return !['triple', 'laser', 'unlimited'].some((type) => hasPower(w.powers, side, type));
 }
 
 /** Every animal abducted and someone out of shots: after a moment, an ammo

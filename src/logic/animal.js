@@ -10,12 +10,14 @@
 //   descending  floating down under a parachute (restocks, cow/lamb rain,
 //               golden animals, the green man, crates, the wolf)
 //   gone        out of the round: splatted, eaten, burst by cow/lamb rain,
-//               or (a drop) climbed into a saucer
+//               or (a drop) climbed into a saucer or splatted (the green man)
 //
 // `y` is the animal's feet. `pen` is the pen it counts toward, `owner` the
 // player who first delivered it.
 
 import { WIDTH, ARENA, ANIMALS, POWERUP, SPLAT } from '../config.js';
+
+const FRAGILE = new Set(['cow', 'lamb', 'greenman']);
 
 export function penAt(x) {
   for (const [side, pen] of Object.entries(ARENA.pens)) {
@@ -52,9 +54,11 @@ export function createAnimal(id, kind, x) {
     owner: null,
     hookedBy: null,
     droppedBy: null, // the player who let go of it (a delivery if it lands in their pen)
+    fellFrom: null, // the player whose beam it last fell from, on purpose or not (whose splat it is)
     fallFrom: 0, // y it started falling from
     safeFall: false, // thrown by a bomb: lands safely whatever the height
-    chute: false, // a wolf dropped from up high: parachute open (see wolf.js)
+    chute: false, // parachute open while falling: a wolf dropped from up high (see wolf.js), or the parachute power-up
+    chuteReady: false, // let go of by a saucer with the parachute power-up: opens one if the fall would splat
     onFire: false, // cosmetic: set by a bomb blast, put out when picked up
     bonus: false, // stolen during a steal power-up: worth extra in its pen
     wanderTimer: 0,
@@ -125,6 +129,8 @@ export function updateAnimal(a, dt, rng) {
     } else {
       a.vy += ANIMALS.gravity * dt;
     }
+    // Parachute power-up: open once it is coming down from high enough to splat.
+    if (a.chuteReady && !a.chute && a.vy >= 0 && ARENA.groundY - a.fallFrom > SPLAT.height) a.chute = true;
     a.x += a.vx * dt; // thrown from a moving saucer, or out of a pen by a bomb
     a.y += a.vy * dt;
     a.fallFrom = Math.min(a.fallFrom, a.y); // a throw upward falls from its highest point
@@ -144,12 +150,14 @@ export function fallHeight(a) {
 }
 
 /** Touch down. Returns the pen it landed in, null for the field, or 'splat'
- * if a cow or lamb fell too far. */
+ * if a cow, lamb or the green man fell too far. */
 function land(a) {
   const fell = ARENA.groundY - a.fallFrom;
-  const safe = a.safeFall || (a.kind !== 'cow' && a.kind !== 'lamb');
+  // Cows, lambs and the green man can splat; crates, packages, the wolf and the time bomb can't.
+  const safe = a.safeFall || a.chute || !FRAGILE.has(a.kind);
   a.safeFall = false;
   a.chute = false;
+  a.chuteReady = false;
   a.y = ARENA.groundY;
   a.vy = 0;
   a.vx = 0;
@@ -174,10 +182,13 @@ function land(a) {
 
 /** Let `a` fall from where it is. `by` is the player letting go on purpose
  * (null for a pickup broken off or knocked loose); `vx`, `vy` its starting
- * velocity, e.g. the saucer's when thrown. */
-export function drop(a, { by = null, vx = 0, vy = 0 } = {}) {
+ * velocity, e.g. the saucer's when thrown; `from` the saucer it falls from
+ * (defaults to `by`); `chutes` that saucer has the parachute power-up. */
+export function drop(a, { by = null, from = by, vx = 0, vy = 0, chutes = false } = {}) {
   a.state = 'falling';
+  a.fellFrom = from;
   a.chute = false;
+  a.chuteReady = chutes && FRAGILE.has(a.kind);
   a.hookedBy = null;
   a.droppedBy = by;
   a.vx = vx;

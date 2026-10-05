@@ -39,36 +39,37 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Movement
 - Free 2D movement with acceleration, drag and a max speed.
 - Saucers are clamped to the flight band and the walls.
-- **Momentum:** holding one direction at full speed builds momentum. After 0.2 s the top speed starts to climb, reaching 1.5× (480 px/s) after another 1 s. From a standstill it takes about 1.1 s and 330 px to reach ramming speed. Once built it is kept while the saucer flies on straight or turns downward (a dive, down alone, or back to level); the turn redirects the speed instead of losing it. Pressing up, turning back, letting go, being stopped by a wall or slowed below 80% of normal speed loses it. It doesn't build while carrying anything. A shot (or the laser) that knocks the saucer more than 30° off its course costs the momentum; a shot from behind that pushes it on its way doesn't. Speed lines show it building; a shock front ahead of the saucer shows it is fast enough to ram. The speed power-up doesn't stack with it: the higher of the two counts.
+- **Momentum:** holding one direction at full speed builds momentum. After 0.2 s the top speed starts to climb, reaching 1.5× (540 px/s) after another 1 s. From a standstill it takes about 1 s and 320 px to reach ramming speed. Once built it is kept while the saucer flies on straight or turns downward (a dive, down alone, or back to level); the turn redirects the speed instead of losing it. Pressing up, turning back, letting go, being stopped by a wall or slowed below 80% of normal speed loses it. It doesn't build while carrying anything. A shot (or the laser) that knocks the saucer more than 30° off its course costs the momentum; a shot from behind that pushes it on its way doesn't. Speed lines show it building; a shock front ahead of the saucer shows it is fast enough to ram. The speed power-up doesn't stack with it: the higher of the two counts.
+- **Out of ammo:** a saucer with no shots left (and no power-up that shoots for free) has 10% more top speed and thrust, momentum included (`SAUCER.outOfAmmoBoost`). It reaches ramming speed after about 0.7 s and 230 px instead of 1 s and 320 px.
 
 ### Bump
 - When saucers overlap, both get a small impulse pushing them apart.
 - The effect is minor compared to a shot.
-- **Ram:** a saucer that hits the other at 400 px/s or more (along the line between them) rams it. The rammed saucer is knocked back, drops everything it carries (it falls like a knocked-loose animal, so from high up it splats), loses any pickup in progress and is dazed for 1.5 s: no steering, lifting or shooting. The rammer loses its momentum. A saucer carrying anything can't ram, not even with the speed power-up. Head on, both can be dazed. A shield stops a ram. Values are in `RAM` in `config.js`.
+- **Ram:** a saucer that hits the other at 430 px/s or more (along the line between them) rams it. The rammed saucer is knocked back, drops everything it carries (it falls like a knocked-loose animal, so from high up it splats), loses any pickup in progress and is dazed for 1.8 s: no steering, lifting or shooting. The rammer loses its momentum. A saucer carrying anything can't ram, not even with the speed power-up. Head on, both can be dazed. A shield stops a ram. Values are in `RAM` in `config.js`.
 
 ### Shooting
 - Projectiles travel horizontally at the shooter's height, always toward the opponent's side (the sign of the x difference). Shots can miss.
 - A hit applies a strong horizontal knockback to the opponent.
-- **Dazed:** three shot hits in a row, each within 2 s of the last, daze the saucer for 1.5 s (no steering, lifting or shooting). Shots landing at once (triple shot) count as one hit; shots that bounce off a shield don't count. Hits while dazed and for 1 s after don't count toward the next daze, so nobody can be kept dazed. Values are `dazeHits`, `dazeWindow`, `dazeTime` and `dazeGrace` in `COMBAT`.
-- Each clip holds 3 shots and reloads automatically in 1.5 s when empty.
-- Each player has 18 shots per 90 s round (12 in a 60 s round, 24 in a 120 s one). The cap resets every round.
-- **Ammo crate:** if a player runs out before halfway, a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +9 shots in a 90 s round (scaled with the round length, up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
+- **Dazed:** three shot hits in a row, each within 2 s of the last, daze the saucer for 1.8 s (no steering, lifting or shooting). Shots landing at once (triple shot) count as one hit; shots that bounce off a shield don't count. Hits while dazed and for 1 s after don't count toward the next daze, so nobody can be kept dazed. Values are `dazeHits`, `dazeWindow`, `dazeTime` and `dazeGrace` in `COMBAT`.
+- Each clip holds 3 shots and reloads automatically in 1 s when empty.
+- Each player has 24 shots per 90 s round (16 in a 60 s round, 32 in a 120 s one). The cap resets every round.
+- **Ammo crate:** if a player runs out before halfway, a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +12 shots in a 90 s round (scaled with the round length, up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
 - **Supply drop:** if every animal has been abducted (none left in the field) and a player is out of shots, then after 3 s either an ammo crate (for that player) or a green man with a random power-up parachutes in, 50/50. Once each time the field empties, and not while another drop is in play. Values are in `SUPPLY` in `config.js`.
 
 ### Hook
-- Lowers automatically when the saucer is nearly still above an animal and within hook reach. The reach is about 200 px, so the saucer must fly low to reach the ground.
-- Lift time is 1.0 s for a lamb and 1.6 s for a cow.
+- Lowers automatically when the saucer is nearly still above an animal and within hook reach. The reach is 240 px, so the saucer must fly fairly low to reach the ground, but can hook from anywhere in a band of about 100–110 px above the lowest flight height (it was about 70 px). The CPU picks a height in that band for each pickup, low down most often.
+- Lift time is 0.9 s for a lamb and 1.45 s for a cow.
 - The pickup is interrupted if the saucer drifts more than 40 px sideways from the animal, gets more than 60 px beyond hook reach above it, or is shot. Flying up or down during a pickup is fine: the animal rises with the beam. The animal then drops back to the ground.
 - A fully lifted animal stays attached when the saucer is bumped, but a hit knocks it loose and it falls where it is (`COMBAT.knockLoose`).
 - A saucer carries one animal at a time.
 - A player can't hook animals in their own pen.
 
 ### Delivery
-- A carried animal is released automatically when the saucer is over its own pen and low enough for a safe landing (a fall of at most 260 px). Higher up, it stays on until you come down.
+- A carried animal is released automatically when the saucer is over its own pen and low enough for a safe landing (a fall of at most 220 px). Higher up, it stays on until you come down.
 - **Dropping and throwing by hand:** while carrying, the shoot key lets go of the (lowest) animal instead of firing. It keeps the saucer's speed, so it can be lobbed; whether it's a delivery is decided by where it lands (your own pen). Animals knocked loose by a hit also fly off with the saucer's speed from before the hit.
 - **Restock:** if every cow and lamb has splatted, 3 new ones (random kinds) parachute into the field; if the field has stood empty for 10 s, 2 do, unless 24 or more animals are already alive (`RESTOCK` in `config.js`).
 - **Spooked pens:** a saucer hovering over its own pen for more than 3 s spooks the animals in it: they get nervous (a "!"), then one jumps the fence into the field every 2 s, landing safely (`SPOOK` in `config.js`). Stops pen camping.
-- **Splat:** a cow or lamb that falls more than 260 px (measured from the top of its arc) (dropped by hand, knocked loose by a shot, or dropped mid-lift) bursts in a cartoon cloud of blood and is out of the round: no points for anyone. Animals thrown out of a pen by a bomb land safely. `SPLAT.height` in `config.js`.
+- **Splat:** a cow or lamb that falls more than 220 px (measured from the top of its arc) (dropped by hand, knocked loose by a shot, or dropped mid-lift) bursts in a cartoon cloud of blood and is out of the round: no points for anyone. A pickup broken off near the end of the lift, from the top of the hook's reach (about the top 15 px of it), splats the animal. Animals thrown out of a pen by a bomb land safely. `SPLAT.height` in `config.js`.
 - The animal drops into the pen, stays there and stops wandering.
 
 ### Animals
@@ -82,7 +83,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### The wolf
 - In about one round in three, at a random time between 25% and 70% of the round, a wolf parachutes into the field.
 - In the field it chases the nearest lamb in the field and eats it (1 s per lamb). Lambs within 220 px run away from it, but it is faster. It ignores cows, lambs in pens and lambs in a beam.
-- It is hooked and carried like an animal (lift 1.3 s), but is never let go of automatically: the shoot key drops it. It always lands on its feet, whatever the height. Dropped from more than 140 px above the ground (`WOLF.chuteHeight`) it opens a parachute as it lets go and floats down slowly (it can't be lifted until it lands); a low drop falls as before. The CPU drops it from low down.
+- It is hooked and carried like an animal (lift 1.2 s), but is never let go of automatically: the shoot key drops it. It always lands on its feet, whatever the height. Dropped from more than 140 px above the ground (`WOLF.chuteHeight`) it opens a parachute as it lets go and floats down slowly (it can't be lifted until it lands); a low drop falls as before. The CPU drops it from low down.
 - Dropped into a pen, it eats the lambs in that pen, which takes them off that player's score. Either player can lift it out of any pen, including their own.
 - After 6 s with nothing in reach it howls, gets bored and runs off the screen for good. Lambs parachuting into the field (cows → lambs) keep it waiting.
 - Values are in `WOLF` in `config.js`.
@@ -90,7 +91,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ### Power-ups
 - Twice per round (at 30% and 60% of the round; three times in a 120 s round, at 25%, 50% and 75%) there is a 60% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
-- He wanders like an animal and is hooked the same way (lift 0.8 s; shots and drift break the pickup). A saucer carrying an animal can't grab him.
+- He wanders like an animal and is hooked the same way (lift 1 s; shots and drift break the pickup). A saucer carrying an animal can't grab him. Like a cow or lamb he splats if he falls too far (in green); 3 s later another green man parachutes in with the same power-up (`POWERUP.greenmanRespawn`). The mystery package and the ammo crate don't break. Left standing in the field for 15 s without being picked up (`POWERUP.dropLife`), he holds his head, says "Oh, no!" and 1.5 s later explodes, power-up and all, and no other one comes instead. Hooking him in that moment saves him. Mystery packages and ammo crates wait as long as it takes.
 - Fully lifted, he climbs into the saucer and the power-up starts. It lasts 15 s.
 - The power-ups:
   - **Speed boost:** 60% faster top speed, 50% more thrust.
@@ -99,14 +100,15 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Double steal:** animals stolen from the opponent's pen while it's active are worth double full value (cow 4, lamb 2) once delivered, until they are lifted out again.
 - Like any hit, laser and triple-shot hits also knock a carried animal loose.
 - More power-ups, drawn at random with the rest:
-  - **Homing rocket** (single use, kept until fired): the next shoot press launches one rocket that steers toward the opponent (limited turn rate, burns out after 4.5 s). A hit gives strong knockback, breaks a pickup, knocks a carried animal loose and stuns the saucer for 2 s: no steering, lifting or shooting.
+  - **Homing rocket** (single use, kept until fired): the next shoot press launches one rocket that steers toward the opponent (limited turn rate, burns out after 4.5 s). A hit gives strong knockback, breaks a pickup, knocks a carried animal loose and stuns the saucer for 2.3 s: no steering, lifting or shooting.
   - **Twin beam** (15 s): the beam can carry a second animal, hanging under the first. Both are delivered together; a hit knocks the lower one loose.
-  - **Pen bomb** (single use): the shoot key drops it. If it lands in a pen, a random number (at least one) of the animals in it are thrown back into the field; they keep their original owner. It hits whichever pen it lands in, including your own. The animals it throws out catch fire (cosmetic only) until a beam picks them up, which puts the fire out in a puff of steam.
+  - **Pen bomb** (single use): the shoot key drops it. If it lands in a pen, a random number (at least one) of the animals in it are thrown back into the field; they keep their original owner. It hits whichever pen it lands in, including your own. The animals it throws out catch fire (cosmetic only) until a beam picks them up, which puts the fire out in a puff of steam. Landing in the field instead, it throws every cow and lamb within 150 px away from the blast (80–260 px further along the field), on fire; they always land safely, and never in a pen.
   - **Infinite ammo** (15 s): shots cost no ammo and the clip never needs reloading. Works with an empty gun; the free shots go when it ends.
   - **Shield** (15 s): a bubble around the saucer. Shots, laser and rockets bounce off: no knockback, no stun, no broken pickup, nothing knocked loose. Bumps don't move it either; the other saucer takes the whole bounce.
-  - **Lambs → cows** (instant): every lamb standing in the field or in a pen bursts, and a cow parachutes down in its place. One replacing a penned lamb lands in the same pen, keeps its owner and steal bonus, and counts for that pen from the moment it appears. Lambs being lifted or carried, and golden animals, are left alone.
+  - **Lambs → cows** (instant): every lamb standing in the field or in a pen bursts, and a cow parachutes down in its place. One replacing a penned lamb lands in the same pen, keeps its owner and steal bonus, and counts for that pen from the moment it appears. Lambs being lifted or carried burst too, and their cows come down in the field below them. Golden animals are left alone.
   - **Cows → lambs** (instant): the same, the other way round.
-  - **Time bomb** (single use): the shoot key drops it and lights an 8 s fuse, with the seconds shown over it and a tick each second. On the ground it can be lifted (0.8 s), carried and dropped again by either player, even out of their own pen; like the wolf it is never let go of automatically. When the fuse runs out on the ground it works like the pen bomb on the pen it lies in (nothing in the field). If it goes off in a beam, that saucer is dazed for 2 s and drops what else it carries. 8 s is enough to fetch it out of your pen from mid-field, but tight to send it all the way back.
+  - **Parachutes** (15 s): anything that falls from your beam (let go of, knocked loose, thrown, rammed off, or a pickup broken off) and would splat opens a parachute and floats down safely. A throw opens it at the top of its arc; a drop low enough to be safe gets none. Cows, lambs and the green man only.
+  - **Time bomb** (single use): the shoot key drops it and lights an 8 s fuse, with the seconds shown over it and a tick each second. On the ground it can be lifted (0.8 s), carried and dropped again by either player, even out of their own pen; like the wolf it is never let go of automatically. When the fuse runs out on the ground it works like the pen bomb: on the pen it lies in, or on the animals near it in the field. If it goes off in a beam, that saucer is dazed for 2.3 s and drops what else it carries. 8 s is enough to fetch it out of your pen from mid-field, but tight to send it all the way back.
 - Instant power-ups happen the moment they are grabbed; a power-up already held is kept.
 - Single-use power-ups show in the HUD without a timer, and the item hangs under the saucer until used.
 - Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
@@ -133,7 +135,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
    - A tied round gives no one a win.
    - The match ends early as soon as one player can't be caught (their wins exceed the opponent's wins plus the remaining rounds).
    - If round wins are level after the scheduled rounds, sudden death: one more round at a time until someone wins one.
-5. **Tally screen:** shows each player's match wins, total cows and total lambs.
+5. **Tally screen:** shows each player's match wins, total cows and total lambs, and for the match just played: cows and lambs splatted (counted for the player whose beam each fell from, also when the other player knocked it loose) and times dazed (three hits, rammed, a time bomb in the beam, a rocket hit).
    - Totals count the animals in each pen at the end of every round, including stolen ones.
 6. **Play again:** starts a new match and keeps the tally. Reloading the page resets it.
 
@@ -172,11 +174,11 @@ tests/                 Vitest tests for the logic
 |-------------------|----------------|
 | Round length      | 90 s           |
 | Clip size         | 3              |
-| Reload time       | 1.5 s          |
-| Ammo per round    | 18             |
-| Hook reach        | 200 px         |
-| Lamb lift time    | 1.0 s          |
-| Cow lift time     | 1.6 s          |
+| Reload time       | 1 s            |
+| Ammo per round    | 24 (90 s)      |
+| Hook reach        | 240 px         |
+| Lamb lift time    | 0.9 s          |
+| Cow lift time     | 1.45 s         |
 | Hook drift limit  | 40 px          |
 | Animals per round | 4 cows, 5 lambs|
 
@@ -361,6 +363,24 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - [x] README note on keyboard ghosting.
   - [ ] Browser check: Chrome, Firefox, Safari, Edge. Only Chromium is available in the development environment, so Firefox, Safari and Edge are for a person to check.
   - [ ] Final playtest with a checklist (both modes, all difficulties, all round options, controllers, 60 fps on a real laptop), then tag `v1.0.0` and publish a GitHub release with notes and a zip of `dist/` (also usable for itch.io).
+
+- [x] **13. Faster, more chaotic play (1.1)**
+  - Saucers 12.5% faster (top speed 320 → 360 px/s, acceleration 1400 → 1575). Ramming speed 400 → 430 px/s, so ramming is slightly easier than before (about 1 s and 320 px from a standstill, was 1.1 s and 330 px).
+  - Reload 1.5 → 1 s; ammo 18 → 24 per 90 s round (16 / 24 / 32 by round length); the ammo crate gives 12 (still half a round's ammo), and its announcement shows what it actually gave.
+  - Hook reach 200 → 240 px: animals can be grabbed from about 40 px higher. The CPU picks a hover height in the band it can hook from for each pickup, low down most often, and cruises above the band (so it doesn't start a pickup too early on the way down).
+  - Lift times about 10% faster: lamb 0.9 s, cow 1.45 s, wolf 1.2 s.
+  - Bombs (pen bomb and time bomb) going off in the field throw the cows and lambs near them away from the blast, on fire; they all land safely in the field.
+  - Splat height 260 → 220 px, so a pickup broken off at the top of the reach splats the animal. Knocked-loose animals splat from 40 px lower than before too, and delivery needs a 40 px lower pass over the pen.
+  - The green man splats (in green blood) when he falls too far; another one with the same power-up comes 3 s later.
+  - Lambs → cows and cows → lambs also burst animals of that kind being lifted or carried.
+  - Out of ammo: 10% more top speed and thrust, so ramming speed comes after 0.7 s instead of 1 s.
+  - New power-up, parachutes: for 15 s, whatever falls from your beam and would splat floats down under a parachute.
+  - End-of-match stats on the tally screen: cows and lambs splatted and times dazed, per player.
+  - Power-up pickups slower: the green man and the mystery package lift in 1 s (was 0.8; crates stay at 0.8). Dazes 0.3 s longer: three hits and rams 1.8 s, the time bomb in a beam and a rocket hit 2.3 s. In the simulator the round stats barely move (lead changes 3.35, dazes by three hits 3.1 per round).
+  - A green man left in the field for 15 s says "Oh, no!" and explodes, power-up and all, without a replacement. Mystery packages and crates are unaffected. The CPU grabs green men quickly, so in the simulator this happens in 1 round in 100.
+  - Simulator after these (1000 rounds of 90 s): splatted animals 0.04 → 1.6 per round, nearly all the Easy CPU's, which flies home at a height that is now unsafe (Normal and Hard: about 0.15); final score per player 5.5 → 5.0, lead changes 3.3, rams 0.30 → 0.36. Normal still beats Easy 96% of rounds, Hard beats Normal 84%.
+  - Simulator, 1000 rounds of 90 s (master → now): lead changes per round 2.79 → 3.42, dazes 2.64 → 3.23, pickups broken by a shot 16.2 → 16.0 of 41.9 → 43.1 started, deliveries 13.8 → 15.0, field emptied at 40.5 → 35.9 s (median), winning margin 2.95 → 2.77. CPU difficulties keep their spread (Hard beats Normal 83%, Normal beats Easy 95%).
+  - Without the faster lifts, more shots alone broke more pickups and slowed the game down (field emptied at 45 s); without the CPU cruising above the reach band it hooked from the top of it mostly; cruising at hooking height made both saucers line up for shots (7.7 dazes per round).
 
 - [ ] **Later (low priority)**
   - Player names and a persistent tally stored in localStorage.

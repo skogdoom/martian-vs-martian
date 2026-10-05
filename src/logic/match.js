@@ -3,6 +3,7 @@
 // after the scheduled rounds.
 
 import { ROUND } from '../config.js';
+import { createStats } from './world.js';
 
 export function createMatch(rounds = ROUND.startRounds) {
   return {
@@ -12,6 +13,7 @@ export function createMatch(rounds = ROUND.startRounds) {
     wins: { red: 0, blue: 0 },
     over: false,
     winner: null,
+    stats: { red: createStats(), blue: createStats() }, // splats and dazes, summed over the rounds played
   };
 }
 
@@ -49,4 +51,11 @@ export function recordRound(m, result) {
     return 'extended';
   }
   return 'continue';
+}
+
+/** Add a finished round's stats (world.stats) to the match's. */
+export function addRoundStats(m, stats) {
+  for (const side of ['red', 'blue']) {
+    for (const key of Object.keys(m.stats[side])) m.stats[side][key] += stats[side][key];
+  }
 }

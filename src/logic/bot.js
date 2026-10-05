@@ -3,14 +3,25 @@
 // It re-decides every `skill.react` seconds and holds its keys in between.
 // Used for the single-player CPU and by the balance simulator (scripts/sim.js).
 
-import { ARENA, SAUCER, POWERUP, ROUND, RAM } from '../config.js';
+import { ARENA, SAUCER, POWERUP, ROUND, HOOK, ANIMALS } from '../config.js';
 import { scores } from './scoring.js';
 import { hasPower } from './powerup.js';
-import { momentum } from './saucer.js';
+import { topSpeed } from './saucer.js';
+import { outOfShots } from './world.js';
 import { HAZARDS } from './hook.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
-const LOW = ARENA.flightBottom - 12; // hover height for hooking
+const LOW = ARENA.flightBottom - 12; // lowest hover height for hooking
+const TRAVEL = 330; // cruising height, above where the beam reaches the ground
+
+/** A hover height to hook `a` from: anywhere the beam reaches it from, with
+ * low down most likely and the top of that band least likely. */
+function hookHeight(a, rng) {
+  const top = ARENA.groundY - ANIMALS.size[a.kind].h;
+  const highest = top - HOOK.reach - SAUCER.halfHeight + 8; // a little margin
+  const u = 1 - Math.sqrt(rng()); // 0..1, density falling linearly from 0 (low) to 1 (high)
+  return LOW - u * Math.max(0, LOW - highest);
+}
 
 /** Digital steering toward `target` on one axis: press, release or brake. */
 function axis(pos, vel, target, gain, max) {
@@ -39,6 +50,21 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
   let wait = 0;
   let held = { x: 0, y: 0, shoot: false, fire: false };
   let mode = 'collect';
+  let hoverFor = null; // the thing we picked a hover height for
+  let hoverY = LOW;
+  /** Hover height for hooking `a`, picked once per target. */
+  function hoverAt(a) {
+    if (hoverFor !== a) {
+      hoverFor = a;
+      hoverY = hookHeight(a, rng);
+    }
+    return hoverY;
+  }
+  /** Height to fly at toward `a`: above the beam's reach while far off (passing
+   * through it slowly would start a pickup early), then down to the hover height. */
+  function approach(a, s) {
+    return Math.abs(a.x - s.x) > 180 ? TRAVEL : hoverAt(a);
+  }
 
   function pickTarget(w, s, elapsed) {
     let best = null;
@@ -119,7 +145,7 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
         letGoOfIt = bail || Math.abs(s.x - theirPenX) < 30;
       } else if (second) {
         tx = second.x;
-        ty = Math.abs(second.x - s.x) > 120 ? 380 : LOW;
+        ty = approach(second, s);
       } else if (hook.carrying && !hook.target) {
         // Home, coming down low over the pen so the animals are let go safely.
         const pen = ARENA.pens[side];
@@ -144,7 +170,7 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
         ty = s.y;
       } else if (trouble) {
         tx = trouble.x;
-        ty = Math.abs(trouble.x - s.x) > 120 ? 380 : LOW;
+        ty = approach(trouble, s);
       } else {
         const armed = weapon.ammo > 0 || laser || triple || endless;
         const hunter = laser || triple || endless ? Math.max(skill.huntWithGun, skill.hunter) : skill.hunter;
@@ -169,7 +195,7 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
           const a = pickTarget(w, s, elapsed);
           if (a) {
             tx = a.x;
-            ty = Math.abs(a.x - s.x) > 120 ? 380 : LOW;
+            ty = approach(a, s);
           } else {
             // Nothing to fetch: wait mid-field, not over our own pen (that spooks the animals).
             tx = 640;
@@ -178,7 +204,7 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
         }
       }
 
-      const top = SAUCER.maxSpeed * Math.max(hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1, 1 + (RAM.boost - 1) * momentum(s));
+      const top = topSpeed(s, hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1) * (outOfShots(w, side) ? SAUCER.outOfAmmoBoost : 1);
       const aligned = Math.abs(o.y - s.y) < skill.aim + (triple ? POWERUP.tripleSpread : 0);
       const target = theirs.target || theirs.carrying;
       const worthIt = !shielded && (skill.picky ? target : target || mode === 'hunt' || rng() < 0.05);

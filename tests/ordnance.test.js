@@ -182,11 +182,60 @@ describe('pen bomb', () => {
     expect(w.hooks.red.target).toBe(a);
   });
 
-  it('does nothing when dropped in the field', () => {
+  /** Only the given animals left in the field, standing at the given x. */
+  function fieldAt(w, spots) {
+    const field = w.animals.filter((a) => a.state === 'field');
+    field.forEach((a) => (a.state = 'gone'));
+    return spots.map(([kind, x]) => {
+      const a = field.find((b) => b.kind === kind && b.state === 'gone');
+      return Object.assign(a, { state: 'field', x, vx: 0, wanderTimer: 99 });
+    });
+  }
+
+  it('dropped in the field, throws the animals near it away from the blast, on fire, and they all land safely', () => {
     const { w } = setup(640);
+    const [left, right, far] = fieldAt(w, [
+      ['lamb', 600],
+      ['cow', 700],
+      ['lamb', 640 + POWERUP.fieldBlastRadius + 40],
+    ]);
     stepWorld(w, SHOOT, STEP);
-    expect(stepUntil(w, {}, 2, (e) => e.type === 'bombBlast')).toMatchObject({ pen: null, count: 0 });
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'bombBlast')).toMatchObject({ pen: null, count: 2 });
+    expect(left.onFire && right.onFire).toBe(true);
+    const splats = [];
+    for (let t = 0; t < 3; t += STEP) {
+      stepWorld(w, {}, STEP);
+      splats.push(...w.events.filter((e) => e.type === 'splat'));
+    }
+    expect(splats).toHaveLength(0);
+    expect([left.state, right.state]).toEqual(['field', 'field']);
+    expect(left.x).toBeLessThan(600);
+    expect(right.x).toBeGreaterThan(700);
+    expect(far).toMatchObject({ state: 'field', onFire: false, x: 640 + POWERUP.fieldBlastRadius + 40 });
     expect(scores(w.animals).blue).toBe(6);
+  });
+
+  it('never throws field animals into a pen', () => {
+    const { w } = setup(ARENA.pens.red.right + 70);
+    const thrown = fieldAt(w, [
+      ['lamb', ARENA.pens.red.right + 50],
+      ['lamb', ARENA.pens.red.right + 60],
+    ]);
+    stepWorld(w, SHOOT, STEP);
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'bombBlast')).toMatchObject({ pen: null, count: 2 });
+    run(w, {}, 3);
+    for (const a of thrown) expect(a).toMatchObject({ state: 'field', pen: null });
+  });
+
+  it('leaves animals being lifted alone', () => {
+    const { w } = setup(640);
+    const [lamb] = fieldAt(w, [['lamb', 620]]);
+    place(w.saucers.blue, 620, LOW);
+    stepUntil(w, {}, 1, (e) => e.type === 'hook');
+    place(w.saucers.red, 640, 300);
+    stepWorld(w, SHOOT, STEP);
+    expect(stepUntil(w, {}, 2, (e) => e.type === 'bombBlast')).toMatchObject({ count: 0 });
+    expect(lamb.onFire).toBe(false);
   });
 
   it('can backfire on your own pen', () => {

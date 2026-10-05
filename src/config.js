@@ -27,9 +27,10 @@ export const SAUCER = {
   radius: 34, // collision radius
   halfHeight: 14, // distance from centre to underside
   top: 30, // distance from centre to top of dome
-  accel: 1400, // px/s^2
+  accel: 1575, // px/s^2
   drag: 3, // 1/s, exponential
-  maxSpeed: 320, // px/s, cap for self-propelled speed
+  maxSpeed: 360, // px/s, cap for self-propelled speed
+  outOfAmmoBoost: 1.1, // top speed and thrust with no shots left (momentum and the speed power-up come on top)
   startY: 200,
   startX: { red: 110, blue: 1170 },
 };
@@ -44,10 +45,10 @@ export const BUMP = {
 export const RAM = {
   cruise: 0.8, // momentum builds only while going at least this share of SAUCER.maxSpeed along the input
   delay: 0.2, // seconds of straight flight before it starts to build
-  build: 1, // seconds more to reach full momentum (ram speed after ~330 px from a standstill)
+  build: 1, // seconds more to reach full momentum
   boost: 1.5, // top speed at full momentum, times SAUCER.maxSpeed
-  speed: 400, // px/s toward the opponent at contact for a ram
-  daze: 1.5, // seconds the rammed saucer spins out
+  speed: 430, // px/s toward the opponent at contact for a ram
+  daze: 1.8, // seconds the rammed saucer spins out
   knockback: 500, // px/s extra push on the rammed saucer
   jolt: 30, // degrees: a hit that turns the saucer's course more than this costs its momentum
 };
@@ -58,19 +59,19 @@ export const COMBAT = {
   knockback: 900, // px/s horizontal impulse on hit
   knockLoose: true, // a hit also knocks a fully lifted (carried) animal loose
   clipSize: 3,
-  reloadTime: 1.5,
-  ammoPerRound: 18,
+  reloadTime: 1,
+  ammoPerRound: 24, // in a 90 s round; scaled with the round length
   fireCooldown: 0.15,
   // Hit this many times in a row, each within `dazeWindow` s of the last, a
   // saucer is dazed for `dazeTime` s. Shots at once (triple shot) count once.
   dazeHits: 3,
   dazeWindow: 2,
-  dazeTime: 1.5,
+  dazeTime: 1.8,
   dazeGrace: 1, // s after a daze wears off before hits count again (no stun-locking)
 };
 
 export const HOOK = {
-  reach: 200, // from saucer underside to animal top
+  reach: 240, // from saucer underside to animal top
   grabRadius: 26, // horizontal distance to start a pickup
   stillSpeed: 90, // saucer must be slower than this to lower the hook
   // A pickup in progress holds while the saucer stays within this far sideways
@@ -82,7 +83,7 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 1.0, cow: 1.6, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.3, timebomb: 0.8 },
+  liftTime: { lamb: 0.9, cow: 1.45, greenman: 1, crate: 0.8, package: 1, wolf: 1.2, timebomb: 0.8 },
 };
 
 export const ANIMALS = {
@@ -113,10 +114,15 @@ export const POWERUP = {
   longDropTimes: [0.25, 0.5, 0.75],
   mysteryChance: 0.2, // share of drops that come as a mystery package: power-up unknown until grabbed
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
-  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain', 'timeBomb'],
+  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain', 'timeBomb', 'parachute'],
   singleUse: ['rocket', 'bomb', 'timeBomb'], // kept until used (or the round ends) instead of timed
   instant: ['cowRain', 'lambRain'], // happen the moment they are grabbed; any power-up held is kept
   fallSpeed: 110, // parachute descent, px/s
+  // A green man (not a mystery package or a crate) left standing in the field
+  // this long holds his head, says "Oh, no!" and after `panicTime` explodes,
+  // power-up and all. Hooking him in time saves him.
+  dropLife: 15, // seconds on the ground
+  panicTime: 1.5,
   dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
   // speed: faster saucer
   speedBoost: 1.6, // max speed multiplier
@@ -132,9 +138,14 @@ export const POWERUP = {
   rocketLife: 4.5, // seconds before it burns out
   rocketRadius: 8,
   rocketKnockback: 1300,
-  rocketStun: 2, // seconds the hit saucer spins out: no steering, lifting or shooting
+  rocketStun: 2.3, // seconds the hit saucer spins out: no steering, lifting or shooting
   // bomb: dropped with the shoot key; blows animals out of the pen it lands in
   bombLaunch: [650, 950], // upward speed range of the animals thrown out
+  // Landing in the field instead, it throws the cows and lambs near it away
+  // from the blast, on fire. They always land safely, and never in a pen.
+  fieldBlastRadius: 150, // px either side of the bomb
+  fieldBlastThrow: [80, 260], // px they are thrown, away from the bomb
+  fieldBlastLaunch: [450, 700], // upward speed range: lower arcs than out of a pen
   // twin: the beam can carry a second animal
   // steal: stolen animals delivered while active are worth this times full value
   stealMultiplier: 2,
@@ -143,8 +154,13 @@ export const POWERUP = {
   // timeBomb: the shoot key drops it and lights the fuse. On the ground it can be
   // lifted, carried and dropped again by either player. It goes off like the
   // pen bomb; in a beam, it dazes that saucer instead.
+  // The green man falling further than SPLAT.height bursts (in green); another
+  // one with the same power-up parachutes in this many seconds later.
+  greenmanRespawn: 3,
   timeBombFuse: 8, // seconds: time to fetch it out of your pen, tight to send it all the way back
-  timeBombDaze: 2, // seconds
+  timeBombDaze: 2.3, // seconds
+  // parachute: while it lasts, anything that falls from your beam (let go of,
+  // knocked loose, a pickup broken off) and would splat opens a parachute.
   // cowRain / lambRain: every lamb (cow) standing in the field bursts and a
   // cow (lamb) parachutes down in its place. Golden animals are left alone.
 };
@@ -159,7 +175,7 @@ export const SUPPLY = {
 // Either player can grab it; it goes into the ship like the green man.
 export const AMMO_CRATE = {
   before: 0.5, // only when someone runs out before this share of the round
-  refill: 9, // shots it gives in a 90 s round, scaled with the round length (up to the round's cap)
+  refill: 12, // shots it gives in a 90 s round, scaled with the round length (up to the round's cap)
 };
 
 // Animals that fall further than this burst in a cloud of blood and are lost
@@ -167,7 +183,7 @@ export const AMMO_CRATE = {
 // thrown out of a pen by a bomb land safely. Over your own pen, a carried
 // animal is released automatically only when it would fall no further than this.
 export const SPLAT = {
-  height: 260, // px, from the animal's feet to the ground
+  height: 220, // px, from the animal's feet to the ground: a pickup broken off at the top of the hook's reach splats
 };
 
 // New animals parachute into the field when every cow and lamb has splatted,

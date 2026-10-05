@@ -1,7 +1,7 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { Container } from 'pixi.js';
-import { WIDTH, AMMO_CRATE, BOT, RAM, PAUSE_KEY } from '../config.js';
+import { WIDTH, BOT, RAM, PAUSE_KEY } from '../config.js';
 import { layout } from '../layout.js';
 import { onUnexpectedExit } from '../fullscreen.js';
 import { createMenu, settingsItems } from '../render/menu.js';
@@ -14,7 +14,7 @@ import { handleEvents, stopVoices, setAudioPaused } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
-import { roundWinner, recordRound, roundNumber, isSuddenDeath } from '../logic/match.js';
+import { roundWinner, recordRound, roundNumber, isSuddenDeath, addRoundStats } from '../logic/match.js';
 import { addRoundToTally, addMatchToTally } from '../logic/tally.js';
 import { createBackdrop } from '../render/backdrop.js';
 import { createSaucerView } from '../render/saucerView.js';
@@ -87,6 +87,7 @@ export function createPlayScene(game, session) {
     announcement.tint = color;
     announceLeft = 2.2;
   }
+  const animals = (n) => (n === 1 ? '1 ANIMAL' : `${n} ANIMALS`);
   /** Trouble (the wolf, a time bomb) landed in a pen: whose, and who put it there. */
   function landsInPen(what, { pen, by }) {
     if (!by) announce(`${what} LANDS IN ${name(pen)}'S PEN!`, COLORS[pen]);
@@ -208,6 +209,7 @@ export function createPlayScene(game, session) {
     const points = scores(world.animals);
     const result = roundWinner(points);
     addRoundToTally(tally, world.animals);
+    addRoundStats(match, world.stats);
     const outcome = recordRound(match, result);
     if (match.over) addMatchToTally(tally, match);
     game.go(createRoundEndScene, session, { number, points, result, outcome, background: view });
@@ -253,6 +255,7 @@ export function createPlayScene(game, session) {
           const [from, to] = [`${e.from.toUpperCase()}S`, `${e.to.toUpperCase()}S`];
           announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} TO TURN INTO ${to}`, COLORS[e.side]);
         }
+        if (e.type === 'greenmanGone') announce(`TOO SLOW! THE ${POWER_NAMES[e.power]} IS GONE`, 0xcfd6ff);
         if (e.type === 'wolfIncoming') announce('A WOLF IS LOOSE! IT EATS LAMBS', 0xcfd6ff);
         if (e.type === 'wolfLand' && e.pen) landsInPen('THE WOLF', e);
         if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);
@@ -268,15 +271,17 @@ export function createPlayScene(game, session) {
         if (e.type === 'restock') announce('FRESH ANIMALS INCOMING!', 0xffffff);
         if (e.type === 'spooked') announce(`${name(e.side)}'S ANIMALS ARE SPOOKED!`, COLORS[e.side]);
         if (e.type === 'bombBlast' && e.timed) {
-          if (!e.pen) announce('THE TIME BOMB GOES OFF IN THE FIELD', 0xcfd6ff);
+          if (!e.pen && e.count) announce(`THE TIME BOMB SCATTERS ${animals(e.count)} IN THE FIELD`, 0xffb35c);
+          else if (!e.pen) announce('THE TIME BOMB GOES OFF IN THE FIELD', 0xcfd6ff);
           else announce(`THE TIME BOMB BLASTS ${e.count} OUT OF ${name(e.pen)}'S PEN!`, COLORS[e.pen]);
         } else if (e.type === 'bombBlast') {
-          if (!e.pen) announce(`${name(e.side)}'S BOMB MISSED`, 0xcfd6ff);
+          if (!e.pen && e.count) announce(`${name(e.side)}'S BOMB SCATTERS ${animals(e.count)} IN THE FIELD`, COLORS[e.side]);
+          else if (!e.pen) announce(`${name(e.side)}'S BOMB MISSED`, 0xcfd6ff);
           else if (e.pen === e.side) announce(`${name(e.side)} BOMBED ITS OWN PEN!`, COLORS[e.side]);
           else announce(`${name(e.side)} BLASTS ${e.count} OUT OF ${name(e.pen)}'S PEN!`, COLORS[e.side]);
         }
         if (e.type === 'crateIncoming') announce(`AMMO DROP! ${name(e.side)} IS OUT OF SHOTS`, 0xffd76a);
-        if (e.type === 'ammoCrate') announce(`${name(e.side)} GRABS +${AMMO_CRATE.refill} AMMO`, COLORS[e.side]);
+        if (e.type === 'ammoCrate') announce(`${name(e.side)} GRABS +${e.amount} AMMO`, COLORS[e.side]);
         if (e.type === 'goldenIncoming') {
           announce(`GOLDEN ${e.kind.toUpperCase()}! ${name(e.side)} CAN EVEN THE SCORE`, 0xffcf3a);
         }
