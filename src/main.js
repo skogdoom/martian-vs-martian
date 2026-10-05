@@ -9,6 +9,7 @@ import { toggleFullscreen } from './fullscreen.js';
 import { label, DESTROY_ALL } from './render/text.js';
 import { createTitleScene } from './scenes/title.js';
 import { createSession } from './session.js';
+import { moonPhase } from './render/backdrop.js';
 
 const app = new Application();
 await app.init({
@@ -199,6 +200,7 @@ window.__game = {
   app,
   game,
   session,
+  moonPhase,
   get scene() {
     return scene;
   },

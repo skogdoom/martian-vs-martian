@@ -28,6 +28,8 @@
 - A tidier title screen: each player's keys are in their top corner, with
   their saucer idling below, and the menu sits higher.
 - Now and then a shooting star crosses the sky on the title screen.
+- The moon is no longer always full: each visit it is waning, at a quarter,
+  waxing or full, the same for the menu and every game.
 - Fixed: a golden animal that splatted (or was eaten by the wolf) kept
   glittering where it had been.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9

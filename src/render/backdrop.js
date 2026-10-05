@@ -44,15 +44,58 @@ function stars(rng) {
   return groups;
 }
 
-function moon(g) {
+// The moon's phase, picked once when the page loads, so the menu and every
+// round of the session share it. `lit` is where the light is (+1 right, -1
+// left); `bulge` is the terminator: -1 new, 0 half, +1 full.
+export const MOON_PHASES = {
+  waning: { lit: -1, bulge: -0.45 }, // a crescent, lit on the left
+  quarter: { lit: 1, bulge: 0 }, // half
+  waxing: { lit: 1, bulge: 0.55 }, // more than half, lit on the right
+  full: { lit: 1, bulge: 1 },
+};
+const PHASE_NAMES = Object.keys(MOON_PHASES);
+export const moonPhase = PHASE_NAMES[Math.floor(Math.random() * PHASE_NAMES.length)];
+
+/** Outline of the lit part of a moon of radius `r` centred on (0, 0): down the
+ * lit limb, then back up along the terminator. */
+export function moonLitOutline(phase, r, steps = 24) {
+  const { lit, bulge } = MOON_PHASES[phase];
+  const pts = [];
+  for (let i = 0; i <= steps; i++) {
+    const y = -r + (2 * r * i) / steps;
+    pts.push(lit * Math.sqrt(Math.max(0, r * r - y * y)), y);
+  }
+  for (let i = steps; i >= 0; i--) {
+    const y = -r + (2 * r * i) / steps;
+    pts.push(-lit * bulge * Math.sqrt(Math.max(0, r * r - y * y)), y);
+  }
+  return pts;
+}
+
+/** Is the point (dx, dy) from the centre on the lit part? */
+function isLit(phase, r, dx, dy) {
+  const { lit, bulge } = MOON_PHASES[phase];
+  return lit * dx >= -bulge * Math.sqrt(Math.max(0, r * r - dy * dy));
+}
+
+function moon(g, phase = moonPhase) {
   const x = 930;
   const y = 120;
-  g.circle(x, y, 60).fill({ color: 0xfff6d8, alpha: 0.06 });
-  g.circle(x, y, 44).fill({ color: 0xfff6d8, alpha: 0.08 });
-  g.circle(x, y, 32).fill(0xf3ecd2);
-  g.circle(x - 10, y - 6, 7).fill(0xdcd3b4);
-  g.circle(x + 9, y + 9, 5).fill(0xdcd3b4);
-  g.circle(x + 12, y - 12, 3).fill(0xdcd3b4);
+  const r = 32;
+  // The glow is fainter the less of it is lit.
+  const glow = (1 + MOON_PHASES[phase].bulge) / 2;
+  g.circle(x, y, 60).fill({ color: 0xfff6d8, alpha: 0.02 + 0.04 * glow });
+  g.circle(x, y, 44).fill({ color: 0xfff6d8, alpha: 0.03 + 0.05 * glow });
+  // The dark side, just visible against the sky.
+  g.circle(x, y, r).fill({ color: 0x2b3150, alpha: 0.9 });
+  g.poly(moonLitOutline(phase, r).map((v, i) => v + (i % 2 ? y : x))).fill(0xf3ecd2);
+  for (const [dx, dy, cr] of [
+    [-10, -6, 7],
+    [9, 9, 5],
+    [12, -12, 3],
+  ]) {
+    if (isLit(phase, r, dx, dy)) g.circle(x + dx, y + dy, cr).fill(0xdcd3b4);
+  }
 }
 
 /** A band of rolling hills from `base` down to the ground. */
