@@ -32,7 +32,7 @@
 - A tidier title screen: each player's keys are in their top corner, with
   their saucer idling below, and the menu sits higher.
 - Now and then a shooting star crosses the sky on the title screen.
-- The title screen shows which version is running, under the title.
+- The title screen shows which version is running, above the title.
 - The moon is no longer always full: each visit it is waning, at a quarter,
   waxing or full, the same for the menu and every game.
 - Fixed: a golden animal that splatted (or was eaten by the wolf) kept
