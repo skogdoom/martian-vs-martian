@@ -41,7 +41,7 @@ describe('throwing', () => {
   it('thrown upward, it falls from the top of its arc', () => {
     const { w, a, red } = carrying();
     // Safe height on release, but climbing fast.
-    place(red, 640, 420, 0, -SAUCER.maxSpeed);
+    place(red, 640, 460, 0, -SAUCER.maxSpeed);
     expect(ARENA.groundY - (red.y + 60)).toBeLessThan(SPLAT.height);
     stepWorld(w, SHOOT, STEP);
     stepWorld(w, {}, STEP);
@@ -49,7 +49,7 @@ describe('throwing', () => {
     expect(stepUntil(w, {}, 2, (e) => e.type === 'land' || e.type === 'splat')?.type).toBe('land');
     // From higher up the same climb is too much.
     const again = carrying();
-    place(again.red, 640, 360, 0, -SAUCER.maxSpeed);
+    place(again.red, 640, 400, 0, -SAUCER.maxSpeed);
     stepWorld(again.w, SHOOT, STEP);
     expect(stepUntil(again.w, {}, 2, (e) => e.type === 'land' || e.type === 'splat')?.type).toBe('splat');
   });

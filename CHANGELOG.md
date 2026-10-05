@@ -9,6 +9,13 @@
   quicker. The CPU grabs from varying heights too.
 - Bombs that go off in the field throw the cows and lambs near them around,
   on fire. They all survive.
+- Animals splat from 220 px instead of 260: a pickup broken off at the very top
+  of the beam's reach kills the animal.
+- The green man splats in green blood if he falls too far; another one with
+  the same power-up parachutes in shortly after.
+- Lambs into cows and cows into lambs also burst animals being lifted or
+  carried.
+- Out of ammo, a saucer flies 10% faster, so ramming speed comes sooner.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9
   whatever the round length).
 

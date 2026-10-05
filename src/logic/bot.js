@@ -3,10 +3,11 @@
 // It re-decides every `skill.react` seconds and holds its keys in between.
 // Used for the single-player CPU and by the balance simulator (scripts/sim.js).
 
-import { ARENA, SAUCER, POWERUP, ROUND, RAM, HOOK, ANIMALS } from '../config.js';
+import { ARENA, SAUCER, POWERUP, ROUND, HOOK, ANIMALS } from '../config.js';
 import { scores } from './scoring.js';
 import { hasPower } from './powerup.js';
-import { momentum } from './saucer.js';
+import { topSpeed } from './saucer.js';
+import { outOfShots } from './world.js';
 import { HAZARDS } from './hook.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
@@ -203,7 +204,7 @@ export function createBot(side, rng, skill, roundLength = ROUND.length) {
         }
       }
 
-      const top = SAUCER.maxSpeed * Math.max(hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1, 1 + (RAM.boost - 1) * momentum(s));
+      const top = topSpeed(s, hasPower(w.powers, side, 'speed') ? POWERUP.speedBoost : 1) * (outOfShots(w, side) ? SAUCER.outOfAmmoBoost : 1);
       const aligned = Math.abs(o.y - s.y) < skill.aim + (triple ? POWERUP.tripleSpread : 0);
       const target = theirs.target || theirs.carrying;
       const worthIt = !shielded && (skill.picky ? target : target || mode === 'hunt' || rng() < 0.05);

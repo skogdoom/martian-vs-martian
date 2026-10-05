@@ -10,12 +10,14 @@
 //   descending  floating down under a parachute (restocks, cow/lamb rain,
 //               golden animals, the green man, crates, the wolf)
 //   gone        out of the round: splatted, eaten, burst by cow/lamb rain,
-//               or (a drop) climbed into a saucer
+//               or (a drop) climbed into a saucer or splatted (the green man)
 //
 // `y` is the animal's feet. `pen` is the pen it counts toward, `owner` the
 // player who first delivered it.
 
 import { WIDTH, ARENA, ANIMALS, POWERUP, SPLAT } from '../config.js';
+
+const FRAGILE = new Set(['cow', 'lamb', 'greenman']);
 
 export function penAt(x) {
   for (const [side, pen] of Object.entries(ARENA.pens)) {
@@ -144,10 +146,11 @@ export function fallHeight(a) {
 }
 
 /** Touch down. Returns the pen it landed in, null for the field, or 'splat'
- * if a cow or lamb fell too far. */
+ * if a cow, lamb or the green man fell too far. */
 function land(a) {
   const fell = ARENA.groundY - a.fallFrom;
-  const safe = a.safeFall || (a.kind !== 'cow' && a.kind !== 'lamb');
+  // Cows, lambs and the green man can splat; crates, packages, the wolf and the time bomb can't.
+  const safe = a.safeFall || !FRAGILE.has(a.kind);
   a.safeFall = false;
   a.chute = false;
   a.y = ARENA.groundY;

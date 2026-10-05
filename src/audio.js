@@ -596,6 +596,7 @@ export function handleEvents(events) {
         play('womp', { x: e.x });
         break;
       case 'burst':
+        if (e.lifting) stopLift(e.lifting);
         play('splat', { x: e.x });
         break;
       case 'animalRain':

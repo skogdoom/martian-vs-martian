@@ -30,6 +30,7 @@ export function createWorld(seed, { ammo = COMBAT.ammoPerRound } = {}) {
     rockets: [], // homing rockets in flight
     bombs: [], // pen bombs falling
     drops: [], // things that parachuted in and climb aboard: the green man, ammo crates
+    respawns: [], // green men who splatted, coming back: { left (s), power }
     wolves: [], // hooked and carried like animals, but they eat lambs (wolf.js)
     timeBombs: [], // dropped time bombs, also hooked and carried like animals
     powers: createPowers(),
@@ -122,7 +123,7 @@ export function crateInPlay(w) {
 }
 
 export function dropInPlay(w) {
-  return w.drops.some((d) => d.state !== 'gone');
+  return w.respawns.length > 0 || w.drops.some((d) => d.state !== 'gone');
 }
 
 /** No cows or lambs left in the field (or on their way down to it). */
@@ -130,13 +131,16 @@ export function fieldEmpty(w) {
   return !w.animals.some((a) => a.state === 'field' || a.state === 'descending');
 }
 
-/** Cow rain / lamb rain: every animal of one kind standing in the field or
- * in a pen bursts, and one of the other kind parachutes down in its place.
+const RAIN_VICTIMS = new Set(['field', 'penned', 'lifting', 'carried']);
+
+/** Cow rain / lamb rain: every animal of one kind in the field, in a pen or on
+ * a beam bursts, and one of the other kind parachutes down in its place.
  * One replacing a penned animal belongs to that pen from the start (it counts
- * while still coming down), with the same owner and steal bonus. */
+ * while still coming down), with the same owner and steal bonus. One replacing
+ * an animal on a beam comes down in the field below it. */
 function animalRain(w, side, power) {
   const [from, to] = power === 'cowRain' ? ['lamb', 'cow'] : ['cow', 'lamb'];
-  const victims = w.animals.filter((a) => a.kind === from && (a.state === 'field' || a.state === 'penned') && !a.golden);
+  const victims = w.animals.filter((a) => a.kind === from && RAIN_VICTIMS.has(a.state) && !a.golden);
   const { min, max } = fieldBounds(to);
   let penned = 0;
   for (const a of victims) {
@@ -149,13 +153,21 @@ function animalRain(w, side, power) {
     }
     parachute(b);
     w.animals.push(b);
-    w.events.push({ type: 'burst', kind: from, pen, x: a.x, y: a.y });
+    // `lifting`: whose beam was lifting it, so the lift sound stops.
+    w.events.push({ type: 'burst', kind: from, pen, lifting: a.state === 'lifting' ? a.hookedBy : null, x: a.x, y: a.y });
+    if (a.hookedBy) unhook(w, a.hookedBy, a);
     Object.assign(a, { state: 'gone', pen: null, onFire: false });
   }
   w.events.push({ type: 'animalRain', side, from, to, count: victims.length, penned });
 }
 
 const shielded = (w, side) => hasPower(w.powers, side, 'shield');
+
+/** Out of ammo, with no power-up that shoots for free. */
+export function outOfShots(w, side) {
+  if (w.weapons[side].ammo > 0) return false;
+  return !['triple', 'laser', 'unlimited'].some((type) => hasPower(w.powers, side, type));
+}
 
 const NO_INPUT = { x: 0, y: 0, shoot: false, fire: false };
 
@@ -374,6 +386,8 @@ export function stepWorld(w, inputs, dt) {
       opts.speedScale = POWERUP.speedBoost;
       opts.accelScale = (opts.accelScale ?? 1) * POWERUP.accelBoost;
     }
+    // Nothing left to shoot with: a little faster, so ramming is the way to fight.
+    if (outOfShots(w, side)) opts.boost = SAUCER.outOfAmmoBoost;
     steerSaucer(s, input, dt, opts);
     moveSaucer(s, dt);
   }
@@ -460,10 +474,18 @@ export function stepWorld(w, inputs, dt) {
   for (const d of w.drops) {
     if (d.state === 'gone') continue;
     const wasFalling = d.state === 'falling';
-    if (updateAnimal(d, dt, w.rng) === 'touchdown' || (wasFalling && d.state !== 'falling')) {
+    const result = updateAnimal(d, dt, w.rng);
+    if (result === 'splat') {
+      // The green man fell too far. Another one brings the same power-up.
+      w.events.push({ type: 'splat', kind: d.kind, x: d.x, y: d.y });
+      w.respawns.push({ left: POWERUP.greenmanRespawn, power: d.power });
+    } else if (result === 'touchdown' || (wasFalling && d.state !== 'falling')) {
       w.events.push({ type: 'dropLanded', x: d.x, y: d.y });
     }
   }
+  for (const r of w.respawns) r.left -= dt;
+  for (const r of w.respawns.filter((r) => r.left <= 1e-9)) spawnDrop(w, r.power);
+  w.respawns = w.respawns.filter((r) => r.left > 1e-9);
 
   for (const wolf of w.wolves) updateWolf(wolf, w.animals, dt, w.rng, w.events);
   updateTimeBombs(w, dt);

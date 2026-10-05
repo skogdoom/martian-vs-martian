@@ -10,6 +10,10 @@ const other = (side) => (side === 'red' ? 'blue' : 'red');
 const rand = (lo, hi) => lo + Math.random() * (hi - lo);
 const MAX_PARTICLES = 1500;
 const MAX_POPUPS = 12;
+const BLOOD = {
+  red: { spray: [0xd21f2a, 0xa3121c, 0xff4050, 0x6e0a12], cloud: [0xb5171f, 0xe0303a], stain: [0x7a0c14, 0xa3121c] },
+  green: { spray: [0x3fd13a, 0x1f8f1c, 0x7dff6c, 0x0f5a0e], cloud: [0x2fae2a, 0x5be852], stain: [0x145c12, 0x1f8f1c] },
+};
 
 export function createEffects() {
   const view = new Container();
@@ -171,23 +175,25 @@ export function createEffects() {
             gravity: -90,
           });
           break;
-        case 'splat':
-          // A cartoon cloud of blood, a stain on the grass, and a "SPLAT!".
+        case 'splat': {
+          // A cartoon cloud of blood (green for a Martian), a stain on the grass, and a "SPLAT!".
+          const blood = BLOOD[e.kind === 'greenman' ? 'green' : 'red'];
           burst(e.x, e.y - 12, {
             count: 60,
-            colors: [0xd21f2a, 0xa3121c, 0xff4050, 0x6e0a12],
+            colors: blood.spray,
             up: 1.3,
             speed: [120, 480],
             life: [0.5, 1.1],
             size: [2.5, 6],
             gravity: 900,
           });
-          burst(e.x, e.y - 18, { count: 18, colors: [0xb5171f, 0xe0303a], speed: [20, 90], life: [0.6, 1.2], size: [6, 11], gravity: -20 });
-          ring(e.x, e.y - 12, 0xd21f2a, 60, 0.35);
-          stains.push({ x: e.x, w: 30 + Math.random() * 20, life: 8, max: 8 });
-          popup('SPLAT!', e.x, e.y - 70, 0xff4050);
+          burst(e.x, e.y - 18, { count: 18, colors: blood.cloud, speed: [20, 90], life: [0.6, 1.2], size: [6, 11], gravity: -20 });
+          ring(e.x, e.y - 12, blood.spray[0], 60, 0.35);
+          stains.push({ x: e.x, w: 30 + Math.random() * 20, life: 8, max: 8, blood });
+          popup('SPLAT!', e.x, e.y - 70, blood.spray[2]);
           shake = Math.max(shake, 5);
           break;
+        }
         case 'burst':
           // Cow rain / lamb rain: it goes pop to make room for the new ones.
           burst(e.x, e.y - 14, {
@@ -404,8 +410,9 @@ export function createEffects() {
     g.clear();
     for (const s of stains) {
       const alpha = Math.min(0.85, (s.life / s.max) * 1.5);
-      g.ellipse(s.x, ARENA.groundY + 3, s.w, 6).fill({ color: 0x7a0c14, alpha });
-      g.ellipse(s.x - s.w * 0.3, ARENA.groundY + 2, s.w * 0.35, 3).fill({ color: 0xa3121c, alpha });
+      const { stain } = s.blood ?? BLOOD.red;
+      g.ellipse(s.x, ARENA.groundY + 3, s.w, 6).fill({ color: stain[0], alpha });
+      g.ellipse(s.x - s.w * 0.3, ARENA.groundY + 2, s.w * 0.35, 3).fill({ color: stain[1], alpha });
     }
     for (const r of rings) {
       const u = 1 - r.life / r.max;

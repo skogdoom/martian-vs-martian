@@ -32,6 +32,12 @@ export function speed(s) {
   return Math.hypot(s.vx, s.vy);
 }
 
+/** Self-propelled top speed: SAUCER.maxSpeed raised by momentum or by
+ * `speedScale` (the speed power-up), whichever is more. */
+export function topSpeed(s, speedScale = 1) {
+  return SAUCER.maxSpeed * Math.max(speedScale, 1 + (RAM.boost - 1) * momentum(s));
+}
+
 /** Momentum. It builds while one direction is held at full speed. Once
  * built, it is kept while the saucer goes on straight or turns downward (a
  * dive), as long as it stays fast. Letting go, pressing up, turning back or
@@ -63,20 +69,21 @@ function updateMomentum(s, input, dt, allowed) {
  * the speed power-up, whichever is more.
  * `accelScale` and `extraDrag` make the saucer heavier while its beam lifts;
  * `speedScale` raises the top speed (speed power-up); `momentum` false stops
- * it building momentum (while carrying). */
-export function steerSaucer(s, input, dt, { accelScale = 1, extraDrag = 0, speedScale = 1, momentum: allowed = true } = {}) {
+ * it building momentum (while carrying); `boost` scales both the top speed
+ * and the thrust, momentum included (out of ammo). */
+export function steerSaucer(s, input, dt, { accelScale = 1, extraDrag = 0, speedScale = 1, momentum: allowed = true, boost = 1 } = {}) {
   let dx = input.x;
   let dy = input.y;
   const len = Math.hypot(dx, dy);
   const before = speed(s);
   updateMomentum(s, input, dt, allowed);
-  const maxSpeed = SAUCER.maxSpeed * Math.max(speedScale, 1 + (RAM.boost - 1) * momentum(s));
+  const maxSpeed = topSpeed(s, speedScale) * boost;
   if (len > 0) {
     dx /= len;
     dy /= len;
     const along = s.vx * dx + s.vy * dy;
     if (along < maxSpeed) {
-      const add = Math.min(SAUCER.accel * accelScale * dt, maxSpeed - along);
+      const add = Math.min(SAUCER.accel * accelScale * boost * dt, maxSpeed - along);
       s.vx += dx * add;
       s.vy += dy * add;
     }

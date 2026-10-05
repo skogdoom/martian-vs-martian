@@ -30,6 +30,7 @@ export const SAUCER = {
   accel: 1575, // px/s^2
   drag: 3, // 1/s, exponential
   maxSpeed: 360, // px/s, cap for self-propelled speed
+  outOfAmmoBoost: 1.1, // top speed and thrust with no shots left (momentum and the speed power-up come on top)
   startY: 200,
   startX: { red: 110, blue: 1170 },
 };
@@ -148,6 +149,9 @@ export const POWERUP = {
   // timeBomb: the shoot key drops it and lights the fuse. On the ground it can be
   // lifted, carried and dropped again by either player. It goes off like the
   // pen bomb; in a beam, it dazes that saucer instead.
+  // The green man falling further than SPLAT.height bursts (in green); another
+  // one with the same power-up parachutes in this many seconds later.
+  greenmanRespawn: 3,
   timeBombFuse: 8, // seconds: time to fetch it out of your pen, tight to send it all the way back
   timeBombDaze: 2, // seconds
   // cowRain / lambRain: every lamb (cow) standing in the field bursts and a
@@ -172,7 +176,7 @@ export const AMMO_CRATE = {
 // thrown out of a pen by a bomb land safely. Over your own pen, a carried
 // animal is released automatically only when it would fall no further than this.
 export const SPLAT = {
-  height: 260, // px, from the animal's feet to the ground
+  height: 220, // px, from the animal's feet to the ground: a pickup broken off at the top of the hook's reach splats
 };
 
 // New animals parachute into the field when every cow and lamb has splatted,
