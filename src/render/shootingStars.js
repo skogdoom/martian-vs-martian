@@ -9,7 +9,7 @@ const rand = (lo, hi) => lo + Math.random() * (hi - lo);
 
 const GAP = [4, 10]; // seconds between stars
 const FIRST = [1.5, 4]; // seconds before the first one
-const START_BELOW = 130; // they start above this, and stay in the upper sky (clear of the menu)
+const START_BELOW = 200; // they start above this
 
 export function createShootingStars() {
   const view = new Graphics();
@@ -19,9 +19,9 @@ export function createShootingStars() {
 
   function spawn() {
     const dir = Math.random() < 0.5 ? -1 : 1; // heading left or right
-    const angle = rand(0.1, 0.3); // below the horizontal, radians: they drop at most ~200 px
-    const speed = rand(650, 950);
-    const life = rand(0.5, 0.85);
+    const angle = rand(0.15, 0.45); // below the horizontal, radians
+    const speed = rand(320, 480); // px/s: slow enough to watch
+    const life = rand(1.4, 2.2);
     return {
       // Starts on the side it comes from, so most of the streak is on screen.
       x: dir > 0 ? rand(0, WIDTH * 0.6) : rand(WIDTH * 0.4, WIDTH),
