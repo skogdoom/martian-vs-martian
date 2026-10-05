@@ -88,6 +88,10 @@ function isLit(phase, r, dx, dy) {
 
 /** Drawn around (0, 0); the backdrop puts it at MOON_AT. */
 function moon(g, phase = moonPhase) {
+  if (occasion === 'mayTheFourth') {
+    battleStation(g);
+    return;
+  }
   const x = 0;
   const y = 0;
   const r = 32;
@@ -109,6 +113,45 @@ function moon(g, phase = moonPhase) {
   ]) {
     if (isLit(phase, r, dx, dy)) g.circle(x + dx, y + dy, cr).fill(0xdcd3b4);
   }
+}
+
+/** On 4 May: that's no moon. A grey battle station of radius 34 at (0, 0),
+ * with a trench round its middle, panel lines and a big dish up top. */
+function battleStation(g) {
+  const r = 34;
+  g.circle(0, 0, 54).fill({ color: 0xc8d0e0, alpha: 0.05 });
+  g.circle(0, 0, r).fill(0x8d939e);
+  // Shading on the side away from the light.
+  g.circle(5, 4, r - 2).fill({ color: 0x6b717c, alpha: 0.35 });
+  g.circle(-4, -4, r - 8).fill({ color: 0xa3a9b3, alpha: 0.5 });
+  // Panel lines above and below the trench.
+  for (const y of [-22, -12, 11, 21]) {
+    const half = Math.sqrt(r * r - y * y);
+    g.moveTo(-half + 2, y)
+      .lineTo(half - 2, y)
+      .stroke({ color: 0x5f646e, width: 1, alpha: 0.6 });
+  }
+  for (const x of [-20, -6, 8, 22]) {
+    g.moveTo(x, -Math.sqrt(r * r - x * x) + 3)
+      .lineTo(x, Math.sqrt(r * r - x * x) - 3)
+      .stroke({ color: 0x5f646e, width: 0.6, alpha: 0.35 });
+  }
+  // The trench round the equator.
+  g.moveTo(-r, 0).quadraticCurveTo(0, 5, r, 0).stroke({ color: 0x3e424a, width: 3 });
+  // The dish, upper left, with its focus point.
+  g.circle(-13, -15, 10).fill(0x6f7580);
+  g.circle(-12, -14, 7).fill(0x5a5f69);
+  g.circle(-13, -15, 10).stroke({ color: 0x4a4e57, width: 1.2 });
+  g.circle(-12, -14, 1.6).fill(0x9fe08a);
+  // A few lit windows.
+  for (const [x, y] of [
+    [10, -26],
+    [18, -6],
+    [-24, 8],
+    [6, 16],
+    [22, 14],
+  ])
+    g.rect(x, y, 2, 1).fill({ color: 0xfff3c0, alpha: 0.8 });
 }
 
 /** A happy face on a full moon of radius 32 at (x, y), under a Santa hat. */

@@ -44,6 +44,12 @@ describe('occasions', () => {
     expect(isMidsummer({ year: 2026, month: 6, day: 26 })).toBe(false);
   });
 
+  it('4 May', () => {
+    expect(on(2026, 5, 4)).toBe('mayTheFourth');
+    expect(on(2026, 5, 5)).toBe(null);
+    expect(on(2026, 4, 5)).toBe(null);
+  });
+
   it('the game date is the parameter if there is a good one, otherwise today', () => {
     const now = new Date(2026, 5, 15); // 15 June 2026
     expect(gameDate('?date=12-25', now)).toEqual({ year: 2026, month: 12, day: 25 });

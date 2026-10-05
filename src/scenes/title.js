@@ -17,6 +17,8 @@ import { startMatch, DIFFICULTIES } from '../session.js';
 import { LENGTHS, ROUNDS, step, saveOptions, pickOptions } from '../options.js';
 import { createBackdrop, COLORS } from '../render/backdrop.js';
 import { createShootingStars } from '../render/shootingStars.js';
+import { createTieFlyby } from '../render/tieFlyby.js';
+import { occasion } from '../occasion.js';
 import { createAnimalView } from '../render/animalView.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { label } from '../render/text.js';
@@ -33,6 +35,9 @@ export function createTitleScene(game, session) {
   view.addChild(backdrop.view);
   const shootingStars = createShootingStars();
   view.addChild(shootingStars.view);
+  // 4 May: a flight of fighters now and then.
+  const flyby = occasion === 'mayTheFourth' ? createTieFlyby() : null;
+  if (flyby) view.addChild(flyby.view);
 
   // A grazing herd and two idling saucers behind the title.
   const rng = createRng();
@@ -41,6 +46,7 @@ export function createTitleScene(game, session) {
   const saucers = { red: createSaucerView('red'), blue: createSaucerView('blue') };
   view.addChild(herdView.view, saucers.red.view, saucers.blue.view);
   view.addChild(dimmer(0.25));
+  const scenery = view.children.length; // everything after this is text, centred on a tall screen
 
   const cx = WIDTH / 2;
   const red = label('MARTIAN', { size: 64, color: COLORS.red, bold: true, anchorX: 1, anchorY: 0.5 });
@@ -138,8 +144,8 @@ export function createTitleScene(game, session) {
   }
   refreshMenu();
 
-  // Backdrop, shooting stars, herd, saucers and the dimming stay put; the text is centred.
-  const centered = centerUi(view, 6);
+  // Backdrop, shooting stars (and fighters on 4 May), herd, saucers and the dimming stay put; the text is centred.
+  const centered = centerUi(view, scenery);
 
   let t = 0;
   return {
@@ -148,6 +154,7 @@ export function createTitleScene(game, session) {
       t += dt;
       for (const a of herd) updateAnimal(a, dt, rng);
       shootingStars.update(dt);
+      flyby?.update(dt);
       if (t < 0.3) return;
 
       if (pressed('Digit1', 'Numpad1')) row = 0;
@@ -182,6 +189,7 @@ export function createTitleScene(game, session) {
       centered.sync();
       backdrop.tick(t);
       shootingStars.render();
+      flyby?.render();
       herdView.sync(t);
       // Under their keys, which move up with the rest of the text on a tall screen.
       const y = SAUCER_Y + menuLift();
