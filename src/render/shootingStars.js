@@ -20,8 +20,8 @@ export function createShootingStars() {
   function spawn() {
     const dir = Math.random() < 0.5 ? -1 : 1; // heading left or right
     const angle = rand(0.15, 0.45); // below the horizontal, radians
-    const speed = rand(320, 480); // px/s: slow enough to watch
-    const life = rand(1.4, 2.2);
+    const speed = rand(400, 600); // px/s: slow enough to watch
+    const life = rand(1.2, 1.9);
     return {
       // Starts on the side it comes from, so most of the streak is on screen.
       x: dir > 0 ? rand(0, WIDTH * 0.6) : rand(WIDTH * 0.4, WIDTH),

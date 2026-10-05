@@ -1,5 +1,6 @@
 // Arena scenery: night sky, stars, moon, hills, ground and the two pens.
-// `createBackdrop()` returns { view, tick(t) }; tick animates stars and flags.
+// `createBackdrop()` returns { view, tick(t), moon }; tick animates stars and
+// flags, and `moon` is the moon's shape, for a scene that wants it elsewhere.
 
 import { Container, Graphics, FillGradient } from 'pixi.js';
 import { WIDTH, HEIGHT, ARENA } from '../config.js';
@@ -54,6 +55,7 @@ export const MOON_PHASES = {
   full: { lit: 1, bulge: 1 },
 };
 const PHASE_NAMES = Object.keys(MOON_PHASES);
+export const MOON_AT = { x: 930, y: 120 }; // where it hangs in the sky
 export const moonPhase = PHASE_NAMES[Math.floor(Math.random() * PHASE_NAMES.length)];
 
 /** Outline of the lit part of a moon of radius `r` centred on (0, 0): down the
@@ -78,9 +80,10 @@ function isLit(phase, r, dx, dy) {
   return lit * dx >= -bulge * Math.sqrt(Math.max(0, r * r - dy * dy));
 }
 
+/** Drawn around (0, 0); the backdrop puts it at MOON_AT. */
 function moon(g, phase = moonPhase) {
-  const x = 930;
-  const y = 120;
+  const x = 0;
+  const y = 0;
   const r = 32;
   // The glow is fainter the less of it is lit.
   const glow = (1 + MOON_PHASES[phase].bulge) / 2;
@@ -176,8 +179,11 @@ export function createBackdrop() {
 
   const back = new Graphics();
   sky(back);
-  moon(back);
   const starGroups = stars(rng);
+  // Its own shape, so a scene can move it (the title screen puts it by the title).
+  const moonView = new Graphics();
+  moon(moonView);
+  moonView.position.set(MOON_AT.x, MOON_AT.y);
 
   const land = new Graphics();
   hills(land, 560, 50, 0x1c2544, 0.8);
@@ -190,7 +196,7 @@ export function createBackdrop() {
 
   const flags = [flag('red'), flag('blue')];
 
-  view.addChild(back, ...starGroups, land, ...flags.map((f) => f.g));
+  view.addChild(back, ...starGroups, moonView, land, ...flags.map((f) => f.g));
 
   for (const side of ['red', 'blue']) {
     const { left, right } = ARENA.pens[side];
@@ -208,5 +214,5 @@ export function createBackdrop() {
   }
   tick(0);
 
-  return { view, tick };
+  return { view, tick, moon: moonView };
 }
