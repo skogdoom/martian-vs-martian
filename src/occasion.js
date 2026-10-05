@@ -1,7 +1,7 @@
 // Special days: a full, smiling moon in a Santa hat and snow at Christmas,
 // fireworks on New Year's Eve, maypoles for flagpoles at Swedish midsummer,
 // on 4 May a battle station for a moon and fighters flying by the title, and
-// at Halloween an orange moon, bats, a ghost and jack-o'-lanterns.
+// at Halloween an orange moon, bats and jack-o'-lanterns.
 // The date is today's, or for trying it out, the `date` query parameter:
 // ?date=2026-12-24, or just ?date=12-31 (month and day, this year).
 
