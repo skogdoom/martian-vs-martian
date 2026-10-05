@@ -48,7 +48,7 @@ export const RAM = {
   build: 1, // seconds more to reach full momentum
   boost: 1.5, // top speed at full momentum, times SAUCER.maxSpeed
   speed: 430, // px/s toward the opponent at contact for a ram
-  daze: 1.5, // seconds the rammed saucer spins out
+  daze: 1.8, // seconds the rammed saucer spins out
   knockback: 500, // px/s extra push on the rammed saucer
   jolt: 30, // degrees: a hit that turns the saucer's course more than this costs its momentum
 };
@@ -66,7 +66,7 @@ export const COMBAT = {
   // saucer is dazed for `dazeTime` s. Shots at once (triple shot) count once.
   dazeHits: 3,
   dazeWindow: 2,
-  dazeTime: 1.5,
+  dazeTime: 1.8,
   dazeGrace: 1, // s after a daze wears off before hits count again (no stun-locking)
 };
 
@@ -83,7 +83,7 @@ export const HOOK = {
   // Small nudges no longer break a pickup; flying away on purpose still does.
   beamAccel: 0.5, // fraction of normal acceleration
   beamDrag: 4, // extra drag, 1/s
-  liftTime: { lamb: 0.9, cow: 1.45, greenman: 0.8, crate: 0.8, package: 0.8, wolf: 1.2, timebomb: 0.8 },
+  liftTime: { lamb: 0.9, cow: 1.45, greenman: 1, crate: 0.8, package: 1, wolf: 1.2, timebomb: 0.8 },
 };
 
 export const ANIMALS = {
@@ -138,7 +138,7 @@ export const POWERUP = {
   rocketLife: 4.5, // seconds before it burns out
   rocketRadius: 8,
   rocketKnockback: 1300,
-  rocketStun: 2, // seconds the hit saucer spins out: no steering, lifting or shooting
+  rocketStun: 2.3, // seconds the hit saucer spins out: no steering, lifting or shooting
   // bomb: dropped with the shoot key; blows animals out of the pen it lands in
   bombLaunch: [650, 950], // upward speed range of the animals thrown out
   // Landing in the field instead, it throws the cows and lambs near it away
@@ -158,7 +158,7 @@ export const POWERUP = {
   // one with the same power-up parachutes in this many seconds later.
   greenmanRespawn: 3,
   timeBombFuse: 8, // seconds: time to fetch it out of your pen, tight to send it all the way back
-  timeBombDaze: 2, // seconds
+  timeBombDaze: 2.3, // seconds
   // parachute: while it lasts, anything that falls from your beam (let go of,
   // knocked loose, a pickup broken off) and would splat opens a parachute.
   // cowRain / lambRain: every lamb (cow) standing in the field bursts and a

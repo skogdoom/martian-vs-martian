@@ -21,6 +21,10 @@
 - A green man nobody picks up within 15 s holds his head, says "Oh, no!" and
   explodes, taking his power-up with him. Mystery packages and ammo crates
   wait.
+- The tally at the end of a match shows how many cows and lambs each player
+  splatted and how often each was dazed.
+- Power-ups take a little longer to beam up (1 s instead of 0.8), and dazes
+  last 0.3 s longer.
 - Fixed: a golden animal that splatted (or was eaten by the wolf) kept
   glittering where it had been.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9

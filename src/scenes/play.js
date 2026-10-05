@@ -14,7 +14,7 @@ import { handleEvents, stopVoices, setAudioPaused } from '../audio.js';
 import { SIDES } from '../logic/world.js';
 import { createRound, stepRound, countdownNumber } from '../logic/round.js';
 import { scores } from '../logic/scoring.js';
-import { roundWinner, recordRound, roundNumber, isSuddenDeath } from '../logic/match.js';
+import { roundWinner, recordRound, roundNumber, isSuddenDeath, addRoundStats } from '../logic/match.js';
 import { addRoundToTally, addMatchToTally } from '../logic/tally.js';
 import { createBackdrop } from '../render/backdrop.js';
 import { createSaucerView } from '../render/saucerView.js';
@@ -209,6 +209,7 @@ export function createPlayScene(game, session) {
     const points = scores(world.animals);
     const result = roundWinner(points);
     addRoundToTally(tally, world.animals);
+    addRoundStats(match, world.stats);
     const outcome = recordRound(match, result);
     if (match.over) addMatchToTally(tally, match);
     game.go(createRoundEndScene, session, { number, points, result, outcome, background: view });

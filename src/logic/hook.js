@@ -65,7 +65,7 @@ function findTarget(s, animals) {
 /** Stop a pickup in progress; the animal drops back down. Returns true if one was stopped. */
 export function interruptHook(h) {
   if (!h.target) return false;
-  drop(h.target, { chutes: h.chutes });
+  drop(h.target, { from: h.side, chutes: h.chutes });
   h.target = null;
   h.progress = 0;
   return true;
@@ -79,7 +79,7 @@ export function dropCarried(h, s) {
   a.x = s.x;
   a.y = slotY(h, s, a);
   a.bonus = false;
-  drop(a, { vx: s.vx, vy: s.vy, chutes: h.chutes });
+  drop(a, { from: h.side, vx: s.vx, vy: s.vy, chutes: h.chutes });
   if (a === h.second) h.second = null;
   else h.carrying = null;
   return a;

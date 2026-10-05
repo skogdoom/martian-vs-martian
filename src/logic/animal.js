@@ -54,6 +54,7 @@ export function createAnimal(id, kind, x) {
     owner: null,
     hookedBy: null,
     droppedBy: null, // the player who let go of it (a delivery if it lands in their pen)
+    fellFrom: null, // the player whose beam it last fell from, on purpose or not (whose splat it is)
     fallFrom: 0, // y it started falling from
     safeFall: false, // thrown by a bomb: lands safely whatever the height
     chute: false, // parachute open while falling: a wolf dropped from up high (see wolf.js), or the parachute power-up
@@ -181,10 +182,11 @@ function land(a) {
 
 /** Let `a` fall from where it is. `by` is the player letting go on purpose
  * (null for a pickup broken off or knocked loose); `vx`, `vy` its starting
- * velocity, e.g. the saucer's when thrown; `chutes` that saucer has the
- * parachute power-up. */
-export function drop(a, { by = null, vx = 0, vy = 0, chutes = false } = {}) {
+ * velocity, e.g. the saucer's when thrown; `from` the saucer it falls from
+ * (defaults to `by`); `chutes` that saucer has the parachute power-up. */
+export function drop(a, { by = null, from = by, vx = 0, vy = 0, chutes = false } = {}) {
   a.state = 'falling';
+  a.fellFrom = from;
   a.chute = false;
   a.chuteReady = chutes && FRAGILE.has(a.kind);
   a.hookedBy = null;

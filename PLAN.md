@@ -45,12 +45,12 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 ### Bump
 - When saucers overlap, both get a small impulse pushing them apart.
 - The effect is minor compared to a shot.
-- **Ram:** a saucer that hits the other at 430 px/s or more (along the line between them) rams it. The rammed saucer is knocked back, drops everything it carries (it falls like a knocked-loose animal, so from high up it splats), loses any pickup in progress and is dazed for 1.5 s: no steering, lifting or shooting. The rammer loses its momentum. A saucer carrying anything can't ram, not even with the speed power-up. Head on, both can be dazed. A shield stops a ram. Values are in `RAM` in `config.js`.
+- **Ram:** a saucer that hits the other at 430 px/s or more (along the line between them) rams it. The rammed saucer is knocked back, drops everything it carries (it falls like a knocked-loose animal, so from high up it splats), loses any pickup in progress and is dazed for 1.8 s: no steering, lifting or shooting. The rammer loses its momentum. A saucer carrying anything can't ram, not even with the speed power-up. Head on, both can be dazed. A shield stops a ram. Values are in `RAM` in `config.js`.
 
 ### Shooting
 - Projectiles travel horizontally at the shooter's height, always toward the opponent's side (the sign of the x difference). Shots can miss.
 - A hit applies a strong horizontal knockback to the opponent.
-- **Dazed:** three shot hits in a row, each within 2 s of the last, daze the saucer for 1.5 s (no steering, lifting or shooting). Shots landing at once (triple shot) count as one hit; shots that bounce off a shield don't count. Hits while dazed and for 1 s after don't count toward the next daze, so nobody can be kept dazed. Values are `dazeHits`, `dazeWindow`, `dazeTime` and `dazeGrace` in `COMBAT`.
+- **Dazed:** three shot hits in a row, each within 2 s of the last, daze the saucer for 1.8 s (no steering, lifting or shooting). Shots landing at once (triple shot) count as one hit; shots that bounce off a shield don't count. Hits while dazed and for 1 s after don't count toward the next daze, so nobody can be kept dazed. Values are `dazeHits`, `dazeWindow`, `dazeTime` and `dazeGrace` in `COMBAT`.
 - Each clip holds 3 shots and reloads automatically in 1 s when empty.
 - Each player has 24 shots per 90 s round (16 in a 60 s round, 32 in a 120 s one). The cap resets every round.
 - **Ammo crate:** if a player runs out before halfway, a crate parachutes into the field. It is hooked like the green man and climbs aboard when lifted, giving +12 shots in a 90 s round (scaled with the round length, up to the cap); an empty gun reloads at once. Either player can grab it. At most one crate at a time, and one per player per round. Values are in `AMMO_CRATE` in `config.js`.
@@ -91,7 +91,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ### Power-ups
 - Twice per round (at 30% and 60% of the round; three times in a 120 s round, at 25%, 50% and 75%) there is a 60% chance that a little green man parachutes into the field carrying one power-up. About one drop in five is a **mystery package** instead: a wrapped box with a question mark that stays put; its power-up is revealed only when grabbed. Its icon is shown on his parachute and over his head.
-- He wanders like an animal and is hooked the same way (lift 0.8 s; shots and drift break the pickup). A saucer carrying an animal can't grab him. Like a cow or lamb he splats if he falls too far (in green); 3 s later another green man parachutes in with the same power-up (`POWERUP.greenmanRespawn`). The mystery package and the ammo crate don't break. Left standing in the field for 15 s without being picked up (`POWERUP.dropLife`), he holds his head, says "Oh, no!" and 1.5 s later explodes, power-up and all, and no other one comes instead. Hooking him in that moment saves him. Mystery packages and ammo crates wait as long as it takes.
+- He wanders like an animal and is hooked the same way (lift 1 s; shots and drift break the pickup). A saucer carrying an animal can't grab him. Like a cow or lamb he splats if he falls too far (in green); 3 s later another green man parachutes in with the same power-up (`POWERUP.greenmanRespawn`). The mystery package and the ammo crate don't break. Left standing in the field for 15 s without being picked up (`POWERUP.dropLife`), he holds his head, says "Oh, no!" and 1.5 s later explodes, power-up and all, and no other one comes instead. Hooking him in that moment saves him. Mystery packages and ammo crates wait as long as it takes.
 - Fully lifted, he climbs into the saucer and the power-up starts. It lasts 15 s.
 - The power-ups:
   - **Speed boost:** 60% faster top speed, 50% more thrust.
@@ -100,7 +100,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Double steal:** animals stolen from the opponent's pen while it's active are worth double full value (cow 4, lamb 2) once delivered, until they are lifted out again.
 - Like any hit, laser and triple-shot hits also knock a carried animal loose.
 - More power-ups, drawn at random with the rest:
-  - **Homing rocket** (single use, kept until fired): the next shoot press launches one rocket that steers toward the opponent (limited turn rate, burns out after 4.5 s). A hit gives strong knockback, breaks a pickup, knocks a carried animal loose and stuns the saucer for 2 s: no steering, lifting or shooting.
+  - **Homing rocket** (single use, kept until fired): the next shoot press launches one rocket that steers toward the opponent (limited turn rate, burns out after 4.5 s). A hit gives strong knockback, breaks a pickup, knocks a carried animal loose and stuns the saucer for 2.3 s: no steering, lifting or shooting.
   - **Twin beam** (15 s): the beam can carry a second animal, hanging under the first. Both are delivered together; a hit knocks the lower one loose.
   - **Pen bomb** (single use): the shoot key drops it. If it lands in a pen, a random number (at least one) of the animals in it are thrown back into the field; they keep their original owner. It hits whichever pen it lands in, including your own. The animals it throws out catch fire (cosmetic only) until a beam picks them up, which puts the fire out in a puff of steam. Landing in the field instead, it throws every cow and lamb within 150 px away from the blast (80–260 px further along the field), on fire; they always land safely, and never in a pen.
   - **Infinite ammo** (15 s): shots cost no ammo and the clip never needs reloading. Works with an empty gun; the free shots go when it ends.
@@ -108,7 +108,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
   - **Lambs → cows** (instant): every lamb standing in the field or in a pen bursts, and a cow parachutes down in its place. One replacing a penned lamb lands in the same pen, keeps its owner and steal bonus, and counts for that pen from the moment it appears. Lambs being lifted or carried burst too, and their cows come down in the field below them. Golden animals are left alone.
   - **Cows → lambs** (instant): the same, the other way round.
   - **Parachutes** (15 s): anything that falls from your beam (let go of, knocked loose, thrown, rammed off, or a pickup broken off) and would splat opens a parachute and floats down safely. A throw opens it at the top of its arc; a drop low enough to be safe gets none. Cows, lambs and the green man only.
-  - **Time bomb** (single use): the shoot key drops it and lights an 8 s fuse, with the seconds shown over it and a tick each second. On the ground it can be lifted (0.8 s), carried and dropped again by either player, even out of their own pen; like the wolf it is never let go of automatically. When the fuse runs out on the ground it works like the pen bomb: on the pen it lies in, or on the animals near it in the field. If it goes off in a beam, that saucer is dazed for 2 s and drops what else it carries. 8 s is enough to fetch it out of your pen from mid-field, but tight to send it all the way back.
+  - **Time bomb** (single use): the shoot key drops it and lights an 8 s fuse, with the seconds shown over it and a tick each second. On the ground it can be lifted (0.8 s), carried and dropped again by either player, even out of their own pen; like the wolf it is never let go of automatically. When the fuse runs out on the ground it works like the pen bomb: on the pen it lies in, or on the animals near it in the field. If it goes off in a beam, that saucer is dazed for 2.3 s and drops what else it carries. 8 s is enough to fetch it out of your pen from mid-field, but tight to send it all the way back.
 - Instant power-ups happen the moment they are grabbed; a power-up already held is kept.
 - Single-use power-ups show in the HUD without a timer, and the item hangs under the saucer until used.
 - Values are in `POWERUP` in `config.js`; the duration was tuned with `npm run sim` so a power-up can turn a round.
@@ -135,7 +135,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
    - A tied round gives no one a win.
    - The match ends early as soon as one player can't be caught (their wins exceed the opponent's wins plus the remaining rounds).
    - If round wins are level after the scheduled rounds, sudden death: one more round at a time until someone wins one.
-5. **Tally screen:** shows each player's match wins, total cows and total lambs.
+5. **Tally screen:** shows each player's match wins, total cows and total lambs, and for the match just played: cows and lambs splatted (counted for the player whose beam each fell from, also when the other player knocked it loose) and times dazed (three hits, rammed, a time bomb in the beam, a rocket hit).
    - Totals count the animals in each pen at the end of every round, including stolen ones.
 6. **Play again:** starts a new match and keeps the tally. Reloading the page resets it.
 
@@ -375,6 +375,8 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Lambs → cows and cows → lambs also burst animals of that kind being lifted or carried.
   - Out of ammo: 10% more top speed and thrust, so ramming speed comes after 0.7 s instead of 1 s.
   - New power-up, parachutes: for 15 s, whatever falls from your beam and would splat floats down under a parachute.
+  - End-of-match stats on the tally screen: cows and lambs splatted and times dazed, per player.
+  - Power-up pickups slower: the green man and the mystery package lift in 1 s (was 0.8; crates stay at 0.8). Dazes 0.3 s longer: three hits and rams 1.8 s, the time bomb in a beam and a rocket hit 2.3 s. In the simulator the round stats barely move (lead changes 3.35, dazes by three hits 3.1 per round).
   - A green man left in the field for 15 s says "Oh, no!" and explodes, power-up and all, without a replacement. Mystery packages and crates are unaffected. The CPU grabs green men quickly, so in the simulator this happens in 1 round in 100.
   - Simulator after these (1000 rounds of 90 s): splatted animals 0.04 → 1.6 per round, nearly all the Easy CPU's, which flies home at a height that is now unsafe (Normal and Hard: about 0.15); final score per player 5.5 → 5.0, lead changes 3.3, rams 0.30 → 0.36. Normal still beats Easy 96% of rounds, Hard beats Normal 84%.
   - Simulator, 1000 rounds of 90 s (master → now): lead changes per round 2.79 → 3.42, dazes 2.64 → 3.23, pickups broken by a shot 16.2 → 16.0 of 41.9 → 43.1 started, deliveries 13.8 → 15.0, field emptied at 40.5 → 35.9 s (median), winning margin 2.95 → 2.77. CPU difficulties keep their spread (Hard beats Normal 83%, Normal beats Easy 95%).

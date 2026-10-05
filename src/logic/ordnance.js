@@ -99,6 +99,7 @@ export function bounceOut(a, rng, { fire = true, tx = null, launch = POWERUP.bom
   a.pen = null;
   a.hookedBy = null;
   a.droppedBy = null;
+  a.fellFrom = null;
   a.state = 'falling';
   a.fallFrom = a.y;
   a.safeFall = true;

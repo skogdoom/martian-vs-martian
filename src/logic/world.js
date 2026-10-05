@@ -20,6 +20,10 @@ export function opponent(side) {
   return side === 'red' ? 'blue' : 'red';
 }
 
+export function createStats() {
+  return { cowsSplatted: 0, lambsSplatted: 0, dazed: 0 };
+}
+
 export function createWorld(seed, { ammo = COMBAT.ammoPerRound } = {}) {
   return {
     saucers: { red: createSaucer('red'), blue: createSaucer('blue') },
@@ -39,6 +43,9 @@ export function createWorld(seed, { ammo = COMBAT.ammoPerRound } = {}) {
     spook: { red: 0, blue: 0 }, // seconds each saucer has hovered over its own pen
     spookNext: { red: 0, blue: 0 }, // countdown to the next animal jumping out
     events: [],
+    // Counted for the end-of-match stats: cows and lambs that splatted after
+    // falling from each player's beam, and how often each player was dazed.
+    stats: { red: createStats(), blue: createStats() },
     rng: createRng(seed),
   };
 }
@@ -531,7 +538,7 @@ export function stepWorld(w, inputs, dt) {
     if (a.chute && !hadChute) w.events.push({ type: 'chuteOpen', kind: a.kind, x: a.x, y: a.y });
     if (result === 'touchdown') w.events.push({ type: 'dropLanded', x: a.x, y: a.y });
     if (result === 'splat') {
-      w.events.push({ type: 'splat', id: a.id, kind: a.kind, golden: Boolean(a.golden), x: a.x, y: a.y });
+      w.events.push({ type: 'splat', id: a.id, kind: a.kind, side: a.fellFrom, golden: Boolean(a.golden), x: a.x, y: a.y });
       a.droppedBy = null;
     } else if (wasFalling && a.state !== 'falling') {
       const pen = result;
@@ -549,6 +556,25 @@ export function stepWorld(w, inputs, dt) {
   spookPens(w, dt);
   restock(w, dt);
   guardFinite(w);
+  countStats(w);
+}
+
+/** Every way to be dazed (spin out): three hits in a row, being rammed, the
+ * time bomb going off in your beam, a rocket hit. */
+function dazedSide(e) {
+  if (e.type === 'dazed' || e.type === 'timeBombHeld') return e.side;
+  if (e.type === 'ram' && !e.shielded) return e.victim;
+  if (e.type === 'hit' && e.rocket && !e.shielded) return e.side;
+  return null;
+}
+
+function countStats(w) {
+  for (const e of w.events) {
+    const dazed = dazedSide(e);
+    if (dazed) w.stats[dazed].dazed++;
+    if (e.type === 'splat' && e.side && (e.kind === 'cow' || e.kind === 'lamb'))
+      w.stats[e.side][e.kind === 'cow' ? 'cowsSplatted' : 'lambsSplatted']++;
+  }
 }
 
 const finite = (o) => Number.isFinite(o.x) && Number.isFinite(o.y);
