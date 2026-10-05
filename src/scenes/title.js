@@ -10,7 +10,7 @@ import { version } from '../../package.json';
 import { menuLift } from '../layout.js';
 import { centerUi, dimmer } from '../render/uiLayer.js';
 import { wasPressed, padSeenYet, setKeyFilter } from '../input.js';
-import { createCheatListener } from '../cheats.js';
+import { createCheatListener, toggleCheat } from '../cheats.js';
 import { audioUnlocked, play } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
@@ -106,7 +106,11 @@ export function createTitleScene(game, session) {
   const cheatsLabel = label('', { size: 16, color: 0xffd76a, bold: true, anchorX: 0.5, anchorY: 0.5 });
   cheatsLabel.position.set(cx, 70);
   const showCheats = () => {
-    const on = [session.cheats.goldenHerd && '★ GOLDEN HERD ★', session.cheats.lasers && '⚡ LASERS ⚡'].filter(Boolean);
+    const on = [
+      session.cheats.goldenHerd && '★ GOLDEN HERD ★',
+      session.cheats.lasers && '⚡ LASERS ⚡',
+      session.cheats.shields && '◆ SHIELDS ◆',
+    ].filter(Boolean);
     cheatsLabel.text = on.join('    ');
   };
   showCheats();
@@ -114,9 +118,9 @@ export function createTitleScene(game, session) {
   const removeKeyFilter = setKeyFilter((code) => {
     const { done, swallow } = cheatCodes.push(code);
     if (done) {
-      session.cheats[done] = !session.cheats[done];
+      const on = toggleCheat(session.cheats, done);
       showCheats();
-      play(session.cheats[done] ? 'fanfare' : 'powerDown');
+      play(on ? 'fanfare' : 'powerDown');
     }
     return swallow || done !== null;
   });

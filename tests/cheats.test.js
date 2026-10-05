@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { CHEAT_CODES, createCheatListener } from '../src/cheats.js';
+import { CHEAT_CODES, createCheatListener, createCheats, toggleCheat } from '../src/cheats.js';
+import { createRound } from '../src/logic/round.js';
 
 /** Type `codes`; returns what the listener said for each. */
 function type(codes, listener = createCheatListener()) {
@@ -15,6 +16,12 @@ describe('cheat codes', () => {
 
   it('IDKFA completes the lasers', () => {
     expect(type(['KeyI', 'KeyD', 'KeyK', 'KeyF', 'KeyA']).at(-1).done).toBe('lasers');
+  });
+
+  it('IDDQD completes the shields, even though it starts like IDKFA', () => {
+    const out = type(['KeyI', 'KeyD', 'KeyD', 'KeyQ', 'KeyD']);
+    expect(out.at(-1).done).toBe('shields');
+    expect(out.map((r) => r.swallow)).toEqual([false, true, true, true, true]);
   });
 
   it('works after other keys, and after a false start', () => {
@@ -41,5 +48,28 @@ describe('cheat codes', () => {
     const l = createCheatListener();
     type(CHEAT_CODES.lasers, l);
     expect(type(CHEAT_CODES.lasers, l).at(-1).done).toBe('lasers');
+  });
+});
+
+describe('cheats in a round', () => {
+  it('lasers and shields exclude each other: one power-up each', () => {
+    const cheats = createCheats();
+    expect(toggleCheat(cheats, 'lasers')).toBe(true);
+    expect(toggleCheat(cheats, 'shields')).toBe(true);
+    expect(cheats).toMatchObject({ lasers: false, shields: true });
+    expect(toggleCheat(cheats, 'goldenHerd')).toBe(true);
+    expect(cheats.shields).toBe(true);
+    expect(toggleCheat(cheats, 'shields')).toBe(false);
+  });
+
+  it('every round starts with them', () => {
+    const plain = createRound(1);
+    expect(plain.world.powers).toEqual({ red: null, blue: null });
+    expect(plain.world.animals.some((a) => a.golden)).toBe(false);
+    const r = createRound(1, 90, { goldenHerd: true, shields: true });
+    expect(r.world.powers.red?.type).toBe('shield');
+    expect(r.world.powers.blue?.type).toBe('shield');
+    expect(r.world.animals.every((a) => a.golden)).toBe(true);
+    expect(createRound(1, 90, { lasers: true }).world.powers.blue?.type).toBe('laser');
   });
 });

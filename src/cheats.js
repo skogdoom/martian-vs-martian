@@ -2,11 +2,17 @@
 // the session (session.cheats); the title screen shows which are on.
 //   ↑ ↑ ↓ ↓ ← → ← → B A   goldenHerd: every round starts with an all-golden herd
 //   I D K F A             lasers: both players start every round with a laser
+//   I D D Q D             shields: both players start every round with a shield
+// A player holds one power-up at a time, so lasers and shields exclude each
+// other: switching one on switches the other off.
 
 export const CHEAT_CODES = {
   goldenHerd: ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'],
   lasers: ['KeyI', 'KeyD', 'KeyK', 'KeyF', 'KeyA'],
+  shields: ['KeyI', 'KeyD', 'KeyD', 'KeyQ', 'KeyD'],
 };
+
+const EXCLUDES = { lasers: 'shields', shields: 'lasers' };
 
 // Keys the title screen (or the whole game) does something with. Once a code
 // has got past a key that isn't one of these (the B, the I), its remaining
@@ -35,7 +41,14 @@ const MENU_KEYS = new Set([
 ]);
 
 export function createCheats() {
-  return { goldenHerd: false, lasers: false };
+  return { goldenHerd: false, lasers: false, shields: false };
+}
+
+/** Switch cheat `name` on or off in `cheats`; returns whether it is now on. */
+export function toggleCheat(cheats, name) {
+  cheats[name] = !cheats[name];
+  if (cheats[name] && EXCLUDES[name]) cheats[EXCLUDES[name]] = false;
+  return cheats[name];
 }
 
 /** Watches key presses for the codes. `push(code)` returns { done, swallow }:
