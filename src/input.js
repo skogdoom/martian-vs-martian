@@ -12,14 +12,29 @@ const pressed = new Set();
 const listeners = new Set();
 
 const gameKeys = new Set(Object.values(KEYS).flatMap((k) => Object.values(k)));
+let keyFilter = null;
 
 window.addEventListener('keydown', (e) => {
   if (gameKeys.has(e.code)) e.preventDefault();
   if (e.repeat) return;
-  down.add(e.code);
-  pressed.add(e.code);
-  for (const fn of listeners) fn(e.code);
+  // A swallowed key (part of a cheat code being typed) does nothing else: it
+  // isn't pressed for the scene, and listeners are told to ignore it.
+  const swallowed = Boolean(keyFilter?.(e.code));
+  if (!swallowed) {
+    down.add(e.code);
+    pressed.add(e.code);
+  }
+  for (const fn of listeners) fn(e.code, { swallowed });
 });
+
+/** Let `fn(code)` see every fresh keydown first; if it returns true the key is
+ * swallowed. Used by the title screen for cheat codes. Returns a remover. */
+export function setKeyFilter(fn) {
+  keyFilter = fn;
+  return () => {
+    if (keyFilter === fn) keyFilter = null;
+  };
+}
 
 window.addEventListener('keyup', (e) => {
   down.delete(e.code);
@@ -87,7 +102,7 @@ export function rumble(side, ms = 150, strength = 0.7) {
   }
 }
 
-/** Called on every fresh keydown. Returns an unsubscribe function. */
+/** Called on every fresh keydown, as fn(code, { swallowed }). Returns an unsubscribe function. */
 export function onKey(fn) {
   listeners.add(fn);
   return () => listeners.delete(fn);

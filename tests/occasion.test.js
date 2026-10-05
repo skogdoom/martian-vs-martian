@@ -44,6 +44,12 @@ describe('occasions', () => {
     expect(isMidsummer({ year: 2026, month: 6, day: 26 })).toBe(false);
   });
 
+  it('Halloween on 31 October', () => {
+    expect(on(2026, 10, 31)).toBe('halloween');
+    expect(on(2026, 10, 30)).toBe(null);
+    expect(on(2026, 11, 1)).toBe(null);
+  });
+
   it('4 May', () => {
     expect(on(2026, 5, 4)).toBe('mayTheFourth');
     expect(on(2026, 5, 5)).toBe(null);

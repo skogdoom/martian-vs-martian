@@ -4,6 +4,7 @@
 import { createMatch } from './logic/match.js';
 import { createTally } from './logic/tally.js';
 import { loadOptions } from './options.js';
+import { createCheats } from './cheats.js';
 
 export const DIFFICULTIES = ['easy', 'normal', 'hard'];
 
@@ -15,6 +16,7 @@ export function createSession() {
     tallies: {}, // one per mode, e.g. '2p', '1p-hard'
     tally: null,
     match: null,
+    cheats: createCheats(), // switched on and off with codes on the title screen (cheats.js)
   };
 }
 

@@ -34,7 +34,7 @@ import { createTitleScene } from './title.js';
 export function createPlayScene(game, session) {
   const { match, tally } = session;
   const number = roundNumber(match);
-  const round = createRound(undefined, session.length);
+  const round = createRound(undefined, session.length, session.cheats);
   const { world } = round;
 
   // `stage` holds the arena and shakes; the HUD and banners sit above it and don't.

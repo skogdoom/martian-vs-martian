@@ -85,7 +85,8 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) resumeAudio();
 });
 
-onKey((code) => {
+onKey((code, { swallowed }) => {
+  if (swallowed) return; // part of a cheat code
   if (code === MUTE_KEY) toggleMute();
   // Must run inside the key event: browsers only allow full screen from a user gesture.
   if (code === FULLSCREEN_KEY) toggleFullscreen();

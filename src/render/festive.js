@@ -148,3 +148,134 @@ export function createFireworks() {
     },
   };
 }
+
+// ---- Halloween -----------------------------------------------------------
+
+const NIGHT = 0x0c0a14;
+
+/** A bat, centred on (0, 0), wings at `flap` (-1..1). */
+function drawBat(g, x, y, flap, scale) {
+  const f = flap * 6 * scale;
+  const s = scale;
+  for (const side of [-1, 1]) {
+    g.poly([
+      x + side * 3 * s,
+      y - 2 * s,
+      x + side * 10 * s,
+      y - 6 * s + f,
+      x + side * 19 * s,
+      y - 3 * s + f,
+      x + side * 15 * s,
+      y + 2 * s + f * 0.5,
+      x + side * 11 * s,
+      y + 0.5 * s + f * 0.3,
+      x + side * 7 * s,
+      y + 3 * s,
+      x + side * 3 * s,
+      y + 2 * s,
+    ]).fill(NIGHT);
+    g.poly([x + side * 1 * s, y - 7 * s, x + side * 3.5 * s, y - 11 * s, x + side * 3.5 * s, y - 6 * s]).fill(NIGHT); // ear
+  }
+  g.ellipse(x, y, 3.5 * s, 5.5 * s).fill(NIGHT);
+  g.circle(x, y - 6 * s, 3 * s).fill(NIGHT);
+}
+
+/** A lamb under a sheet, facing `dir`, centred on (x, y). */
+function drawGhost(g, x, y, dir, t) {
+  const sheet = { color: 0xf4f4ff, alpha: 0.82 };
+  g.ellipse(x, y, 34, 22).fill({ color: 0xffffff, alpha: 0.06 }); // a faint glow
+  // The body, and the head under the sheet at the front.
+  g.ellipse(x - dir * 4, y, 22, 13).fill(sheet);
+  g.circle(x + dir * 15, y - 8, 9).fill(sheet);
+  // A wavy hem, with the legs poking out.
+  for (let i = 0; i < 6; i++) {
+    const hx = x - dir * 4 - 20 + i * 8;
+    g.circle(hx, y + 11 + Math.sin(t * 6 + i) * 1.5, 4.5).fill(sheet);
+  }
+  for (const lx of [-12, -4, 6, 13]) g.rect(x + dir * lx - 1.5, y + 14, 3, 6 + Math.sin(t * 9 + lx) * 1.5).fill(0x2a2a2a);
+  // Eye holes.
+  g.ellipse(x + dir * 13, y - 10, 1.8, 2.6).fill(NIGHT);
+  g.ellipse(x + dir * 19, y - 10, 1.8, 2.6).fill(NIGHT);
+}
+
+/** Halloween sky: now and then a few bats flap across, and once in a while a
+ * ghost floats slowly by. */
+export function createSpookySky() {
+  const view = new Graphics();
+  let bats = [];
+  let ghost = null;
+  let batWait = rand(1, 3);
+  let ghostWait = rand(6, 12);
+  let last = null;
+
+  return {
+    view,
+    tick(t) {
+      const dt = last === null ? 0 : Math.max(0, Math.min(0.1, t - last));
+      last = t;
+      batWait -= dt;
+      if (batWait <= 0 && bats.length === 0) {
+        batWait = rand(4, 9);
+        const dir = Math.random() < 0.5 ? 1 : -1;
+        const y = rand(-layout.extra * 0.6 + 40, 300);
+        const speed = rand(150, 230);
+        const n = 2 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < n; i++) {
+          bats.push({
+            x: (dir > 0 ? -40 : WIDTH + 40) - dir * i * rand(25, 45),
+            y: y + rand(-30, 30),
+            dir,
+            speed: speed * rand(0.9, 1.1),
+            phase: rand(0, Math.PI * 2),
+            scale: rand(0.8, 1.15),
+          });
+        }
+      }
+      ghostWait -= dt;
+      if (ghostWait <= 0 && !ghost) {
+        ghostWait = rand(18, 30);
+        const dir = Math.random() < 0.5 ? 1 : -1;
+        ghost = { x: dir > 0 ? -60 : WIDTH + 60, y: rand(-layout.extra * 0.4 + 120, 320), dir, speed: rand(45, 70) };
+      }
+      for (const b of bats) b.x += b.dir * b.speed * dt;
+      bats = bats.filter((b) => (b.dir > 0 ? b.x < WIDTH + 60 : b.x > -60)); // gone once past the far edge
+      if (ghost) {
+        ghost.x += ghost.dir * ghost.speed * dt;
+        if (ghost.x < -80 || ghost.x > WIDTH + 80) ghost = null;
+      }
+
+      view.clear();
+      for (const b of bats) drawBat(view, b.x, b.y + Math.sin(t * 2.5 + b.phase) * 12, Math.sin(t * 18 + b.phase), b.scale);
+      if (ghost) drawGhost(view, ghost.x, ghost.y + Math.sin(t * 1.6) * 8, ghost.dir, t);
+    },
+  };
+}
+
+/** Jack-o'-lanterns sitting on top of posts at `spots` ({ x, y }: the top of
+ * the post), their faces flickering. */
+export function createLanterns(spots) {
+  const view = new Graphics();
+  const faces = new Graphics();
+  for (const { x, y } of spots) {
+    const cy = y - 9;
+    view.ellipse(x, cy, 13, 10).fill(0xe8781c);
+    view.ellipse(x - 5, cy, 5, 9.5).fill({ color: 0xc85f12, alpha: 0.5 });
+    view.ellipse(x + 5, cy, 5, 9.5).fill({ color: 0xc85f12, alpha: 0.5 });
+    view.rect(x - 1.5, cy - 13, 3, 5).fill(0x4a6b2a);
+    // The face: eyes and a jagged grin, lit from inside.
+    faces.poly([x - 7, cy - 1, x - 4, cy - 6, x - 1, cy - 1]).fill(0xffd34a);
+    faces.poly([x + 1, cy - 1, x + 4, cy - 6, x + 7, cy - 1]).fill(0xffd34a);
+    faces
+      .poly([x - 8, cy + 2, x - 5, cy + 6, x - 2, cy + 3, x + 1, cy + 7, x + 4, cy + 3, x + 8, cy + 2, x + 5, cy + 8, x - 5, cy + 8])
+      .fill(0xffd34a);
+    faces.circle(x, cy, 22).fill({ color: 0xffa13d, alpha: 0.12 });
+  }
+  const root = new Graphics();
+  root.addChild(view, faces);
+  return {
+    view: root,
+    tick(t) {
+      faces.alpha = 0.75 + 0.15 * Math.sin(t * 11) + 0.1 * Math.sin(t * 23 + 1);
+    },
+  };
+}

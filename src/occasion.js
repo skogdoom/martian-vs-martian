@@ -1,6 +1,7 @@
 // Special days: a full, smiling moon in a Santa hat and snow at Christmas,
 // fireworks on New Year's Eve, maypoles for flagpoles at Swedish midsummer,
-// and on 4 May a battle station for a moon and fighters flying by the title.
+// on 4 May a battle station for a moon and fighters flying by the title, and
+// at Halloween an orange moon, bats, a ghost and jack-o'-lanterns.
 // The date is today's, or for trying it out, the `date` query parameter:
 // ?date=2026-12-24, or just ?date=12-31 (month and day, this year).
 
@@ -26,13 +27,14 @@ export function isMidsummer({ year, month, day }) {
 }
 
 /** The occasion on a date: 'christmas', 'newYearsEve', 'midsummer',
- * 'mayTheFourth' or null. */
+ * 'mayTheFourth', 'halloween' or null. */
 export function occasionFor(date) {
   const { month, day } = date;
   if (month === 12 && (day === 24 || day === 25)) return 'christmas';
   if (month === 12 && day === 31) return 'newYearsEve';
   if (isMidsummer(date)) return 'midsummer';
   if (month === 5 && day === 4) return 'mayTheFourth';
+  if (month === 10 && day === 31) return 'halloween';
   return null;
 }
 

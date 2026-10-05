@@ -1,5 +1,6 @@
 // Arena scenery: night sky, stars, moon, hills, ground and the two pens, and
-// on special days a Santa hat and snow, fireworks, or maypoles (see occasion.js).
+// on special days a Santa hat and snow, fireworks, maypoles, a battle station,
+// or a Halloween sky (see occasion.js).
 // `createBackdrop()` returns { view, tick(t) }; tick animates stars and flags.
 
 import { Container, Graphics, FillGradient } from 'pixi.js';
@@ -8,7 +9,7 @@ import { PAD, menuLift } from '../layout.js';
 import { createRng } from '../logic/rng.js';
 import { label } from './text.js';
 import { occasion } from '../occasion.js';
-import { createSantaHat, createSnow, createFireworks } from './festive.js';
+import { createSantaHat, createSnow, createFireworks, createSpookySky, createLanterns } from './festive.js';
 
 export const COLORS = {
   red: 0xe5484d,
@@ -61,8 +62,12 @@ const PHASE_NAMES = Object.keys(MOON_PHASES);
 // scene puts it in the same place on screen, so it doesn't move when a round
 // starts (on a tall screen that means lifting it with the menu text).
 export const MOON_AT = { x: 1002, y: 188 };
-// Always full at Christmas, to wear the Santa hat with a smile.
-export const moonPhase = occasion === 'christmas' ? 'full' : PHASE_NAMES[Math.floor(Math.random() * PHASE_NAMES.length)];
+// Always full at Christmas (to wear the Santa hat with a smile) and at Halloween.
+const ALWAYS_FULL = new Set(['christmas', 'halloween']);
+export const moonPhase = ALWAYS_FULL.has(occasion) ? 'full' : PHASE_NAMES[Math.floor(Math.random() * PHASE_NAMES.length)];
+// Moonlight, craters and glow: pale, or a big orange harvest moon at Halloween.
+const MOON_COLOURS =
+  occasion === 'halloween' ? { lit: 0xffa13d, crater: 0xe0832a, glow: 0xffb35c } : { lit: 0xf3ecd2, crater: 0xdcd3b4, glow: 0xfff6d8 };
 
 /** Outline of the lit part of a moon of radius `r` centred on (0, 0): down the
  * lit limb, then back up along the terminator. */
@@ -97,11 +102,12 @@ function moon(g, phase = moonPhase) {
   const r = 32;
   // The glow is fainter the less of it is lit.
   const glow = (1 + MOON_PHASES[phase].bulge) / 2;
-  g.circle(x, y, 60).fill({ color: 0xfff6d8, alpha: 0.02 + 0.04 * glow });
-  g.circle(x, y, 44).fill({ color: 0xfff6d8, alpha: 0.03 + 0.05 * glow });
+  const { lit, crater, glow: haze } = MOON_COLOURS;
+  g.circle(x, y, 60).fill({ color: haze, alpha: 0.02 + 0.04 * glow });
+  g.circle(x, y, 44).fill({ color: haze, alpha: 0.03 + 0.05 * glow });
   // The dark side, just visible against the sky.
   g.circle(x, y, r).fill({ color: 0x2b3150, alpha: 0.9 });
-  g.poly(moonLitOutline(phase, r).map((v, i) => v + (i % 2 ? y : x))).fill(0xf3ecd2);
+  g.poly(moonLitOutline(phase, r).map((v, i) => v + (i % 2 ? y : x))).fill(lit);
   if (occasion === 'christmas') {
     smile(g, x, y);
     return;
@@ -111,7 +117,7 @@ function moon(g, phase = moonPhase) {
     [9, 9, 5],
     [12, -12, 3],
   ]) {
-    if (isLit(phase, r, dx, dy)) g.circle(x + dx, y + dy, cr).fill(0xdcd3b4);
+    if (isLit(phase, r, dx, dy)) g.circle(x + dx, y + dy, cr).fill(crater);
   }
 }
 
@@ -329,6 +335,9 @@ export function createBackdrop() {
   const hat = occasion === 'christmas' ? createSantaHat() : null;
   const snow = occasion === 'christmas' ? createSnow() : null;
   const fireworks = occasion === 'newYearsEve' ? createFireworks() : null;
+  const spooky = occasion === 'halloween' ? createSpookySky() : null;
+  // Jack-o'-lanterns on top of the gateposts, on the field side of each pen.
+  const lanterns = occasion === 'halloween' ? createLanterns([ARENA.pens.red.right, ARENA.pens.blue.left].map((x) => ({ x, y: GROUND - 56 }))) : null;
   const placeMoon = () => {
     moonView.position.set(MOON_AT.x, MOON_AT.y + menuLift());
     hat?.position.copyFrom(moonView.position);
@@ -347,7 +356,16 @@ export function createBackdrop() {
   const flags = [flag('red'), flag('blue')];
 
   // Fireworks go off behind the hills; snow falls in front of everything here.
-  view.addChild(back, ...starGroups, ...(fireworks ? [fireworks.view] : []), moonView, ...(hat ? [hat] : []), land, ...flags.map((f) => f.g));
+  view.addChild(
+    back,
+    ...starGroups,
+    ...(fireworks ? [fireworks.view] : []),
+    moonView,
+    ...(hat ? [hat] : []),
+    ...(spooky ? [spooky.view] : []),
+    land,
+    ...flags.map((f) => f.g),
+  );
 
   for (const side of ['red', 'blue']) {
     const { left, right } = ARENA.pens[side];
@@ -357,6 +375,7 @@ export function createBackdrop() {
     view.addChild(t);
   }
   if (snow) view.addChild(snow.view);
+  if (lanterns) view.addChild(lanterns.view);
 
   function tick(t) {
     starGroups.forEach((g, i) => {
@@ -366,6 +385,8 @@ export function createBackdrop() {
     placeMoon(); // the screen may have changed shape
     snow?.tick(t);
     fireworks?.tick(t);
+    spooky?.tick(t);
+    lanterns?.tick(t);
   }
   tick(0);
 

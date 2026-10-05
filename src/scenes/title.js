@@ -9,8 +9,9 @@ import { WIDTH } from '../config.js';
 import { version } from '../../package.json';
 import { menuLift } from '../layout.js';
 import { centerUi, dimmer } from '../render/uiLayer.js';
-import { wasPressed, padSeenYet } from '../input.js';
-import { audioUnlocked } from '../audio.js';
+import { wasPressed, padSeenYet, setKeyFilter } from '../input.js';
+import { createCheatListener } from '../cheats.js';
+import { audioUnlocked, play } from '../audio.js';
 import { createHerd, updateAnimal } from '../logic/animal.js';
 import { createRng } from '../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../session.js';
@@ -101,11 +102,31 @@ export function createTitleScene(game, session) {
     anchorX: 0.5,
   });
   help.position.set(cx, 514);
+  // Cheat codes (cheats.js): typed here, on for the session; this says which.
+  const cheatsLabel = label('', { size: 16, color: 0xffd76a, bold: true, anchorX: 0.5, anchorY: 0.5 });
+  cheatsLabel.position.set(cx, 70);
+  const showCheats = () => {
+    const on = [session.cheats.goldenHerd && '★ GOLDEN HERD ★', session.cheats.lasers && '⚡ LASERS ⚡'].filter(Boolean);
+    cheatsLabel.text = on.join('    ');
+  };
+  showCheats();
+  const cheatCodes = createCheatListener();
+  const removeKeyFilter = setKeyFilter((code) => {
+    const { done, swallow } = cheatCodes.push(code);
+    if (done) {
+      session.cheats[done] = !session.cheats[done];
+      showCheats();
+      play(session.cheats[done] ? 'fanfare' : 'powerDown');
+    }
+    return swallow || done !== null;
+  });
+
   // Shown once a controller has been used. Pad buttons can't start sound.
   const padHelp = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5 });
   padHelp.position.set(cx, 534);
 
   view.addChild(
+    cheatsLabel,
     red,
     vs,
     blue,
@@ -150,6 +171,9 @@ export function createTitleScene(game, session) {
   let t = 0;
   return {
     view,
+    destroy() {
+      removeKeyFilter();
+    },
     update(dt) {
       t += dt;
       for (const a of herd) updateAnimal(a, dt, rng);
