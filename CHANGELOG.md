@@ -27,6 +27,7 @@
   last 0.3 s longer.
 - A tidier title screen: each player's keys are in their top corner, with
   their saucer idling below, and the menu sits higher.
+- Now and then a shooting star crosses the sky on the title screen.
 - Fixed: a golden animal that splatted (or was eaten by the wolf) kept
   glittering where it had been.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9

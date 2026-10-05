@@ -15,6 +15,7 @@ import { createRng } from '../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../session.js';
 import { LENGTHS, ROUNDS, step, saveOptions, pickOptions } from '../options.js';
 import { createBackdrop, COLORS } from '../render/backdrop.js';
+import { createShootingStars } from '../render/shootingStars.js';
 import { createAnimalView } from '../render/animalView.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { label } from '../render/text.js';
@@ -29,6 +30,8 @@ export function createTitleScene(game, session) {
   const view = new Container();
   const backdrop = createBackdrop();
   view.addChild(backdrop.view);
+  const shootingStars = createShootingStars();
+  view.addChild(shootingStars.view);
 
   // A grazing herd and two idling saucers behind the title.
   const rng = createRng();
@@ -117,8 +120,8 @@ export function createTitleScene(game, session) {
   }
   refreshMenu();
 
-  // Backdrop, herd, saucers and the dimming stay put; the text is centred.
-  const centered = centerUi(view, 5);
+  // Backdrop, shooting stars, herd, saucers and the dimming stay put; the text is centred.
+  const centered = centerUi(view, 6);
 
   let t = 0;
   return {
@@ -126,6 +129,7 @@ export function createTitleScene(game, session) {
     update(dt) {
       t += dt;
       for (const a of herd) updateAnimal(a, dt, rng);
+      shootingStars.update(dt);
       if (t < 0.3) return;
 
       if (pressed('Digit1', 'Numpad1')) row = 0;
@@ -159,6 +163,7 @@ export function createTitleScene(game, session) {
     render() {
       centered.sync();
       backdrop.tick(t);
+      shootingStars.render();
       herdView.sync(t);
       // Under their keys, which move up with the rest of the text on a tall screen.
       const y = SAUCER_Y + menuLift();
