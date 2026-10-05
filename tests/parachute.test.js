@@ -142,7 +142,7 @@ describe('a green man nobody picks up', () => {
   });
 
   it('the time only counts once he is on the ground', () => {
-    const { w, d, fell } = landed((w) => spawnDrop(w, 'speed'));
+    const { d, fell } = landed((w) => spawnDrop(w, 'speed'));
     expect(fell).toBeGreaterThan(2);
     expect(d.life).toBeCloseTo(POWERUP.dropLife, 5);
   });
