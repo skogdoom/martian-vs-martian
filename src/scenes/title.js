@@ -48,8 +48,6 @@ export function createTitleScene(game, session) {
   red.position.set(cx - 40, 150);
   vs.position.set(cx, 150);
   blue.position.set(cx + 40, 150);
-  // The moon hangs just right of the title, half below it.
-  const moonAt = { x: blue.x + blue.width + 52, y: 150 + red.height / 2 };
 
   // The rest is left for players to find out.
   // Left-aligned, with the block as a whole centred.
@@ -165,7 +163,6 @@ export function createTitleScene(game, session) {
     render() {
       centered.sync();
       backdrop.tick(t);
-      backdrop.moon.position.set(moonAt.x, moonAt.y + menuLift()); // moves up with the title on a tall screen
       shootingStars.render();
       herdView.sync(t);
       // Under their keys, which move up with the rest of the text on a tall screen.
