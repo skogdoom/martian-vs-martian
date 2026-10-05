@@ -145,7 +145,7 @@ function createAnimalSprite(a) {
       }
       glow.visible = golden;
       glow.alpha = 0.6 + 0.4 * Math.sin(t * 5);
-      chute.visible = a.state === 'descending';
+      chute.visible = a.state === 'descending' || (a.state === 'falling' && a.chute);
 
       const aloft = a.state === 'lifting' || a.state === 'carried' || a.state === 'falling' || a.state === 'descending';
       if (aloft) {

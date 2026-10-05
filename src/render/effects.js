@@ -194,6 +194,22 @@ export function createEffects() {
           shake = Math.max(shake, 5);
           break;
         }
+        case 'chuteOpen':
+          burst(e.x, e.y - 60, { count: 10, colors: [0xffffff, 0xe5484d], speed: [30, 110], life: [0.2, 0.45], gravity: 0 });
+          break;
+        case 'greenmanGone':
+          // He blows up, green bits everywhere (no stain: it is the power-up going, not a fall).
+          burst(e.x, e.y - 18, {
+            count: 50,
+            colors: BLOOD.green.spray,
+            up: 1.6,
+            speed: [120, 420],
+            life: [0.5, 1],
+            size: [2.5, 5.5],
+            gravity: 800,
+          });
+          popup('POOF!', e.x, e.y - 70, BLOOD.green.spray[2]);
+          break;
         case 'burst':
           // Cow rain / lamb rain: it goes pop to make room for the new ones.
           burst(e.x, e.y - 14, {

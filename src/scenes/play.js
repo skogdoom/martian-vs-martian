@@ -254,6 +254,7 @@ export function createPlayScene(game, session) {
           const [from, to] = [`${e.from.toUpperCase()}S`, `${e.to.toUpperCase()}S`];
           announce(e.count ? `${name(e.side)} TURNS ${e.count} ${from} INTO ${to}!` : `NO ${from} TO TURN INTO ${to}`, COLORS[e.side]);
         }
+        if (e.type === 'greenmanGone') announce(`TOO SLOW! THE ${POWER_NAMES[e.power]} IS GONE`, 0xcfd6ff);
         if (e.type === 'wolfIncoming') announce('A WOLF IS LOOSE! IT EATS LAMBS', 0xcfd6ff);
         if (e.type === 'wolfLand' && e.pen) landsInPen('THE WOLF', e);
         if (e.type === 'wolfLeaves') announce('THE WOLF GETS BORED AND LEAVES', 0xcfd6ff);

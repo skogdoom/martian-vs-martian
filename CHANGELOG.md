@@ -16,6 +16,11 @@
 - Lambs into cows and cows into lambs also burst animals being lifted or
   carried.
 - Out of ammo, a saucer flies 10% faster, so ramming speed comes sooner.
+- New power-up, parachutes: for 15 s, anything that falls from your beam high
+  enough to splat floats down under a parachute instead.
+- A green man nobody picks up within 15 s holds his head, says "Oh, no!" and
+  explodes, taking his power-up with him. Mystery packages and ammo crates
+  wait.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9
   whatever the round length).
 

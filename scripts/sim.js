@@ -106,6 +106,7 @@ function simulate(seed) {
     crates: [], // { for: side that ran out, t, grabbedBy }
     splats: 0,
     greenSplats: 0,
+    greenGone: 0,
     wolf: null, // { eatenField, eatenPen, penDrops: { own, theirs }, left }
     timeBombs: [], // { owner, moves, outcome: 'theirs' | 'own' | 'field' | 'held' | null, count }
     spooked: 0,
@@ -170,6 +171,7 @@ function simulate(seed) {
       } else if (e.type === 'dazed') m.dazes++;
       else if (e.type === 'dryFire') m.dry++;
       else if (e.type === 'splat' && e.kind === 'greenman') m.greenSplats++;
+      else if (e.type === 'greenmanGone') m.greenGone++;
       else if (e.type === 'splat') m.splats++;
       else if (e.type === 'timeBombDrop') m.timeBombs.push({ owner: e.side, moves: 0, outcome: null, count: 0 });
       else if (e.type === 'timeBombHeld' && m.timeBombs.length) m.timeBombs.at(-1).outcome = 'held';
@@ -245,6 +247,7 @@ console.table({
   '  of which stolen': avg((r) => r.steals).toFixed(1),
   'animals splatted (knocked loose or dropped too high)': avg((r) => r.splats).toFixed(2),
   'green men splatted (pickup broken too high)': avg((r) => r.greenSplats).toFixed(2),
+  'green men gone (nobody picked them up)': avg((r) => r.greenGone).toFixed(2),
   'animals spooked out of a pen': avg((r) => r.spooked).toFixed(2),
   'field restocks (empty for too long)': avg((r) => r.fieldRestocks).toFixed(2),
   'animals in pens at the end': `${avg((r) => r.inPens).toFixed(1)} (herd of ${ANIMALS.cows + ANIMALS.lambs}, ${avg((r) => r.herd).toFixed(1)} with restocks)`,

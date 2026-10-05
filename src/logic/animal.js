@@ -56,7 +56,8 @@ export function createAnimal(id, kind, x) {
     droppedBy: null, // the player who let go of it (a delivery if it lands in their pen)
     fallFrom: 0, // y it started falling from
     safeFall: false, // thrown by a bomb: lands safely whatever the height
-    chute: false, // a wolf dropped from up high: parachute open (see wolf.js)
+    chute: false, // parachute open while falling: a wolf dropped from up high (see wolf.js), or the parachute power-up
+    chuteReady: false, // let go of by a saucer with the parachute power-up: opens one if the fall would splat
     onFire: false, // cosmetic: set by a bomb blast, put out when picked up
     bonus: false, // stolen during a steal power-up: worth extra in its pen
     wanderTimer: 0,
@@ -127,6 +128,8 @@ export function updateAnimal(a, dt, rng) {
     } else {
       a.vy += ANIMALS.gravity * dt;
     }
+    // Parachute power-up: open once it is coming down from high enough to splat.
+    if (a.chuteReady && !a.chute && a.vy >= 0 && ARENA.groundY - a.fallFrom > SPLAT.height) a.chute = true;
     a.x += a.vx * dt; // thrown from a moving saucer, or out of a pen by a bomb
     a.y += a.vy * dt;
     a.fallFrom = Math.min(a.fallFrom, a.y); // a throw upward falls from its highest point
@@ -150,9 +153,10 @@ export function fallHeight(a) {
 function land(a) {
   const fell = ARENA.groundY - a.fallFrom;
   // Cows, lambs and the green man can splat; crates, packages, the wolf and the time bomb can't.
-  const safe = a.safeFall || !FRAGILE.has(a.kind);
+  const safe = a.safeFall || a.chute || !FRAGILE.has(a.kind);
   a.safeFall = false;
   a.chute = false;
+  a.chuteReady = false;
   a.y = ARENA.groundY;
   a.vy = 0;
   a.vx = 0;
@@ -177,10 +181,12 @@ function land(a) {
 
 /** Let `a` fall from where it is. `by` is the player letting go on purpose
  * (null for a pickup broken off or knocked loose); `vx`, `vy` its starting
- * velocity, e.g. the saucer's when thrown. */
-export function drop(a, { by = null, vx = 0, vy = 0 } = {}) {
+ * velocity, e.g. the saucer's when thrown; `chutes` that saucer has the
+ * parachute power-up. */
+export function drop(a, { by = null, vx = 0, vy = 0, chutes = false } = {}) {
   a.state = 'falling';
   a.chute = false;
+  a.chuteReady = chutes && FRAGILE.has(a.kind);
   a.hookedBy = null;
   a.droppedBy = by;
   a.vx = vx;

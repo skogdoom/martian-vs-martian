@@ -325,6 +325,36 @@ function updateTimeBombs(w, dt) {
   }
 }
 
+/** A green man left standing in the field too long panics ("Oh, no!") and
+ * then explodes, power-up and all. Hooking him while he panics saves him.
+ * Returns true if he is gone. */
+function expire(w, d, dt) {
+  if (d.state !== 'field') {
+    if (d.panic !== null && d.state === 'lifting') {
+      // Saved. If the pickup breaks, he gets a little while longer.
+      d.panic = null;
+      d.life = POWERUP.panicTime;
+    }
+    return false;
+  }
+  if (d.panic === null) {
+    d.life -= dt;
+    if (d.life > 0) return false;
+    d.panic = POWERUP.panicTime;
+    d.vx = 0;
+    w.events.push({ type: 'greenmanPanic', power: d.power, x: d.x, y: d.y });
+  }
+  d.vx = 0;
+  d.wanderTimer = 1; // stands still, holding his head
+  d.panic -= dt;
+  if (d.panic > 1e-9) return false;
+  d.state = 'gone';
+  d.panic = null;
+  w.events.push({ type: 'explosion', x: d.x, y: d.y - 15, big: false });
+  w.events.push({ type: 'greenmanGone', power: d.power, x: d.x, y: d.y });
+  return true;
+}
+
 /** Holding shoot with the laser power-up: a beam that pushes the opponent. */
 function updateLaser(w, side, input, dt) {
   const on = hasPower(w.powers, side, 'laser') && input.fire;
@@ -360,6 +390,7 @@ export function stepWorld(w, inputs, dt) {
   const { red, blue } = w.saucers;
 
   updatePowers(w.powers, dt, w.events);
+  for (const side of SIDES) w.hooks[side].chutes = hasPower(w.powers, side, 'parachute');
 
   for (const side of SIDES) {
     const s = w.saucers[side];
@@ -473,8 +504,11 @@ export function stepWorld(w, inputs, dt) {
 
   for (const d of w.drops) {
     if (d.state === 'gone') continue;
+    if (d.kind === 'greenman' && expire(w, d, dt)) continue;
     const wasFalling = d.state === 'falling';
+    const hadChute = d.chute;
     const result = updateAnimal(d, dt, w.rng);
+    if (d.chute && !hadChute) w.events.push({ type: 'chuteOpen', kind: d.kind, x: d.x, y: d.y });
     if (result === 'splat') {
       // The green man fell too far. Another one brings the same power-up.
       w.events.push({ type: 'splat', kind: d.kind, x: d.x, y: d.y });
@@ -492,7 +526,9 @@ export function stepWorld(w, inputs, dt) {
 
   for (const a of w.animals) {
     const wasFalling = a.state === 'falling';
+    const hadChute = a.chute;
     const result = updateAnimal(a, dt, w.rng);
+    if (a.chute && !hadChute) w.events.push({ type: 'chuteOpen', kind: a.kind, x: a.x, y: a.y });
     if (result === 'touchdown') w.events.push({ type: 'dropLanded', x: a.x, y: a.y });
     if (result === 'splat') {
       w.events.push({ type: 'splat', id: a.id, kind: a.kind, golden: Boolean(a.golden), x: a.x, y: a.y });

@@ -114,10 +114,15 @@ export const POWERUP = {
   longDropTimes: [0.25, 0.5, 0.75],
   mysteryChance: 0.2, // share of drops that come as a mystery package: power-up unknown until grabbed
   duration: 15, // seconds a power-up lasts (tuned with npm run sim)
-  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain', 'timeBomb'],
+  types: ['speed', 'laser', 'triple', 'steal', 'rocket', 'twin', 'bomb', 'unlimited', 'shield', 'cowRain', 'lambRain', 'timeBomb', 'parachute'],
   singleUse: ['rocket', 'bomb', 'timeBomb'], // kept until used (or the round ends) instead of timed
   instant: ['cowRain', 'lambRain'], // happen the moment they are grabbed; any power-up held is kept
   fallSpeed: 110, // parachute descent, px/s
+  // A green man (not a mystery package or a crate) left standing in the field
+  // this long holds his head, says "Oh, no!" and after `panicTime` explodes,
+  // power-up and all. Hooking him in time saves him.
+  dropLife: 15, // seconds on the ground
+  panicTime: 1.5,
   dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
   // speed: faster saucer
   speedBoost: 1.6, // max speed multiplier
@@ -154,6 +159,8 @@ export const POWERUP = {
   greenmanRespawn: 3,
   timeBombFuse: 8, // seconds: time to fetch it out of your pen, tight to send it all the way back
   timeBombDaze: 2, // seconds
+  // parachute: while it lasts, anything that falls from your beam (let go of,
+  // knocked loose, a pickup broken off) and would splat opens a parachute.
   // cowRain / lambRain: every lamb (cow) standing in the field bursts and a
   // cow (lamb) parachutes down in its place. Golden animals are left alone.
 };

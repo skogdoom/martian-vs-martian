@@ -13,6 +13,7 @@ export function createHook(side) {
     startY: 0, // animal feet y when the lift began
     carrying: null, // fully lifted animal
     second: null, // a second one, under the first (twin beam power-up)
+    chutes: false, // parachute power-up: whatever falls from this beam opens one if it would splat (set by the world)
   };
 }
 
@@ -64,7 +65,7 @@ function findTarget(s, animals) {
 /** Stop a pickup in progress; the animal drops back down. Returns true if one was stopped. */
 export function interruptHook(h) {
   if (!h.target) return false;
-  drop(h.target);
+  drop(h.target, { chutes: h.chutes });
   h.target = null;
   h.progress = 0;
   return true;
@@ -78,7 +79,7 @@ export function dropCarried(h, s) {
   a.x = s.x;
   a.y = slotY(h, s, a);
   a.bonus = false;
-  drop(a, { vx: s.vx, vy: s.vy });
+  drop(a, { vx: s.vx, vy: s.vy, chutes: h.chutes });
   if (a === h.second) h.second = null;
   else h.carrying = null;
   return a;
@@ -93,7 +94,7 @@ export function releaseCarried(h, s) {
   // Let go from exactly under the saucer, where it is this step.
   a.x = s.x;
   a.y = slotY(h, s, a);
-  drop(a, { by: s.side, vx: s.vx, vy: s.vy });
+  drop(a, { by: s.side, vx: s.vx, vy: s.vy, chutes: h.chutes });
   if (a === h.second) h.second = null;
   else h.carrying = null;
   return a;

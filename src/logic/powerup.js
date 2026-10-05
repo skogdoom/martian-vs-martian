@@ -6,7 +6,8 @@
 //   is only revealed when it is grabbed.
 // - Ammo crates, when a player runs out of shots early (see round.js).
 // Both also come as a supply drop when the field is empty and someone is out
-// of shots.
+// of shots. A green man nobody picks up in time explodes (POWERUP.dropLife);
+// packages and crates wait.
 
 import { WIDTH, SAUCER, POWERUP } from '../config.js';
 import { createAnimal, fieldBounds, parachute } from './animal.js';
@@ -35,6 +36,10 @@ export function createDrop(power, rng, mystery = false) {
   const kind = mystery ? 'package' : 'greenman';
   const d = createAnimal('drop', kind, dropSpot(kind, rng));
   d.power = power;
+  if (!mystery) {
+    d.life = POWERUP.dropLife; // seconds left standing in the field before he gives up (see world.js)
+    d.panic = null; // seconds left of "Oh, no!", then he explodes
+  }
   parachute(d);
   return d;
 }
