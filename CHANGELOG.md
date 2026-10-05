@@ -25,6 +25,8 @@
   splatted and how often each was dazed.
 - Power-ups take a little longer to beam up (1 s instead of 0.8), and dazes
   last 0.3 s longer.
+- A tidier title screen: each player's keys are in their top corner, with
+  their saucer idling below, and the menu sits higher.
 - Fixed: a golden animal that splatted (or was eaten by the wolf) kept
   glittering where it had been.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9
