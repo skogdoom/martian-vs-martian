@@ -73,7 +73,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 - The animal drops into the pen, stays there and stops wandering.
 
 ### Animals
-- Each round starts with a fixed set of 4 cows and 5 lambs, placed in the field (13 points in all).
+- Each round starts with a fixed set of 4 cows and 7 lambs, placed in the field (15 points in all), as a mirror image so neither player starts nearer the cows.
 - They wander the field and freeze while being hooked.
 
 ### Stealing
@@ -180,7 +180,7 @@ tests/                 Vitest tests for the logic
 | Lamb lift time    | 0.9 s          |
 | Cow lift time     | 1.45 s         |
 | Hook drift limit  | 40 px          |
-| Animals per round | 4 cows, 5 lambs|
+| Animals per round | 4 cows, 7 lambs|
 
 Also in `config.js`: projectile speed, knockback strength, bump strength, saucer acceleration, drag and max speed, and animal wander speed.
 
@@ -375,6 +375,7 @@ Work one milestone at a time. Each should be playable or testable before moving 
   - Lambs → cows and cows → lambs also burst animals of that kind being lifted or carried.
   - Out of ammo: 10% more top speed and thrust, so ramming speed comes after 0.7 s instead of 1 s.
   - New power-up, parachutes: for 15 s, whatever falls from your beam and would splat floats down under a parachute.
+  - Herd 4 cows and 7 lambs (was 5 lambs), laid out as a mirror image (alternating from the left put all four cows in the left half). Simulator: the field empties at 43 s (median, was 36.5 s with 5 lambs), final score per player 5.9 (was 5.0), lead changes 3.2, red and blue win equally often.
   - End-of-match stats on the tally screen: cows and lambs splatted and times dazed, per player.
   - Power-up pickups slower: the green man and the mystery package lift in 1 s (was 0.8; crates stay at 0.8). Dazes 0.3 s longer: three hits and rams 1.8 s, the time bomb in a beam and a rocket hit 2.3 s. In the simulator the round stats barely move (lead changes 3.35, dazes by three hits 3.1 per round).
   - A green man left in the field for 15 s says "Oh, no!" and explodes, power-up and all, without a replacement. Mystery packages and crates are unaffected. The CPU grabs green men quickly, so in the simulator this happens in 1 round in 100.

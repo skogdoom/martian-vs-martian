@@ -21,6 +21,8 @@
 - A green man nobody picks up within 15 s holds his head, says "Oh, no!" and
   explodes, taking his power-up with him. Mystery packages and ammo crates
   wait.
+- Two more lambs at the start of each round (4 cows and 7 lambs), to go with
+  the faster game.
 - The tally at the end of a match shows how many cows and lambs each player
   splatted and how often each was dazed.
 - Power-ups take a little longer to beam up (1 s instead of 0.8), and dazes

@@ -88,7 +88,7 @@ export const HOOK = {
 
 export const ANIMALS = {
   cows: 4,
-  lambs: 5,
+  lambs: 7, // was 5, before the game got faster
   wanderSpeed: { cow: 28, lamb: 40, greenman: 55, crate: 0, package: 0, wolf: 35, timebomb: 0 },
   wanderTime: [1, 3.5], // seconds between direction changes
   idleChance: 0.35,
