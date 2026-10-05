@@ -21,6 +21,8 @@
 - A green man nobody picks up within 15 s holds his head, says "Oh, no!" and
   explodes, taking his power-up with him. Mystery packages and ammo crates
   wait.
+- Fixed: a golden animal that splatted (or was eaten by the wolf) kept
+  glittering where it had been.
 - The ammo crate announcement shows how much ammo it actually gave (it said +9
   whatever the round length).
 

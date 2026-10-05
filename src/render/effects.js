@@ -372,9 +372,9 @@ export function createEffects() {
       burst(bx, by, { count: 1, colors: [0xffa53a], speed: [10, 40], life: [0.1, 0.2], size: [2, 3.5], gravity: 0 });
       burst(bx, by, { count: 1, colors: [0x9aa0ab, 0x6a707b], speed: [5, 25], life: [0.5, 0.9], size: [3, 6], gravity: -30 });
     }
-    // Golden animals glitter.
+    // Golden animals glitter, while they are still around (not splatted or eaten).
     for (const a of world.animals) {
-      if (!a.golden || Math.random() > 0.25) continue;
+      if (!a.golden || a.state === 'gone' || Math.random() > 0.25) continue;
       const x = a.x + rand(-30, 30);
       const y = a.y - rand(0, 50);
       burst(x, y, { count: 1, colors: [0xfff3a0, 0xffffff], speed: [5, 25], life: [0.3, 0.6], size: [1.5, 3], gravity: -30, shape: 'star' });
