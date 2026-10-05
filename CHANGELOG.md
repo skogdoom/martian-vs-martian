@@ -2,9 +2,10 @@
 
 ## Unreleased
 
-- Easter eggs: on 24 and 25 December the moon wears a Santa hat and it
-  snows; on 31 December there are fireworks. Add `?date=MM-DD` (or
-  `?date=YYYY-MM-DD`) to the URL to try another date.
+- Easter eggs: on 24 and 25 December the moon is full, smiles and wears a
+  Santa hat, and it snows; on 31 December there are fireworks; at Swedish
+  midsummer (Midsummer Eve and Day) the flagpoles are maypoles. Add
+  `?date=MM-DD` (or `?date=YYYY-MM-DD`) to the URL to try another date.
 - Faster and more chaotic: saucers are 12.5% faster, reloading takes 1 s
   instead of 1.5 s, and there are a third more shots per round (24 in a 90 s
   round). Ramming is slightly easier.

@@ -1,5 +1,5 @@
 // Arena scenery: night sky, stars, moon, hills, ground and the two pens, and
-// on special days a Santa hat and snow, or fireworks (see occasion.js).
+// on special days a Santa hat and snow, fireworks, or maypoles (see occasion.js).
 // `createBackdrop()` returns { view, tick(t) }; tick animates stars and flags.
 
 import { Container, Graphics, FillGradient } from 'pixi.js';
@@ -61,7 +61,8 @@ const PHASE_NAMES = Object.keys(MOON_PHASES);
 // scene puts it in the same place on screen, so it doesn't move when a round
 // starts (on a tall screen that means lifting it with the menu text).
 export const MOON_AT = { x: 1002, y: 188 };
-export const moonPhase = PHASE_NAMES[Math.floor(Math.random() * PHASE_NAMES.length)];
+// Always full at Christmas, to wear the Santa hat with a smile.
+export const moonPhase = occasion === 'christmas' ? 'full' : PHASE_NAMES[Math.floor(Math.random() * PHASE_NAMES.length)];
 
 /** Outline of the lit part of a moon of radius `r` centred on (0, 0): down the
  * lit limb, then back up along the terminator. */
@@ -97,6 +98,10 @@ function moon(g, phase = moonPhase) {
   // The dark side, just visible against the sky.
   g.circle(x, y, r).fill({ color: 0x2b3150, alpha: 0.9 });
   g.poly(moonLitOutline(phase, r).map((v, i) => v + (i % 2 ? y : x))).fill(0xf3ecd2);
+  if (occasion === 'christmas') {
+    smile(g, x, y);
+    return;
+  }
   for (const [dx, dy, cr] of [
     [-10, -6, 7],
     [9, 9, 5],
@@ -104,6 +109,20 @@ function moon(g, phase = moonPhase) {
   ]) {
     if (isLit(phase, r, dx, dy)) g.circle(x + dx, y + dy, cr).fill(0xdcd3b4);
   }
+}
+
+/** A happy face on a full moon of radius 32 at (x, y), under a Santa hat. */
+function smile(g, x, y) {
+  const ink = 0x6b5d3e;
+  g.ellipse(x - 10, y - 4, 3.2, 4.4).fill(ink);
+  g.ellipse(x + 10, y - 4, 3.2, 4.4).fill(ink);
+  g.circle(x - 9, y - 5.5, 1.1).fill(0xfffbe8);
+  g.circle(x + 11, y - 5.5, 1.1).fill(0xfffbe8);
+  g.circle(x - 18, y + 6, 5).fill({ color: 0xff8a8a, alpha: 0.45 });
+  g.circle(x + 18, y + 6, 5).fill({ color: 0xff8a8a, alpha: 0.45 });
+  g.moveTo(x - 13, y + 6)
+    .quadraticCurveTo(x, y + 21, x + 13, y + 6)
+    .stroke({ color: ink, width: 2.6, cap: 'round' });
 }
 
 /** A band of rolling hills from `base` down to the ground. */
@@ -146,18 +165,66 @@ function pen(g, side) {
   // Gatepost on the field side.
   g.rect(fieldX - 5, GROUND - 56, 10, 56).fill(WOOD);
   g.rect(fieldX - 5, GROUND - 56, 10, 4).fill(0x9c7244);
-  // Flagpole.
-  const poleX = side === 'red' ? left + 26 : right - 26;
+  // Flagpole, or at midsummer a maypole.
+  const poleX = flagpoleX(side);
+  if (occasion === 'midsummer') {
+    maypole(g, poleX);
+    return;
+  }
   g.rect(poleX - 2, GROUND - 170, 4, 170).fill(0xb8bcc8);
   g.circle(poleX, GROUND - 172, 4).fill(0xe8e8f0);
 }
 
+const LEAF = 0x3f8f3a;
+const LEAF_DARK = 0x2c6a2a;
+const BLOOMS = [0xffffff, 0xffd84a, 0xff7fb0, 0x8fb8ff];
+
+/** A Swedish midsummer pole: wrapped in leaves, a crossbar with a wreath
+ * hanging from each end, flowers all over. */
+function maypole(g, x) {
+  const top = GROUND - 176;
+  const barY = GROUND - 132;
+  // The pole, wrapped in greenery.
+  g.rect(x - 4, top, 8, GROUND - top).fill(LEAF_DARK);
+  for (let y = top + 4; y < GROUND - 4; y += 9) {
+    g.ellipse(x - 4, y, 5, 3).fill(LEAF);
+    g.ellipse(x + 4, y + 4, 5, 3).fill(LEAF);
+  }
+  // The crossbar.
+  g.rect(x - 34, barY - 3, 68, 6).fill(LEAF_DARK);
+  for (let dx = -32; dx <= 32; dx += 8) g.ellipse(x + dx, barY - 2, 4.5, 3).fill(LEAF);
+  // A wreath hanging from each end.
+  for (const dx of [-30, 30]) {
+    const cx = x + dx;
+    const cy = barY + 22;
+    g.moveTo(cx, barY + 2)
+      .lineTo(cx, cy - 13)
+      .stroke({ color: LEAF_DARK, width: 2 });
+    g.circle(cx, cy, 13).stroke({ color: LEAF, width: 6 });
+    for (let i = 0; i < 6; i++) {
+      const a = (i / 6) * Math.PI * 2;
+      g.circle(cx + Math.cos(a) * 13, cy + Math.sin(a) * 13, 2.2).fill(BLOOMS[i % BLOOMS.length]);
+    }
+  }
+  // Flowers on the pole and the bar, and a crown of leaves on top.
+  for (let y = top + 10, i = 0; y < GROUND - 10; y += 17, i++) g.circle(x + (i % 2 ? 3 : -3), y, 2.4).fill(BLOOMS[i % BLOOMS.length]);
+  for (let dx = -28, i = 1; dx <= 28; dx += 14, i++) g.circle(x + dx, barY - 4, 2.4).fill(BLOOMS[i % BLOOMS.length]);
+  g.ellipse(x, top - 2, 9, 6).fill(LEAF);
+}
+
+/** Where the flagpole stands; a maypole further in, so its wreaths fit on screen. */
+function flagpoleX(side) {
+  const { left, right } = ARENA.pens[side];
+  const inset = occasion === 'midsummer' ? 46 : 26;
+  return side === 'red' ? left + inset : right - inset;
+}
+
 function flag(side) {
   const g = new Graphics();
-  const { left, right } = ARENA.pens[side];
-  const poleX = side === 'red' ? left + 26 : right - 26;
+  const poleX = flagpoleX(side);
   const dir = side === 'red' ? 1 : -1;
   const top = GROUND - 166;
+  if (occasion === 'midsummer') return ribbon(g, side, poleX, dir);
   return {
     g,
     tick(t) {
@@ -174,6 +241,34 @@ function flag(side) {
         pts.push(poleX + dir * u * len, top + hgt + Math.sin(t * 5 - u * 4) * 3 * u);
       }
       g.poly(pts).fill(COLORS[side]);
+    },
+  };
+}
+
+/** At midsummer: a long ribbon in the team colour fluttering from the top of
+ * the maypole, so each pen still shows whose it is. */
+function ribbon(g, side, poleX, dir) {
+  const top = GROUND - 178;
+  return {
+    g,
+    tick(t) {
+      g.clear();
+      for (const [dy, w, len] of [
+        [0, 7, 74],
+        [9, 5, 58],
+      ]) {
+        const pts = [];
+        const steps = 10;
+        for (let i = 0; i <= steps; i++) {
+          const u = i / steps;
+          pts.push(poleX + dir * u * len, top + dy + u * 26 + Math.sin(t * 5 - u * 5 + dy) * 5 * u);
+        }
+        for (let i = steps; i >= 0; i--) {
+          const u = i / steps;
+          pts.push(poleX + dir * u * len, top + dy + u * 26 + w * (1 - u * 0.5) + Math.sin(t * 5 - u * 5 + dy) * 5 * u);
+        }
+        g.poly(pts).fill(dy ? 0xffd84a : COLORS[side]);
+      }
     },
   };
 }
