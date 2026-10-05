@@ -18,9 +18,11 @@
 - Out of ammo, a saucer flies 10% faster, so ramming speed comes sooner.
 - New power-up, parachutes: for 15 s, anything that falls from your beam high
   enough to splat floats down under a parachute instead.
-- A green man nobody picks up within 15 s holds his head, says "Oh, no!" and
+- A green man nobody picks up within 10 s holds his head, says "Oh, no!" and
   explodes, taking his power-up with him. Mystery packages and ammo crates
   wait.
+- Power-ups drop a little more often (70% chance at each drop time, was
+  60%).
 - Two more lambs at the start of each round (4 cows and 7 lambs), to go with
   the faster game.
 - The tally at the end of a match shows how many cows and lambs each player

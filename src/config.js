@@ -108,7 +108,7 @@ export const ANIMALS = {
 };
 
 export const POWERUP = {
-  chance: 0.6, // chance that a green man drops at each drop time
+  chance: 0.7, // chance that a green man drops at each drop time
   dropTimes: [0.3, 0.6], // when he may drop, as fractions of the round
   longRoundFrom: 120, // rounds this long (s) or more get a third drop, to keep power-ups as frequent
   longDropTimes: [0.25, 0.5, 0.75],
@@ -121,7 +121,7 @@ export const POWERUP = {
   // A green man (not a mystery package or a crate) left standing in the field
   // this long holds his head, says "Oh, no!" and after `panicTime` explodes,
   // power-up and all. Hooking him in time saves him.
-  dropLife: 15, // seconds on the ground
+  dropLife: 10, // seconds on the ground
   panicTime: 1.5,
   dropMargin: 0.2, // keep the landing spot this share of the field away from the fences
   // speed: faster saucer
