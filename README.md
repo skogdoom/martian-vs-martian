@@ -44,9 +44,6 @@ npm test         # unit tests
 npm run sim      # simulate bot matches and print balance stats
 ```
 
-Some days of the year look a little different. To see one on another day,
-add a date to the URL: `?date=12-24` (or a full `?date=2026-12-24`).
-
 Built with [PixiJS](https://pixijs.com/) and [Vite](https://vite.dev/). All
 graphics are drawn in code and all sounds are synthesized; there are no asset
 files. `PLAN.md` has the full rules and design notes.
