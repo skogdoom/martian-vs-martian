@@ -6,6 +6,7 @@
 
 import { Container } from 'pixi.js';
 import { WIDTH } from '../config.js';
+import { version } from '../../package.json';
 import { menuLift } from '../layout.js';
 import { centerUi, dimmer } from '../render/uiLayer.js';
 import { wasPressed, padSeenYet } from '../input.js';
@@ -48,6 +49,9 @@ export function createTitleScene(game, session) {
   red.position.set(cx - 40, 150);
   vs.position.set(cx, 150);
   blue.position.set(cx + 40, 150);
+  // Which version is running: tiny, right-aligned with the end of the title, just under it.
+  const versionLabel = label(`v${version}`, { size: 11, color: 0x8a93c0, anchorX: 1 });
+  versionLabel.position.set(blue.x + blue.width - 4, 150 + blue.height / 2 - 6);
 
   // The rest is left for players to find out.
   // Left-aligned, with the block as a whole centred.
@@ -95,7 +99,21 @@ export function createTitleScene(game, session) {
   const padHelp = label('', { size: 14, color: 0x6cff6c, anchorX: 0.5 });
   padHelp.position.set(cx, 534);
 
-  view.addChild(red, vs, blue, ...steps, keys.red.title, keys.red.body, keys.blue.title, keys.blue.body, ...rows, prompt, help, padHelp);
+  view.addChild(
+    red,
+    vs,
+    blue,
+    versionLabel,
+    ...steps,
+    keys.red.title,
+    keys.red.body,
+    keys.blue.title,
+    keys.blue.body,
+    ...rows,
+    prompt,
+    help,
+    padHelp,
+  );
 
   function refreshMenu() {
     const solo = session.players === 1;
