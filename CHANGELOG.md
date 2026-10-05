@@ -3,6 +3,9 @@
 ## Unreleased
 
 - Some easter eggs have been added.
+- Fixed: the sound could stop for good after the browser had paused it
+  (sleep, switching tabs or apps, a new output device) until the page was
+  reloaded.
 - Faster and more chaotic: saucers are 12.5% faster, reloading takes 1 s
   instead of 1.5 s, and there are a third more shots per round (24 in a 90 s
   round). Ramming is slightly easier.
