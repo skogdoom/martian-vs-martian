@@ -14,14 +14,20 @@ import {
   outOfShots,
   SIDES,
 } from './world.js';
-import { planDrop } from './powerup.js';
+import { planDrop, grantPower } from './powerup.js';
 import { ammoFor } from '../options.js';
 import { shouldDropGolden } from './golden.js';
 import { scores } from './scoring.js';
 
-/** `length` is the play time in seconds; timed events are shares of it and the ammo scales with it. */
-export function createRound(seed, length = ROUND.length) {
+/** `length` is the play time in seconds; timed events are shares of it and
+ * the ammo scales with it. `cheats` (see cheats.js): `goldenHerd` makes the
+ * whole starting herd golden, `lasers` and `shields` give both players a
+ * laser or a shield. */
+export function createRound(seed, length = ROUND.length, cheats = {}) {
   const world = createWorld(seed, { ammo: ammoFor(length) });
+  if (cheats.goldenHerd) for (const a of world.animals) Object.assign(a, { golden: true, goldenValue: null });
+  if (cheats.lasers) for (const side of SIDES) grantPower(world.powers, side, 'laser');
+  if (cheats.shields) for (const side of SIDES) grantPower(world.powers, side, 'shield');
   return {
     world,
     length,

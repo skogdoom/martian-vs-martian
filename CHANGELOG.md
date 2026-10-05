@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Some easter eggs have been added.
 - Faster and more chaotic: saucers are 12.5% faster, reloading takes 1 s
   instead of 1.5 s, and there are a third more shots per round (24 in a 90 s
   round). Ramming is slightly easier.
