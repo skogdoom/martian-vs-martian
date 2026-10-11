@@ -105,5 +105,6 @@ selected runtime loads. The final Phaser-only cutover removes Pixi and the selec
 Frozen Pixi images still show `1.1.0-dev`; the intentional `2.0.0-dev` version label
 change is not a reason to regenerate preservation references.
 
-Milestone 2 (drawing primitives and resource ownership) has not started. Stop here
-for review of the host and its validation before continuing.
+This page records milestone 1 evidence. Milestone 2 is now implemented; see
+[the drawing and resource ownership review](../phaser-primitives/README.md).
+Milestone 3 has not started.

@@ -84,7 +84,16 @@ all 460 tests pass, including the original 271. Chromium checks cover WebGL and
 Canvas, DPR 1/2/capped 3, resize, extra sky, clipping, pause, startup, controller
 input, recovery, and disposal. Dev and production root/subdirectory checks pass.
 See [the host review notes](docs/phaser-host/README.md) for evidence and limitations.
-**Milestones 2–7 have not started; work stops here for review.**
+
+Milestone 2 is implemented: focused Phaser drawing, text, UI, cached-list, tint,
+and resource helpers plus a static `?engine=phaser&gallery=primitives` comparison
+gallery. Real, unchanged Pixi factories supply the independent references.
+Chromium WebGL/Canvas checks cover all five window shapes, both layout settings,
+DPR 1/2, and dev/production root/subdirectory URLs. Disposal/adoption checks show
+no object or texture growth after 100 cycles. All 460 tests still pass; hashes of
+the original 30 test files and 48 source files are unchanged. See
+[the drawing and ownership review notes](docs/phaser-primitives/README.md).
+**Milestones 3–7 have not started; work stops here for review.**
 
 ### 0. Record the preservation baseline
 

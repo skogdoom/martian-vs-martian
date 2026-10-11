@@ -7,6 +7,9 @@ import { toggleFullscreen } from '../fullscreen.js';
 import { createSession } from '../session.js';
 import { createFixedLoop, createFrameClock } from './clock.js';
 import { createPreview } from './preview.js';
+import { createPresentation } from './presentation.js';
+import { createGallery } from './gallery.js';
+import { stabilizeTextureSampling } from './textureSampling.js';
 
 class Host extends Phaser.Scene {
   constructor() {
@@ -14,10 +17,12 @@ class Host extends Phaser.Scene {
   }
 
   create() {
+    stabilizeTextureSampling(this.game.renderer);
     this.root = this.add.container();
     this.layer = this.add.container();
     this.root.add(this.layer);
     this.logical = null;
+    this.presentation = createPresentation(this);
     this.session = createSession();
     this.disposers = [];
     this.recentErrors = [];
@@ -75,7 +80,8 @@ class Host extends Phaser.Scene {
       this.disposers.push(onKey(begin));
     }
     this.fit();
-    this.go(createPreview);
+    const gallery = new URLSearchParams(window.location.search).get('gallery') === 'primitives';
+    this.go(gallery ? createGallery : createPreview);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.dispose());
     this.events.once(Phaser.Scenes.Events.DESTROY, () => this.dispose());
     window.__game = {
@@ -197,6 +203,9 @@ class Host extends Phaser.Scene {
     for (const fn of this.disposers.splice(0)) fn();
     this.logical?.destroy?.();
     this.logical = null;
+    // Cleanup may be called before or after Phaser's display-list shutdown.
+    this.root.destroy();
+    this.presentation.dispose();
     this.loop.reset();
     stopVoices();
     if (window.__game?.game === this) delete window.__game;
