@@ -48,6 +48,22 @@ Built with [PixiJS](https://pixijs.com/) and [Vite](https://vite.dev/). All
 graphics are drawn in code and all sounds are synthesized; there are no asset
 files. `PLAN.md` has the full rules and design notes.
 
+### Phaser migration preview
+
+On the `phaser` branch, run `npm ci` and `npm run dev`, then open
+`http://localhost:5173/?engine=phaser` (use the port printed by Vite). The default
+URL still runs the complete Pixi game. Each page loads only its selected engine.
+
+The Phaser preview currently proves the host, fixed-step timing, input/audio
+services, high-DPI layout, and pause/recovery. It uses simple markers for a seeded
+test round; original artwork and menus are scheduled for later milestones.
+Dismiss the startup overlay, then press Space/Enter to start. Use the usual move
+and shoot keys, P/Esc to pause, R to restart, T to return to the preview title, and
+V to toggle 16:9. Add `&renderer=canvas` to check Canvas instead of automatic WebGL.
+
+See [the migration plan](PHASER_MIGRATION.md) and
+[milestone 1 review notes](docs/phaser-host/README.md).
+
 ## About this project
 
 This project is mostly vibe coded: most of the code was written by an AI

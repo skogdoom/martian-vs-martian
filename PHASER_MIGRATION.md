@@ -1,7 +1,7 @@
 # Phaser migration plan
 
 Prepared on branch `phaser`, against commit `a6b49901ea7279514a960baf15d5141bee04e4f0`.
-This document plans the conversion; it does not change the running game or its dependencies.
+Implementation status and evidence are recorded below; the default entry remains Pixi until cutover.
 
 ## Goal and constraints
 
@@ -11,11 +11,11 @@ Keep JavaScript modules, Vite, Vitest, the headless simulator, and relative buil
 Do not introduce Arcade/Matter physics, a new game design, touch controls, raster asset
 downloads, or a TypeScript conversion as part of this migration.
 
-The recommended starting target is **Phaser 4.2.1**, the npm `latest` release checked
-during this review. Pin the version during implementation and use documentation/source
-for that version. Its package source was inspected, but it has not been installed in
-the game or validated in a browser. Milestone 1 must establish compatibility before
-committing to it; record any version change and repeat the compatibility checks.
+The pinned starting target is **Phaser 4.2.1**, the npm `latest` release checked
+during the initial review. Milestone 1 establishes Vite and Chromium WebGL/Canvas
+compatibility against that version's package source. Firefox/WebKit remain unverified
+because browser downloads are blocked in this cloud environment. Use documentation/source
+for the pinned version; record any version change and repeat the compatibility checks.
 
 All **271 existing tests in 30 files** passed during this review under Node 24.19.0.
 They must remain intact and pass at every milestone; additional tests increase that
@@ -74,8 +74,17 @@ and twelve sequential 60-second cloud performance samples are saved. All 303 tes
 (271 original plus 32 baseline checks), lint, build, and the ten-round simulator
 passed. The image verifier passed all 98 references with the documented bounded
 GPU rounding allowance. Performance uses headless Chromium/SwiftShader; physical
-GPU acceptance remains milestone 6. No game source, original tests, or dependency
-files changed. **Milestones 1–7 have not started; work stops here for review.**
+GPU acceptance remains milestone 6. At milestone 0, no game source, original tests,
+or dependency files changed.
+
+Milestone 1 is implemented: a separate `?engine=phaser` preview loads Phaser 4.2.1
+with a persistent host, existing input/audio services, fixed-step scheduling, and
+the original layout rules. The 30 baseline scenarios match under five schedules;
+all 460 tests pass, including the original 271. Chromium checks cover WebGL and
+Canvas, DPR 1/2/capped 3, resize, extra sky, clipping, pause, startup, controller
+input, recovery, and disposal. Dev and production root/subdirectory checks pass.
+See [the host review notes](docs/phaser-host/README.md) for evidence and limitations.
+**Milestones 2–7 have not started; work stops here for review.**
 
 ### 0. Record the preservation baseline
 
@@ -101,8 +110,8 @@ performance baseline captured before modifying the renderer.
 - Capture device/browser/viewport/DPR and performance measurements described below.
 
 **Exit gate:** original 271 tests pass; both static and animated references exist;
-logic traces can be replayed deterministically. Browser references and timing data
-remain implementation work, not evidence already collected in this review.
+logic traces can be replayed deterministically. References and cloud timing data
+are recorded in `baselines/pixi/`; physical hardware acceptance remains milestone 6.
 
 ### 1. Prove the Phaser host, timing, and layout
 
@@ -131,6 +140,33 @@ remain implementation work, not evidence already collected in this review.
   are frozen; pausing the entire host would prevent the menu from working.
 - Preserve the gesture-consuming startup overlay and error recovery: clear input
   edges/accumulator, stop voices, return to title, and stop after repeated errors.
+
+**Implementation notes:** `src/entry.js` imports only the selected engine.
+`src/phaser/main.js` owns one persistent host Scene; `preview.js` exercises existing
+`stepRound` using calibration markers rather than porting artwork early. Physics,
+Phaser keyboard/gamepad/mouse/touch handlers, and Phaser audio are disabled. The
+existing DOM input and Web Audio synthesizer remain the page services.
+
+Phaser 4.2.1 has no Pixi-style renderer `resolution` option. The backing canvas is
+window pixels times capped DPR; Scale.NONE zoom gives CSS dimensions; a top-left
+camera applies `fitWindow().scale * DPR` once and clips to the logical field.
+`sceneShift` positions the arena, `menuLift` positions menu text, and HUD/notices
+remain top/bottom anchored. Text uses verified resolution-2 textures. Identical
+refits avoid clearing the Canvas backing store unnecessarily.
+
+Timing inspection found Pixi's default `ticker.minFPS = 10` already limits the
+delta delivered to `main.js` to **100ms**, inside its 250ms frame cap. The Phaser
+loop retains both caps and the original floating-point accumulator. It uses RAF
+timestamps because Phaser resets delta on focus/visibility return; smoothing is
+disabled. Pixi adds no visibility pause: when the browser stops RAF, the next frame
+receives at most 100ms, with no full hidden-time catch-up. The host preserves this
+behavior and resumes audio on visibility return. A pause freezes round time and
+effects at the logical-scene level while the host keeps polling menu input.
+
+The startup gesture clears pressed edges and the accumulator. Recovery clears both,
+stops voices, restores the preview title, and halts after four errors in five seconds.
+Host subscriptions are removed on Scene shutdown/destruction. Vite changes to the
+Phaser host reload the page after disposal to clear Phaser's global visibility hooks.
 
 **Exit gate:** a minimal host draws and resizes correctly; replayed traces produce
 the baseline state and event order with 30/60/120/144 Hz frame schedules and frame

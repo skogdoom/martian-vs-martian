@@ -55,7 +55,7 @@ export function snapshot(world, round = null) {
   };
 }
 
-function recorder(seed = 7, length = null) {
+function record(seed, length, advanceSteps) {
   const round = length === null ? null : createRound(seed, length);
   const world = round?.world ?? createWorld(seed);
   const digest = createHash('sha256');
@@ -69,7 +69,7 @@ function recorder(seed = 7, length = null) {
     mark(label);
   }
   function advance(steps, input = {}) {
-    for (let i = 0; i < steps; i++) {
+    advanceSteps(steps, () => {
       const values = typeof input === 'function' ? input(result.steps) : input;
       const encoded = JSON.stringify(values);
       const last = result.inputRuns.at(-1);
@@ -83,7 +83,7 @@ function recorder(seed = 7, length = null) {
       const events = round?.events ?? world.events;
       if (events.length) result.events.push({ step: result.steps, values: JSON.parse(JSON.stringify(events)) });
       if ([1, 60, 180, 600].includes(result.steps)) mark('fixed-step');
-    }
+    });
   }
   function finish(required = []) {
     const seen = new Set(result.events.flatMap((frame) => frame.values.map((e) => e.type)));
@@ -110,156 +110,169 @@ function pens(w, side = 'blue') {
   );
 }
 
-export const scenarios = {
-  'lift-deliver': () => {
-    const r = recorder();
-    r.action('hover over first cow', () => {
-      hover(r.world.saucers.blue, 1000, 100);
-      hover(r.world.saucers.red, r.world.animals.find((a) => a.kind === 'cow').x);
-    });
-    r.advance(180);
-    r.action('fly carrying cow to red pen', () => hover(r.world.saucers.red, 90));
-    r.advance(120);
-    return r.finish(['hook', 'pickup', 'deliver', 'land']);
+// A test driver may schedule these exact same steps through a renderer's clock.
+// Fixture actions remain at their recorded step boundaries; no golden data changes.
+export function createScenarios(
+  advanceSteps = (steps, step) => {
+    for (let i = 0; i < steps; i++) step();
   },
-  theft: () => {
-    const r = recorder();
-    r.action('first cow belongs to blue; red hovers over it', () => {
-      Object.assign(
-        r.world.animals.find((a) => a.kind === 'cow'),
-        { state: 'penned', pen: 'blue', owner: 'blue', x: 1170, vx: 0 },
-      );
-      hover(r.world.saucers.blue, 600, 100);
-      hover(r.world.saucers.red, 1170);
-    });
-    r.advance(180);
-    r.action('fly stolen cow to red pen', () => hover(r.world.saucers.red, 90));
-    r.advance(120);
-    return r.finish(['pickup', 'deliver', 'land']);
-  },
-  'release-splat': () => {
-    const r = recorder();
-    r.action('hover over first cow', () => {
-      hover(r.world.saucers.blue, 1000, 100);
-      hover(r.world.saucers.red, r.world.animals.find((a) => a.kind === 'cow').x);
-    });
-    r.advance(180);
-    r.action('carry cow high into field', () => hover(r.world.saucers.red, 640, 100));
-    r.advance(1, shoot);
-    r.advance(180);
-    return r.finish(['pickup', 'release', 'splat']);
-  },
-  ram: () => {
-    const r = recorder();
-    r.action('red accelerates toward stationary blue', () => {
-      hover(r.world.saucers.red, 60, 300);
-      hover(r.world.saucers.blue, 1050, 300);
-    });
-    r.advance(240, { red: { x: 1, y: 0 } });
-    return r.finish(['ram']);
-  },
-  daze: () => {
-    const r = recorder();
-    r.action('align targets', () => hover(r.world.saucers.red, 400, 300));
-    for (let i = 0; i < 3; i++) {
-      r.action('restore blue position before next shot', () => hover(r.world.saucers.blue, 700, 300));
-      r.advance(1, shoot);
-      r.advance(44);
-    }
-    return r.finish(['shot', 'hit', 'dazed']);
-  },
-  restock: () => {
-    const r = recorder();
-    r.action('all starting animals gone', () => r.world.animals.forEach((a) => (a.state = 'gone')));
-    r.advance(600);
-    return r.finish(['restock']);
-  },
-  'wolf-timebomb': () => {
-    const r = recorder();
-    r.action('blue pen populated; time bomb released above pen; wolf parachutes in', () => {
-      pens(r.world);
-      hover(r.world.saucers.blue, 640, 100);
-      hover(r.world.saucers.red, 1180, 300);
-      r.world.powers.red = { type: 'timeBomb', timeLeft: null };
-      spawnWolf(r.world);
-      Object.assign(r.world.wolves[0], { x: 1160, y: 500, state: 'falling', chute: true, droppedBy: 'red' });
-    });
-    r.advance(1, shoot);
-    r.advance(900);
-    return r.finish(['timeBombDrop', 'timeBombLand', 'bombBlast', 'wolfLand']);
-  },
-  'golden-crate': () => {
-    const r = recorder();
-    r.action('blue leads; golden animal descends', () => {
-      pens(r.world);
-      hover(r.world.saucers.red, 640, 100);
-      hover(r.world.saucers.blue, 700, 100);
-      spawnGolden(r.world, 'red');
-    });
-    r.advance(600);
-    r.action('red lifts golden animal', () => hover(r.world.saucers.red, r.world.animals.at(-1).x));
-    r.advance(180);
-    r.action('deliver gold to red pen', () => hover(r.world.saucers.red, 90));
-    r.advance(120);
-    r.action('red has no ammunition; crate descends', () => {
-      Object.assign(r.world.weapons.red, { ammo: 0, clip: 0 });
-      hover(r.world.saucers.red, 640, 100);
-      spawnCrate(r.world, 'red');
-    });
-    r.advance(600);
-    r.action('red lifts crate', () => hover(r.world.saucers.red, r.world.drops.at(-1).x));
-    r.advance(120);
-    return r.finish(['pickup', 'land', 'ammoCrate']);
-  },
-};
-
-for (const power of POWERUP.types) {
-  scenarios[`power-${power}`] = () => {
-    const r = recorder();
-    r.action(`collect mystery package containing ${power}`, () => {
-      pens(r.world);
-      hover(r.world.saucers.blue, 1000, 100);
-      spawnDrop(r.world, power, true);
-      const drop = r.world.drops[0];
-      Object.assign(drop, { state: 'field', y: ARENA.groundY, vx: 0 });
-      hover(r.world.saucers.red, drop.x);
-    });
-    r.advance(120);
-    if (['twin', 'steal', 'parachute'].includes(power)) {
-      r.action('lift animals from blue pen with collected power', () => hover(r.world.saucers.red, 1130));
-      r.advance(240);
-      r.action('carry to red pen, or release high under parachute', () =>
-        hover(r.world.saucers.red, power === 'parachute' ? 640 : 90, power === 'parachute' ? 100 : LOW),
-      );
-      r.advance(power === 'parachute' ? 1 : 120, power === 'parachute' ? shoot : {});
-      r.advance(600);
-      return r.finish(['powerup', 'pickup', power === 'parachute' ? 'chuteOpen' : 'deliver', 'land']);
-    }
-    r.action('exercise power against blue', () => {
-      hover(r.world.saucers.red, power === 'bomb' || power === 'timeBomb' ? 1180 : 400, 300);
-      hover(r.world.saucers.blue, 700, 300);
-    });
-    r.advance(240, (i) => ({ red: { x: power === 'speed' ? 1 : 0, y: 0, shoot: i % 12 === 0, fire: true } }));
-    return r.finish([POWERUP.instant.includes(power) ? 'animalRain' : 'powerup']);
-  };
-}
-
-for (const length of [60, 90, 120]) {
-  for (const difficulty of ['easy', 'normal', 'hard']) {
-    scenarios[`bots-${difficulty}-${length}`] = () => {
-      const r = recorder(314159, length);
-      const bots = {
-        red: createBot('red', createRng(2718), BOT[difficulty], length),
-        blue: createBot('blue', createRng(1618), BOT[difficulty], length),
-      };
-      r.advance((length + 3) * 60, () => {
-        const elapsed = length - r.round.timeLeft;
-        return r.round.phase === 'play' ? Object.fromEntries(['red', 'blue'].map((side) => [side, bots[side].think(r.world, STEP, elapsed)])) : {};
+) {
+  const recorder = (seed = 7, length = null) => record(seed, length, advanceSteps);
+  const scenarios = {
+    'lift-deliver': () => {
+      const r = recorder();
+      r.action('hover over first cow', () => {
+        hover(r.world.saucers.blue, 1000, 100);
+        hover(r.world.saucers.red, r.world.animals.find((a) => a.kind === 'cow').x);
       });
-      return r.finish(['countdown', 'go', 'roundEnd']);
+      r.advance(180);
+      r.action('fly carrying cow to red pen', () => hover(r.world.saucers.red, 90));
+      r.advance(120);
+      return r.finish(['hook', 'pickup', 'deliver', 'land']);
+    },
+    theft: () => {
+      const r = recorder();
+      r.action('first cow belongs to blue; red hovers over it', () => {
+        Object.assign(
+          r.world.animals.find((a) => a.kind === 'cow'),
+          { state: 'penned', pen: 'blue', owner: 'blue', x: 1170, vx: 0 },
+        );
+        hover(r.world.saucers.blue, 600, 100);
+        hover(r.world.saucers.red, 1170);
+      });
+      r.advance(180);
+      r.action('fly stolen cow to red pen', () => hover(r.world.saucers.red, 90));
+      r.advance(120);
+      return r.finish(['pickup', 'deliver', 'land']);
+    },
+    'release-splat': () => {
+      const r = recorder();
+      r.action('hover over first cow', () => {
+        hover(r.world.saucers.blue, 1000, 100);
+        hover(r.world.saucers.red, r.world.animals.find((a) => a.kind === 'cow').x);
+      });
+      r.advance(180);
+      r.action('carry cow high into field', () => hover(r.world.saucers.red, 640, 100));
+      r.advance(1, shoot);
+      r.advance(180);
+      return r.finish(['pickup', 'release', 'splat']);
+    },
+    ram: () => {
+      const r = recorder();
+      r.action('red accelerates toward stationary blue', () => {
+        hover(r.world.saucers.red, 60, 300);
+        hover(r.world.saucers.blue, 1050, 300);
+      });
+      r.advance(240, { red: { x: 1, y: 0 } });
+      return r.finish(['ram']);
+    },
+    daze: () => {
+      const r = recorder();
+      r.action('align targets', () => hover(r.world.saucers.red, 400, 300));
+      for (let i = 0; i < 3; i++) {
+        r.action('restore blue position before next shot', () => hover(r.world.saucers.blue, 700, 300));
+        r.advance(1, shoot);
+        r.advance(44);
+      }
+      return r.finish(['shot', 'hit', 'dazed']);
+    },
+    restock: () => {
+      const r = recorder();
+      r.action('all starting animals gone', () => r.world.animals.forEach((a) => (a.state = 'gone')));
+      r.advance(600);
+      return r.finish(['restock']);
+    },
+    'wolf-timebomb': () => {
+      const r = recorder();
+      r.action('blue pen populated; time bomb released above pen; wolf parachutes in', () => {
+        pens(r.world);
+        hover(r.world.saucers.blue, 640, 100);
+        hover(r.world.saucers.red, 1180, 300);
+        r.world.powers.red = { type: 'timeBomb', timeLeft: null };
+        spawnWolf(r.world);
+        Object.assign(r.world.wolves[0], { x: 1160, y: 500, state: 'falling', chute: true, droppedBy: 'red' });
+      });
+      r.advance(1, shoot);
+      r.advance(900);
+      return r.finish(['timeBombDrop', 'timeBombLand', 'bombBlast', 'wolfLand']);
+    },
+    'golden-crate': () => {
+      const r = recorder();
+      r.action('blue leads; golden animal descends', () => {
+        pens(r.world);
+        hover(r.world.saucers.red, 640, 100);
+        hover(r.world.saucers.blue, 700, 100);
+        spawnGolden(r.world, 'red');
+      });
+      r.advance(600);
+      r.action('red lifts golden animal', () => hover(r.world.saucers.red, r.world.animals.at(-1).x));
+      r.advance(180);
+      r.action('deliver gold to red pen', () => hover(r.world.saucers.red, 90));
+      r.advance(120);
+      r.action('red has no ammunition; crate descends', () => {
+        Object.assign(r.world.weapons.red, { ammo: 0, clip: 0 });
+        hover(r.world.saucers.red, 640, 100);
+        spawnCrate(r.world, 'red');
+      });
+      r.advance(600);
+      r.action('red lifts crate', () => hover(r.world.saucers.red, r.world.drops.at(-1).x));
+      r.advance(120);
+      return r.finish(['pickup', 'land', 'ammoCrate']);
+    },
+  };
+
+  for (const power of POWERUP.types) {
+    scenarios[`power-${power}`] = () => {
+      const r = recorder();
+      r.action(`collect mystery package containing ${power}`, () => {
+        pens(r.world);
+        hover(r.world.saucers.blue, 1000, 100);
+        spawnDrop(r.world, power, true);
+        const drop = r.world.drops[0];
+        Object.assign(drop, { state: 'field', y: ARENA.groundY, vx: 0 });
+        hover(r.world.saucers.red, drop.x);
+      });
+      r.advance(120);
+      if (['twin', 'steal', 'parachute'].includes(power)) {
+        r.action('lift animals from blue pen with collected power', () => hover(r.world.saucers.red, 1130));
+        r.advance(240);
+        r.action('carry to red pen, or release high under parachute', () =>
+          hover(r.world.saucers.red, power === 'parachute' ? 640 : 90, power === 'parachute' ? 100 : LOW),
+        );
+        r.advance(power === 'parachute' ? 1 : 120, power === 'parachute' ? shoot : {});
+        r.advance(600);
+        return r.finish(['powerup', 'pickup', power === 'parachute' ? 'chuteOpen' : 'deliver', 'land']);
+      }
+      r.action('exercise power against blue', () => {
+        hover(r.world.saucers.red, power === 'bomb' || power === 'timeBomb' ? 1180 : 400, 300);
+        hover(r.world.saucers.blue, 700, 300);
+      });
+      r.advance(240, (i) => ({ red: { x: power === 'speed' ? 1 : 0, y: 0, shoot: i % 12 === 0, fire: true } }));
+      return r.finish([POWERUP.instant.includes(power) ? 'animalRain' : 'powerup']);
     };
   }
+
+  for (const length of [60, 90, 120]) {
+    for (const difficulty of ['easy', 'normal', 'hard']) {
+      scenarios[`bots-${difficulty}-${length}`] = () => {
+        const r = recorder(314159, length);
+        const bots = {
+          red: createBot('red', createRng(2718), BOT[difficulty], length),
+          blue: createBot('blue', createRng(1618), BOT[difficulty], length),
+        };
+        r.advance((length + 3) * 60, () => {
+          const elapsed = length - r.round.timeLeft;
+          return r.round.phase === 'play' ? Object.fromEntries(['red', 'blue'].map((side) => [side, bots[side].think(r.world, STEP, elapsed)])) : {};
+        });
+        return r.finish(['countdown', 'go', 'roundEnd']);
+      };
+    }
+  }
+
+  return scenarios;
 }
+
+export const scenarios = createScenarios();
 
 export function sessionTrace() {
   const session = createSession();

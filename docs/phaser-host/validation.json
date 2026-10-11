@@ -1,0 +1,4772 @@
+{
+  "schema": 1,
+  "milestone": 1,
+  "capturedAtUTC": "2026-10-11T12:34:24.951579+00:00",
+  "basedOnCommit": "8d790ddc6de553fb9e1e1af33d1fa2a6f44b828f",
+  "source": [
+    {
+      "file": "index.html",
+      "sha256": "465006ff6141f56a195da77e2862737336236743031040d23955a6f24461ce45"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "9fefefd35ee35c4dca693795ee3963f4825ec6af66d2c592406787456559f507"
+    },
+    {
+      "file": "package.json",
+      "sha256": "43a6ac309e2ac44101b869a177da4ef2e8a5cf9dbc37de0493df4245731e1a3e"
+    },
+    {
+      "file": "scripts/baseline/logic.js",
+      "sha256": "4bc5394f5674fe27e0514113d2644a5681c6e248e92d6ec4202f373c2fe26f8f"
+    },
+    {
+      "file": "scripts/phaser/check_host.py",
+      "sha256": "6412c88f15c02f5f63a3971e638cae586f57dcd84946a1f7373dd2bd08e7f467"
+    },
+    {
+      "file": "src/entry.js",
+      "sha256": "a4b257d2a3b3af81904e973a9e2965250bbde4cc6f60ece6681b5051405529bc"
+    },
+    {
+      "file": "src/phaser/clock.js",
+      "sha256": "789975946e427194667bffbac6bcd8c60632c1cea1e05e2801914beca5c314a6"
+    },
+    {
+      "file": "src/phaser/main.js",
+      "sha256": "10b5793cee88b082d8356ffa7b1d5e7544b6673d51cbc43ced66cc0887e57af5"
+    },
+    {
+      "file": "src/phaser/preview.js",
+      "sha256": "cf2618f024bf5da8d6a330843eb53ca1a8158e3420713f6a50869024517ac081"
+    },
+    {
+      "file": "tests/phaser-clock.test.js",
+      "sha256": "28d2c8d82bfbcf4923c49bd23ad52148958e1562f72a7a1f6286cbe53f0e48b6"
+    }
+  ],
+  "node": "v24.19.0",
+  "tests": {
+    "passed": 460,
+    "failed": 0,
+    "skipped": 0,
+    "originalFiles": 30,
+    "originalIdentitiesPreserved": 271,
+    "originalSourceHashesUnchanged": true,
+    "originalGameSourceHashesUnchanged": true,
+    "baselineScenarios": 30,
+    "schedules": ["30Hz", "60Hz", "120Hz", "144Hz", "mixed-stalls"]
+  },
+  "checks": {
+    "cleanInstall": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "logicBaseline": "passed",
+    "simulator10Rounds": "passed"
+  },
+  "browserReports": [
+    {
+      "environment": "dev",
+      "browser": "chromium",
+      "base_url": "http://127.0.0.1:5174/",
+      "cases": [
+        {
+          "renderer": "auto",
+          "dpr": 1,
+          "layouts": [
+            {
+              "name": "auto-dpr1-1280x720-sky",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1280x720-fixed",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1440x900-sky",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1440, 900, 1.125],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1440x900-fixed",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 45, 1440, 810, 1.125],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1024x768-sky",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1024, 768, 0.8],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1024x768-fixed",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 96, 1024, 576, 0.8],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-2000x720-sky",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-2000x720-fixed",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-600x1200-sky",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 347, 600, 506.25, 0.46875],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-600x1200-fixed",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 431, 600, 337.5, 0.46875],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "auto",
+          "dpr": 2,
+          "layouts": [
+            {
+              "name": "auto-dpr2-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "auto",
+          "dpr": 3,
+          "layouts": [
+            {
+              "name": "auto-dpr3-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 1,
+          "layouts": [
+            {
+              "name": "canvas-dpr1-1280x720-sky",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1280x720-fixed",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1440x900-sky",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1440, 900, 1.125],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1440x900-fixed",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 45, 1440, 810, 1.125],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1024x768-sky",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1024, 768, 0.8],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1024x768-fixed",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 96, 1024, 576, 0.8],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-2000x720-sky",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-2000x720-fixed",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-600x1200-sky",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 347, 600, 506.25, 0.46875],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-600x1200-fixed",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 431, 600, 337.5, 0.46875],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 2,
+          "layouts": [
+            {
+              "name": "canvas-dpr2-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 3,
+          "layouts": [
+            {
+              "name": "canvas-dpr3-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        }
+      ],
+      "complete": true,
+      "version": "154.0.8037.57",
+      "pixi_stalled_frame": {
+        "minFPS": 10,
+        "frames": [
+          {
+            "delta": 100,
+            "raw": 5000
+          }
+        ]
+      }
+    },
+    {
+      "environment": "production-root",
+      "browser": "chromium",
+      "base_url": "http://127.0.0.1:5175/",
+      "cases": [
+        {
+          "renderer": "auto",
+          "dpr": 1,
+          "layouts": [
+            {
+              "name": "auto-dpr1-1280x720-sky",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1280x720-fixed",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1440x900-sky",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1440, 900, 1.125],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1440x900-fixed",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 45, 1440, 810, 1.125],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1024x768-sky",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1024, 768, 0.8],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1024x768-fixed",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 96, 1024, 576, 0.8],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-2000x720-sky",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-2000x720-fixed",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-600x1200-sky",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 347, 600, 506.25, 0.46875],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-600x1200-fixed",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 431, 600, 337.5, 0.46875],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "auto",
+          "dpr": 2,
+          "layouts": [
+            {
+              "name": "auto-dpr2-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "auto",
+          "dpr": 3,
+          "layouts": [
+            {
+              "name": "auto-dpr3-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 1,
+          "layouts": [
+            {
+              "name": "canvas-dpr1-1280x720-sky",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1280x720-fixed",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1440x900-sky",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1440, 900, 1.125],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1440x900-fixed",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 45, 1440, 810, 1.125],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1024x768-sky",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1024, 768, 0.8],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1024x768-fixed",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 96, 1024, 576, 0.8],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-2000x720-sky",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-2000x720-fixed",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-600x1200-sky",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 347, 600, 506.25, 0.46875],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-600x1200-fixed",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 431, 600, 337.5, 0.46875],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 2,
+          "layouts": [
+            {
+              "name": "canvas-dpr2-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 3,
+          "layouts": [
+            {
+              "name": "canvas-dpr3-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        }
+      ],
+      "complete": true,
+      "version": "154.0.8037.57",
+      "pixi_stalled_frame": {
+        "minFPS": 10,
+        "frames": [
+          {
+            "delta": 100,
+            "raw": 5000
+          }
+        ]
+      }
+    },
+    {
+      "environment": "production-subdirectory",
+      "browser": "chromium",
+      "base_url": "http://127.0.0.1:5175/martian-vs-martian/",
+      "cases": [
+        {
+          "renderer": "auto",
+          "dpr": 1,
+          "layouts": [
+            {
+              "name": "auto-dpr1-1280x720-sky",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1280x720-fixed",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1440x900-sky",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1440, 900, 1.125],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1440x900-fixed",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 45, 1440, 810, 1.125],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1024x768-sky",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1024, 768, 0.8],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-1024x768-fixed",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 96, 1024, 576, 0.8],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-2000x720-sky",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-2000x720-fixed",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-600x1200-sky",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 347, 600, 506.25, 0.46875],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr1-600x1200-fixed",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 431, 600, 337.5, 0.46875],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "auto",
+          "dpr": 2,
+          "layouts": [
+            {
+              "name": "auto-dpr2-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr2-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "auto",
+          "dpr": 3,
+          "layouts": [
+            {
+              "name": "auto-dpr3-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            },
+            {
+              "name": "auto-dpr3-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 2,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": true
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 1,
+          "layouts": [
+            {
+              "name": "canvas-dpr1-1280x720-sky",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1280x720-fixed",
+              "backing": [1280, 720],
+              "css": [1280, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1440x900-sky",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1440, 900, 1.125],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1440x900-fixed",
+              "backing": [1440, 900],
+              "css": [1440, 900],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 45, 1440, 810, 1.125],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1024x768-sky",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 1024, 768, 0.8],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-1024x768-fixed",
+              "backing": [1024, 768],
+              "css": [1024, 768],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 96, 1024, 576, 0.8],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-2000x720-sky",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-2000x720-fixed",
+              "backing": [2000, 720],
+              "css": [2000, 720],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [360, 0, 1280, 720, 1],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-600x1200-sky",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 347, 600, 506.25, 0.46875],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr1-600x1200-fixed",
+              "backing": [600, 1200],
+              "css": [600, 1200],
+              "dpr": 1,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 431, 600, 337.5, 0.46875],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 15],
+              "textBacking": [220, 30],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 2,
+          "layouts": [
+            {
+              "name": "canvas-dpr2-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr2-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        },
+        {
+          "renderer": "canvas",
+          "dpr": 3,
+          "layouts": [
+            {
+              "name": "canvas-dpr3-1280x720-sky",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1280x720-fixed",
+              "backing": [2560, 1440],
+              "css": [1280, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1440x900-sky",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 800,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2880, 1800, 2.25],
+              "origin": [0, 0],
+              "layerY": 80,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1440x900-fixed",
+              "backing": [2880, 1800],
+              "css": [1440, 900],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1.125,
+                "visible": 720,
+                "x": 0,
+                "y": 45
+              },
+              "camera": [0, 90, 2880, 1620, 2.25],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1024x768-sky",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 960,
+                "x": 0,
+                "y": 0
+              },
+              "camera": [0, 0, 2048, 1536, 1.6],
+              "origin": [0, 0],
+              "layerY": 240,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-1024x768-fixed",
+              "backing": [2048, 1536],
+              "css": [1024, 768],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.8,
+                "visible": 720,
+                "x": 0,
+                "y": 96
+              },
+              "camera": [0, 192, 2048, 1152, 1.6],
+              "origin": [0, 1.4210854715202004e-14],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-2000x720-sky",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-2000x720-fixed",
+              "backing": [4000, 1440],
+              "css": [2000, 720],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 1,
+                "visible": 720,
+                "x": 360,
+                "y": 0
+              },
+              "camera": [720, 0, 2560, 1440, 2],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-600x1200-sky",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 1080,
+                "x": 0,
+                "y": 347
+              },
+              "camera": [0, 694, 1200, 1012.5, 0.9375],
+              "origin": [0, 0],
+              "layerY": 360,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            },
+            {
+              "name": "canvas-dpr3-600x1200-fixed",
+              "backing": [1200, 2400],
+              "css": [600, 1200],
+              "dpr": 2,
+              "renderer": 1,
+              "fit": {
+                "scale": 0.46875,
+                "visible": 720,
+                "x": 0,
+                "y": 431
+              },
+              "camera": [0, 862, 1200, 675, 0.9375],
+              "origin": [0, 0],
+              "layerY": 0,
+              "textResolution": 2,
+              "textLogical": [110, 16],
+              "textBacking": [220, 32],
+              "keyboard": false,
+              "gamepad": false,
+              "antialias": true,
+              "antialiasGL": null
+            }
+          ],
+          "flow": {
+            "startup_consumed": true,
+            "shot_once": true,
+            "render_once": true,
+            "extra_sky_flight_top": -330,
+            "pause_frozen": true,
+            "pad_pause": true,
+            "tab_return_steps": 6,
+            "restart_and_title": true
+          },
+          "recovery": {
+            "recover_to_title": true,
+            "accumulator_reset": true,
+            "repeated_errors_halt": true
+          },
+          "disposal": {
+            "canvas_removed": true,
+            "debug_handle_removed": true,
+            "host_subscriptions_removed": true
+          }
+        }
+      ],
+      "complete": true,
+      "version": "154.0.8037.57",
+      "pixi_stalled_frame": {
+        "minFPS": 10,
+        "frames": [
+          {
+            "delta": 100,
+            "raw": 5000
+          }
+        ]
+      }
+    }
+  ],
+  "engineSelectionAndFallback": [
+    {
+      "base": "http://127.0.0.1:5175/",
+      "engine": "pixi",
+      "canvases": 1,
+      "phaser_chunk_loaded": false,
+      "errors": []
+    },
+    {
+      "base": "http://127.0.0.1:5175/",
+      "engine": "phaser",
+      "canvases": 1,
+      "phaser_chunk_loaded": true,
+      "errors": []
+    },
+    {
+      "base": "http://127.0.0.1:5175/martian-vs-martian/",
+      "engine": "pixi",
+      "canvases": 1,
+      "phaser_chunk_loaded": false,
+      "errors": []
+    },
+    {
+      "base": "http://127.0.0.1:5175/martian-vs-martian/",
+      "engine": "phaser",
+      "canvases": 1,
+      "phaser_chunk_loaded": true,
+      "errors": []
+    },
+    {
+      "WebGL_disabled_auto_renderer": "Canvas",
+      "passed": true
+    }
+  ],
+  "limitations": {
+    "gpu": "Chromium SwiftShader software GPU; physical performance not assessed",
+    "firefoxWebkit": "Unverified: Playwright browser download endpoint returned HTTP 403 Domain forbidden",
+    "physicalControllers": "Mocked controller checks only; physical devices await later milestones",
+    "audio": "Existing synthesizer retained; audible parity awaits milestone 5",
+    "graphics": "Calibration markers only; art and menus await milestones 2\u20134"
+  }
+}
