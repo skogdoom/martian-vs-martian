@@ -1,7 +1,7 @@
 {
   "name": "martian-vs-martian",
   "private": true,
-  "version": "1.1.0-dev",
+  "version": "2.0.0-dev",
   "license": "MIT",
   "type": "module",
   "scripts": {
