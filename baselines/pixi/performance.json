@@ -1,0 +1,1094 @@
+{
+  "schema": 1,
+  "engine": "pixi",
+  "browser": "154.0.8037.57",
+  "playwright": "1.62.0",
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "cpu": ""
+  },
+  "complete": true,
+  "samples": [
+    {
+      "profile": "ordinary",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3642,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 254,
+        "textures": 28,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 600,
+        "p50": 100,
+        "p95": 133.40000000000146,
+        "p99": 199.90000000000146,
+        "max": 200
+      },
+      "updateCpuMs": {
+        "samples": 600,
+        "p50": 0.19999999972060323,
+        "p95": 0.6000000000931323,
+        "p99": 1.6999999997206032,
+        "max": 3.5
+      },
+      "viewCpuMs": {
+        "samples": 600,
+        "p50": 0.19999999972060323,
+        "p95": 0.30000000074505806,
+        "p99": 0.7999999998137355,
+        "max": 4.899999999906868
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 600,
+        "p50": 0.7000000001862645,
+        "p95": 1.6000000005587935,
+        "p99": 8.400000000372529,
+        "max": 26.899999999906868
+      },
+      "totalCpuMs": {
+        "samples": 600,
+        "p50": 1.0000000009313226,
+        "p95": 2.7000000001862645,
+        "p99": 10.100000000558794,
+        "max": 27.700000000186265
+      },
+      "drawCalls": {
+        "samples": 600,
+        "p50": 41,
+        "p95": 43,
+        "p99": 43,
+        "max": 43
+      },
+      "framesOver33ms": 593,
+      "meanFps": 9.978230826413709,
+      "jsHeapBytes": 26719357,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 1,
+      "date": "2026-10-11"
+    },
+    {
+      "profile": "ordinary",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3690,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 255,
+        "textures": 28,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 614,
+        "p50": 100,
+        "p95": 133.3000000000029,
+        "p99": 183.29999999999563,
+        "max": 216.6999999999971
+      },
+      "updateCpuMs": {
+        "samples": 614,
+        "p50": 0.19999999925494194,
+        "p95": 0.599999999627471,
+        "p99": 1.2000000001862645,
+        "max": 16.200000001117587
+      },
+      "viewCpuMs": {
+        "samples": 614,
+        "p50": 0.19999999925494194,
+        "p95": 0.30000000074505806,
+        "p99": 1.3999999994412065,
+        "max": 8.399999999441206
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 614,
+        "p50": 0.7000000001862645,
+        "p95": 1.599999999627471,
+        "p99": 3.5,
+        "max": 8.5
+      },
+      "totalCpuMs": {
+        "samples": 614,
+        "p50": 1.099999999627471,
+        "p95": 2.400000000372529,
+        "p99": 6.5,
+        "max": 18.500000000931323
+      },
+      "drawCalls": {
+        "samples": 614,
+        "p50": 41,
+        "p95": 43,
+        "p99": 43,
+        "max": 43
+      },
+      "framesOver33ms": 606,
+      "meanFps": 10.225221324415962,
+      "jsHeapBytes": 29730751,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 2,
+      "date": "2026-10-11"
+    },
+    {
+      "profile": "ordinary",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3683,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 255,
+        "textures": 28,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 619,
+        "p50": 100,
+        "p95": 133.40000000000146,
+        "p99": 183.40000000000146,
+        "max": 266.70000000000437
+      },
+      "updateCpuMs": {
+        "samples": 619,
+        "p50": 0.20000000018626451,
+        "p95": 0.599999999627471,
+        "p99": 1.2000000001862645,
+        "max": 2.7999999998137355
+      },
+      "viewCpuMs": {
+        "samples": 619,
+        "p50": 0.20000000018626451,
+        "p95": 0.30000000074505806,
+        "p99": 0.599999999627471,
+        "max": 4.2000000001862645
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 619,
+        "p50": 0.7000000001862645,
+        "p95": 1.5,
+        "p99": 5.3999999994412065,
+        "max": 12.299999999813735
+      },
+      "totalCpuMs": {
+        "samples": 619,
+        "p50": 1.099999999627471,
+        "p95": 2.5,
+        "p99": 7.2999999998137355,
+        "max": 18.09999999962747
+      },
+      "drawCalls": {
+        "samples": 619,
+        "p50": 41,
+        "p95": 43,
+        "p99": 43,
+        "max": 43
+      },
+      "framesOver33ms": 606,
+      "meanFps": 10.297067914070219,
+      "jsHeapBytes": 29417575,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 3,
+      "date": "2026-10-11"
+    },
+    {
+      "profile": "stress",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 2987,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 428,
+        "textures": 27,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 473,
+        "p50": 116.70000000000437,
+        "p95": 183.29999999999563,
+        "p99": 233.3000000000029,
+        "max": 250
+      },
+      "updateCpuMs": {
+        "samples": 473,
+        "p50": 0.30000000074505806,
+        "p95": 0.900000000372529,
+        "p99": 1.799999998882413,
+        "max": 17.399999999441206
+      },
+      "viewCpuMs": {
+        "samples": 473,
+        "p50": 0.6000000005587935,
+        "p95": 1.099999999627471,
+        "p99": 1.5,
+        "max": 17.899999999441206
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 473,
+        "p50": 2.599999999627471,
+        "p95": 9.200000000186265,
+        "p99": 26.5,
+        "max": 42.09999999962747
+      },
+      "totalCpuMs": {
+        "samples": 473,
+        "p50": 3.599999999627471,
+        "p95": 11.099999999627471,
+        "p99": 29,
+        "max": 42.90000000037253
+      },
+      "drawCalls": {
+        "samples": 473,
+        "p50": 45,
+        "p95": 69,
+        "p99": 69,
+        "max": 69
+      },
+      "framesOver33ms": 470,
+      "meanFps": 7.866158886431292,
+      "jsHeapBytes": 87430550,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 1,
+      "date": "2026-10-11"
+    },
+    {
+      "profile": "stress",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 2982,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 428,
+        "textures": 27,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 477,
+        "p50": 116.70000000000437,
+        "p95": 183.30000000000018,
+        "p99": 233.39999999999418,
+        "max": 283.3000000000029
+      },
+      "updateCpuMs": {
+        "samples": 477,
+        "p50": 0.30000000074505806,
+        "p95": 1.099999999627471,
+        "p99": 3.2000000001862645,
+        "max": 19.200000000186265
+      },
+      "viewCpuMs": {
+        "samples": 477,
+        "p50": 0.5,
+        "p95": 0.900000000372529,
+        "p99": 1.2999999998137355,
+        "max": 6.800000000745058
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 477,
+        "p50": 2.599999999627471,
+        "p95": 8.5,
+        "p99": 19.199999999254942,
+        "max": 32.80000000074506
+      },
+      "totalCpuMs": {
+        "samples": 477,
+        "p50": 3.499999998137355,
+        "p95": 10.299999999813735,
+        "p99": 21.899999999441206,
+        "max": 34.30000000074506
+      },
+      "drawCalls": {
+        "samples": 477,
+        "p50": 45,
+        "p95": 69,
+        "p99": 69,
+        "max": 69
+      },
+      "framesOver33ms": 471,
+      "meanFps": 7.930504177230975,
+      "jsHeapBytes": 89465516,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 2,
+      "date": "2026-10-11"
+    },
+    {
+      "profile": "stress",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3044,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 428,
+        "textures": 27,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 481,
+        "p50": 116.70000000000073,
+        "p95": 166.70000000000073,
+        "p99": 250.09999999999854,
+        "max": 266.7000000000007
+      },
+      "updateCpuMs": {
+        "samples": 481,
+        "p50": 0.2999999998137355,
+        "p95": 1,
+        "p99": 2.2000000001862645,
+        "max": 4.7000000001862645
+      },
+      "viewCpuMs": {
+        "samples": 481,
+        "p50": 0.599999999627471,
+        "p95": 1,
+        "p99": 3,
+        "max": 18.200000000186265
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 481,
+        "p50": 2.400000000372529,
+        "p95": 7.6000000005587935,
+        "p99": 17.90000000037253,
+        "max": 25.799999999813735
+      },
+      "totalCpuMs": {
+        "samples": 481,
+        "p50": 3.400000000372529,
+        "p95": 9.400000000372529,
+        "p99": 21.200000000186265,
+        "max": 27
+      },
+      "drawCalls": {
+        "samples": 481,
+        "p50": 45,
+        "p95": 69,
+        "p99": 69,
+        "max": 69
+      },
+      "framesOver33ms": 478,
+      "meanFps": 8.01031181929003,
+      "jsHeapBytes": 39052254,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 3,
+      "date": "2026-10-11"
+    },
+    {
+      "profile": "snow",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3580,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 242,
+        "textures": 27,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 590,
+        "p50": 100,
+        "p95": 133.40000000000055,
+        "p99": 200,
+        "max": 266.6999999999971
+      },
+      "updateCpuMs": {
+        "samples": 590,
+        "p50": 0.19999999925494194,
+        "p95": 0.5,
+        "p99": 1.2999999998137355,
+        "max": 2
+      },
+      "viewCpuMs": {
+        "samples": 590,
+        "p50": 0.20000000018626451,
+        "p95": 0.39999999944120646,
+        "p99": 0.6000000005587935,
+        "max": 9.900000000372529
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 590,
+        "p50": 1,
+        "p95": 1.7999999998137355,
+        "p99": 8.5,
+        "max": 20.5
+      },
+      "totalCpuMs": {
+        "samples": 590,
+        "p50": 1.3999999994412065,
+        "p95": 2.7999999998137355,
+        "p99": 11,
+        "max": 20.700000000186265
+      },
+      "drawCalls": {
+        "samples": 590,
+        "p50": 44,
+        "p95": 46,
+        "p99": 46,
+        "max": 46
+      },
+      "framesOver33ms": 583,
+      "meanFps": 9.822806558970969,
+      "jsHeapBytes": 42808687,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 1,
+      "date": "2026-12-24"
+    },
+    {
+      "profile": "snow",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3557,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 242,
+        "textures": 27,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 579,
+        "p50": 100,
+        "p95": 150,
+        "p99": 200,
+        "max": 316.6999999999971
+      },
+      "updateCpuMs": {
+        "samples": 579,
+        "p50": 0.20000000018626451,
+        "p95": 0.599999999627471,
+        "p99": 1.2000000001862645,
+        "max": 10
+      },
+      "viewCpuMs": {
+        "samples": 579,
+        "p50": 0.20000000018626451,
+        "p95": 0.40000000037252903,
+        "p99": 0.7000000001862645,
+        "max": 4.2999999998137355
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 579,
+        "p50": 1,
+        "p95": 2.7000000001862645,
+        "p99": 7.2999999998137355,
+        "max": 23.800000000745058
+      },
+      "totalCpuMs": {
+        "samples": 579,
+        "p50": 1.400000000372529,
+        "p95": 3.4999999990686774,
+        "p99": 9.900000000372529,
+        "max": 24.300000000745058
+      },
+      "drawCalls": {
+        "samples": 579,
+        "p50": 44,
+        "p95": 46,
+        "p99": 46,
+        "max": 46
+      },
+      "framesOver33ms": 570,
+      "meanFps": 9.6263192546336,
+      "jsHeapBytes": 32092502,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 2,
+      "date": "2026-12-24"
+    },
+    {
+      "profile": "snow",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3616,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 256,
+        "textures": 28,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 578,
+        "p50": 100,
+        "p95": 149.89999999999782,
+        "p99": 183.40000000000146,
+        "max": 233.29999999999927
+      },
+      "updateCpuMs": {
+        "samples": 578,
+        "p50": 0.19999999925494194,
+        "p95": 0.6999999992549419,
+        "p99": 1.2999999998137355,
+        "max": 12.400000000372529
+      },
+      "viewCpuMs": {
+        "samples": 578,
+        "p50": 0.20000000018626451,
+        "p95": 0.39999999944120646,
+        "p99": 0.7000000001862645,
+        "max": 7.2000000001862645
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 578,
+        "p50": 1,
+        "p95": 2,
+        "p99": 8.299999999813735,
+        "max": 34.59999999962747
+      },
+      "totalCpuMs": {
+        "samples": 578,
+        "p50": 1.400000000372529,
+        "p95": 3.2999999998137355,
+        "p99": 12,
+        "max": 35.19999999925494
+      },
+      "drawCalls": {
+        "samples": 578,
+        "p50": 44,
+        "p95": 46,
+        "p99": 46,
+        "max": 46
+      },
+      "framesOver33ms": 574,
+      "meanFps": 9.617688559942493,
+      "jsHeapBytes": 30325319,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 3,
+      "date": "2026-12-24"
+    },
+    {
+      "profile": "fireworks",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3742,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 255,
+        "textures": 28,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 614,
+        "p50": 100,
+        "p95": 116.80000000000291,
+        "p99": 150.10000000000036,
+        "max": 183.40000000000146
+      },
+      "updateCpuMs": {
+        "samples": 614,
+        "p50": 0.19999999925494194,
+        "p95": 0.6000000005587935,
+        "p99": 1.2999999998137355,
+        "max": 1.700000001117587
+      },
+      "viewCpuMs": {
+        "samples": 614,
+        "p50": 0.2999999998137355,
+        "p95": 0.599999999627471,
+        "p99": 1,
+        "max": 3.699999999254942
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 614,
+        "p50": 1,
+        "p95": 2,
+        "p99": 9.400000000372529,
+        "max": 26.800000000745058
+      },
+      "totalCpuMs": {
+        "samples": 614,
+        "p50": 1.5,
+        "p95": 3.2000000001862645,
+        "p99": 10.800000000745058,
+        "max": 27.500000000931323
+      },
+      "drawCalls": {
+        "samples": 614,
+        "p50": 42,
+        "p95": 44,
+        "p99": 44,
+        "max": 44
+      },
+      "framesOver33ms": 612,
+      "meanFps": 10.219553968066391,
+      "jsHeapBytes": 82037437,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 1,
+      "date": "2026-12-31"
+    },
+    {
+      "profile": "fireworks",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3645,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 255,
+        "textures": 28,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 595,
+        "p50": 100,
+        "p95": 133.39999999999418,
+        "p99": 216.60000000000036,
+        "max": 266.59999999999854
+      },
+      "updateCpuMs": {
+        "samples": 595,
+        "p50": 0.20000000018626451,
+        "p95": 0.599999999627471,
+        "p99": 1.2999999998137355,
+        "max": 17.299999999813735
+      },
+      "viewCpuMs": {
+        "samples": 595,
+        "p50": 0.2999999998137355,
+        "p95": 0.5,
+        "p99": 1,
+        "max": 19.799999999813735
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 595,
+        "p50": 1,
+        "p95": 2.2000000001862645,
+        "p99": 7.199999999254942,
+        "max": 28.399999999441206
+      },
+      "totalCpuMs": {
+        "samples": 595,
+        "p50": 1.5,
+        "p95": 3.5,
+        "p99": 11.499999999068677,
+        "max": 29.199999999254942
+      },
+      "drawCalls": {
+        "samples": 595,
+        "p50": 42,
+        "p95": 44,
+        "p99": 44,
+        "max": 44
+      },
+      "framesOver33ms": 589,
+      "meanFps": 9.903313698696257,
+      "jsHeapBytes": 48855453,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 2,
+      "date": "2026-12-31"
+    },
+    {
+      "profile": "fireworks",
+      "warmupMs": 5000,
+      "durationMs": 60000,
+      "fixedStepsIncludingWarmup": 3665,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 256,
+        "textures": 28,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      },
+      "frameIntervalMs": {
+        "samples": 614,
+        "p50": 100,
+        "p95": 133.3000000000011,
+        "p99": 183.39999999999418,
+        "max": 349.9999999999982
+      },
+      "updateCpuMs": {
+        "samples": 614,
+        "p50": 0.19999999925494194,
+        "p95": 0.599999999627471,
+        "p99": 1.099999999627471,
+        "max": 2.2999999998137355
+      },
+      "viewCpuMs": {
+        "samples": 614,
+        "p50": 0.2999999998137355,
+        "p95": 0.5,
+        "p99": 0.900000000372529,
+        "max": 20.300000000745058
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 614,
+        "p50": 1,
+        "p95": 2.599999999627471,
+        "p99": 8.599999999627471,
+        "max": 23.299999999813735
+      },
+      "totalCpuMs": {
+        "samples": 614,
+        "p50": 1.5,
+        "p95": 3.5,
+        "p99": 15.5,
+        "max": 24
+      },
+      "drawCalls": {
+        "samples": 614,
+        "p50": 42,
+        "p95": 44,
+        "p99": 44,
+        "max": 44
+      },
+      "framesOver33ms": 604,
+      "meanFps": 10.21105621236336,
+      "jsHeapBytes": 62054921,
+      "gpuMemoryBytes": null,
+      "caveats": [
+        "CPU includes harness input/stress setup and instrumentation overhead.",
+        "Submission timing excludes asynchronous GPU execution.",
+        "rAF intervals describe this headless runner, not a physical display.",
+        "GPU memory and internal particle counts are not exposed by the application."
+      ],
+      "repeat": 3,
+      "date": "2026-12-31"
+    }
+  ]
+}

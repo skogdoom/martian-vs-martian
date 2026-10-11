@@ -67,6 +67,16 @@ production bundle.
 
 ## Milestones
 
+Milestone 0 is implemented on `phaser`. Review [the preservation baseline](baselines/pixi/README.md)
+and [visual overview](baselines/pixi/overview.png): 30 deterministic logic scenarios,
+98 static/animation images, the original 271 test identities and source hashes,
+and twelve sequential 60-second cloud performance samples are saved. All 303 tests
+(271 original plus 32 baseline checks), lint, build, and the ten-round simulator
+passed. The image verifier passed all 98 references with the documented bounded
+GPU rounding allowance. Performance uses headless Chromium/SwiftShader; physical
+GPU acceptance remains milestone 6. No game source, original tests, or dependency
+files changed. **Milestones 1–7 have not started; work stops here for review.**
+
 ### 0. Record the preservation baseline
 
 **Deliverables:** a feature/visual checklist, reproducible logic fixtures, and a

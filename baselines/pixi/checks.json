@@ -1,0 +1,1581 @@
+{
+  "schema": 1,
+  "logicCommit": "a6b49901ea7279514a960baf15d5141bee04e4f0",
+  "capturedFromCommit": "612c06e99b2baeb2fa4199119d71e64a42f78d0e",
+  "node": "v24.19.0",
+  "npm": "11.9.0",
+  "platform": {
+    "os": "linux",
+    "architecture": "x64"
+  },
+  "tests": {
+    "originalFiles": 30,
+    "originalPassed": 271,
+    "totalPassedAtCapture": 303,
+    "identities": [
+      {
+        "file": "tests/audio.test.js",
+        "sha256": "4964790a2136a4ce9ece3824a3efeb8ecb53a006ea697929af383d482ad4097d",
+        "tests": [
+          {
+            "name": "the sound throttle caps all sounds starting together",
+            "status": "passed"
+          },
+          {
+            "name": "the sound throttle keeps working when a new audio context starts its clock at zero again",
+            "status": "passed"
+          },
+          {
+            "name": "the sound throttle lets a few of the same sound start at once, then holds the rest back for a moment",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/bot.test.js",
+        "sha256": "e09eab7fb6784c53c4c795043cec7bb23823be42b370ebfe9e98ad12b652c3e1",
+        "tests": [
+          {
+            "name": "CPU player gets stronger with difficulty",
+            "status": "passed"
+          },
+          {
+            "name": "CPU player herds animals home, even on easy",
+            "status": "passed"
+          },
+          {
+            "name": "CPU player presses keys like a person",
+            "status": "passed"
+          },
+          {
+            "name": "session keeps a separate tally per mode and difficulty",
+            "status": "passed"
+          },
+          {
+            "name": "session names the CPU side in a 1-player game",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/camping.test.js",
+        "sha256": "4521162e549da5d2844a7c3a6da8ce6904b07de9ab276f3b3bd52127c49e1c51",
+        "tests": [
+          {
+            "name": "field restock does not restock while there are animals in the field",
+            "status": "passed"
+          },
+          {
+            "name": "field restock parachutes in fresh animals once the field has stood empty for a while",
+            "status": "passed"
+          },
+          {
+            "name": "spooked pens a saucer hovering over its own pen spooks the animals out, one at a time",
+            "status": "passed"
+          },
+          {
+            "name": "spooked pens leaving the pen resets the clock",
+            "status": "passed"
+          },
+          {
+            "name": "throwing a hit knocks the animal off with the saucer speed from before the hit",
+            "status": "passed"
+          },
+          {
+            "name": "throwing a released animal keeps the saucer speed and can be lobbed into your pen",
+            "status": "passed"
+          },
+          {
+            "name": "throwing a throw that lands in the opponent pen is not a delivery",
+            "status": "passed"
+          },
+          {
+            "name": "throwing stops at the arena walls",
+            "status": "passed"
+          },
+          {
+            "name": "throwing the automatic release over your pen is still straight down",
+            "status": "passed"
+          },
+          {
+            "name": "throwing thrown upward, it falls from the top of its arc",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/chaos.test.js",
+        "sha256": "14637cd3585aabc71ad6485ec780bbbf9f998ef3e57e2cb4e676ce51ad673461",
+        "tests": [
+          {
+            "name": "out of ammo flies a little faster, and reaches ram speed sooner",
+            "status": "passed"
+          },
+          {
+            "name": "out of ammo not with a power-up that shoots for free",
+            "status": "passed"
+          },
+          {
+            "name": "the animal swaps and the beams lambs → cows bursts lambs being lifted or carried; the other kind is left alone",
+            "status": "passed"
+          },
+          {
+            "name": "the green man dropped from low down, lands safely",
+            "status": "passed"
+          },
+          {
+            "name": "the green man dropped from too high, splats in green, and another one brings the same power-up",
+            "status": "passed"
+          },
+          {
+            "name": "the top of the hook reach a lamb whose pickup breaks there splats",
+            "status": "passed"
+          },
+          {
+            "name": "the top of the hook reach broken off low down, it lands safely",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/cheats.test.js",
+        "sha256": "4215b58594ef486355babebd16395f8c72356c46fe3f9b0707a396ad8e415f80",
+        "tests": [
+          {
+            "name": "cheat codes a wrong key breaks it",
+            "status": "passed"
+          },
+          {
+            "name": "cheat codes can be typed again (to switch it back off)",
+            "status": "passed"
+          },
+          {
+            "name": "cheat codes IDDQD completes the shields, even though it starts like IDKFA",
+            "status": "passed"
+          },
+          {
+            "name": "cheat codes IDKFA completes the lasers",
+            "status": "passed"
+          },
+          {
+            "name": "cheat codes swallows keys only once a code is clearly being typed",
+            "status": "passed"
+          },
+          {
+            "name": "cheat codes the Konami code completes the golden herd",
+            "status": "passed"
+          },
+          {
+            "name": "cheat codes works after other keys, and after a false start",
+            "status": "passed"
+          },
+          {
+            "name": "cheats in a round every round starts with them",
+            "status": "passed"
+          },
+          {
+            "name": "cheats in a round lasers and shields exclude each other: one power-up each",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/combat.test.js",
+        "sha256": "d63a74fa861d992a419db73f35aefaf41e8078dba438fce2de142a7482993a91",
+        "tests": [
+          {
+            "name": "projectiles fire toward the opponent side",
+            "status": "passed"
+          },
+          {
+            "name": "projectiles knock the opponent back on a hit",
+            "status": "passed"
+          },
+          {
+            "name": "projectiles travel at the shooter height and can miss",
+            "status": "passed"
+          },
+          {
+            "name": "weapon fires once per press, limited by the cooldown",
+            "status": "passed"
+          },
+          {
+            "name": "weapon reloads automatically when the clip is empty",
+            "status": "passed"
+          },
+          {
+            "name": "weapon reloads only the remaining ammo into a partial last clip",
+            "status": "passed"
+          },
+          {
+            "name": "weapon starts with a full clip and the round cap",
+            "status": "passed"
+          },
+          {
+            "name": "weapon stops after the per-round cap and does not reload an empty weapon",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/crate.test.js",
+        "sha256": "3dd079e34470a045bd44caea0932158e680795185802a4fe56c65eeca71fffd0",
+        "tests": [
+          {
+            "name": "ammo crate drop does not drop after the cut-off",
+            "status": "passed"
+          },
+          {
+            "name": "ammo crate drop drops once per player, and one at a time",
+            "status": "passed"
+          },
+          {
+            "name": "ammo crate drop drops when a player runs out before the cut-off",
+            "status": "passed"
+          },
+          {
+            "name": "ammo crate pickup can be taken by the other player, up to the ammo cap",
+            "status": "passed"
+          },
+          {
+            "name": "ammo crate pickup cannot be grabbed while carrying an animal",
+            "status": "passed"
+          },
+          {
+            "name": "ammo crate pickup refills an empty gun, which then reloads",
+            "status": "passed"
+          },
+          {
+            "name": "ammo crate pickup sits still once landed",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/daze.test.js",
+        "sha256": "a9ce45e61b9559d9cd10e8688c52e15aab27134e5e06ffac0fb378a7f11d331a",
+        "tests": [
+          {
+            "name": "three hits in a row a triple-shot volley counts as one hit",
+            "status": "passed"
+          },
+          {
+            "name": "three hits in a row daze the saucer",
+            "status": "passed"
+          },
+          {
+            "name": "three hits in a row hits while dazed, and just after, do not count toward the next",
+            "status": "passed"
+          },
+          {
+            "name": "three hits in a row only when each comes soon after the last",
+            "status": "passed"
+          },
+          {
+            "name": "three hits in a row shots that bounce off a shield do not count",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/gamepad.test.js",
+        "sha256": "1e652a43ae0f03ead0b06d658ded83285296e71103f4fcf125e1adb934175be3",
+        "tests": [
+          {
+            "name": "polling pads a pad keeps its slot when the other one drops out",
+            "status": "passed"
+          },
+          {
+            "name": "polling pads an empty slot is null, and missing or null entries are ignored",
+            "status": "passed"
+          },
+          {
+            "name": "polling pads gives the first pad to Red and the second to Blue",
+            "status": "passed"
+          },
+          {
+            "name": "polling pads ignores a pad reported as disconnected, and a third pad",
+            "status": "passed"
+          },
+          {
+            "name": "polling pads reports a button once per press, per side",
+            "status": "passed"
+          },
+          {
+            "name": "polling pads turns stick flicks into menu directions, once each",
+            "status": "passed"
+          },
+          {
+            "name": "reading a pad copes with a pad that has no buttons or axes",
+            "status": "passed"
+          },
+          {
+            "name": "reading a pad has no way to quit: B and Back do nothing",
+            "status": "passed"
+          },
+          {
+            "name": "reading a pad reads the d-pad, and stick plus d-pad never exceed 1",
+            "status": "passed"
+          },
+          {
+            "name": "reading a pad shoots with A, X, RB or RT, menus use A/Start, and Start pauses",
+            "status": "passed"
+          },
+          {
+            "name": "reading a pad turns the stick into -1/0/1 with a dead zone",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/golden.test.js",
+        "sha256": "67b54595fca54d60cdcd2e35101bbee3de074a207dea49416bf030b2ee4544e6",
+        "tests": [
+          {
+            "name": "golden animal drop does not drop in a close round",
+            "status": "passed"
+          },
+          {
+            "name": "golden animal drop drops at the check point for the trailing player",
+            "status": "passed"
+          },
+          {
+            "name": "golden animal drop only when the lead is big enough, and then by chance",
+            "status": "passed"
+          },
+          {
+            "name": "golden animal value evens the score when the trailing player delivers it",
+            "status": "passed"
+          },
+          {
+            "name": "golden animal value is just a cow or lamb when the leader delivers it",
+            "status": "passed"
+          },
+          {
+            "name": "golden animal value is ordinary again once lifted out of the pen it paid out in",
+            "status": "passed"
+          },
+          {
+            "name": "golden animal value is worth at least its normal value",
+            "status": "passed"
+          },
+          {
+            "name": "golden animal value stays golden when a pickup is interrupted",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/hardening.test.js",
+        "sha256": "84a8fe0da791b5402e611570962988525ea2f595b064e6c7c1315a257fa9afb4",
+        "tests": [
+          {
+            "name": "herd cap no field restock while the cap is reached",
+            "status": "passed"
+          },
+          {
+            "name": "safety net against NaN a projectile at NaN is dropped",
+            "status": "passed"
+          },
+          {
+            "name": "safety net against NaN a saucer at NaN goes back to its start instead of spreading NaN",
+            "status": "passed"
+          },
+          {
+            "name": "safety net against NaN an animal at NaN is taken out, even out of a beam",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/herd.test.js",
+        "sha256": "0ecd58925e714c35ebd105645e2170763a2379924581b32f5d6aefd9901a6536",
+        "tests": [
+          {
+            "name": "the starting herd has the configured cows and lambs",
+            "status": "passed"
+          },
+          {
+            "name": "the starting herd is a mirror image, so neither player starts nearer the cows",
+            "status": "passed"
+          },
+          {
+            "name": "the starting herd mirrors for other herd sizes too, alternating kinds in each half",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/hook.test.js",
+        "sha256": "42cd7c52df858499f7a9d263f75307c5c0a1cf98f1ef454a2f945fbb192e5930",
+        "tests": [
+          {
+            "name": "delivery and stealing an interrupted steal drops the animal back into the pen it came from",
+            "status": "passed"
+          },
+          {
+            "name": "delivery and stealing cannot hook animals in its own pen",
+            "status": "passed"
+          },
+          {
+            "name": "delivery and stealing delivers a carried animal into its own pen and scores it",
+            "status": "passed"
+          },
+          {
+            "name": "delivery and stealing does not release over the opponent pen",
+            "status": "passed"
+          },
+          {
+            "name": "delivery and stealing steals from the opponent pen for half value",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup a fully lifted animal shot loose high up bursts on landing",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup breaks if the saucer climbs too far above the animal",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup carries one animal at a time",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup drops a fully lifted animal when shot",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup holds while the saucer flies up or down",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup is interrupted by a shot",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup is interrupted by drifting away from the animal",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup keeps a fully lifted animal when bumped",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup lifts a lamb in 1.0 s and a cow in 1.6 s",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup lowers only when the saucer is low, still and above the animal",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup still breaks when the player flies away on purpose",
+            "status": "passed"
+          },
+          {
+            "name": "hook pickup survives a late key release: the beam makes the saucer heavy",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/interactions.test.js",
+        "sha256": "7dc985466c5f5f1216ec291fb6f220d2ac4f06408004d9eb03f593970c1a50d4",
+        "tests": [
+          {
+            "name": "drops that come together a supply drop and a field restock in the same empty spell both arrive",
+            "status": "passed"
+          },
+          {
+            "name": "drops that come together scores stay finite and the round finishes with everything going on at once",
+            "status": "passed"
+          },
+          {
+            "name": "the time bomb and the others a ram knocks a carried time bomb loose; it keeps counting and still goes off",
+            "status": "passed"
+          },
+          {
+            "name": "the time bomb and the others a time bomb blasting a pen with the wolf in it leaves the wolf there",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf and the animal swaps cows → lambs feeds a wolf in the field: the new lambs land and get chased",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf and the animal swaps lambs → cows takes the lambs from under a wolf in a pen; it gets bored and leaves",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/layout.test.js",
+        "sha256": "25d506c3ed431002fe565a6f0d87d1fb6d705401ad1286681218a132fc3f885f",
+        "tests": [
+          {
+            "name": "fitting the window a 16:9 window shows exactly the design area",
+            "status": "passed"
+          },
+          {
+            "name": "fitting the window a 4:3 window gets 240 more px",
+            "status": "passed"
+          },
+          {
+            "name": "fitting the window a taller window shows more height instead of bars",
+            "status": "passed"
+          },
+          {
+            "name": "fitting the window a wider window still gets bars at the sides, with the full height used",
+            "status": "passed"
+          },
+          {
+            "name": "fitting the window caps the extra height; beyond that the rest is centred bars",
+            "status": "passed"
+          },
+          {
+            "name": "fitting the window every scene sits at the bottom, so the ground never moves; menu text is lifted by half the extra",
+            "status": "passed"
+          },
+          {
+            "name": "layout constants the width never changes",
+            "status": "passed"
+          },
+          {
+            "name": "the extra sky is playable parachutes start just above the top of the screen",
+            "status": "passed"
+          },
+          {
+            "name": "the extra sky is playable rockets only burn out when they leave the visible area",
+            "status": "passed"
+          },
+          {
+            "name": "the extra sky is playable saucers can fly up to the new top",
+            "status": "passed"
+          },
+          {
+            "name": "the extra sky is playable the world still runs with extra sky",
+            "status": "passed"
+          },
+          {
+            "name": "the extra sky is playable with the default top, nothing changes",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/match.test.js",
+        "sha256": "57da3fb545997e3669e7bfee3c4114ecfa4988cc9b01c96836868fb919999647",
+        "tests": [
+          {
+            "name": "best of 1, 5 and 7 best of 1: a tie is followed by sudden death",
+            "status": "passed"
+          },
+          {
+            "name": "best of 1, 5 and 7 best of 1: the first win takes it",
+            "status": "passed"
+          },
+          {
+            "name": "best of 1, 5 and 7 best of 5 ends early when the rest cannot change it",
+            "status": "passed"
+          },
+          {
+            "name": "best of 1, 5 and 7 best of 5 needs three wins and ends as soon as they are in",
+            "status": "passed"
+          },
+          {
+            "name": "best of 1, 5 and 7 best of 7 goes the distance when it stays close",
+            "status": "passed"
+          },
+          {
+            "name": "best of 1, 5 and 7 the default is best of 3",
+            "status": "passed"
+          },
+          {
+            "name": "match rules ends early inside sudden death only on a win",
+            "status": "passed"
+          },
+          {
+            "name": "match rules ends early once the leader cannot be caught, even with ties",
+            "status": "passed"
+          },
+          {
+            "name": "match rules gives no one a win on a tie",
+            "status": "passed"
+          },
+          {
+            "name": "match rules goes to sudden death when wins are level after the scheduled rounds",
+            "status": "passed"
+          },
+          {
+            "name": "match rules is best of 3 and ends early at 2-0",
+            "status": "passed"
+          },
+          {
+            "name": "match rules keeps playing one round at a time until someone wins one",
+            "status": "passed"
+          },
+          {
+            "name": "match rules plays all 3 rounds when the first two are split",
+            "status": "passed"
+          },
+          {
+            "name": "match rules refuses rounds after the match is over",
+            "status": "passed"
+          },
+          {
+            "name": "round lengths 120 s rounds plan a third green-man drop, shorter ones two",
+            "status": "passed"
+          },
+          {
+            "name": "round lengths 120 s: counts down, plays 120 s, and scales its timed events",
+            "status": "passed"
+          },
+          {
+            "name": "round lengths 60 s: counts down, plays 60 s, and scales its timed events",
+            "status": "passed"
+          },
+          {
+            "name": "round lengths 90 s: counts down, plays 90 s, and scales its timed events",
+            "status": "passed"
+          },
+          {
+            "name": "round lengths ammo scales with the length: 16, 24 and 32 shots",
+            "status": "passed"
+          },
+          {
+            "name": "round lengths the ammo crate refills half the ammo, up to the cap",
+            "status": "passed"
+          },
+          {
+            "name": "round timing counts down 3-2-1 with the world frozen, then plays for the round length",
+            "status": "passed"
+          },
+          {
+            "name": "round winner compares scores, including half points",
+            "status": "passed"
+          },
+          {
+            "name": "tally counts pen contents per round and match wins",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/morepowers.test.js",
+        "sha256": "2680b2fa8459dc56127cc3a4da1bd4094f10ffa910e4bf9b9c3e3e2bf06bb65f",
+        "tests": [
+          {
+            "name": "infinite ammo fires without spending ammo or reloading",
+            "status": "passed"
+          },
+          {
+            "name": "infinite ammo works with an empty gun, and the free shots go with the power-up",
+            "status": "passed"
+          },
+          {
+            "name": "lambs to cows and cows to lambs and the other way round",
+            "status": "passed"
+          },
+          {
+            "name": "lambs to cows and cows to lambs every lamb in the field bursts and a cow parachutes down in its place",
+            "status": "passed"
+          },
+          {
+            "name": "lambs to cows and cows to lambs lambs in pens are swapped too, and the new cow counts for that pen at once",
+            "status": "passed"
+          },
+          {
+            "name": "laser against a shield that runs out keeps pushing without crashing when the shield ends mid-beam",
+            "status": "passed"
+          },
+          {
+            "name": "shield a bump does not move it; the other saucer takes the whole bounce",
+            "status": "passed"
+          },
+          {
+            "name": "shield a pickup in progress is not broken by a hit",
+            "status": "passed"
+          },
+          {
+            "name": "shield a rocket does not stun it",
+            "status": "passed"
+          },
+          {
+            "name": "shield shots bounce off: no knockback, and the animal stays on",
+            "status": "passed"
+          },
+          {
+            "name": "shield the laser does not push it",
+            "status": "passed"
+          },
+          {
+            "name": "supply drop comes once the field is empty and someone is out of shots",
+            "status": "passed"
+          },
+          {
+            "name": "supply drop does not come while both players can shoot, or while animals are in the field",
+            "status": "passed"
+          },
+          {
+            "name": "supply drop is sometimes a crate and sometimes a power-up",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/mystery.test.js",
+        "sha256": "02d3fdf3c7c5903aa0908ccd35eedf78e72be8f02823dccbb6a63ca7b97d4629",
+        "tests": [
+          {
+            "name": "drops within reach are grabbed before a nearer animal",
+            "status": "passed"
+          },
+          {
+            "name": "mystery package about one drop in five",
+            "status": "passed"
+          },
+          {
+            "name": "mystery package hides the power-up until grabbed, then grants it",
+            "status": "passed"
+          },
+          {
+            "name": "restocking the herd does not restock while animals are alive in pens",
+            "status": "passed"
+          },
+          {
+            "name": "restocking the herd parachutes in new animals when every one has splatted",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/occasion.test.js",
+        "sha256": "7e8e3751dd4565eb2006192c23bb459cc273509e92659ad04f6bf41eb5078396",
+        "tests": [
+          {
+            "name": "occasions 4 May",
+            "status": "passed"
+          },
+          {
+            "name": "occasions Christmas on the 24th and 25th of December, New Year's Eve on the 31st",
+            "status": "passed"
+          },
+          {
+            "name": "occasions Halloween on 31 October",
+            "status": "passed"
+          },
+          {
+            "name": "occasions Swedish midsummer: the Friday between 19 and 25 June and the Saturday after",
+            "status": "passed"
+          },
+          {
+            "name": "occasions the game date is the parameter if there is a good one, otherwise today",
+            "status": "passed"
+          },
+          {
+            "name": "the date parameter ignores anything that is not a real date",
+            "status": "passed"
+          },
+          {
+            "name": "the date parameter takes a full date, or month and day in this year",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/options.test.js",
+        "sha256": "748f421251f0102fc111d16584dd166989d29c5e1a37e2ef45278e211b2d4682",
+        "tests": [
+          {
+            "name": "options is saved and loaded",
+            "status": "passed"
+          },
+          {
+            "name": "options offers 60/90/120 s and best of 1/3/5/7, defaulting to 90 s and best of 3",
+            "status": "passed"
+          },
+          {
+            "name": "options picks the options out of a session",
+            "status": "passed"
+          },
+          {
+            "name": "options replaces anything not on offer with the default",
+            "status": "passed"
+          },
+          {
+            "name": "options scales the ammo with the round length",
+            "status": "passed"
+          },
+          {
+            "name": "options steps through a list and stops at the ends",
+            "status": "passed"
+          },
+          {
+            "name": "options survives missing, broken or blocked storage",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/ordnance.test.js",
+        "sha256": "291a344e30e8135eb495afc5fac38b3ddd72e0841d04f8b1d56fa4b542bad06b",
+        "tests": [
+          {
+            "name": "homing rocket burns out if it cannot reach the target in time",
+            "status": "passed"
+          },
+          {
+            "name": "homing rocket homes in on an opponent at another height, knocks it back and knocks its animal loose",
+            "status": "passed"
+          },
+          {
+            "name": "homing rocket replaces the next shot, once, and costs no ammo",
+            "status": "passed"
+          },
+          {
+            "name": "homing rocket stuns the saucer it hits for a moment",
+            "status": "passed"
+          },
+          {
+            "name": "pen bomb can backfire on your own pen",
+            "status": "passed"
+          },
+          {
+            "name": "pen bomb dropped in the field, throws the animals near it away from the blast, on fire, and they all land safely",
+            "status": "passed"
+          },
+          {
+            "name": "pen bomb dropped in the opponent pen, throws some of its animals back into the field",
+            "status": "passed"
+          },
+          {
+            "name": "pen bomb leaves animals being lifted alone",
+            "status": "passed"
+          },
+          {
+            "name": "pen bomb never throws field animals into a pen",
+            "status": "passed"
+          },
+          {
+            "name": "pen bomb sets the animals it throws on fire, until a beam picks them up",
+            "status": "passed"
+          },
+          {
+            "name": "single-use power-ups wait to be used instead of running out",
+            "status": "passed"
+          },
+          {
+            "name": "twin beam a hit knocks the lower animal loose first",
+            "status": "passed"
+          },
+          {
+            "name": "twin beam carries a second animal, and delivers both",
+            "status": "passed"
+          },
+          {
+            "name": "twin beam without it, the saucer carries one",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/parachute.test.js",
+        "sha256": "9615ace2004ef9842e8f10d9f7e0757a4f1d9fe8185daf5573069e8aba94105f",
+        "tests": [
+          {
+            "name": "a green man nobody picks up gives up after a while: \"Oh, no!\", then he explodes and the power-up is gone for good",
+            "status": "passed"
+          },
+          {
+            "name": "a green man nobody picks up hooked while he panics, he is saved and the power-up is granted",
+            "status": "passed"
+          },
+          {
+            "name": "a green man nobody picks up mystery packages and ammo crates wait as long as it takes",
+            "status": "passed"
+          },
+          {
+            "name": "a green man nobody picks up the time only counts once he is on the ground",
+            "status": "passed"
+          },
+          {
+            "name": "the parachute power-up a drop low enough to be safe gets no parachute",
+            "status": "passed"
+          },
+          {
+            "name": "the parachute power-up a lamb let go of from up high opens a parachute and lands safely, slowly",
+            "status": "passed"
+          },
+          {
+            "name": "the parachute power-up also saves an animal knocked loose by a shot",
+            "status": "passed"
+          },
+          {
+            "name": "the parachute power-up ends with the power-up",
+            "status": "passed"
+          },
+          {
+            "name": "the parachute power-up only for the player who has it",
+            "status": "passed"
+          },
+          {
+            "name": "the parachute power-up thrown upward from a safe height, it opens at the top of the arc if the fall would splat",
+            "status": "passed"
+          },
+          {
+            "name": "the parachute power-up without it, the same drop splats",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/powerup.test.js",
+        "sha256": "b9b750843c8d65e6613d7f034248c2c12f7d261cc4a9948f0cb93f40a3d81413",
+        "tests": [
+          {
+            "name": "power-up hits knock a carried animal loose too with the laser",
+            "status": "passed"
+          },
+          {
+            "name": "power-up hits knock a carried animal loose too with triple shot",
+            "status": "passed"
+          },
+          {
+            "name": "power-ups laser: holding shoot pushes the opponent, breaks their pickup and uses no ammo",
+            "status": "passed"
+          },
+          {
+            "name": "power-ups laser: misses an opponent at a different height",
+            "status": "passed"
+          },
+          {
+            "name": "power-ups last POWERUP.duration seconds",
+            "status": "passed"
+          },
+          {
+            "name": "power-ups speed: flies faster",
+            "status": "passed"
+          },
+          {
+            "name": "power-ups triple: shots are free, and an empty gun reloads",
+            "status": "passed"
+          },
+          {
+            "name": "power-ups triple: three shots per press",
+            "status": "passed"
+          },
+          {
+            "name": "steal power-up counts the steal even if the power-up runs out before delivery",
+            "status": "passed"
+          },
+          {
+            "name": "steal power-up does not boost ordinary deliveries",
+            "status": "passed"
+          },
+          {
+            "name": "steal power-up keeps the bonus after the power-up ends, and loses it when lifted out again",
+            "status": "passed"
+          },
+          {
+            "name": "steal power-up makes a stolen animal worth double full value",
+            "status": "passed"
+          },
+          {
+            "name": "steal power-up without it, a stolen animal is still worth half",
+            "status": "passed"
+          },
+          {
+            "name": "the drop cannot be grabbed while carrying an animal",
+            "status": "passed"
+          },
+          {
+            "name": "the drop falls at each drop time when planned",
+            "status": "passed"
+          },
+          {
+            "name": "the drop is dropped by a shot like an animal",
+            "status": "passed"
+          },
+          {
+            "name": "the drop is planned by chance, with one of the four types",
+            "status": "passed"
+          },
+          {
+            "name": "the drop never falls when not planned",
+            "status": "passed"
+          },
+          {
+            "name": "the drop parachutes into the field, then can be grabbed",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/ram.test.js",
+        "sha256": "a8c48e74ffb221f9c9363c58668db358cfde2c0565a0f8a9fa53d2a1b7444435",
+        "tests": [
+          {
+            "name": "momentum and shots a shot from behind, pushing it on its way, does not",
+            "status": "passed"
+          },
+          {
+            "name": "momentum and shots a shot that knocks the saucer off its course costs the momentum",
+            "status": "passed"
+          },
+          {
+            "name": "momentum and shots the laser pushing it back costs it too",
+            "status": "passed"
+          },
+          {
+            "name": "momentum builds while flying straight, raising the top speed",
+            "status": "passed"
+          },
+          {
+            "name": "momentum does not build while carrying",
+            "status": "passed"
+          },
+          {
+            "name": "momentum is kept when diving: turning down, or down alone",
+            "status": "passed"
+          },
+          {
+            "name": "momentum is lost against a wall",
+            "status": "passed"
+          },
+          {
+            "name": "momentum is lost by pressing up, turning back or letting go",
+            "status": "passed"
+          },
+          {
+            "name": "ramming a carrier cannot ram, even with the speed power-up",
+            "status": "passed"
+          },
+          {
+            "name": "ramming a slow bump does nothing of the sort",
+            "status": "passed"
+          },
+          {
+            "name": "ramming at full momentum, knocks the animal loose and dazes the opponent",
+            "status": "passed"
+          },
+          {
+            "name": "ramming bounces off a shield",
+            "status": "passed"
+          },
+          {
+            "name": "ramming breaks a pickup in progress",
+            "status": "passed"
+          },
+          {
+            "name": "ramming head on at full speed, both are dazed",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/release.test.js",
+        "sha256": "fa447680b803c5bb0cbf78bbdfa244dd1cf5df5548b10071514e90c61399a0f9",
+        "tests": [
+          {
+            "name": "automatic release over your own pen waits until the saucer is low enough",
+            "status": "passed"
+          },
+          {
+            "name": "dropping a carried animal by hand from too high, it bursts and scores nothing",
+            "status": "passed"
+          },
+          {
+            "name": "dropping a carried animal by hand low over the field, it lands safely",
+            "status": "passed"
+          },
+          {
+            "name": "dropping a carried animal by hand low over your own pen, it is a delivery",
+            "status": "passed"
+          },
+          {
+            "name": "dropping a carried animal by hand uses the shoot key instead of firing",
+            "status": "passed"
+          },
+          {
+            "name": "dropping a carried animal by hand with the twin beam, the lower animal goes first",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/saucer.test.js",
+        "sha256": "9fe5eb5b901f86a14fa262e68958b769f128f31f8f6b998fd356fac713ce57c2",
+        "tests": [
+          {
+            "name": "bump counts saucers that stay close as one contact until they separate",
+            "status": "passed"
+          },
+          {
+            "name": "bump ignores saucers that are apart",
+            "status": "passed"
+          },
+          {
+            "name": "bump pushes overlapping saucers apart with a small impulse",
+            "status": "passed"
+          },
+          {
+            "name": "saucer movement accelerates up to max speed and no further",
+            "status": "passed"
+          },
+          {
+            "name": "saucer movement coasts to a stop under drag",
+            "status": "passed"
+          },
+          {
+            "name": "saucer movement diagonal input is no faster than straight input",
+            "status": "passed"
+          },
+          {
+            "name": "saucer movement does not cap knockback speed",
+            "status": "passed"
+          },
+          {
+            "name": "saucer movement stays inside the flight band and walls",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/scoring.test.js",
+        "sha256": "94c494ab302fad8245856a55607980aab46392223824df07eb71e1d9ed48e906",
+        "tests": [
+          {
+            "name": "scoring gives full value in the first deliverer pen",
+            "status": "passed"
+          },
+          {
+            "name": "scoring gives half value to stolen animals",
+            "status": "passed"
+          },
+          {
+            "name": "scoring sums only animals in the pen",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/stats.test.js",
+        "sha256": "14f1c9952fa38113521f3b23eac19e9bfe137f976284a8fcabf8c5589d1c5190",
+        "tests": [
+          {
+            "name": "match stats add up over the rounds and start at zero",
+            "status": "passed"
+          },
+          {
+            "name": "splats and when let go of by hand",
+            "status": "passed"
+          },
+          {
+            "name": "splats count for the player whose beam it fell from, even when the other knocked it loose",
+            "status": "passed"
+          },
+          {
+            "name": "times dazed a ram counts for the one rammed, not when a shield stops it",
+            "status": "passed"
+          },
+          {
+            "name": "times dazed a rocket hit counts",
+            "status": "passed"
+          },
+          {
+            "name": "times dazed three hits in a row count once",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/timebomb.test.js",
+        "sha256": "9db64a74692f45b0c67d77fa28b2f41bb4f1f572488bad9a3fe4491732c6a3a1",
+        "tests": [
+          {
+            "name": "time bomb counts down, then blows animals out of the pen it lies in",
+            "status": "passed"
+          },
+          {
+            "name": "time bomb gives the pen owner time to lift it out and carry it off",
+            "status": "passed"
+          },
+          {
+            "name": "time bomb going off in a beam dazes that saucer and blasts no pen",
+            "status": "passed"
+          },
+          {
+            "name": "time bomb in an empty stretch of field it just goes off",
+            "status": "passed"
+          },
+          {
+            "name": "time bomb in the field it scatters the animals near it, on fire",
+            "status": "passed"
+          },
+          {
+            "name": "time bomb is single use: the shoot key drops it, and it costs no ammo",
+            "status": "passed"
+          }
+        ]
+      },
+      {
+        "file": "tests/wolf.test.js",
+        "sha256": "8248c944008fcaf96eedabfd114391644d4ff437314e378767340c7d4bbf308b",
+        "tests": [
+          {
+            "name": "the wolf and its parachute a low drop gets no parachute",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf and its parachute opens one when dropped from up high, and floats down slowly",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf and its parachute takes much longer than a free fall",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in a pen can be lifted back out of your own pen",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in a pen dropped in the opponent pen, eats the lambs there and the score goes down",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in a pen is never let go of automatically over your own pen",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in a pen knocked loose, it lands safely wherever it falls",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in the field does not touch lambs in pens, or in a beam",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in the field gets bored when there is nothing to eat, and runs off",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in the field lambs nearby run from it",
+            "status": "passed"
+          },
+          {
+            "name": "the wolf in the field parachutes in, then hunts down every lamb in the field and leaves the cows",
+            "status": "passed"
+          },
+          {
+            "name": "when the wolf comes never when the chance is zero",
+            "status": "passed"
+          },
+          {
+            "name": "when the wolf comes some rounds, at a random time in the window",
+            "status": "passed"
+          }
+        ]
+      }
+    ]
+  },
+  "source": [
+    {
+      "file": "src/audio.js",
+      "sha256": "750cfacd8bf51b7518395971838cab3f60c2db9d2acac1102895aa63c3d5719e"
+    },
+    {
+      "file": "src/cheats.js",
+      "sha256": "d42efe467f9c61ea256880385b859e43aa70c1778e382fb189de18cfa94919f3"
+    },
+    {
+      "file": "src/config.js",
+      "sha256": "c8bc19d46d536e29de2eb0a828a0a362a1865bdee1d215f750bf4923dd51a980"
+    },
+    {
+      "file": "src/fullscreen.js",
+      "sha256": "025651cd50dfa1db3001b4ec050c8daac5c8350613b92d96789e1eb43b99c98f"
+    },
+    {
+      "file": "src/gamepad.js",
+      "sha256": "89870afbbbc53293648c0cf76e82492f351a18c5ff95ecb01e0a94ee86306aae"
+    },
+    {
+      "file": "src/input.js",
+      "sha256": "cf2af0464319ed4f50c53c619710f7823b4ba9a0e2de85769a1763bf3827c520"
+    },
+    {
+      "file": "src/layout.js",
+      "sha256": "b1cc5b477c18c9ac4229947d985f83a3136f05fc41fbaa3596433f8279e48d78"
+    },
+    {
+      "file": "src/logic/animal.js",
+      "sha256": "5af8f9536cd7ece70389eed47e8fe9ca268d2812ab054e7ea09615f31bb51aff"
+    },
+    {
+      "file": "src/logic/bot.js",
+      "sha256": "9046fba1fb6040268ec28d89129c7019f800908c4759666477db853eb12b630f"
+    },
+    {
+      "file": "src/logic/golden.js",
+      "sha256": "d71278b54b9c0f1d96028ed8b56ae0fdab83251a20096bc627a70a145d90cad6"
+    },
+    {
+      "file": "src/logic/hook.js",
+      "sha256": "002549af69ab947d8f8244e0682d4a74856ee15581ddc3f832769c4ab54120c1"
+    },
+    {
+      "file": "src/logic/match.js",
+      "sha256": "190e81d216bb7e0aebf8c19e0b8b4c92583e2aa2c52877a3833d3e901d391633"
+    },
+    {
+      "file": "src/logic/ordnance.js",
+      "sha256": "b28d4e9af3b265327fb69ed88f9c63cf6a6665bff0d3d11ffc02b152698fd363"
+    },
+    {
+      "file": "src/logic/powerup.js",
+      "sha256": "a437f5bca37a1f61c33705b59a2f277aaca475377d09344e523ed1e0a45ba8d2"
+    },
+    {
+      "file": "src/logic/projectile.js",
+      "sha256": "f237d2ba79e3374fbc22a9906194e82809444b0bd72203b69bbbf181e76e57eb"
+    },
+    {
+      "file": "src/logic/rng.js",
+      "sha256": "bca408e92a5c31d1e0e286f88da4c66d6c03644999d49f8f8910e97517202f35"
+    },
+    {
+      "file": "src/logic/round.js",
+      "sha256": "e31137f01674402f264505aa8a6a1d04effabe297bb3de92a63eb740ce58de69"
+    },
+    {
+      "file": "src/logic/saucer.js",
+      "sha256": "11d7b097026167065d07fd05a5bd839eef6ff58637ce5293d8b6ff4f574aa1a3"
+    },
+    {
+      "file": "src/logic/scoring.js",
+      "sha256": "1107b565a0d34bba8d82afff5b0b8bf3d2899ef05897a3d28608e383c8c47182"
+    },
+    {
+      "file": "src/logic/tally.js",
+      "sha256": "0aab236441acc1dc44e166fd0af121367b29f2f01cf1dc3d42db07ffeea68382"
+    },
+    {
+      "file": "src/logic/weapon.js",
+      "sha256": "cd612c5ec7142809d22407b7b4525857db3d962e21f187fd9aecf0968286c550"
+    },
+    {
+      "file": "src/logic/wolf.js",
+      "sha256": "0f4cb50fd43cde4a30b284a21c0790ea443916413a959842bcc429711a1cea16"
+    },
+    {
+      "file": "src/logic/world.js",
+      "sha256": "4bb95906ee320264b849adeafdaed7c9e8fa71ed3c5318acf76c326c4b4d0ea4"
+    },
+    {
+      "file": "src/main.js",
+      "sha256": "b96ee3d167fb2d43d216350bf5f4307516112e92f1df728358680d31fc2e7851"
+    },
+    {
+      "file": "src/occasion.js",
+      "sha256": "e4dadbf32acbe95688d0cb2d178b9d20304c71926c36064706841af381dbcd3c"
+    },
+    {
+      "file": "src/options.js",
+      "sha256": "65c4a7b28f5df8b6b5d6d17a8f25f4cc3436cf61cf3d2ad756d227b3a2419ec8"
+    },
+    {
+      "file": "src/render/animalView.js",
+      "sha256": "f800c56682a44b32ed2d520beabad9578f916d646f710c51595c08a820cd36a3"
+    },
+    {
+      "file": "src/render/backdrop.js",
+      "sha256": "03d1d6d93194b895e84cfbca7bfef94e3a191dff7470fc52757d0f62aa8cae27"
+    },
+    {
+      "file": "src/render/effects.js",
+      "sha256": "f475c3d7f99ee26ffd30773202a56913af2b7c1128efbe674cde332eb23642be"
+    },
+    {
+      "file": "src/render/festive.js",
+      "sha256": "6d9cf1c4b0f6e711dff4fa9b00ca42895e22e0dd827f8a3ae22d94b8d9c14ea1"
+    },
+    {
+      "file": "src/render/hud.js",
+      "sha256": "f5de15734b961c5843f908ac9e326c65750697a57ccc5f2d6f3de63907e519be"
+    },
+    {
+      "file": "src/render/listView.js",
+      "sha256": "d9ee49816639c28d908f234e80d8ea229b37e0934391eac1815055518a0877b1"
+    },
+    {
+      "file": "src/render/menu.js",
+      "sha256": "1c7972ada0d7d0534175720819245c319d64d205ef7534269d47e897957f7345"
+    },
+    {
+      "file": "src/render/powerupView.js",
+      "sha256": "935559e3f4d0f5e50d9e7d10a58f31fdbac643c5a92c5af89f6fa0891dfdc3bc"
+    },
+    {
+      "file": "src/render/projectileView.js",
+      "sha256": "cd407d544dc2970624368cc4ae894a7119917c5e357f39fb612bb00db9b4f347"
+    },
+    {
+      "file": "src/render/saucerView.js",
+      "sha256": "9d2b08f53e021fd71b883117b9d956727bc2e5727633c8a2ecb01fa94dc82842"
+    },
+    {
+      "file": "src/render/shootingStars.js",
+      "sha256": "6712d922f84061c7124f45ca16e3274157d384219a8c162a6d5145c3d7535fbe"
+    },
+    {
+      "file": "src/render/text.js",
+      "sha256": "e542d322b44edad22fac29756c68f533c59c80d3e4815847b47e7e834cdb333e"
+    },
+    {
+      "file": "src/render/tieFlyby.js",
+      "sha256": "fc2861374a7bd976ff8b3d8abbb1f5cde9bd2779bb277cb4119550a0897af37b"
+    },
+    {
+      "file": "src/render/timeBombView.js",
+      "sha256": "3048c7dcc217a7bc19e2b740d34133394732d6b977eb20cf865cc02502aa9f42"
+    },
+    {
+      "file": "src/render/uiLayer.js",
+      "sha256": "9f7815359b7eec1083d1c4ebdf5edca4bc770b7386d76b3566f038a13841433e"
+    },
+    {
+      "file": "src/render/wolfView.js",
+      "sha256": "bfd5c3db5ce28a615c3853557c13f745abea270b95bb9ef013daf8bc784af0a6"
+    },
+    {
+      "file": "src/scenes/play.js",
+      "sha256": "aea9023bbff75b08df75c92cda14aba811083b218ff0741428b4c2867a39be64"
+    },
+    {
+      "file": "src/scenes/roundEnd.js",
+      "sha256": "3beeebe106fc41e18bb59825e3d2c2ff07f4a02911510bf5bf4bc2103c7fbc6a"
+    },
+    {
+      "file": "src/scenes/settings.js",
+      "sha256": "f1f11e2b3d7e231ecb0d1b34bae37cf0ac97e981eff9c353871a0e20ccf75f3b"
+    },
+    {
+      "file": "src/scenes/tally.js",
+      "sha256": "a7e032a04304817863101572be2ce4732d5f0f9df06da153e71d702e0153c813"
+    },
+    {
+      "file": "src/scenes/title.js",
+      "sha256": "7d56fb04c4631982de764eeaff506aa78a7a42223c3ab452c3b4f1017af8ef72"
+    },
+    {
+      "file": "src/session.js",
+      "sha256": "2cbc4569f1518537472ca3d2e9fc23274069519916d67088026de700be8c20bd"
+    }
+  ],
+  "build": [
+    {
+      "file": "dist/assets/browserAll-7K1bkugF.js",
+      "bytes": 42669,
+      "gzipBytes": 11149
+    },
+    {
+      "file": "dist/assets/BufferResource-DErBFwoh.js",
+      "bytes": 11029,
+      "gzipBytes": 2831
+    },
+    {
+      "file": "dist/assets/CanvasPool-CX_31KdX.js",
+      "bytes": 110224,
+      "gzipBytes": 33293
+    },
+    {
+      "file": "dist/assets/CanvasRenderer-BilkU_wP.js",
+      "bytes": 88553,
+      "gzipBytes": 27618
+    },
+    {
+      "file": "dist/assets/CanvasRenderer-BYgalqRz.js",
+      "bytes": 77,
+      "gzipBytes": 80
+    },
+    {
+      "file": "dist/assets/canvasUtils-x2ND1UXV.js",
+      "bytes": 6056,
+      "gzipBytes": 2045
+    },
+    {
+      "file": "dist/assets/getPo2TextureFromSource-zQ4qLdpi.js",
+      "bytes": 25112,
+      "gzipBytes": 8602
+    },
+    {
+      "file": "dist/assets/getTextureBatchBindGroup-eI8ZguMn.js",
+      "bytes": 344,
+      "gzipBytes": 270
+    },
+    {
+      "file": "dist/assets/index-BHN-jSWl.js",
+      "bytes": 157578,
+      "gzipBytes": 55013
+    },
+    {
+      "file": "dist/assets/init-Bv20XKXQ.js",
+      "bytes": 15381,
+      "gzipBytes": 4786
+    },
+    {
+      "file": "dist/assets/RenderTargetSystem-BdvrGF6O.js",
+      "bytes": 78092,
+      "gzipBytes": 21912
+    },
+    {
+      "file": "dist/assets/WebGLRenderer-Bkw37tJr.js",
+      "bytes": 71666,
+      "gzipBytes": 19385
+    },
+    {
+      "file": "dist/assets/WebGLRenderer-CW0MH6xO.js",
+      "bytes": 75,
+      "gzipBytes": 79
+    },
+    {
+      "file": "dist/assets/WebGPURenderer-Cko0dMtc.js",
+      "bytes": 47891,
+      "gzipBytes": 13687
+    },
+    {
+      "file": "dist/assets/WebGPURenderer-oUbkKo_i.js",
+      "bytes": 77,
+      "gzipBytes": 80
+    },
+    {
+      "file": "dist/assets/webworkerAll-D_bgTRpU.js",
+      "bytes": 73,
+      "gzipBytes": 84
+    },
+    {
+      "file": "dist/favicon.svg",
+      "bytes": 712,
+      "gzipBytes": 300
+    },
+    {
+      "file": "dist/index.html",
+      "bytes": 2319,
+      "gzipBytes": 1066
+    },
+    {
+      "file": "dist/og.png",
+      "bytes": 46600,
+      "gzipBytes": 45191
+    }
+  ],
+  "commands": [
+    "npm ci --cache /workspace/.npm-cache --no-audit --no-fund",
+    "npm run lint",
+    "npm test",
+    "npm run build",
+    "npm run sim -- 10"
+  ],
+  "buildBytesNote": "Per-file bytes and gzip sizes from dist; not measured HTTP transfer or a sum of eagerly loaded chunks."
+}

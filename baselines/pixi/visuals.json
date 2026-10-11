@@ -1,0 +1,4849 @@
+{
+  "schema": 1,
+  "engine": "pixi",
+  "browser": "154.0.8037.57",
+  "playwright": "1.62.0",
+  "pixelPolicy": "At most 64 pixels may differ, by at most 1 in any RGB channel; no masks.",
+  "screenshotScale": "css (backing-store DPI is separately recorded)",
+  "captures": [
+    {
+      "file": "screens/title-0.png",
+      "sha256": "5ca59e79886b8ab84240ce3cb8f56f1c63ba8483139bd9bcd28357bd5350e270",
+      "case": {
+        "name": "title",
+        "kind": "title",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/settings-0.png",
+      "sha256": "20b622db8c4ebacb9c38beeee4ab25bcef82387574804fa3a18fb4707a999265",
+      "case": {
+        "name": "settings",
+        "kind": "settings",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 22,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/countdown-0.png",
+      "sha256": "a444f3f45be3e8ed827523bb8a137518c683ba27f587a5f15c0b24f72216d61e",
+      "case": {
+        "name": "countdown",
+        "kind": "countdown",
+        "options": {
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "countdown",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/play-0.png",
+      "sha256": "10fa2ece746a74408ebac26a1f6664800afcc9f84be3d8fbd627ed7f77a46185",
+      "case": {
+        "name": "play",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/play-1.png",
+      "sha256": "b766664b4c60500055f559ceadf88f748ec5f66ecfbc5342389567e448d6e25b",
+      "case": {
+        "name": "play",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/play-2.png",
+      "sha256": "b999b50fb2d1510ea5f49c4328a326b9c45b39cc548c8625d89185e0e643249b",
+      "case": {
+        "name": "play",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/pause-0.png",
+      "sha256": "eb5d156f74c0cb34fa1c8d63aec5fe98e09e68e75b92ab9a76dee3e07d5bfb14",
+      "case": {
+        "name": "pause",
+        "kind": "pause",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/result-0.png",
+      "sha256": "ba948c19ca4eafebc4ce4ece58377b858759ba1a4e34c12c2f5d6db7ce0ea260",
+      "case": {
+        "name": "result",
+        "kind": "result",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 269,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/tally-0.png",
+      "sha256": "e771beb5393cc92ffea5aeabcda4dbc4fcf7cc275e5679b6305d60824949ba8b",
+      "case": {
+        "name": "tally",
+        "kind": "tally",
+        "options": {
+          "rounds": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 40,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 1,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/sudden-death-0.png",
+      "sha256": "42cf571cb6178806a109413b36d9b8662fe5a431a6cc98d751cc6bb570cfbace",
+      "case": {
+        "name": "sudden-death",
+        "kind": "sudden-death",
+        "options": {
+          "rounds": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 1,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-60-1-0.png",
+      "sha256": "45f477f0554194ac1354c414b76911962ec899e073924896de130a95cc9f3194",
+      "case": {
+        "name": "options-60-1",
+        "kind": "title",
+        "options": {
+          "length": 60,
+          "rounds": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 60,
+          "rounds": 1,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-60-3-0.png",
+      "sha256": "0eeced4e7615b560c2bdff9296e22b70aba7dfacdd4921bd65561fbccc882578",
+      "case": {
+        "name": "options-60-3",
+        "kind": "title",
+        "options": {
+          "length": 60,
+          "rounds": 3
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 60,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-60-5-0.png",
+      "sha256": "b1cc9ac8bfd44e1608509892181a24aeb282a1fe904628a2bcb5f033f1a1b35f",
+      "case": {
+        "name": "options-60-5",
+        "kind": "title",
+        "options": {
+          "length": 60,
+          "rounds": 5
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 60,
+          "rounds": 5,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-60-7-0.png",
+      "sha256": "2e9ea69506e2273310067c6e219a6505081684064f1cb44f70caf5e69592eda2",
+      "case": {
+        "name": "options-60-7",
+        "kind": "title",
+        "options": {
+          "length": 60,
+          "rounds": 7
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 60,
+          "rounds": 7,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-90-1-0.png",
+      "sha256": "1e2e9f3fb8d37ddddb18f6efe639c5bc50e7492cf3f4cc732f1c6d4f18dbf4f8",
+      "case": {
+        "name": "options-90-1",
+        "kind": "title",
+        "options": {
+          "length": 90,
+          "rounds": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 1,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-90-3-0.png",
+      "sha256": "5ca59e79886b8ab84240ce3cb8f56f1c63ba8483139bd9bcd28357bd5350e270",
+      "case": {
+        "name": "options-90-3",
+        "kind": "title",
+        "options": {
+          "length": 90,
+          "rounds": 3
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-90-5-0.png",
+      "sha256": "a7be57c5291ea3f7bcaab28718ad0fd10e03d069115948b7e4d48508346f32a3",
+      "case": {
+        "name": "options-90-5",
+        "kind": "title",
+        "options": {
+          "length": 90,
+          "rounds": 5
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 5,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-90-7-0.png",
+      "sha256": "9c8a42a170fe672918f48b3b20dbee76e9a01fe6412aa1a187b8e3960a04bf9f",
+      "case": {
+        "name": "options-90-7",
+        "kind": "title",
+        "options": {
+          "length": 90,
+          "rounds": 7
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 7,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-120-1-0.png",
+      "sha256": "d36a6eb58993b3f73720aa287ac3fe8b4a031172b1026cb3ea634f044f35c05e",
+      "case": {
+        "name": "options-120-1",
+        "kind": "title",
+        "options": {
+          "length": 120,
+          "rounds": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 1,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-120-3-0.png",
+      "sha256": "f4049b61786aa1a458e1bf5567e8f4bafd5e6866d788df85ed355ac3f5868178",
+      "case": {
+        "name": "options-120-3",
+        "kind": "title",
+        "options": {
+          "length": 120,
+          "rounds": 3
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-120-5-0.png",
+      "sha256": "18e6576c6f9837bc35af38002dc51700431f53f43adb76a358e22db5718fbec2",
+      "case": {
+        "name": "options-120-5",
+        "kind": "title",
+        "options": {
+          "length": 120,
+          "rounds": 5
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 5,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/options-120-7-0.png",
+      "sha256": "464da048e1b7102b6f230a93aa9220fd83608f57edb65a522c12f402fc7648a2",
+      "case": {
+        "name": "options-120-7",
+        "kind": "title",
+        "options": {
+          "length": 120,
+          "rounds": 7
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 120,
+          "rounds": 7,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-title-easy-0.png",
+      "sha256": "6e1303340575d79db62a332362627948653978605f99e343d65152f453decbc9",
+      "case": {
+        "name": "solo-title-easy",
+        "kind": "title",
+        "options": {
+          "players": 1,
+          "difficulty": "easy"
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 1,
+          "difficulty": "easy",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-easy-0.png",
+      "sha256": "9aab3cba55c2127e43adeefaf854e8051da4524e3619bf2aaa145c9dfe634071",
+      "case": {
+        "name": "solo-play-easy",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "easy",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 1,
+          "difficulty": "easy",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-easy-1.png",
+      "sha256": "9a865207235eab4a75b98bc00eba5442df85dfcc6d00cd5146d3ab536f5897eb",
+      "case": {
+        "name": "solo-play-easy",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "easy",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 1,
+          "difficulty": "easy",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-easy-2.png",
+      "sha256": "ce7bfba012380557bc49953d8499ea78ac5d7264f4a7f01b1b7c2ee823af731d",
+      "case": {
+        "name": "solo-play-easy",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "easy",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 1,
+          "difficulty": "easy",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-title-normal-0.png",
+      "sha256": "41e6e5cb0beed690bb6abf7f2176fa2d5d513e8d6f3c240d7133bec6ae77a3e4",
+      "case": {
+        "name": "solo-title-normal",
+        "kind": "title",
+        "options": {
+          "players": 1,
+          "difficulty": "normal"
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 1,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-normal-0.png",
+      "sha256": "dacce7ac7a49986c4b2aa0701aa6312444207747b4d060ead3acc63fdb6443cc",
+      "case": {
+        "name": "solo-play-normal",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "normal",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 1,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-normal-1.png",
+      "sha256": "e66f7c47e7d97cd214d67e60b98f08947149ad3a749f506f15c8ab385d7baafc",
+      "case": {
+        "name": "solo-play-normal",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "normal",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 1,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-normal-2.png",
+      "sha256": "e630b30007c92d6c46cf56db43eaff1f06c23463c31e6f3e2d2a95cab9ed80b3",
+      "case": {
+        "name": "solo-play-normal",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "normal",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 1,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-title-hard-0.png",
+      "sha256": "028b2e5f20e48b6cc85ee043d25b82bf6c9598629d54e5f2bc9caa13ee7e9b2e",
+      "case": {
+        "name": "solo-title-hard",
+        "kind": "title",
+        "options": {
+          "players": 1,
+          "difficulty": "hard"
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 1,
+          "difficulty": "hard",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-hard-0.png",
+      "sha256": "650c78852e7a183abf579d60188a0eb371a9648ab5895919acddad8ab4798fac",
+      "case": {
+        "name": "solo-play-hard",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "hard",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 1,
+          "difficulty": "hard",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-hard-1.png",
+      "sha256": "d1bc945d94144970b76828f8b66a927a5ca34551f185dc19b38934da5d872edc",
+      "case": {
+        "name": "solo-play-hard",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "hard",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 1,
+          "difficulty": "hard",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/solo-play-hard-2.png",
+      "sha256": "cb2eb07fccf3f8a70f836e988c46c1071c5f27d67a791e53304091b24b1c3833",
+      "case": {
+        "name": "solo-play-hard",
+        "kind": "play",
+        "options": {
+          "players": 1,
+          "difficulty": "hard",
+          "steps": 180
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 1,
+          "difficulty": "hard",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/layout-16x10-0.png",
+      "sha256": "da9e9d026c7387003deaea2ac35568b42602875190bebe62688a5cd6ba819c2e",
+      "case": {
+        "name": "layout-16x10",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1440,
+          "height": 900
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 80,
+        "flightTop": -80,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/layout-4x3-0.png",
+      "sha256": "a277a8fa43d226fa6651b06f7a076153a09541ef60afdefbcbd18c41d2ebc73f",
+      "case": {
+        "name": "layout-4x3",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1024,
+          "height": 768
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 240,
+        "flightTop": -240,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/layout-ultrawide-0.png",
+      "sha256": "5815ef160014f8f209e2fb03372a2904eced7f15a5badc79c6dc45cf67c45ebf",
+      "case": {
+        "name": "layout-ultrawide",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 2000,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 2000,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 2000,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/layout-portrait-0.png",
+      "sha256": "b81c572b740e7b08ee8c74d6c2fdd3c96f06d50fc12d380e78ef8c14246f799b",
+      "case": {
+        "name": "layout-portrait",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 600,
+          "height": 1200
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 600,
+          "height": 1200,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 600,
+          "height": 1200
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 360,
+        "flightTop": -360,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/layout-4x3-fixed-0.png",
+      "sha256": "c27f2470bbc24140c975f361ddc6256fab5a68e4b954a6228c41141ebb52c31a",
+      "case": {
+        "name": "layout-4x3-fixed",
+        "kind": "play",
+        "options": {
+          "ratio169": true
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        },
+        "dpr": 1,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1024,
+          "height": 768,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1024,
+          "height": 768
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": true
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/layout-dpr2-0.png",
+      "sha256": "09bf017cf9c03e11c79d5d7da78d6b5cac7641c8e79213aae32a870b1d17afd3",
+      "case": {
+        "name": "layout-dpr2",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 2,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 2
+        },
+        "canvas": {
+          "width": 2560,
+          "height": 1440
+        },
+        "resolution": 2,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/layout-dpr3-capped-0.png",
+      "sha256": "09bf017cf9c03e11c79d5d7da78d6b5cac7641c8e79213aae32a870b1d17afd3",
+      "case": {
+        "name": "layout-dpr3-capped",
+        "kind": "play",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 3,
+        "frames": 1
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 3
+        },
+        "canvas": {
+          "width": 2560,
+          "height": 1440
+        },
+        "resolution": 2,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 222,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-speed-0.png",
+      "sha256": "541451343b657f59f7f6895af71e13ee323f6421e97ad11bbe85ae7a6693f379",
+      "case": {
+        "name": "power-speed",
+        "kind": "play",
+        "options": {
+          "power": "speed",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-speed-1.png",
+      "sha256": "d8d9b6e761cafcfff6d33e0004d95be6018251777f1ab13701f14d5e8a35cf48",
+      "case": {
+        "name": "power-speed",
+        "kind": "play",
+        "options": {
+          "power": "speed",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-speed-2.png",
+      "sha256": "6e8a220b6cd48f08a4b0a1dec0ee7f45adbbd2aae11c21ffc390ac202c540b52",
+      "case": {
+        "name": "power-speed",
+        "kind": "play",
+        "options": {
+          "power": "speed",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-laser-0.png",
+      "sha256": "7e3c7bddc6b42001fc79b2cba7964d25c032b8e4aab37a788c8bdd365834818f",
+      "case": {
+        "name": "power-laser",
+        "kind": "play",
+        "options": {
+          "power": "laser",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-laser-1.png",
+      "sha256": "64225dc463c720bb5157aa61ad93baba64772f0ae845d09da00a24fda90b6c91",
+      "case": {
+        "name": "power-laser",
+        "kind": "play",
+        "options": {
+          "power": "laser",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-laser-2.png",
+      "sha256": "239cdfd708fc853d893c829542d9b6deb47e1725cbe3bfa4103ab288a634584a",
+      "case": {
+        "name": "power-laser",
+        "kind": "play",
+        "options": {
+          "power": "laser",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-triple-0.png",
+      "sha256": "349683debbc03304f416b93b77ff4c027040439d10a424387908aff0d0853d5c",
+      "case": {
+        "name": "power-triple",
+        "kind": "play",
+        "options": {
+          "power": "triple",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-triple-1.png",
+      "sha256": "7f1158fbff0d76bfca361d3cc187e58522dc92a44f6f1a90576ad8c745de4c5d",
+      "case": {
+        "name": "power-triple",
+        "kind": "play",
+        "options": {
+          "power": "triple",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-triple-2.png",
+      "sha256": "2220f0c05f1a5ab10f77efb01ef42399f1e58a5d72cb832ed0f9633b78d42df5",
+      "case": {
+        "name": "power-triple",
+        "kind": "play",
+        "options": {
+          "power": "triple",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-steal-0.png",
+      "sha256": "e5e0008ad3757615fd364233495d37871d0f201710c1796dc1707c1694255bdf",
+      "case": {
+        "name": "power-steal",
+        "kind": "play",
+        "options": {
+          "power": "steal",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 225,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-steal-1.png",
+      "sha256": "0b2326653d3eeea207c8489809bb8c6fd383147ccadde4456ee218e40d9c1742",
+      "case": {
+        "name": "power-steal",
+        "kind": "play",
+        "options": {
+          "power": "steal",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 225,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-steal-2.png",
+      "sha256": "58e421a49b471657c41a858abf94f5cf333df53d3dae0e7530f4955730e54edb",
+      "case": {
+        "name": "power-steal",
+        "kind": "play",
+        "options": {
+          "power": "steal",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 225,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-rocket-0.png",
+      "sha256": "69f0fb64fe5fe2744710cc86b59d97c8eeb54dee57c539310613eecdbc57c2c1",
+      "case": {
+        "name": "power-rocket",
+        "kind": "play",
+        "options": {
+          "power": "rocket",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-rocket-1.png",
+      "sha256": "615f9102d85ab4c939e76898c2314f562d94d0c1dee4c3df14be0a7d84e740e6",
+      "case": {
+        "name": "power-rocket",
+        "kind": "play",
+        "options": {
+          "power": "rocket",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-rocket-2.png",
+      "sha256": "7d3563a4a15ec76327e8d9724ee2e73d4e348b196af5a6195ffc2b0d7ae114c7",
+      "case": {
+        "name": "power-rocket",
+        "kind": "play",
+        "options": {
+          "power": "rocket",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-twin-0.png",
+      "sha256": "40b2bd43d051b0d3825259941d09ee351d57896787223af4a279651c69fed93d",
+      "case": {
+        "name": "power-twin",
+        "kind": "play",
+        "options": {
+          "power": "twin",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-twin-1.png",
+      "sha256": "1d7e6f5e838ad42749475f107935c29ec46bb7f74c10bcb026f3dfa4d9bfa5a7",
+      "case": {
+        "name": "power-twin",
+        "kind": "play",
+        "options": {
+          "power": "twin",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-twin-2.png",
+      "sha256": "c473c79594a6bbb9b0e71b303e59e6a69dc89239615400c036a0ff57d0163208",
+      "case": {
+        "name": "power-twin",
+        "kind": "play",
+        "options": {
+          "power": "twin",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-bomb-0.png",
+      "sha256": "d1fade4734e7f27d85b3c7b78747d378723b67078da562a3ffa1d1d3a284f303",
+      "case": {
+        "name": "power-bomb",
+        "kind": "play",
+        "options": {
+          "power": "bomb",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-bomb-1.png",
+      "sha256": "fd33d996de03f833e50bce35f9e8b242cf7b34c0e90c3e74cf4ce305d8291654",
+      "case": {
+        "name": "power-bomb",
+        "kind": "play",
+        "options": {
+          "power": "bomb",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-bomb-2.png",
+      "sha256": "99bfff217ce86c0840fcde107a2242413e80c77501db3f31a46fb85e15a891b7",
+      "case": {
+        "name": "power-bomb",
+        "kind": "play",
+        "options": {
+          "power": "bomb",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 223,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-unlimited-0.png",
+      "sha256": "5d8c6b178e37112d2fe5c32e55cf8f0bbb920cfbf917749b109fa00d9f1c4d11",
+      "case": {
+        "name": "power-unlimited",
+        "kind": "play",
+        "options": {
+          "power": "unlimited",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 225,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-unlimited-1.png",
+      "sha256": "1a34b827079e51f9c5a89674599b3bf4aebd60af690f702e9a1a350e02efa871",
+      "case": {
+        "name": "power-unlimited",
+        "kind": "play",
+        "options": {
+          "power": "unlimited",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 225,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-unlimited-2.png",
+      "sha256": "301a67a091fbaceee8585e1e47ae590b6891e5df134c620b1a88212e1c1ff351",
+      "case": {
+        "name": "power-unlimited",
+        "kind": "play",
+        "options": {
+          "power": "unlimited",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 225,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-shield-0.png",
+      "sha256": "076cf7541b011789847ad711439bb20495ca3bceb40ebfa3120f3e3c7940b1bf",
+      "case": {
+        "name": "power-shield",
+        "kind": "play",
+        "options": {
+          "power": "shield",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-shield-1.png",
+      "sha256": "c807cfae6da2243bc4ad8522307f846b1c82040f6c678e33614429ca355a422e",
+      "case": {
+        "name": "power-shield",
+        "kind": "play",
+        "options": {
+          "power": "shield",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-shield-2.png",
+      "sha256": "c260434201268eefb1f27faf6d831749e0c87b03470d071296a9e705af4b58ba",
+      "case": {
+        "name": "power-shield",
+        "kind": "play",
+        "options": {
+          "power": "shield",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-cowRain-0.png",
+      "sha256": "14f019343eb41fb7e53c52c327938503664e0211bdf27615a4978d8a9227450c",
+      "case": {
+        "name": "power-cowRain",
+        "kind": "play",
+        "options": {
+          "power": "cowRain",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 318,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-cowRain-1.png",
+      "sha256": "7b03040ce44a815c00edd5426dbd8a2a07d2ad470bcbacef4bd0b1466e967860",
+      "case": {
+        "name": "power-cowRain",
+        "kind": "play",
+        "options": {
+          "power": "cowRain",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 318,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-cowRain-2.png",
+      "sha256": "6fddf9257d58117dbb4a4f1239cf9dc7af75c03317f630346e6fc5a8dc8109c9",
+      "case": {
+        "name": "power-cowRain",
+        "kind": "play",
+        "options": {
+          "power": "cowRain",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 318,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-lambRain-0.png",
+      "sha256": "b6eb9f570d9a31c05cf865c2cb591b5522281f6b26743f5f7c4e8c4b4491647e",
+      "case": {
+        "name": "power-lambRain",
+        "kind": "play",
+        "options": {
+          "power": "lambRain",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 279,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-lambRain-1.png",
+      "sha256": "eef88c43c9cb330197584265086ab7919841a7bc76036433f59127959f7e5023",
+      "case": {
+        "name": "power-lambRain",
+        "kind": "play",
+        "options": {
+          "power": "lambRain",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 279,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-lambRain-2.png",
+      "sha256": "29cbceba223dd0fd95273bd244c2755b83cbf5589aa5eaaaeb129b0539d1edca",
+      "case": {
+        "name": "power-lambRain",
+        "kind": "play",
+        "options": {
+          "power": "lambRain",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 279,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-timeBomb-0.png",
+      "sha256": "3e9a6bb59ac8b21d7c38ea17334c4d65a5b438b5c99a94cca19473d0f0b77249",
+      "case": {
+        "name": "power-timeBomb",
+        "kind": "play",
+        "options": {
+          "power": "timeBomb",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 228,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-timeBomb-1.png",
+      "sha256": "ab52fe0d34ced1257d42e43ae7cb015596ba3f391fbad5de7b43f27a8b6edb4a",
+      "case": {
+        "name": "power-timeBomb",
+        "kind": "play",
+        "options": {
+          "power": "timeBomb",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 228,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-timeBomb-2.png",
+      "sha256": "5235b834ae9ba8e17a5a8e3fdc40320f59cfcc102f5ff05c208f034ddfa5f9f3",
+      "case": {
+        "name": "power-timeBomb",
+        "kind": "play",
+        "options": {
+          "power": "timeBomb",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 228,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-parachute-0.png",
+      "sha256": "e5faf8d84d467ae65ff2feedcb280c767a165b3c25c5dcfcb9b39f3fa3e7cf1b",
+      "case": {
+        "name": "power-parachute",
+        "kind": "play",
+        "options": {
+          "power": "parachute",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-parachute-1.png",
+      "sha256": "116f1ea3bfd1a230610740763a12f6091cf83e7266c5cbc80694061e951594af",
+      "case": {
+        "name": "power-parachute",
+        "kind": "play",
+        "options": {
+          "power": "parachute",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/power-parachute-2.png",
+      "sha256": "2cecd4e176975dfedab563b4bd54f27d7d41a3101daeb523709e6205f65b7c75",
+      "case": {
+        "name": "power-parachute",
+        "kind": "play",
+        "options": {
+          "power": "parachute",
+          "steps": 1
+        },
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 224,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/stress-0.png",
+      "sha256": "f49f129885046615ae4e61fc91fa47e5f25be371fbd28301819515193426c4d9",
+      "case": {
+        "name": "stress",
+        "kind": "stress",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 412,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/stress-1.png",
+      "sha256": "3c1d66dfe8e4bf317d7312b16d159d74cd56037d9c8b3ef570cf4fcc5b8d9245",
+      "case": {
+        "name": "stress",
+        "kind": "stress",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 412,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/stress-2.png",
+      "sha256": "e5544bb960b0daed123de7b738ffa40ff0117ad66c690d17fe29a1869ad04c9a",
+      "case": {
+        "name": "stress",
+        "kind": "stress",
+        "options": {},
+        "date": "2026-10-11",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 412,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": "play",
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-christmas-0.png",
+      "sha256": "8d3db45e32473440aeccb80a27836cde0aa9b48b88d9269a554c4d3680f59a80",
+      "case": {
+        "name": "season-christmas",
+        "kind": "title",
+        "options": {},
+        "date": "2026-12-24",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 202,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-christmas-1.png",
+      "sha256": "b7fc70e5c3d77540f9b0c9bbb9da2009635152e9ffe8f7e0005ab2c1ed1e431f",
+      "case": {
+        "name": "season-christmas",
+        "kind": "title",
+        "options": {},
+        "date": "2026-12-24",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 202,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-christmas-2.png",
+      "sha256": "d2e4c0c015732f635dcc8171828de135e44068bca67e742fa85381c9793e267e",
+      "case": {
+        "name": "season-christmas",
+        "kind": "title",
+        "options": {},
+        "date": "2026-12-24",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 202,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-new-year-0.png",
+      "sha256": "2a9dfe56acf03dd05b24e41adc01a5dfe5543244613e19f00d0bd4a4cc5a71bd",
+      "case": {
+        "name": "season-new-year",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-12-31",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 201,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-new-year-1.png",
+      "sha256": "79ab046308744c56a1f1d51ca59480daa57a4a54ce4e0b9e346adcc5e23a4bc9",
+      "case": {
+        "name": "season-new-year",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-12-31",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 201,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-new-year-2.png",
+      "sha256": "095864ad5e1dbbe6f50b3abbd95023d48c20c672b45131f7ffdf02c7e39edd99",
+      "case": {
+        "name": "season-new-year",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-12-31",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 201,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-midsummer-0.png",
+      "sha256": "12cec1c8eaffdacb2853c874b05e3f8adb2b535871391a67b9258ba63f6a2271",
+      "case": {
+        "name": "season-midsummer",
+        "kind": "title",
+        "options": {},
+        "date": "2026-06-19",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-midsummer-1.png",
+      "sha256": "4959126182bef5322869a30157e522110f5d1e002fb4c37e04e04fc64113f7fc",
+      "case": {
+        "name": "season-midsummer",
+        "kind": "title",
+        "options": {},
+        "date": "2026-06-19",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-midsummer-2.png",
+      "sha256": "632921614dabdfe56bc0746846ad3138c5c7c15cbc2f496301715ee738875027",
+      "case": {
+        "name": "season-midsummer",
+        "kind": "title",
+        "options": {},
+        "date": "2026-06-19",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 200,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-may4-0.png",
+      "sha256": "4afaa41272162093410de6aa84e0334f495192ba35e66bb23cdb8cc43c6ea140",
+      "case": {
+        "name": "season-may4",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-05-04",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 204,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-may4-1.png",
+      "sha256": "3e7a075119f242b700f70bd19e9d88543d3694fed864253999ca22d9808f6f78",
+      "case": {
+        "name": "season-may4",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-05-04",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 204,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-may4-2.png",
+      "sha256": "e1e8e8587da7200cadec64d9bbe44f74b0eea834276a285eea120dbd9165e67a",
+      "case": {
+        "name": "season-may4",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-05-04",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 204,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-halloween-0.png",
+      "sha256": "9d4ce7188d6d7b172dec94981f0f4544b34c93f6a357dac68723f2052efc793d",
+      "case": {
+        "name": "season-halloween",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-10-31",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 0,
+      "additionalSteps": 0,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 204,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-halloween-1.png",
+      "sha256": "ddaf90b8b069173a17b2d0544d73bc4f8af6081514e0c8e2388978ce26d8fc6f",
+      "case": {
+        "name": "season-halloween",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-10-31",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 1,
+      "additionalSteps": 30,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 204,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    },
+    {
+      "file": "screens/season-halloween-2.png",
+      "sha256": "a848f8cb0b2bcf0c86208a6f51dbce5e3821acabb3e681d1385daf300f42387d",
+      "case": {
+        "name": "season-halloween",
+        "kind": "title",
+        "options": {
+          "steps": 300
+        },
+        "date": "2026-10-31",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "dpr": 1,
+        "frames": 3
+      },
+      "frame": 2,
+      "additionalSteps": 60,
+      "metadata": {
+        "epoch": 1791720000000,
+        "cosmeticSeed": 12345,
+        "moonPhase": "full",
+        "viewport": {
+          "width": 1280,
+          "height": 720,
+          "dpr": 1
+        },
+        "canvas": {
+          "width": 1280,
+          "height": 720
+        },
+        "resolution": 1,
+        "renderer": "WebGLRenderer",
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "extraSky": 0,
+        "flightTop": -0.0,
+        "objects": 204,
+        "textures": 26,
+        "options": {
+          "players": 2,
+          "difficulty": "normal",
+          "length": 90,
+          "rounds": 3,
+          "ratio169": false
+        },
+        "phase": null,
+        "sound": "muted; no trusted audio-unlock gesture"
+      }
+    }
+  ]
+}
