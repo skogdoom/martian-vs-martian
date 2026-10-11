@@ -78,8 +78,9 @@ This remains a render-only artwork preview.
 See [the migration plan](PHASER_MIGRATION.md) and the review notes for
 [milestone 1](docs/phaser-host/README.md),
 [milestone 2](docs/phaser-primitives/README.md),
-[milestone 3](docs/phaser-artwork/README.md), and
-[milestone 4](docs/phaser-scenes/README.md).
+[milestone 3](docs/phaser-artwork/README.md),
+[milestone 4](docs/phaser-scenes/README.md), and
+[milestone 5](docs/phaser-audio/README.md), including audio checks and listening samples.
 
 ## About this project
 

@@ -1,0 +1,6754 @@
+{
+  "schema": 1,
+  "milestone": 5,
+  "implementation_base_commit": "d3ea22db29fe1d2fa5f70cce5134f77c24657128",
+  "recorded_utc": "2026-10-11T21:54:30.815636+00:00",
+  "phaser": "4.2.1",
+  "pixi": "8.21.0",
+  "node": "24.19.0",
+  "npm": "11.9.0",
+  "checks": {
+    "unit_tests": {
+      "passed": 460,
+      "files": 32,
+      "original_passed": 271,
+      "original_files": 30,
+      "original_audio_throttle_tests_passed": 3
+    },
+    "lint": "passed",
+    "production_build": "passed",
+    "simulator_rounds": 10,
+    "runtime_changed": false,
+    "frozen_pixi_artifacts_changed": false
+  },
+  "harness_sha256": {
+    "scripts/phaser/check_audio.py": "daf022a2ee88195c82c947148f295885adfcb8f7acad7e68bbb67e4c50411507",
+    "scripts/phaser/audio_probe.js": "f30c463c8ba494b6e70b1fdba58bde22bac0fd9cc6ed3b9e4ce28e8aa1891341",
+    "scripts/phaser/audio_offline.js": "fe540fa638e2f2d90f17714abb12ab4ce5bd172831bb82823629979aa7f7f51b"
+  },
+  "browser_report": {
+    "complete": true,
+    "preservation": {
+      "original_source_hashes_unchanged": 48,
+      "original_test_files_unchanged": 30,
+      "original_test_identities": 271
+    },
+    "runtime_source_sha256": {
+      "src/audio.js": "750cfacd8bf51b7518395971838cab3f60c2db9d2acac1102895aa63c3d5719e",
+      "src/cheats.js": "d42efe467f9c61ea256880385b859e43aa70c1778e382fb189de18cfa94919f3",
+      "src/config.js": "c8bc19d46d536e29de2eb0a828a0a362a1865bdee1d215f750bf4923dd51a980",
+      "src/entry.js": "a4b257d2a3b3af81904e973a9e2965250bbde4cc6f60ece6681b5051405529bc",
+      "src/fullscreen.js": "025651cd50dfa1db3001b4ec050c8daac5c8350613b92d96789e1eb43b99c98f",
+      "src/gamepad.js": "89870afbbbc53293648c0cf76e82492f351a18c5ff95ecb01e0a94ee86306aae",
+      "src/input.js": "cf2af0464319ed4f50c53c619710f7823b4ba9a0e2de85769a1763bf3827c520",
+      "src/layout.js": "b1cc5b477c18c9ac4229947d985f83a3136f05fc41fbaa3596433f8279e48d78",
+      "src/logic/animal.js": "5af8f9536cd7ece70389eed47e8fe9ca268d2812ab054e7ea09615f31bb51aff",
+      "src/logic/bot.js": "9046fba1fb6040268ec28d89129c7019f800908c4759666477db853eb12b630f",
+      "src/logic/golden.js": "d71278b54b9c0f1d96028ed8b56ae0fdab83251a20096bc627a70a145d90cad6",
+      "src/logic/hook.js": "002549af69ab947d8f8244e0682d4a74856ee15581ddc3f832769c4ab54120c1",
+      "src/logic/match.js": "190e81d216bb7e0aebf8c19e0b8b4c92583e2aa2c52877a3833d3e901d391633",
+      "src/logic/ordnance.js": "b28d4e9af3b265327fb69ed88f9c63cf6a6665bff0d3d11ffc02b152698fd363",
+      "src/logic/powerup.js": "a437f5bca37a1f61c33705b59a2f277aaca475377d09344e523ed1e0a45ba8d2",
+      "src/logic/projectile.js": "f237d2ba79e3374fbc22a9906194e82809444b0bd72203b69bbbf181e76e57eb",
+      "src/logic/rng.js": "bca408e92a5c31d1e0e286f88da4c66d6c03644999d49f8f8910e97517202f35",
+      "src/logic/round.js": "e31137f01674402f264505aa8a6a1d04effabe297bb3de92a63eb740ce58de69",
+      "src/logic/saucer.js": "11d7b097026167065d07fd05a5bd839eef6ff58637ce5293d8b6ff4f574aa1a3",
+      "src/logic/scoring.js": "1107b565a0d34bba8d82afff5b0b8bf3d2899ef05897a3d28608e383c8c47182",
+      "src/logic/tally.js": "0aab236441acc1dc44e166fd0af121367b29f2f01cf1dc3d42db07ffeea68382",
+      "src/logic/weapon.js": "cd612c5ec7142809d22407b7b4525857db3d962e21f187fd9aecf0968286c550",
+      "src/logic/wolf.js": "0f4cb50fd43cde4a30b284a21c0790ea443916413a959842bcc429711a1cea16",
+      "src/logic/world.js": "4bb95906ee320264b849adeafdaed7c9e8fa71ed3c5318acf76c326c4b4d0ea4",
+      "src/main.js": "b96ee3d167fb2d43d216350bf5f4307516112e92f1df728358680d31fc2e7851",
+      "src/occasion.js": "e4dadbf32acbe95688d0cb2d178b9d20304c71926c36064706841af381dbcd3c",
+      "src/options.js": "65c4a7b28f5df8b6b5d6d17a8f25f4cc3436cf61cf3d2ad756d227b3a2419ec8",
+      "src/phaser/art.js": "1f9ab9a0d56c02fb19aa738497ea6f16fd0cf28545db0c06fc5e0cdea3fa327f",
+      "src/phaser/artwork-fixtures.js": "ed78a81a9881d311676e3eb2494b98f2b2de8cd346919bdbcb7aab476514f109",
+      "src/phaser/artwork.js": "30af78bbacfd63b15fa79d880fdb3bc436bc0693d6b7a49623d123b7e1354e9d",
+      "src/phaser/clock.js": "789975946e427194667bffbac6bcd8c60632c1cea1e05e2801914beca5c314a6",
+      "src/phaser/drawing.js": "9894d05fce219a7a4b9d097019c6e28a4d751ef70c73856ead77a7a7f64c0afe",
+      "src/phaser/fullscreen.js": "87de1aabe41da24926a649c01665a3e9c52a17fec6118707e7d8c87dd0ba6d65",
+      "src/phaser/gallery-fixtures.js": "b0adb68f232182cb4a2ef09ddfbd79a6e45bc2c30c26deae691290e8912ad16d",
+      "src/phaser/gallery.js": "aaea9f2d7cf0d0847776559fcd271ceab4441cae87ec2936fe839e1db29be373",
+      "src/phaser/input.js": "bff16e64037d08c64beb928982acc83b6e2a373ae79b10e7ab644133188d8cac",
+      "src/phaser/listView.js": "c9fda75577377d98124b9079e44eb403b9da7a7e1b83214511d5cda43704fdc2",
+      "src/phaser/main.js": "59b113d0056ed1be90f58a87bd4d1c405a1bb5d1dba78d7372896aeb2dc7480f",
+      "src/phaser/presentation.js": "0ac70f2677a4128864915aa738c6c658bafaa750fdaa6324a54f1a1f7163ad01",
+      "src/phaser/preview.js": "2f5033a48379344436cb9f2cc44f92204d9f78f7cd0d80522be1dc03a8b5f478",
+      "src/phaser/render/animalView.js": "b4aeb0e62216caeed105519be57adaf9005aa013131f1368e922a36667d9fb7d",
+      "src/phaser/render/backdrop.js": "e5ccb9b4de3eac9dc8b4926b50b6b92dee7c2c5548e59aad4834870fde04fc8b",
+      "src/phaser/render/effects.js": "0ce9034102b0a5dbd208d559d246eaf2b08d6d1b649c5978913c0fd8fb305f6c",
+      "src/phaser/render/festive.js": "8f551d872a0e5ace5c3d632a910c3e4efb84ca393347dfa4736be029b9ac881f",
+      "src/phaser/render/hud.js": "68585e5be2f592e415d993da602267007e633113acc22651a492876554551161",
+      "src/phaser/render/listView.js": "c6ba9c47e2c745f5a01d59a69d988371af6b2be059edc8131e752fcabe80a0f8",
+      "src/phaser/render/menu.js": "44867c4b229e93bfa180c2f2c75b0573215d4b27edf4ce6738b42523cbe8f5a9",
+      "src/phaser/render/powerupView.js": "931f9cfbdf7513e4bc0d09110c41bfc7443f44558a8aff3ce9482e9d221cbb61",
+      "src/phaser/render/projectileView.js": "398947b0edbe5989fb80e38d66068a7b5032ad4e0a18b935ffb85014e8506f56",
+      "src/phaser/render/saucerView.js": "b16076e35d82df2703dd20ec1b0ee43204a000ae8092facefde1bbaed52cc05d",
+      "src/phaser/render/shootingStars.js": "41290b554b2ba9ae419cb6053244ab9543ad3f765a8ef9c1e0c7bcf0774cfcca",
+      "src/phaser/render/text.js": "ebabc0ef64cc9635da510217e5714c5d899ced780cc26ae9cc0a8c707abdaa56",
+      "src/phaser/render/tieFlyby.js": "e68b5fb2d173b6db209fc1791f67014fda62cb3f6164e35dac4e4c073f738344",
+      "src/phaser/render/timeBombView.js": "959dd211da05f100e9a9b0997c443702b32cecbd76b98190529f5f2060b5b6bd",
+      "src/phaser/render/uiLayer.js": "a575f8ae01868279b45e2b3d9124085e1d717ef80aeac0495ea3acf20453ecab",
+      "src/phaser/render/wolfView.js": "658f7ea285867e8c64863b2dc4fbdcebea4561ef169942d3246cf62923b0d265",
+      "src/phaser/representatives.js": "dedb69ede932763d11d17b49121384da2abdc2da90d1cba1e823809f3097383d",
+      "src/phaser/scenes/play.js": "6209dbe221ee7e6ad670098d6dc22b92241bd4b802928c0314363f711ca62d75",
+      "src/phaser/scenes/roundEnd.js": "64342dde830cdb5c7cba37899fe2cb47b0242bae99b7ad3a9ed579e33fc030b4",
+      "src/phaser/scenes/scope.js": "9ff3c6b9ac5c2dbc9b79540d5c951db05bdffaa7c8b11ea9902d81027cab1a27",
+      "src/phaser/scenes/settings.js": "55644115e213e4ffec75cad16d8e18df711a9bf6e2c96db945efa2796d9aa4de",
+      "src/phaser/scenes/tally.js": "4c49c64e9130373e349278a140813f81ca54fd22f16f1779b954a601db3bc3a7",
+      "src/phaser/scenes/title.js": "3ea77ba2fca2192b810d53c00fdfe9396c926a1dfed97805987a4e66284a7bc2",
+      "src/phaser/shapes.js": "b92c22e9b6c46b16c6f3a9d4f04f38b528916a7fcaff8c3bb203b769bad39bed",
+      "src/phaser/textureSampling.js": "42b20c4410ebaa3ac7a770a53eac54421802dc5293828146301058b8991e621c",
+      "src/phaser/uiLayer.js": "3c714665ac758a059f6177343773392c0570caefd278afbd2b3700630b382d96",
+      "src/render/animalView.js": "f800c56682a44b32ed2d520beabad9578f916d646f710c51595c08a820cd36a3",
+      "src/render/backdrop.js": "03d1d6d93194b895e84cfbca7bfef94e3a191dff7470fc52757d0f62aa8cae27",
+      "src/render/effects.js": "f475c3d7f99ee26ffd30773202a56913af2b7c1128efbe674cde332eb23642be",
+      "src/render/festive.js": "6d9cf1c4b0f6e711dff4fa9b00ca42895e22e0dd827f8a3ae22d94b8d9c14ea1",
+      "src/render/hud.js": "f5de15734b961c5843f908ac9e326c65750697a57ccc5f2d6f3de63907e519be",
+      "src/render/listView.js": "d9ee49816639c28d908f234e80d8ea229b37e0934391eac1815055518a0877b1",
+      "src/render/menu.js": "1c7972ada0d7d0534175720819245c319d64d205ef7534269d47e897957f7345",
+      "src/render/powerupView.js": "935559e3f4d0f5e50d9e7d10a58f31fdbac643c5a92c5af89f6fa0891dfdc3bc",
+      "src/render/projectileView.js": "cd407d544dc2970624368cc4ae894a7119917c5e357f39fb612bb00db9b4f347",
+      "src/render/saucerView.js": "9d2b08f53e021fd71b883117b9d956727bc2e5727633c8a2ecb01fa94dc82842",
+      "src/render/shootingStars.js": "6712d922f84061c7124f45ca16e3274157d384219a8c162a6d5145c3d7535fbe",
+      "src/render/text.js": "e542d322b44edad22fac29756c68f533c59c80d3e4815847b47e7e834cdb333e",
+      "src/render/tieFlyby.js": "fc2861374a7bd976ff8b3d8abbb1f5cde9bd2779bb277cb4119550a0897af37b",
+      "src/render/timeBombView.js": "3048c7dcc217a7bc19e2b740d34133394732d6b977eb20cf865cc02502aa9f42",
+      "src/render/uiLayer.js": "9f7815359b7eec1083d1c4ebdf5edca4bc770b7386d76b3566f038a13841433e",
+      "src/render/wolfView.js": "bfd5c3db5ce28a615c3853557c13f745abea270b95bb9ef013daf8bc784af0a6",
+      "src/scenes/play.js": "aea9023bbff75b08df75c92cda14aba811083b218ff0741428b4c2867a39be64",
+      "src/scenes/roundEnd.js": "3beeebe106fc41e18bb59825e3d2c2ff07f4a02911510bf5bf4bc2103c7fbc6a",
+      "src/scenes/settings.js": "f1f11e2b3d7e231ecb0d1b34bae37cf0ac97e981eff9c353871a0e20ccf75f3b",
+      "src/scenes/tally.js": "a7e032a04304817863101572be2ce4732d5f0f9df06da153e71d702e0153c813",
+      "src/scenes/title.js": "7d56fb04c4631982de764eeaff506aa78a7a42223c3ab452c3b4f1017af8ef72",
+      "src/session.js": "2cbc4569f1518537472ca3d2e9fc23274069519916d67088026de700be8c20bd"
+    },
+    "offline": {
+      "pixi": {
+        "recipes": 34,
+        "cases": [
+          {
+            "fixture": {
+              "name": "zap"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10560482740402222,
+              "rms": [0.0037597674475740445, 0.0037597674475740445],
+              "first": 0.1064375,
+              "last": 0.25597916666666665,
+              "crossings": 181
+            }
+          },
+          {
+            "fixture": {
+              "name": "thud"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.4154208302497864,
+              "rms": [0.017687441461118378, 0.017687441461118378],
+              "first": 0.10620833333333334,
+              "last": 0.43345833333333333,
+              "crossings": 158
+            }
+          },
+          {
+            "fixture": {
+              "name": "boing"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.16417983174324036,
+              "rms": [0.010014079737694153, 0.010014079737694153],
+              "first": 0.1065,
+              "last": 0.4799375,
+              "crossings": 217
+            }
+          },
+          {
+            "fixture": {
+              "name": "click"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.1327776312828064,
+              "rms": [0.001951818777803747, 0.001951818777803747],
+              "first": 0.10666666666666667,
+              "last": 0.218625,
+              "crossings": 1158
+            }
+          },
+          {
+            "fixture": {
+              "name": "dry"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.06602641195058823,
+              "rms": [0.0006721324612319769, 0.0006721324612319769],
+              "first": 0.10641666666666667,
+              "last": 0.129,
+              "crossings": 1946
+            }
+          },
+          {
+            "fixture": {
+              "name": "lift"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.09053944051265717,
+              "rms": [0.014373102845608882, 0.014373102845608882],
+              "first": 0.12547916666666667,
+              "last": 0.9559791666666667,
+              "crossings": 714
+            }
+          },
+          {
+            "fixture": {
+              "name": "womp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.1006552204489708,
+              "rms": [0.0040281216162278395, 0.0040281216162278395],
+              "first": 0.10702083333333333,
+              "last": 0.3834166666666667,
+              "crossings": 157
+            }
+          },
+          {
+            "fixture": {
+              "name": "ding"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.09459692239761353,
+              "rms": [0.0038243411947383194, 0.0038243411947383194],
+              "first": 0.10629166666666667,
+              "last": 0.3381458333333333,
+              "crossings": 789
+            }
+          },
+          {
+            "fixture": {
+              "name": "moo"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.2866398096084595,
+              "rms": [0.03440443138419838, 0.03440443138419838],
+              "first": 0.10841666666666666,
+              "last": 1.0956666666666666,
+              "crossings": 598
+            }
+          },
+          {
+            "fixture": {
+              "name": "baa"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.32570770382881165,
+              "rms": [0.01732774889498521, 0.01732774889498521],
+              "first": 0.11741666666666667,
+              "last": 0.6752708333333334,
+              "crossings": 1032
+            }
+          },
+          {
+            "fixture": {
+              "name": "howl"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.14843371510505676,
+              "rms": [0.04688127148014262, 0.04688127148014262],
+              "first": 0.129125,
+              "last": 2.264,
+              "crossings": 2125
+            }
+          },
+          {
+            "fixture": {
+              "name": "growl"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.3642641305923462,
+              "rms": [0.02794743591994808, 0.02794743591994808],
+              "first": 0.1069375,
+              "last": 0.7705208333333333,
+              "crossings": 414
+            }
+          },
+          {
+            "fixture": {
+              "name": "tick"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07471896708011627,
+              "rms": [0.0012417218751986359, 0.0012417218751986359],
+              "first": 0.10622916666666667,
+              "last": 0.18579166666666666,
+              "crossings": 532
+            }
+          },
+          {
+            "fixture": {
+              "name": "chomp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.14375406503677368,
+              "rms": [0.006138133283230431, 0.006138133283230431],
+              "first": 0.1065625,
+              "last": 0.3524375,
+              "crossings": 152
+            }
+          },
+          {
+            "fixture": {
+              "name": "chime"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.16461345553398132,
+              "rms": [0.014228197837382143, 0.014228197837382143],
+              "first": 0.1063125,
+              "last": 0.9958958333333333,
+              "crossings": 3681
+            }
+          },
+          {
+            "fixture": {
+              "name": "beep"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07177422940731049,
+              "rms": [0.007499393516211923, 0.007499393516211923],
+              "first": 0.10664583333333333,
+              "last": 0.25825,
+              "crossings": 219
+            }
+          },
+          {
+            "fixture": {
+              "name": "siren"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.0755499079823494,
+              "rms": [0.01552084043169183, 0.01552084043169183],
+              "first": 0.1065625,
+              "last": 0.9785,
+              "crossings": 1418
+            }
+          },
+          {
+            "fixture": {
+              "name": "chirp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.12091050297021866,
+              "rms": [0.006530306779123126, 0.006530306779123126],
+              "first": 0.10739583333333333,
+              "last": 0.4048541666666667,
+              "crossings": 940
+            }
+          },
+          {
+            "fixture": {
+              "name": "fanfare"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.13799095153808594,
+              "rms": [0.01580454365254857, 0.01580454365254857],
+              "first": 0.1063125,
+              "last": 0.9721666666666666,
+              "crossings": 3292
+            }
+          },
+          {
+            "fixture": {
+              "name": "ohNo"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.115960031747818,
+              "rms": [0.017691002057167143, 0.017691002057167143],
+              "first": 0.10808333333333334,
+              "last": 0.8087916666666667,
+              "crossings": 1146
+            }
+          },
+          {
+            "fixture": {
+              "name": "flap"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.039007946848869324,
+              "rms": [0.0009837488105240385, 0.0009837488105240385],
+              "first": 0.10864583333333333,
+              "last": 0.26835416666666667,
+              "crossings": 1334
+            }
+          },
+          {
+            "fixture": {
+              "name": "powerDown"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07013771682977676,
+              "rms": [0.007646743262809086, 0.007646743262809086],
+              "first": 0.1065625,
+              "last": 0.5285416666666667,
+              "crossings": 494
+            }
+          },
+          {
+            "fixture": {
+              "name": "deflect"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.1299528330564499,
+              "rms": [0.0034528060673149636, 0.0034528060673149636],
+              "first": 0.10627083333333333,
+              "last": 0.337,
+              "crossings": 1161
+            }
+          },
+          {
+            "fixture": {
+              "name": "pop"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.14691655337810516,
+              "rms": [0.00458342984603779, 0.00458342984603779],
+              "first": 0.10652083333333333,
+              "last": 0.28772916666666665,
+              "crossings": 917
+            }
+          },
+          {
+            "fixture": {
+              "name": "laser"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.13003882765769958,
+              "rms": [0.0120561193405166, 0.0120561193405166],
+              "first": 0.1119375,
+              "last": 1.0556458333333334,
+              "crossings": 2983
+            }
+          },
+          {
+            "fixture": {
+              "name": "whoosh"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.06568489223718643,
+              "rms": [0.0029883279281769717, 0.0029883279281769717],
+              "first": 0.11354166666666667,
+              "last": 0.6551875,
+              "crossings": 3676
+            }
+          },
+          {
+            "fixture": {
+              "name": "boom"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.5250208973884583,
+              "rms": [0.03193306001431402, 0.03193306001431402],
+              "first": 0.10622916666666667,
+              "last": 1.0148125,
+              "crossings": 733
+            }
+          },
+          {
+            "fixture": {
+              "name": "whistle"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07067837566137314,
+              "rms": [0.016050353286439497, 0.016050353286439497],
+              "first": 0.10925,
+              "last": 0.7855208333333333,
+              "crossings": 1748
+            }
+          },
+          {
+            "fixture": {
+              "name": "fizz"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.2019781470298767,
+              "rms": [0.006896639826193824, 0.006896639826193824],
+              "first": 0.10827083333333333,
+              "last": 0.6476666666666666,
+              "crossings": 14118
+            }
+          },
+          {
+            "fixture": {
+              "name": "splat"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.30935466289520264,
+              "rms": [0.012431836710549475, 0.012431836710549475],
+              "first": 0.10647916666666667,
+              "last": 0.388375,
+              "crossings": 127
+            }
+          },
+          {
+            "fixture": {
+              "name": "horn"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.12724238634109497,
+              "rms": [0.0145794431991768, 0.0145794431991768],
+              "first": 0.11070833333333334,
+              "last": 0.6357291666666667,
+              "crossings": 284
+            }
+          },
+          {
+            "fixture": {
+              "name": "harp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10628585517406464,
+              "rms": [0.011616998157863264, 0.011616998157863264],
+              "first": 0.1065625,
+              "last": 1.159625,
+              "crossings": 3598
+            }
+          },
+          {
+            "fixture": {
+              "name": "goldChime"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.22047632932662964,
+              "rms": [0.02919923782940796, 0.02919923782940796],
+              "first": 0.10629166666666667,
+              "last": 1.8559791666666667,
+              "crossings": 3897
+            }
+          },
+          {
+            "fixture": {
+              "name": "jingle"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.2668432891368866,
+              "rms": [0.0316928719244526, 0.0316928719244526],
+              "first": 0.1063125,
+              "last": 1.344375,
+              "crossings": 2092
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "opts": {
+                "side": "blue"
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10251717269420624,
+              "rms": [0.0037354858895812734, 0.0037354858895812734],
+              "first": 0.1064375,
+              "last": 0.25566666666666665,
+              "crossings": 232
+            }
+          },
+          {
+            "fixture": {
+              "name": "tick",
+              "opts": {
+                "urgent": true
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07971394062042236,
+              "rms": [0.001603793299758896, 0.001603793299758896],
+              "first": 0.10625,
+              "last": 0.1851875,
+              "crossings": 592
+            }
+          },
+          {
+            "fixture": {
+              "name": "chime",
+              "opts": {
+                "full": false
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.13221140205860138,
+              "rms": [0.009806209226753581, 0.009806209226753581],
+              "first": 0.1063125,
+              "last": 0.85575,
+              "crossings": 1782
+            }
+          },
+          {
+            "fixture": {
+              "name": "boom",
+              "opts": {
+                "big": false
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.26062867045402527,
+              "rms": [0.01147517828936824, 0.01147517828936824],
+              "first": 0.10629166666666667,
+              "last": 0.618625,
+              "crossings": 347
+            }
+          },
+          {
+            "fixture": {
+              "name": "beep",
+              "opts": {
+                "go": true
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07584907114505768,
+              "rms": [0.014432362772857235, 0.014432362772857235],
+              "first": 0.10664583333333333,
+              "last": 0.5369583333333333,
+              "crossings": 1044
+            }
+          },
+          {
+            "fixture": {
+              "name": "lift",
+              "stop": 0.35
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.09039179235696793,
+              "rms": [0.007540374595306509, 0.007540374595306509],
+              "first": 0.12547916666666667,
+              "last": 0.45597916666666666,
+              "crossings": 198
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "pan": -0.6
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10043615847826004,
+              "rms": [0.003575751359824643, 0.0011618319698101776],
+              "first": 0.1064375,
+              "last": 0.25597916666666665,
+              "crossings": 181
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "pan": 0.6
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10043615847826004,
+              "rms": [0.0011618319698101776, 0.003575751359824643],
+              "first": 0.1064375,
+              "last": 0.25597916666666665,
+              "crossings": 181
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "muted": true
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0,
+              "rms": [0, 0],
+              "first": 4,
+              "last": 0,
+              "crossings": 0
+            }
+          }
+        ],
+        "listening_trace": [
+          {
+            "action": "start",
+            "name": "beep",
+            "voice": 108,
+            "t": 0.10500000000000001,
+            "pan": null,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "beep",
+            "voice": 109,
+            "t": 0.605,
+            "pan": null,
+            "opts": {
+              "go": true
+            }
+          },
+          {
+            "action": "start",
+            "name": "zap",
+            "voice": 110,
+            "t": 1.005,
+            "pan": -0.6000000238418579,
+            "opts": {
+              "side": "red"
+            }
+          },
+          {
+            "action": "start",
+            "name": "zap",
+            "voice": 111,
+            "t": 1.4049999999999998,
+            "pan": 0.6000000238418579,
+            "opts": {
+              "side": "blue"
+            }
+          },
+          {
+            "action": "start",
+            "name": "lift",
+            "voice": 112,
+            "t": 1.805,
+            "pan": -0.44999998807907104,
+            "opts": {
+              "dur": 1.45
+            }
+          },
+          {
+            "action": "start",
+            "name": "moo",
+            "voice": 113,
+            "t": 1.805,
+            "pan": -0.44999998807907104,
+            "opts": {}
+          },
+          {
+            "action": "stop",
+            "name": "lift",
+            "voice": 112,
+            "t": 2.4
+          },
+          {
+            "action": "start",
+            "name": "womp",
+            "voice": 114,
+            "t": 2.405,
+            "pan": -0.44999998807907104,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "laser",
+            "voice": 115,
+            "t": 3.005,
+            "pan": null,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "laser",
+            "voice": 116,
+            "t": 3.005,
+            "pan": null,
+            "opts": {}
+          },
+          {
+            "action": "stop",
+            "name": "laser",
+            "voice": 115,
+            "t": 3.7
+          },
+          {
+            "action": "stop",
+            "name": "laser",
+            "voice": 116,
+            "t": 3.7
+          },
+          {
+            "action": "start",
+            "name": "splat",
+            "voice": 117,
+            "t": 4.305,
+            "pan": 0,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "splat",
+            "voice": 118,
+            "t": 4.305,
+            "pan": 0,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "splat",
+            "voice": 119,
+            "t": 4.305,
+            "pan": 0,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "chime",
+            "voice": 120,
+            "t": 5.005,
+            "pan": -0.44999998807907104,
+            "opts": {
+              "full": true
+            }
+          },
+          {
+            "action": "start",
+            "name": "goldChime",
+            "voice": 121,
+            "t": 6.005,
+            "pan": 0.44999998807907104,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "jingle",
+            "voice": 122,
+            "t": 8.505,
+            "pan": null,
+            "opts": {}
+          }
+        ],
+        "listening_pcm": {
+          "rate": 48000,
+          "frames": 576000,
+          "peak": 0.5250037908554077,
+          "rms": [0.03667513369238407, 0.03468304291962703],
+          "first": 0.111625,
+          "last": 9.749541666666667,
+          "crossings": 14648,
+          "float_sha256": "9c1d67fdf224764ac3c89bafc2926c052ed30a3baa845aefded9e231a9b20b2d"
+        },
+        "mapping": {
+          "cases": 62,
+          "traces": [
+            {
+              "event": {
+                "type": "shot",
+                "side": "red",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "zap",
+                  "voice": 1,
+                  "t": 1.005,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "side": "red"
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "shot",
+                "side": "blue",
+                "x": 1280,
+                "triple": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "zap",
+                  "voice": 2,
+                  "t": 1.305,
+                  "pan": 0.6000000238418579,
+                  "opts": {
+                    "side": "blue"
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "zap",
+                  "voice": 3,
+                  "t": 1.305,
+                  "pan": 0.6000000238418579,
+                  "opts": {
+                    "side": "red"
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "dryFire"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "dry",
+                  "voice": 4,
+                  "t": 1.605,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hit",
+                "shielded": false,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "thud",
+                  "voice": 5,
+                  "t": 1.905,
+                  "pan": 0,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hit",
+                "shielded": true,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "deflect",
+                  "voice": 6,
+                  "t": 2.205,
+                  "pan": 0,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "ram",
+                "shielded": false,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "thud",
+                  "voice": 7,
+                  "t": 2.505,
+                  "pan": 0,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "boom",
+                  "voice": 8,
+                  "t": 2.505,
+                  "pan": 0,
+                  "opts": {
+                    "big": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "ram",
+                "shielded": true,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "deflect",
+                  "voice": 9,
+                  "t": 2.8049999999999997,
+                  "pan": 0,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "dazed"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "womp",
+                  "voice": 10,
+                  "t": 3.1049999999999995,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "burst"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "splat",
+                  "voice": 11,
+                  "t": 3.4049999999999994,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "animalRain",
+                "count": 2,
+                "to": "cow"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 12,
+                  "t": 3.704999999999999,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "animalRain",
+                "count": 2,
+                "to": "lamb"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 13,
+                  "t": 4.004999999999999,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "animalRain",
+                "count": 0
+              },
+              "trace": []
+            },
+            {
+              "event": {
+                "type": "bump"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "boing",
+                  "voice": 14,
+                  "t": 4.604999999999999,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "reload"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "click",
+                  "voice": 15,
+                  "t": 4.9049999999999985,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "cow",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 16,
+                  "t": 5.204999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1.45
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 17,
+                  "t": 5.204999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "lamb",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 16,
+                  "t": 5.499999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 18,
+                  "t": 5.504999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 0.9
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 19,
+                  "t": 5.504999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "greenman",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 18,
+                  "t": 5.799999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 20,
+                  "t": 5.804999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "chirp",
+                  "voice": 21,
+                  "t": 5.804999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "wolf",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 20,
+                  "t": 6.099999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 22,
+                  "t": 6.104999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1.2
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "growl",
+                  "voice": 23,
+                  "t": 6.104999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "crate",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 22,
+                  "t": 6.399999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 24,
+                  "t": 6.404999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 0.8
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "package",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 24,
+                  "t": 6.6999999999999975
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 25,
+                  "t": 6.704999999999997,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "timebomb",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 25,
+                  "t": 6.999999999999997
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 26,
+                  "t": 7.004999999999997,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 0.8
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "interrupt",
+                "side": "red"
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 26,
+                  "t": 7.299999999999997
+                },
+                {
+                  "action": "start",
+                  "name": "womp",
+                  "voice": 27,
+                  "t": 7.304999999999997,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "pickup",
+                "side": "blue"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "ding",
+                  "voice": 28,
+                  "t": 7.604999999999997,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": false
+              },
+              "trace": []
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": true,
+                "golden": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "goldChime",
+                  "voice": 29,
+                  "t": 8.204999999999998,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": true,
+                "stolen": false
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "chime",
+                  "voice": 30,
+                  "t": 8.504999999999999,
+                  "pan": null,
+                  "opts": {
+                    "full": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": true,
+                "stolen": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "chime",
+                  "voice": 31,
+                  "t": 8.805,
+                  "pan": null,
+                  "opts": {
+                    "full": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "countdown"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "beep",
+                  "voice": 32,
+                  "t": 9.105,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "go"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "beep",
+                  "voice": 33,
+                  "t": 9.405000000000001,
+                  "pan": null,
+                  "opts": {
+                    "go": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "roundEnd"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "jingle",
+                  "voice": 34,
+                  "t": 9.705000000000002,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "release",
+                "kind": "cow"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 35,
+                  "t": 10.005000000000003,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "release",
+                "kind": "crate"
+              },
+              "trace": []
+            },
+            {
+              "event": {
+                "type": "wolfIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "howl",
+                  "voice": 36,
+                  "t": 10.605000000000004,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "wolfLeaves"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "howl",
+                  "voice": 37,
+                  "t": 10.905000000000005,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "wolfEat"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "chomp",
+                  "voice": 38,
+                  "t": 11.205000000000005,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 39,
+                  "t": 11.205000000000005,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "wolfLand"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "growl",
+                  "voice": 40,
+                  "t": 11.505000000000006,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "tick",
+                "n": 5
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "tick",
+                  "voice": 41,
+                  "t": 11.805000000000007,
+                  "pan": null,
+                  "opts": {
+                    "urgent": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "tick",
+                "n": 3
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "tick",
+                  "voice": 42,
+                  "t": 12.105000000000008,
+                  "pan": null,
+                  "opts": {
+                    "urgent": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "timeBombDrop"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "whistle",
+                  "voice": 43,
+                  "t": 12.405000000000008,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "timeBombLand"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "click",
+                  "voice": 44,
+                  "t": 12.705000000000009,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "splat"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "splat",
+                  "voice": 45,
+                  "t": 13.00500000000001,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "spooked",
+                "kind": "cow"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 46,
+                  "t": 13.30500000000001,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "boing",
+                  "voice": 47,
+                  "t": 13.30500000000001,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "spooked",
+                "kind": "lamb"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 48,
+                  "t": 13.605000000000011,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "boing",
+                  "voice": 49,
+                  "t": 13.605000000000011,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "extinguish"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "fizz",
+                  "voice": 50,
+                  "t": 13.905000000000012,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "rocketLaunch"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "whoosh",
+                  "voice": 51,
+                  "t": 14.205000000000013,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "bombDrop"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "whistle",
+                  "voice": 52,
+                  "t": 14.505000000000013,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "explosion",
+                "big": false
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "boom",
+                  "voice": 53,
+                  "t": 14.805000000000014,
+                  "pan": null,
+                  "opts": {
+                    "big": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "explosion",
+                "big": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "boom",
+                  "voice": 54,
+                  "t": 15.105000000000015,
+                  "pan": null,
+                  "opts": {
+                    "big": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "chuteOpen"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "flap",
+                  "voice": 55,
+                  "t": 15.405000000000015,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "greenmanPanic"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "ohNo",
+                  "voice": 56,
+                  "t": 15.705000000000016,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "greenmanGone"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "splat",
+                  "voice": 57,
+                  "t": 16.005000000000013,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "crateIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "horn",
+                  "voice": 58,
+                  "t": 16.305000000000014,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "ammoCrate"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "click",
+                  "voice": 59,
+                  "t": 16.605000000000015,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "ding",
+                  "voice": 60,
+                  "t": 16.605000000000015,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "goldenIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "harp",
+                  "voice": 61,
+                  "t": 16.905000000000015,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "dropIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "siren",
+                  "voice": 62,
+                  "t": 17.205000000000016,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "restock"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "horn",
+                  "voice": 63,
+                  "t": 17.505000000000017,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 64,
+                  "t": 17.505000000000017,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "powerup"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "fanfare",
+                  "voice": 65,
+                  "t": 17.805000000000017,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "powerEnd",
+                "side": "red"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "powerDown",
+                  "voice": 66,
+                  "t": 18.105000000000018,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "knockLoose"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "pop",
+                  "voice": 67,
+                  "t": 18.40500000000002,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "laserOn",
+                "side": "blue"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "laser",
+                  "voice": 68,
+                  "t": 18.70500000000002,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "laserOff",
+                "side": "blue"
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "laser",
+                  "voice": 68,
+                  "t": 19.00000000000002
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "unknown"
+              },
+              "trace": []
+            }
+          ],
+          "overlapping_voice_cleanup": [
+            {
+              "action": "start",
+              "name": "lift",
+              "voice": 69,
+              "t": 30.005,
+              "pan": null,
+              "opts": {
+                "dur": 1.45
+              }
+            },
+            {
+              "action": "start",
+              "name": "moo",
+              "voice": 70,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "start",
+              "name": "lift",
+              "voice": 71,
+              "t": 30.005,
+              "pan": null,
+              "opts": {
+                "dur": 0.9
+              }
+            },
+            {
+              "action": "start",
+              "name": "baa",
+              "voice": 72,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "start",
+              "name": "laser",
+              "voice": 73,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "start",
+              "name": "laser",
+              "voice": 74,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "stop",
+              "name": "lift",
+              "voice": 69,
+              "t": 30.1
+            },
+            {
+              "action": "start",
+              "name": "splat",
+              "voice": 75,
+              "t": 30.105,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "stop",
+              "name": "laser",
+              "voice": 74,
+              "t": 30.1
+            },
+            {
+              "action": "start",
+              "name": "powerDown",
+              "voice": 76,
+              "t": 30.105,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "stop",
+              "name": "laser",
+              "voice": 73,
+              "t": 30.1
+            },
+            {
+              "action": "stop",
+              "name": "lift",
+              "voice": 71,
+              "t": 30.1
+            },
+            {
+              "action": "start",
+              "name": "jingle",
+              "voice": 77,
+              "t": 30.105,
+              "pan": null,
+              "opts": {}
+            }
+          ]
+        },
+        "throttle": {
+          "same_sound_starts": 3,
+          "same_window_seconds": 0.08,
+          "global_starts": 24,
+          "global_window_seconds": 0.25,
+          "clock_reset": true,
+          "missing_sound_silent": true
+        }
+      },
+      "phaser": {
+        "recipes": 34,
+        "cases": [
+          {
+            "fixture": {
+              "name": "zap"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10560482740402222,
+              "rms": [0.0037597674475740445, 0.0037597674475740445],
+              "first": 0.1064375,
+              "last": 0.25597916666666665,
+              "crossings": 181
+            }
+          },
+          {
+            "fixture": {
+              "name": "thud"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.4154208302497864,
+              "rms": [0.017687441440721034, 0.017687441440721034],
+              "first": 0.10620833333333334,
+              "last": 0.43345833333333333,
+              "crossings": 158
+            }
+          },
+          {
+            "fixture": {
+              "name": "boing"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.16417983174324036,
+              "rms": [0.010014079737694153, 0.010014079737694153],
+              "first": 0.1065,
+              "last": 0.4799375,
+              "crossings": 217
+            }
+          },
+          {
+            "fixture": {
+              "name": "click"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.1327776312828064,
+              "rms": [0.0019518187758904252, 0.0019518187758904252],
+              "first": 0.10666666666666667,
+              "last": 0.218625,
+              "crossings": 1158
+            }
+          },
+          {
+            "fixture": {
+              "name": "dry"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.06602641195058823,
+              "rms": [0.0006721324612319769, 0.0006721324612319769],
+              "first": 0.10641666666666667,
+              "last": 0.129,
+              "crossings": 1946
+            }
+          },
+          {
+            "fixture": {
+              "name": "lift"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.09053944051265717,
+              "rms": [0.014373102845608882, 0.014373102845608882],
+              "first": 0.12547916666666667,
+              "last": 0.9559791666666667,
+              "crossings": 714
+            }
+          },
+          {
+            "fixture": {
+              "name": "womp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.1006552204489708,
+              "rms": [0.0040281216162278395, 0.0040281216162278395],
+              "first": 0.10702083333333333,
+              "last": 0.3834166666666667,
+              "crossings": 157
+            }
+          },
+          {
+            "fixture": {
+              "name": "ding"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.09459692239761353,
+              "rms": [0.0038243411947383194, 0.0038243411947383194],
+              "first": 0.10629166666666667,
+              "last": 0.3381458333333333,
+              "crossings": 789
+            }
+          },
+          {
+            "fixture": {
+              "name": "moo"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.2866398096084595,
+              "rms": [0.03440443138419838, 0.03440443138419838],
+              "first": 0.10841666666666666,
+              "last": 1.0956666666666666,
+              "crossings": 598
+            }
+          },
+          {
+            "fixture": {
+              "name": "baa"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.32570770382881165,
+              "rms": [0.01732774889498521, 0.01732774889498521],
+              "first": 0.11741666666666667,
+              "last": 0.6752708333333334,
+              "crossings": 1032
+            }
+          },
+          {
+            "fixture": {
+              "name": "howl"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.14843371510505676,
+              "rms": [0.04688127148014262, 0.04688127148014262],
+              "first": 0.129125,
+              "last": 2.264,
+              "crossings": 2125
+            }
+          },
+          {
+            "fixture": {
+              "name": "growl"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.3642641305923462,
+              "rms": [0.02794743591994808, 0.02794743591994808],
+              "first": 0.1069375,
+              "last": 0.7705208333333333,
+              "crossings": 414
+            }
+          },
+          {
+            "fixture": {
+              "name": "tick"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07471896708011627,
+              "rms": [0.0012417218751986359, 0.0012417218751986359],
+              "first": 0.10622916666666667,
+              "last": 0.18579166666666666,
+              "crossings": 532
+            }
+          },
+          {
+            "fixture": {
+              "name": "chomp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.14375406503677368,
+              "rms": [0.0061381332832304986, 0.0061381332832304986],
+              "first": 0.1065625,
+              "last": 0.3524375,
+              "crossings": 152
+            }
+          },
+          {
+            "fixture": {
+              "name": "chime"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.16461345553398132,
+              "rms": [0.014228197832356008, 0.014228197832356008],
+              "first": 0.1063125,
+              "last": 0.9958958333333333,
+              "crossings": 3681
+            }
+          },
+          {
+            "fixture": {
+              "name": "beep"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07177422940731049,
+              "rms": [0.007499393516211923, 0.007499393516211923],
+              "first": 0.10664583333333333,
+              "last": 0.25825,
+              "crossings": 219
+            }
+          },
+          {
+            "fixture": {
+              "name": "siren"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.0755499079823494,
+              "rms": [0.01552084043169183, 0.01552084043169183],
+              "first": 0.1065625,
+              "last": 0.9785,
+              "crossings": 1418
+            }
+          },
+          {
+            "fixture": {
+              "name": "chirp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.12091050297021866,
+              "rms": [0.006530306779123126, 0.006530306779123126],
+              "first": 0.10739583333333333,
+              "last": 0.4048541666666667,
+              "crossings": 940
+            }
+          },
+          {
+            "fixture": {
+              "name": "fanfare"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.13799096643924713,
+              "rms": [0.015804543646117768, 0.015804543646117768],
+              "first": 0.1063125,
+              "last": 0.9721666666666666,
+              "crossings": 3292
+            }
+          },
+          {
+            "fixture": {
+              "name": "ohNo"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.115960031747818,
+              "rms": [0.017691002057167143, 0.017691002057167143],
+              "first": 0.10808333333333334,
+              "last": 0.8087916666666667,
+              "crossings": 1146
+            }
+          },
+          {
+            "fixture": {
+              "name": "flap"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.039007946848869324,
+              "rms": [0.0009837488105240385, 0.0009837488105240385],
+              "first": 0.10864583333333333,
+              "last": 0.26835416666666667,
+              "crossings": 1334
+            }
+          },
+          {
+            "fixture": {
+              "name": "powerDown"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07013771682977676,
+              "rms": [0.007646743262809086, 0.007646743262809086],
+              "first": 0.1065625,
+              "last": 0.5285416666666667,
+              "crossings": 494
+            }
+          },
+          {
+            "fixture": {
+              "name": "deflect"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.12995284795761108,
+              "rms": [0.003452806074269042, 0.003452806074269042],
+              "first": 0.10627083333333333,
+              "last": 0.337,
+              "crossings": 1161
+            }
+          },
+          {
+            "fixture": {
+              "name": "pop"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.14691655337810516,
+              "rms": [0.00458342984603779, 0.00458342984603779],
+              "first": 0.10652083333333333,
+              "last": 0.28772916666666665,
+              "crossings": 917
+            }
+          },
+          {
+            "fixture": {
+              "name": "laser"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.13003882765769958,
+              "rms": [0.0120561193405166, 0.0120561193405166],
+              "first": 0.1119375,
+              "last": 1.0556458333333334,
+              "crossings": 2983
+            }
+          },
+          {
+            "fixture": {
+              "name": "whoosh"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.06568489223718643,
+              "rms": [0.0029883279281769717, 0.0029883279281769717],
+              "first": 0.11354166666666667,
+              "last": 0.6551875,
+              "crossings": 3676
+            }
+          },
+          {
+            "fixture": {
+              "name": "boom"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.5250208973884583,
+              "rms": [0.03193306001431402, 0.03193306001431402],
+              "first": 0.10622916666666667,
+              "last": 1.0148125,
+              "crossings": 733
+            }
+          },
+          {
+            "fixture": {
+              "name": "whistle"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07067837566137314,
+              "rms": [0.016050353286439497, 0.016050353286439497],
+              "first": 0.10925,
+              "last": 0.7855208333333333,
+              "crossings": 1748
+            }
+          },
+          {
+            "fixture": {
+              "name": "fizz"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.2019781470298767,
+              "rms": [0.006896639826193824, 0.006896639826193824],
+              "first": 0.10827083333333333,
+              "last": 0.6476666666666666,
+              "crossings": 14118
+            }
+          },
+          {
+            "fixture": {
+              "name": "splat"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.30935466289520264,
+              "rms": [0.01243183670443045, 0.01243183670443045],
+              "first": 0.10647916666666667,
+              "last": 0.388375,
+              "crossings": 127
+            }
+          },
+          {
+            "fixture": {
+              "name": "horn"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.12724238634109497,
+              "rms": [0.0145794431991768, 0.0145794431991768],
+              "first": 0.11070833333333334,
+              "last": 0.6357291666666667,
+              "crossings": 284
+            }
+          },
+          {
+            "fixture": {
+              "name": "harp"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10628585517406464,
+              "rms": [0.011616998161525774, 0.011616998161525774],
+              "first": 0.1065625,
+              "last": 1.159625,
+              "crossings": 3598
+            }
+          },
+          {
+            "fixture": {
+              "name": "goldChime"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.22047629952430725,
+              "rms": [0.029199237889580107, 0.029199237889580107],
+              "first": 0.10629166666666667,
+              "last": 1.8559791666666667,
+              "crossings": 3897
+            }
+          },
+          {
+            "fixture": {
+              "name": "jingle"
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.266843318939209,
+              "rms": [0.03169287187206462, 0.03169287187206462],
+              "first": 0.1063125,
+              "last": 1.344375,
+              "crossings": 2092
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "opts": {
+                "side": "blue"
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10251717269420624,
+              "rms": [0.0037354858895812734, 0.0037354858895812734],
+              "first": 0.1064375,
+              "last": 0.25566666666666665,
+              "crossings": 232
+            }
+          },
+          {
+            "fixture": {
+              "name": "tick",
+              "opts": {
+                "urgent": true
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07971394062042236,
+              "rms": [0.001603793299758896, 0.001603793299758896],
+              "first": 0.10625,
+              "last": 0.1851875,
+              "crossings": 592
+            }
+          },
+          {
+            "fixture": {
+              "name": "chime",
+              "opts": {
+                "full": false
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.13221140205860138,
+              "rms": [0.00980620924259437, 0.00980620924259437],
+              "first": 0.1063125,
+              "last": 0.85575,
+              "crossings": 1782
+            }
+          },
+          {
+            "fixture": {
+              "name": "boom",
+              "opts": {
+                "big": false
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.26062867045402527,
+              "rms": [0.011475178289135751, 0.011475178289135751],
+              "first": 0.10629166666666667,
+              "last": 0.618625,
+              "crossings": 347
+            }
+          },
+          {
+            "fixture": {
+              "name": "beep",
+              "opts": {
+                "go": true
+              }
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.07584907114505768,
+              "rms": [0.014432362772857235, 0.014432362772857235],
+              "first": 0.10664583333333333,
+              "last": 0.5369583333333333,
+              "crossings": 1044
+            }
+          },
+          {
+            "fixture": {
+              "name": "lift",
+              "stop": 0.35
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.09039179235696793,
+              "rms": [0.007540374595306509, 0.007540374595306509],
+              "first": 0.12547916666666667,
+              "last": 0.45597916666666666,
+              "crossings": 198
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "pan": -0.6
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10043615847826004,
+              "rms": [0.003575751359824643, 0.0011618319698101776],
+              "first": 0.1064375,
+              "last": 0.25597916666666665,
+              "crossings": 181
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "pan": 0.6
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0.10043615847826004,
+              "rms": [0.0011618319698101776, 0.003575751359824643],
+              "first": 0.1064375,
+              "last": 0.25597916666666665,
+              "crossings": 181
+            }
+          },
+          {
+            "fixture": {
+              "name": "zap",
+              "muted": true
+            },
+            "metrics": {
+              "rate": 48000,
+              "frames": 192000,
+              "peak": 0,
+              "rms": [0, 0],
+              "first": 4,
+              "last": 0,
+              "crossings": 0
+            }
+          }
+        ],
+        "listening_trace": [
+          {
+            "action": "start",
+            "name": "beep",
+            "voice": 108,
+            "t": 0.10500000000000001,
+            "pan": null,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "beep",
+            "voice": 109,
+            "t": 0.605,
+            "pan": null,
+            "opts": {
+              "go": true
+            }
+          },
+          {
+            "action": "start",
+            "name": "zap",
+            "voice": 110,
+            "t": 1.005,
+            "pan": -0.6000000238418579,
+            "opts": {
+              "side": "red"
+            }
+          },
+          {
+            "action": "start",
+            "name": "zap",
+            "voice": 111,
+            "t": 1.4049999999999998,
+            "pan": 0.6000000238418579,
+            "opts": {
+              "side": "blue"
+            }
+          },
+          {
+            "action": "start",
+            "name": "lift",
+            "voice": 112,
+            "t": 1.805,
+            "pan": -0.44999998807907104,
+            "opts": {
+              "dur": 1.45
+            }
+          },
+          {
+            "action": "start",
+            "name": "moo",
+            "voice": 113,
+            "t": 1.805,
+            "pan": -0.44999998807907104,
+            "opts": {}
+          },
+          {
+            "action": "stop",
+            "name": "lift",
+            "voice": 112,
+            "t": 2.4
+          },
+          {
+            "action": "start",
+            "name": "womp",
+            "voice": 114,
+            "t": 2.405,
+            "pan": -0.44999998807907104,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "laser",
+            "voice": 115,
+            "t": 3.005,
+            "pan": null,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "laser",
+            "voice": 116,
+            "t": 3.005,
+            "pan": null,
+            "opts": {}
+          },
+          {
+            "action": "stop",
+            "name": "laser",
+            "voice": 115,
+            "t": 3.7
+          },
+          {
+            "action": "stop",
+            "name": "laser",
+            "voice": 116,
+            "t": 3.7
+          },
+          {
+            "action": "start",
+            "name": "splat",
+            "voice": 117,
+            "t": 4.305,
+            "pan": 0,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "splat",
+            "voice": 118,
+            "t": 4.305,
+            "pan": 0,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "splat",
+            "voice": 119,
+            "t": 4.305,
+            "pan": 0,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "chime",
+            "voice": 120,
+            "t": 5.005,
+            "pan": -0.44999998807907104,
+            "opts": {
+              "full": true
+            }
+          },
+          {
+            "action": "start",
+            "name": "goldChime",
+            "voice": 121,
+            "t": 6.005,
+            "pan": 0.44999998807907104,
+            "opts": {}
+          },
+          {
+            "action": "start",
+            "name": "jingle",
+            "voice": 122,
+            "t": 8.505,
+            "pan": null,
+            "opts": {}
+          }
+        ],
+        "listening_pcm": {
+          "rate": 48000,
+          "frames": 576000,
+          "peak": 0.5250037908554077,
+          "rms": [0.036675133745069324, 0.03468304297774591],
+          "first": 0.111625,
+          "last": 9.749541666666667,
+          "crossings": 14648,
+          "float_sha256": "ddda79e33d5f46a845bfac220138fa374cb58eba85e214c9dc9bf5bfceea0bd1"
+        },
+        "mapping": {
+          "cases": 62,
+          "traces": [
+            {
+              "event": {
+                "type": "shot",
+                "side": "red",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "zap",
+                  "voice": 1,
+                  "t": 1.005,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "side": "red"
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "shot",
+                "side": "blue",
+                "x": 1280,
+                "triple": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "zap",
+                  "voice": 2,
+                  "t": 1.305,
+                  "pan": 0.6000000238418579,
+                  "opts": {
+                    "side": "blue"
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "zap",
+                  "voice": 3,
+                  "t": 1.305,
+                  "pan": 0.6000000238418579,
+                  "opts": {
+                    "side": "red"
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "dryFire"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "dry",
+                  "voice": 4,
+                  "t": 1.605,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hit",
+                "shielded": false,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "thud",
+                  "voice": 5,
+                  "t": 1.905,
+                  "pan": 0,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hit",
+                "shielded": true,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "deflect",
+                  "voice": 6,
+                  "t": 2.205,
+                  "pan": 0,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "ram",
+                "shielded": false,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "thud",
+                  "voice": 7,
+                  "t": 2.505,
+                  "pan": 0,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "boom",
+                  "voice": 8,
+                  "t": 2.505,
+                  "pan": 0,
+                  "opts": {
+                    "big": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "ram",
+                "shielded": true,
+                "x": 640
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "deflect",
+                  "voice": 9,
+                  "t": 2.8049999999999997,
+                  "pan": 0,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "dazed"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "womp",
+                  "voice": 10,
+                  "t": 3.1049999999999995,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "burst"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "splat",
+                  "voice": 11,
+                  "t": 3.4049999999999994,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "animalRain",
+                "count": 2,
+                "to": "cow"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 12,
+                  "t": 3.704999999999999,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "animalRain",
+                "count": 2,
+                "to": "lamb"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 13,
+                  "t": 4.004999999999999,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "animalRain",
+                "count": 0
+              },
+              "trace": []
+            },
+            {
+              "event": {
+                "type": "bump"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "boing",
+                  "voice": 14,
+                  "t": 4.604999999999999,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "reload"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "click",
+                  "voice": 15,
+                  "t": 4.9049999999999985,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "cow",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 16,
+                  "t": 5.204999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1.45
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 17,
+                  "t": 5.204999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "lamb",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 16,
+                  "t": 5.499999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 18,
+                  "t": 5.504999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 0.9
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 19,
+                  "t": 5.504999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "greenman",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 18,
+                  "t": 5.799999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 20,
+                  "t": 5.804999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "chirp",
+                  "voice": 21,
+                  "t": 5.804999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "wolf",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 20,
+                  "t": 6.099999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 22,
+                  "t": 6.104999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1.2
+                  }
+                },
+                {
+                  "action": "start",
+                  "name": "growl",
+                  "voice": 23,
+                  "t": 6.104999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "crate",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 22,
+                  "t": 6.399999999999998
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 24,
+                  "t": 6.404999999999998,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 0.8
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "package",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 24,
+                  "t": 6.6999999999999975
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 25,
+                  "t": 6.704999999999997,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 1
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "hook",
+                "side": "red",
+                "kind": "timebomb",
+                "x": 0
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 25,
+                  "t": 6.999999999999997
+                },
+                {
+                  "action": "start",
+                  "name": "lift",
+                  "voice": 26,
+                  "t": 7.004999999999997,
+                  "pan": -0.6000000238418579,
+                  "opts": {
+                    "dur": 0.8
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "interrupt",
+                "side": "red"
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "lift",
+                  "voice": 26,
+                  "t": 7.299999999999997
+                },
+                {
+                  "action": "start",
+                  "name": "womp",
+                  "voice": 27,
+                  "t": 7.304999999999997,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "pickup",
+                "side": "blue"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "ding",
+                  "voice": 28,
+                  "t": 7.604999999999997,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": false
+              },
+              "trace": []
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": true,
+                "golden": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "goldChime",
+                  "voice": 29,
+                  "t": 8.204999999999998,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": true,
+                "stolen": false
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "chime",
+                  "voice": 30,
+                  "t": 8.504999999999999,
+                  "pan": null,
+                  "opts": {
+                    "full": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "land",
+                "delivered": true,
+                "stolen": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "chime",
+                  "voice": 31,
+                  "t": 8.805,
+                  "pan": null,
+                  "opts": {
+                    "full": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "countdown"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "beep",
+                  "voice": 32,
+                  "t": 9.105,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "go"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "beep",
+                  "voice": 33,
+                  "t": 9.405000000000001,
+                  "pan": null,
+                  "opts": {
+                    "go": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "roundEnd"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "jingle",
+                  "voice": 34,
+                  "t": 9.705000000000002,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "release",
+                "kind": "cow"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 35,
+                  "t": 10.005000000000003,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "release",
+                "kind": "crate"
+              },
+              "trace": []
+            },
+            {
+              "event": {
+                "type": "wolfIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "howl",
+                  "voice": 36,
+                  "t": 10.605000000000004,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "wolfLeaves"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "howl",
+                  "voice": 37,
+                  "t": 10.905000000000005,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "wolfEat"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "chomp",
+                  "voice": 38,
+                  "t": 11.205000000000005,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 39,
+                  "t": 11.205000000000005,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "wolfLand"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "growl",
+                  "voice": 40,
+                  "t": 11.505000000000006,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "tick",
+                "n": 5
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "tick",
+                  "voice": 41,
+                  "t": 11.805000000000007,
+                  "pan": null,
+                  "opts": {
+                    "urgent": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "tick",
+                "n": 3
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "tick",
+                  "voice": 42,
+                  "t": 12.105000000000008,
+                  "pan": null,
+                  "opts": {
+                    "urgent": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "timeBombDrop"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "whistle",
+                  "voice": 43,
+                  "t": 12.405000000000008,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "timeBombLand"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "click",
+                  "voice": 44,
+                  "t": 12.705000000000009,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "splat"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "splat",
+                  "voice": 45,
+                  "t": 13.00500000000001,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "spooked",
+                "kind": "cow"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 46,
+                  "t": 13.30500000000001,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "boing",
+                  "voice": 47,
+                  "t": 13.30500000000001,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "spooked",
+                "kind": "lamb"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "baa",
+                  "voice": 48,
+                  "t": 13.605000000000011,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "boing",
+                  "voice": 49,
+                  "t": 13.605000000000011,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "extinguish"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "fizz",
+                  "voice": 50,
+                  "t": 13.905000000000012,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "rocketLaunch"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "whoosh",
+                  "voice": 51,
+                  "t": 14.205000000000013,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "bombDrop"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "whistle",
+                  "voice": 52,
+                  "t": 14.505000000000013,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "explosion",
+                "big": false
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "boom",
+                  "voice": 53,
+                  "t": 14.805000000000014,
+                  "pan": null,
+                  "opts": {
+                    "big": false
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "explosion",
+                "big": true
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "boom",
+                  "voice": 54,
+                  "t": 15.105000000000015,
+                  "pan": null,
+                  "opts": {
+                    "big": true
+                  }
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "chuteOpen"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "flap",
+                  "voice": 55,
+                  "t": 15.405000000000015,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "greenmanPanic"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "ohNo",
+                  "voice": 56,
+                  "t": 15.705000000000016,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "greenmanGone"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "splat",
+                  "voice": 57,
+                  "t": 16.005000000000013,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "crateIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "horn",
+                  "voice": 58,
+                  "t": 16.305000000000014,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "ammoCrate"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "click",
+                  "voice": 59,
+                  "t": 16.605000000000015,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "ding",
+                  "voice": 60,
+                  "t": 16.605000000000015,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "goldenIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "harp",
+                  "voice": 61,
+                  "t": 16.905000000000015,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "dropIncoming"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "siren",
+                  "voice": 62,
+                  "t": 17.205000000000016,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "restock"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "horn",
+                  "voice": 63,
+                  "t": 17.505000000000017,
+                  "pan": null,
+                  "opts": {}
+                },
+                {
+                  "action": "start",
+                  "name": "moo",
+                  "voice": 64,
+                  "t": 17.505000000000017,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "powerup"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "fanfare",
+                  "voice": 65,
+                  "t": 17.805000000000017,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "powerEnd",
+                "side": "red"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "powerDown",
+                  "voice": 66,
+                  "t": 18.105000000000018,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "knockLoose"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "pop",
+                  "voice": 67,
+                  "t": 18.40500000000002,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "laserOn",
+                "side": "blue"
+              },
+              "trace": [
+                {
+                  "action": "start",
+                  "name": "laser",
+                  "voice": 68,
+                  "t": 18.70500000000002,
+                  "pan": null,
+                  "opts": {}
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "laserOff",
+                "side": "blue"
+              },
+              "trace": [
+                {
+                  "action": "stop",
+                  "name": "laser",
+                  "voice": 68,
+                  "t": 19.00000000000002
+                }
+              ]
+            },
+            {
+              "event": {
+                "type": "unknown"
+              },
+              "trace": []
+            }
+          ],
+          "overlapping_voice_cleanup": [
+            {
+              "action": "start",
+              "name": "lift",
+              "voice": 69,
+              "t": 30.005,
+              "pan": null,
+              "opts": {
+                "dur": 1.45
+              }
+            },
+            {
+              "action": "start",
+              "name": "moo",
+              "voice": 70,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "start",
+              "name": "lift",
+              "voice": 71,
+              "t": 30.005,
+              "pan": null,
+              "opts": {
+                "dur": 0.9
+              }
+            },
+            {
+              "action": "start",
+              "name": "baa",
+              "voice": 72,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "start",
+              "name": "laser",
+              "voice": 73,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "start",
+              "name": "laser",
+              "voice": 74,
+              "t": 30.005,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "stop",
+              "name": "lift",
+              "voice": 69,
+              "t": 30.1
+            },
+            {
+              "action": "start",
+              "name": "splat",
+              "voice": 75,
+              "t": 30.105,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "stop",
+              "name": "laser",
+              "voice": 74,
+              "t": 30.1
+            },
+            {
+              "action": "start",
+              "name": "powerDown",
+              "voice": 76,
+              "t": 30.105,
+              "pan": null,
+              "opts": {}
+            },
+            {
+              "action": "stop",
+              "name": "laser",
+              "voice": 73,
+              "t": 30.1
+            },
+            {
+              "action": "stop",
+              "name": "lift",
+              "voice": 71,
+              "t": 30.1
+            },
+            {
+              "action": "start",
+              "name": "jingle",
+              "voice": 77,
+              "t": 30.105,
+              "pan": null,
+              "opts": {}
+            }
+          ]
+        },
+        "throttle": {
+          "same_sound_starts": 3,
+          "same_window_seconds": 0.08,
+          "global_starts": 24,
+          "global_window_seconds": 0.25,
+          "clock_reset": true,
+          "missing_sound_silent": true
+        }
+      }
+    },
+    "scene_traces": [
+      {
+        "lasers": false,
+        "frames": 360,
+        "steps": 714,
+        "audio_starts": 23,
+        "sounds": {
+          "start:beep": 3,
+          "start:zap": 8,
+          "start:thud": 8,
+          "start:click": 2,
+          "start:womp": 2
+        },
+        "event_types": ["countdown", "dazed", "go", "hit", "reload", "shot"],
+        "state_events_audio_sha256": "025863160c959a50ffbb96b59accfa4b911bf2d2d4c0e0aa75168d700392a7ae"
+      },
+      {
+        "lasers": true,
+        "frames": 360,
+        "steps": 714,
+        "audio_starts": 31,
+        "sounds": {
+          "start:beep": 3,
+          "start:laser": 14,
+          "start:thud": 14,
+          "stop:laser": 14
+        },
+        "event_types": ["countdown", "go", "hit", "laserOff", "laserOn"],
+        "state_events_audio_sha256": "bb37595ab6846af866bd6e4074c85a6240642a77359adf574bc745c70f48978a"
+      }
+    ],
+    "lifecycle": [
+      {
+        "cycles": 6,
+        "one_context_across_transitions": true,
+        "pause_suspend": true,
+        "gesture_does_not_wake_paused_context": true,
+        "resume_same_context": true,
+        "mute_gain_smoothing_seconds": 0.02,
+        "before_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 48,
+          "endedEvents": 96,
+          "collectedAfterScheduledStop": 0,
+          "retainedNodes": 112,
+          "activeSourceDetails": [
+            {
+              "id": 5,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 9,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 10,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 11,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 15,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 19,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 20,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 21,
+              "method": "createOscillator",
+              "stop": 32.246383219954645,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 29,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 33,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 34,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 35,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 39,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 43,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 44,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 45,
+              "method": "createOscillator",
+              "stop": 36.817811791383214,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 53,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 57,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 58,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 59,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 63,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 67,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 68,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 69,
+              "method": "createOscillator",
+              "stop": 41.1251133786848,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 77,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 81,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 82,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 83,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 87,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 91,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 92,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 93,
+              "method": "createOscillator",
+              "stop": 45.56592970521542,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 101,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 105,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 106,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 107,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 111,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 115,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 116,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 117,
+              "method": "createOscillator",
+              "stop": 50.04738095238095,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 125,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 129,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 130,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 131,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 135,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 139,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 140,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 141,
+              "method": "createOscillator",
+              "stop": 54.90615646258503,
+              "now": 27.29215419501134,
+              "state": "running",
+              "wrapperAlive": true
+            }
+          ],
+          "created": {
+            "createGain": 133,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 120,
+            "createBiquadFilter": 36,
+            "createStereoPanner": 12,
+            "createBufferSource": 24
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "url": "http://127.0.0.1:5174/",
+        "renderer": "auto",
+        "transitions": {
+          "restart_stops_carriers": true,
+          "round_end_stops_carriers": true,
+          "error_recovery_stops_carriers": true,
+          "host_dispose_stops_carriers": true,
+          "transitions_retain_context": true
+        },
+        "after_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 0,
+          "endedEvents": 254,
+          "collectedAfterScheduledStop": 0,
+          "retainedNodes": 2,
+          "activeSourceDetails": [],
+          "created": {
+            "createGain": 235,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 214,
+            "createBiquadFilter": 60,
+            "createStereoPanner": 21,
+            "createBufferSource": 40
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "disposed_no_sources": true
+      },
+      {
+        "cycles": 6,
+        "one_context_across_transitions": true,
+        "pause_suspend": true,
+        "gesture_does_not_wake_paused_context": true,
+        "resume_same_context": true,
+        "mute_gain_smoothing_seconds": 0.02,
+        "before_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 48,
+          "endedEvents": 86,
+          "collectedAfterScheduledStop": 10,
+          "retainedNodes": 122,
+          "activeSourceDetails": [
+            {
+              "id": 5,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 9,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 10,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 11,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 15,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 19,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 20,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 21,
+              "method": "createOscillator",
+              "stop": 31.877766439909298,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 29,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 33,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 34,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 35,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 39,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 43,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 44,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 45,
+              "method": "createOscillator",
+              "stop": 35.21563492063492,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 53,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 57,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 58,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 59,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 63,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 67,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 68,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 69,
+              "method": "createOscillator",
+              "stop": 38.036859410430836,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 77,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 81,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 82,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 83,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 87,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 91,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 92,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 93,
+              "method": "createOscillator",
+              "stop": 40.617176870748295,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 101,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 105,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 106,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 107,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 111,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 115,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 116,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 117,
+              "method": "createOscillator",
+              "stop": 43.136541950113376,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 125,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 129,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 130,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 131,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 135,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 139,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 140,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 141,
+              "method": "createOscillator",
+              "stop": 45.82715419501133,
+              "now": 17.261133786848074,
+              "state": "running",
+              "wrapperAlive": true
+            }
+          ],
+          "created": {
+            "createGain": 133,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 120,
+            "createBiquadFilter": 36,
+            "createStereoPanner": 12,
+            "createBufferSource": 24
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "url": "http://127.0.0.1:5174/",
+        "renderer": "canvas",
+        "transitions": {
+          "restart_stops_carriers": true,
+          "round_end_stops_carriers": true,
+          "error_recovery_stops_carriers": true,
+          "host_dispose_stops_carriers": true,
+          "transitions_retain_context": true
+        },
+        "after_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 0,
+          "endedEvents": 238,
+          "collectedAfterScheduledStop": 16,
+          "retainedNodes": 2,
+          "activeSourceDetails": [],
+          "created": {
+            "createGain": 235,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 214,
+            "createBiquadFilter": 60,
+            "createStereoPanner": 21,
+            "createBufferSource": 40
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "disposed_no_sources": true
+      },
+      {
+        "cycles": 6,
+        "one_context_across_transitions": true,
+        "pause_suspend": true,
+        "gesture_does_not_wake_paused_context": true,
+        "resume_same_context": true,
+        "mute_gain_smoothing_seconds": 0.02,
+        "before_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 48,
+          "endedEvents": 96,
+          "collectedAfterScheduledStop": 0,
+          "retainedNodes": 112,
+          "activeSourceDetails": [
+            {
+              "id": 5,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 9,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 10,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 11,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 15,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 19,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 20,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 21,
+              "method": "createOscillator",
+              "stop": 32.316043083900226,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 29,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 33,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 34,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 35,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 39,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 43,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 44,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 45,
+              "method": "createOscillator",
+              "stop": 37.55504535147392,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 53,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 57,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 58,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 59,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 63,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 67,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 68,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 69,
+              "method": "createOscillator",
+              "stop": 42.03649659863945,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 77,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 81,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 82,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 83,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 87,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 91,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 92,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 93,
+              "method": "createOscillator",
+              "stop": 46.50633786848072,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 101,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 105,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 106,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 107,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 111,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 115,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 116,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 117,
+              "method": "createOscillator",
+              "stop": 51.06615646258503,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 125,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 129,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 130,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 131,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 135,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 139,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 140,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 141,
+              "method": "createOscillator",
+              "stop": 55.45763038548752,
+              "now": 27.921995464852607,
+              "state": "running",
+              "wrapperAlive": true
+            }
+          ],
+          "created": {
+            "createGain": 133,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 120,
+            "createBiquadFilter": 36,
+            "createStereoPanner": 12,
+            "createBufferSource": 24
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "url": "http://127.0.0.1:5175/",
+        "renderer": "auto",
+        "transitions": {
+          "restart_stops_carriers": true,
+          "round_end_stops_carriers": true,
+          "error_recovery_stops_carriers": true,
+          "host_dispose_stops_carriers": true,
+          "transitions_retain_context": true
+        },
+        "after_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 0,
+          "endedEvents": 254,
+          "collectedAfterScheduledStop": 0,
+          "retainedNodes": 2,
+          "activeSourceDetails": [],
+          "created": {
+            "createGain": 235,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 214,
+            "createBiquadFilter": 60,
+            "createStereoPanner": 21,
+            "createBufferSource": 40
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "disposed_no_sources": true
+      },
+      {
+        "cycles": 6,
+        "one_context_across_transitions": true,
+        "pause_suspend": true,
+        "gesture_does_not_wake_paused_context": true,
+        "resume_same_context": true,
+        "mute_gain_smoothing_seconds": 0.02,
+        "before_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 48,
+          "endedEvents": 96,
+          "collectedAfterScheduledStop": 0,
+          "retainedNodes": 112,
+          "activeSourceDetails": [
+            {
+              "id": 5,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 9,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 10,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 11,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 15,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 19,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 20,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 21,
+              "method": "createOscillator",
+              "stop": 32.47568027210884,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 29,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 33,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 34,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 35,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 39,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 43,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 44,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 45,
+              "method": "createOscillator",
+              "stop": 37.125476190476185,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 53,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 57,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 58,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 59,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 63,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 67,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 68,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 69,
+              "method": "createOscillator",
+              "stop": 42.077131519274374,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 77,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 81,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 82,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 83,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 87,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 91,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 92,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 93,
+              "method": "createOscillator",
+              "stop": 46.72692743764172,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 101,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 105,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 106,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 107,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 111,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 115,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 116,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 117,
+              "method": "createOscillator",
+              "stop": 51.31577097505669,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 125,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 129,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 130,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 131,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 135,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 139,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 140,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            },
+            {
+              "id": 141,
+              "method": "createOscillator",
+              "stop": 56.04683673469387,
+              "now": 28.601179138321996,
+              "state": "running",
+              "wrapperAlive": true
+            }
+          ],
+          "created": {
+            "createGain": 133,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 120,
+            "createBiquadFilter": 36,
+            "createStereoPanner": 12,
+            "createBufferSource": 24
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "url": "http://127.0.0.1:5175/martian-vs-martian/",
+        "renderer": "auto",
+        "transitions": {
+          "restart_stops_carriers": true,
+          "round_end_stops_carriers": true,
+          "error_recovery_stops_carriers": true,
+          "host_dispose_stops_carriers": true,
+          "transitions_retain_context": true
+        },
+        "after_drain": {
+          "contexts": [
+            {
+              "state": "running",
+              "sampleRate": 44100
+            }
+          ],
+          "activeSources": 0,
+          "endedEvents": 254,
+          "collectedAfterScheduledStop": 0,
+          "retainedNodes": 2,
+          "activeSourceDetails": [],
+          "created": {
+            "createGain": 235,
+            "createDynamicsCompressor": 1,
+            "createOscillator": 214,
+            "createBiquadFilter": 60,
+            "createStereoPanner": 21,
+            "createBufferSource": 40
+          },
+          "operations": [
+            {
+              "op": "create"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "suspend"
+            },
+            {
+              "op": "resume"
+            },
+            {
+              "op": "resume"
+            }
+          ],
+          "compressor": {
+            "threshold": -14,
+            "ratio": 4
+          }
+        },
+        "disposed_no_sources": true
+      }
+    ],
+    "browser": "154.0.8037.57",
+    "offline_comparison": {
+      "samples": 1152000,
+      "max_float_error": 8.940696716308594e-8,
+      "rms_float_error": 1.8430605587196097e-9,
+      "max_float_error_limit": 2e-6,
+      "rms_float_error_limit": 1e-8
+    },
+    "autoplay_and_replacement": {
+      "initial_untrusted_attempt": {
+        "before": 0,
+        "count": 1,
+        "state": "suspended",
+        "activation": false
+      },
+      "construction_grace": true,
+      "trusted_replacement_closes_old_context": true,
+      "visibility_notification_resume": true,
+      "snapshot": {
+        "contexts": [
+          {
+            "state": "closed",
+            "sampleRate": 44100
+          },
+          {
+            "state": "running",
+            "sampleRate": 44100
+          }
+        ],
+        "activeSources": 0,
+        "endedEvents": 0,
+        "collectedAfterScheduledStop": 0,
+        "retainedNodes": 4,
+        "activeSourceDetails": [],
+        "created": {
+          "createGain": 2,
+          "createDynamicsCompressor": 2
+        },
+        "operations": [
+          {
+            "op": "create"
+          },
+          {
+            "op": "resume"
+          },
+          {
+            "op": "close"
+          },
+          {
+            "op": "create"
+          },
+          {
+            "op": "suspend"
+          },
+          {
+            "op": "resume"
+          }
+        ],
+        "compressor": {
+          "threshold": -14,
+          "ratio": 4
+        }
+      }
+    },
+    "controller_and_pointer": {
+      "controller_only_creates_no_context": true,
+      "controller_sound_toggle_cannot_unlock": true,
+      "sound_hint_until_pointer_gesture": true,
+      "trusted_pointer_unlock": true
+    },
+    "unsupported_audio": {
+      "missing_audio_api_stays_playable": true
+    }
+  },
+  "listening_artifacts": [
+    {
+      "path": "pixi-events.wav",
+      "sha256": "a2c079aa334df022dfb881379bb163d41c8fc9d5637f2d6fd8595273c5bdeee1",
+      "bytes": 2304044
+    },
+    {
+      "path": "phaser-events.wav",
+      "sha256": "69cea14d5e5f682098d9d28def106814391d69e606104b2c4bf828ffeba3f03b",
+      "bytes": 2304044
+    }
+  ],
+  "limitations": [
+    "Human listening on physical output devices remains required to close the audible-parity gate. WAVs are native offline renderings of captured recipe calls, not speaker recordings.",
+    "Firefox/WebKit/Safari and interrupted-context behavior remain unverified under the existing cloud browser limitation.",
+    "Controller integration uses navigator.getGamepads fixtures; physical controller and rumble acceptance from milestone 4 remains pending.",
+    "Visibility recovery uses a real suspended context and a dispatched visibility notification; physical tab/device return remains in manual review.",
+    "Weak references count JavaScript wrappers, not browser-native memory. Long-session resource plateaus, performance budgets and 30-minute soak remain milestone 6."
+  ]
+}

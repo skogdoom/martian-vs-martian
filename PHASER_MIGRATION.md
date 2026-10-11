@@ -121,7 +121,22 @@ play scenes match round state and ordered events over 2,400 frames / 4,760 steps
 All 460 tests pass, and all original source/test hashes remain unchanged.
 Physical two-controller/rumble acceptance remains a manual review item in this
 cloud environment. See [the scene/input review notes](docs/phaser-scenes/README.md).
-**Milestones 5–7 have not started; work stops here for review.**
+
+Milestone 5 implements the synthesized-audio verification harness. The unchanged
+34 recipes and page-level Web Audio service remain shared by both engines.
+Both pass 62 event/branch expectations and 43 OfflineAudioContext cases; the
+captured sound/voice order matches, with bounded native float rounding in the
+review PCM samples. Real play-scene gun/laser traces compare every step's events
+and audio delivery. Chromium verifies blocked autoplay before user activation,
+context replacement, controller-only sound hints, mute/pause/resume, and cleanup
+on restart, round end, error recovery and host disposal. Development WebGL/Canvas
+and production root/subdirectory lifecycle checks retain one page context and
+drain sources after the existing laser modulation tail. All 460 tests, lint,
+build and simulator checks pass; original source/test hashes are unchanged.
+Review [the audio evidence and listening samples](docs/phaser-audio/README.md).
+**Human listening and Firefox/WebKit/Safari acceptance remain pending; the audible
+parity exit gate is not closed by automated signal checks. Milestones 6–7 have
+not started; work stops here for review.**
 
 ### 0. Record the preservation baseline
 
