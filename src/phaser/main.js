@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 import { WIDTH, ARENA, MUTE_KEY, FULLSCREEN_KEY } from '../config.js';
 import { fitWindow, sceneShift, layout, onRefit, setFixed169 } from '../layout.js';
-import { onKey, pollPads, endStep, padSeenYet } from '../input.js';
+import { onKey, pollPads, endStep, padSeenYet, startInput, disposeInput } from './input.js';
 import { unlockAudio, resume, toggleMute, isMuted, audioUnlocked, stopVoices } from '../audio.js';
-import { toggleFullscreen } from '../fullscreen.js';
+import { toggleFullscreen, startFullscreen, disposeFullscreen } from './fullscreen.js';
 import { createSession } from '../session.js';
 import { createFixedLoop, createFrameClock } from './clock.js';
 import { createPreview } from './preview.js';
@@ -11,6 +11,9 @@ import { createPresentation } from './presentation.js';
 import { createGallery } from './gallery.js';
 import { createArtwork } from './artwork.js';
 import { stabilizeTextureSampling } from './textureSampling.js';
+import { createTitleScene } from './scenes/title.js';
+import * as input from './input.js';
+import * as fullscreen from './fullscreen.js';
 
 class Host extends Phaser.Scene {
   constructor() {
@@ -18,6 +21,8 @@ class Host extends Phaser.Scene {
   }
 
   create() {
+    startInput();
+    startFullscreen();
     stabilizeTextureSampling(this.game.renderer);
     this.root = this.add.container();
     this.layer = this.add.container();
@@ -84,7 +89,11 @@ class Host extends Phaser.Scene {
     }
     this.fit();
     const gallery = new URLSearchParams(window.location.search).get('gallery');
-    this.go(gallery === 'artwork' ? createArtwork : gallery === 'primitives' ? createGallery : createPreview);
+    this.calibration = gallery === 'calibration';
+    if (gallery === 'artwork') this.go(createArtwork);
+    else if (gallery === 'primitives') this.go(createGallery);
+    else if (this.calibration) this.go(createPreview);
+    else this.go(createTitleScene, this.session);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.dispose());
     this.events.once(Phaser.Scenes.Events.DESTROY, () => this.dispose());
     window.__game = {
@@ -92,6 +101,8 @@ class Host extends Phaser.Scene {
       app: this.game,
       game: this,
       session: this.session,
+      input,
+      fullscreen,
       get scene() {
         return this.game.logical;
       },
@@ -150,6 +161,7 @@ class Host extends Phaser.Scene {
     this.soundHint.setPosition(WIDTH / 2, f.visible - 10);
     this.padLabel.setPosition(WIDTH / 2, f.visible - 32);
     this.errorLabel.setPosition(WIDTH / 2, this.halted ? f.visible / 2 : 24);
+    this.logical?.refit?.();
   }
 
   padNotice(value) {
@@ -193,7 +205,8 @@ class Host extends Phaser.Scene {
     this.errorLeft = 5;
     this.errorLabel.setPosition(WIDTH / 2, 24).setText('Something went wrong, so the game went back to the menu.');
     try {
-      this.go(createPreview);
+      if (this.calibration) this.go(createPreview);
+      else this.go(createTitleScene, this.session);
       this.logical.render();
     } catch (again) {
       this.recover(again);
@@ -211,6 +224,8 @@ class Host extends Phaser.Scene {
     this.presentation.dispose();
     this.loop.reset();
     stopVoices();
+    disposeInput();
+    disposeFullscreen();
     if (window.__game?.game === this) delete window.__game;
   }
 }

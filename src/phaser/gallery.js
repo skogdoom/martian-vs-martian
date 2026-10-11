@@ -2,7 +2,7 @@ import { createDrawing } from './drawing.js';
 import { saucer, animal, wolf, parachute, skyTexture } from './representatives.js';
 import { GALLERY_ITEMS, GALLERY_BACKGROUND, TEXT_LINES, tilePosition } from './gallery-fixtures.js';
 import { layout, setFixed169 } from '../layout.js';
-import { wasPressed } from '../input.js';
+import { wasPressed } from './input.js';
 import { dimmer, centerUi } from './uiLayer.js';
 
 /** Static primitive gallery; no game rules or cosmetic RNG run here. */

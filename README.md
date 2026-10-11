@@ -54,13 +54,15 @@ On the `phaser` branch, run `npm ci` and `npm run dev`, then open
 `http://localhost:5173/?engine=phaser` (use the port printed by Vite). The default
 URL still runs the complete Pixi game. Each page loads only its selected engine.
 
-The Phaser preview currently proves the host, fixed-step timing, input/audio
-services, high-DPI layout, and pause/recovery. It uses simple markers for a seeded
-test round. The complete artwork has a separate review preview below; full game
-scene integration is milestone 4.
-Dismiss the startup overlay, then press Space/Enter to start. Use the usual move
-and shoot keys, P/Esc to pause, R to restart, T to return to the preview title, and
-V to toggle 16:9. Add `&renderer=canvas` to check Canvas instead of automatic WebGL.
+The Phaser version now runs the full title/settings/play/result/tally flow,
+including bots, pause, restart, sudden death, cheats, and session tallies.
+Dismiss the startup overlay, choose a mode, and press Space/Enter to start.
+Use the usual move/shoot keys and P/Esc for the pause menu; restart, exit, sound,
+fullscreen, and 16:9 are menu items. F or double-click also toggles fullscreen.
+Add `&renderer=canvas` to check Canvas instead of automatic WebGL.
+
+The milestone 1 calibration round is now at
+`http://localhost:5173/?engine=phaser&gallery=calibration`; it retains R/T/V controls.
 
 Open `http://localhost:5173/?engine=phaser&gallery=primitives` to review the
 milestone 2 drawing gallery: representative saucers, animals, wolf, parachute,
@@ -71,12 +73,13 @@ Open `http://localhost:5173/?engine=phaser&gallery=artwork` for milestone 3:
 complete procedural graphics, animations, HUD, powers, animals, weapons and effects.
 Left/right changes pages; P freezes, R restarts, and V toggles 16:9. Add
 `&date=2026-12-24` (or another special date) to inspect seasonal scenery.
-This is a render-only preview; full scene flow is the next milestone.
+This remains a render-only artwork preview.
 
 See [the migration plan](PHASER_MIGRATION.md) and the review notes for
 [milestone 1](docs/phaser-host/README.md),
-[milestone 2](docs/phaser-primitives/README.md), and
-[milestone 3](docs/phaser-artwork/README.md).
+[milestone 2](docs/phaser-primitives/README.md),
+[milestone 3](docs/phaser-artwork/README.md), and
+[milestone 4](docs/phaser-scenes/README.md).
 
 ## About this project
 

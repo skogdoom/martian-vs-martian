@@ -245,7 +245,7 @@ def main():
             for dpr in [1, 2, 3]:
                 context = browser.new_context(viewport={"width": 1280, "height": 720}, device_scale_factor=dpr)
                 page = context.new_page()
-                url = args.base_url + "?engine=phaser" + ("&renderer=canvas" if renderer == "canvas" else "")
+                url = args.base_url + "?engine=phaser&gallery=calibration" + ("&renderer=canvas" if renderer == "canvas" else "")
                 failures = setup(page, url)
                 layouts = []
                 for w, h in LAYOUTS:

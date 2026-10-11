@@ -1,10 +1,10 @@
 // Milestone 1 calibration scene. Original artwork and menus are ported later.
 import { WIDTH, HEIGHT, ARENA, PAUSE_KEY } from '../config.js';
 import { menuLift, layout, setFixed169 } from '../layout.js';
-import { wasPressed, playerInput } from '../input.js';
+import { wasPressed, playerInput } from './input.js';
 import { createRound, stepRound } from '../logic/round.js';
 import { handleEvents, setAudioPaused, stopVoices } from '../audio.js';
-import { onUnexpectedExit } from '../fullscreen.js';
+import { onUnexpectedExit } from './fullscreen.js';
 
 export function createPreview(host, playing = false) {
   const scene = host;

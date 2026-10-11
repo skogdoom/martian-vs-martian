@@ -1,13 +1,14 @@
 # Milestone 1: Phaser host review
 
 The `phaser` branch now has an opt-in Phaser 4.2.1 host. Run `npm ci` and
-`npm run dev`, then open `http://localhost:5173/?engine=phaser` (substitute the port
+`npm run dev`, then open `http://localhost:5173/?engine=phaser&gallery=calibration` (substitute the port
 printed by Vite). Add `&renderer=canvas` to select Canvas. The normal URL runs Pixi.
 
 This is a calibration preview, with a seeded round using unchanged game logic and
 simple entity markers. Space/Enter starts the round after dismissing the startup
 overlay; use the normal movement/shoot controls. P/Esc pauses, R restarts, T returns
-to the preview title, and V toggles 16:9. Original artwork and menus are later work.
+to the preview title, and V toggles 16:9. Since milestone 4, `?engine=phaser` opens
+the complete game; this gallery keeps the original host calibration checks available.
 
 Review the implementation in `src/phaser/main.js`, the scheduler in `clock.js`,
 and the calibration scene in `preview.js`. `src/entry.js` selects the engine before

@@ -106,7 +106,22 @@ and projectile pools. Host and primitive-gallery regressions also pass.
 Original game logic, graphics source and 271 test identities are unchanged; all
 460 tests, lint, build and the ten-round simulator pass. Review
 [the complete artwork notes](docs/phaser-artwork/README.md).
-**Milestones 4–7 have not started; work stops here for review.**
+
+Milestone 4 is implemented: `?engine=phaser` runs the complete five-scene game,
+with original menus, cooldowns, bots, pause/restart/exit, cheats, statistics,
+sudden death, and per-mode tallies. Results adopt and release the frozen playfield,
+and refit its HUD on resize without advancing animation. Phaser-owned DOM input
+and fullscreen services preserve the original APIs and add explicit cleanup.
+Fullscreen menu entry runs inside the keyboard event; controllers may exit but
+cannot enter fullscreen or unlock audio. Chromium WebGL/Canvas at DPR 1/2 pass
+full scene/input/controller/fullscreen checks; production root/subdirectory URLs
+also pass. Forty repeated completed-match lifecycle fixtures show no object,
+texture or subscription growth. Four traces through the real Pixi and Phaser
+play scenes match round state and ordered events over 2,400 frames / 4,760 steps.
+All 460 tests pass, and all original source/test hashes remain unchanged.
+Physical two-controller/rumble acceptance remains a manual review item in this
+cloud environment. See [the scene/input review notes](docs/phaser-scenes/README.md).
+**Milestones 5–7 have not started; work stops here for review.**
 
 ### 0. Record the preservation baseline
 

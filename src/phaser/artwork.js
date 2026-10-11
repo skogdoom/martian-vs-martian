@@ -2,7 +2,7 @@
 import { WIDTH, HEIGHT } from '../config.js';
 import { layout, setFixed169 } from '../layout.js';
 import { createRng } from '../logic/rng.js';
-import { wasPressed } from '../input.js';
+import { wasPressed } from './input.js';
 import { createArt } from './art.js';
 import { buildArtwork, ARTWORK_PAGES } from './artwork-fixtures.js';
 import * as backdrop from './render/backdrop.js';
