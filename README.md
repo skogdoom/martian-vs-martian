@@ -56,7 +56,8 @@ URL still runs the complete Pixi game. Each page loads only its selected engine.
 
 The Phaser preview currently proves the host, fixed-step timing, input/audio
 services, high-DPI layout, and pause/recovery. It uses simple markers for a seeded
-test round; complete artwork and menus are scheduled for later milestones.
+test round. The complete artwork has a separate review preview below; full game
+scene integration is milestone 4.
 Dismiss the startup overlay, then press Space/Enter to start. Use the usual move
 and shoot keys, P/Esc to pause, R to restart, T to return to the preview title, and
 V to toggle 16:9. Add `&renderer=canvas` to check Canvas instead of automatic WebGL.
@@ -64,11 +65,18 @@ V to toggle 16:9. Add `&renderer=canvas` to check Canvas instead of automatic We
 Open `http://localhost:5173/?engine=phaser&gallery=primitives` to review the
 milestone 2 drawing gallery: representative saucers, animals, wolf, parachute,
 curves, transparency, gradient, text, and nested tint. Dismiss the startup overlay;
-V toggles 16:9. This gallery is static; the complete graphics port is milestone 3.
+V toggles 16:9. This gallery is static.
 
-See [the migration plan](PHASER_MIGRATION.md) and
-[milestone 1 review notes](docs/phaser-host/README.md), and
-[milestone 2 review notes](docs/phaser-primitives/README.md).
+Open `http://localhost:5173/?engine=phaser&gallery=artwork` for milestone 3:
+complete procedural graphics, animations, HUD, powers, animals, weapons and effects.
+Left/right changes pages; P freezes, R restarts, and V toggles 16:9. Add
+`&date=2026-12-24` (or another special date) to inspect seasonal scenery.
+This is a render-only preview; full scene flow is the next milestone.
+
+See [the migration plan](PHASER_MIGRATION.md) and the review notes for
+[milestone 1](docs/phaser-host/README.md),
+[milestone 2](docs/phaser-primitives/README.md), and
+[milestone 3](docs/phaser-artwork/README.md).
 
 ## About this project
 

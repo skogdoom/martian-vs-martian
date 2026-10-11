@@ -14,7 +14,7 @@ export function createPresentation(scene) {
   const colors = new WeakMap();
   const labels = new WeakMap();
 
-  function texture(bounds, draw, { resolution = 2, sharedId = null } = {}) {
+  function texture(bounds, draw, { resolution = 2, sharedId = null, imageSmoothingQuality = null } = {}) {
     if (disposed) throw new Error('Presentation has been disposed');
     if (sharedId !== null && shared.has(sharedId)) return shared.get(sharedId);
     const key = `${prefix}-${nextTexture++}`;
@@ -27,7 +27,7 @@ export function createPresentation(scene) {
     draw(context);
     const resource = scene.textures.addCanvas(key, canvas);
     if (!resource) throw new Error(`Cannot allocate texture ${key}`);
-    const entry = { key, bounds, resolution, canvas, refs: 0, sharedId, variantId: null };
+    const entry = { key, bounds, resolution, canvas, refs: 0, sharedId, variantId: null, revision: 0, imageSmoothingQuality };
     entries.set(key, entry);
     if (sharedId !== null) shared.set(sharedId, entry);
     return entry;
@@ -45,7 +45,7 @@ export function createPresentation(scene) {
 
   function tinted(base, tint) {
     if (tint === 0xffffff) return base;
-    const id = `${base.key}:${tint}`;
+    const id = `${base.key}:${base.revision}:${tint}`;
     if (variants.has(id)) return variants.get(id);
     const entry = texture(
       base.bounds,
@@ -135,6 +135,22 @@ export function createPresentation(scene) {
           .setOrigin((-entry.bounds.x * entry.resolution) / entry.canvas.width, (-entry.bounds.y * entry.resolution) / entry.canvas.height)
           .setScale(1 / entry.resolution);
         entry.refs++;
+        if (entry.imageSmoothingQuality) {
+          const nativeRender = image.renderCanvas;
+          // A supersampled mask needs area filtering when it shrinks in Canvas.
+          // Scope this setting to paint images; text and other page graphics keep
+          // their original sampling. WebGL still uses the native Image renderer.
+          image.renderCanvas = function (renderer, ...args) {
+            const context = renderer.currentContext;
+            const previous = context.imageSmoothingQuality;
+            context.imageSmoothingQuality = entry.imageSmoothingQuality;
+            try {
+              return nativeRender.call(this, renderer, ...args);
+            } finally {
+              context.imageSmoothingQuality = previous;
+            }
+          };
+        }
         const state = { base: entry, current: entry };
         images.set(image, state);
         image.once('destroy', () => {
@@ -171,6 +187,29 @@ export function createPresentation(scene) {
         active();
         return this.image(texture(bounds, draw, options), parent);
       },
+      repaint(image, bounds, draw, { resolution = 2 } = {}) {
+        active();
+        const state = images.get(image);
+        const entry = state?.base;
+        if (!entry || entry.sharedId !== null || entry.refs !== 1) throw new Error('Repaint requires an exclusively owned bitmap');
+        entry.bounds = bounds;
+        entry.resolution = resolution;
+        entry.revision++;
+        const resource = scene.textures.get(entry.key);
+        resource.setSize(Math.ceil(bounds.width * resolution), Math.ceil(bounds.height * resolution));
+        const context = entry.canvas.getContext('2d');
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.clearRect(0, 0, entry.canvas.width, entry.canvas.height);
+        context.scale(resolution, resolution);
+        context.translate(-bounds.x, -bounds.y);
+        draw(context);
+        resource.refresh();
+        applyTint(image);
+        image
+          .setTexture(state.current.key)
+          .setOrigin((-bounds.x * resolution) / entry.canvas.width, (-bounds.y * resolution) / entry.canvas.height)
+          .setScale(1 / resolution);
+      },
       attach(parent, child, index) {
         active();
         return attach(parent, child, index);
@@ -179,6 +218,9 @@ export function createPresentation(scene) {
         active();
         colors.set(node, color);
         applyTint(node);
+      },
+      color(node) {
+        return colors.get(node) ?? 0xffffff;
       },
       dispose() {
         if (!ended) root.destroy();

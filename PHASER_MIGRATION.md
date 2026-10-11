@@ -93,7 +93,20 @@ DPR 1/2, and dev/production root/subdirectory URLs. Disposal/adoption checks sho
 no object or texture growth after 100 cycles. All 460 tests still pass; hashes of
 the original 30 test files and 48 source files are unchanged. See
 [the drawing and ownership review notes](docs/phaser-primitives/README.md).
-**Milestones 3–7 have not started; work stops here for review.**
+
+Milestone 3 is implemented: all sixteen procedural rendering modules have native
+Phaser implementations and a render-only `?engine=phaser&gallery=artwork` preview.
+Chromium WebGL/Canvas at DPR 1/2 pass 816 development artwork/layout cases, 192
+longer animation cases, and 232 production cases at each root/subdirectory URL.
+Drawing/pose audits preserve geometry, animation formulas, layering, colors and
+text; bounded pixel comparisons and separate silhouette checks pass. Four sets of
+100 create/render/destroy cycles show no object or texture growth.
+Owned paint images retain cached redraws, separate cosmetic RNG, animal/drop caches
+and projectile pools. Host and primitive-gallery regressions also pass.
+Original game logic, graphics source and 271 test identities are unchanged; all
+460 tests, lint, build and the ten-round simulator pass. Review
+[the complete artwork notes](docs/phaser-artwork/README.md).
+**Milestones 4–7 have not started; work stops here for review.**
 
 ### 0. Record the preservation baseline
 

@@ -9,6 +9,7 @@ import { createFixedLoop, createFrameClock } from './clock.js';
 import { createPreview } from './preview.js';
 import { createPresentation } from './presentation.js';
 import { createGallery } from './gallery.js';
+import { createArtwork } from './artwork.js';
 import { stabilizeTextureSampling } from './textureSampling.js';
 
 class Host extends Phaser.Scene {
@@ -23,6 +24,8 @@ class Host extends Phaser.Scene {
     this.root.add(this.layer);
     this.logical = null;
     this.presentation = createPresentation(this);
+    this.artworkFactory = createArtwork;
+    this.setFixed169 = setFixed169;
     this.session = createSession();
     this.disposers = [];
     this.recentErrors = [];
@@ -80,8 +83,8 @@ class Host extends Phaser.Scene {
       this.disposers.push(onKey(begin));
     }
     this.fit();
-    const gallery = new URLSearchParams(window.location.search).get('gallery') === 'primitives';
-    this.go(gallery ? createGallery : createPreview);
+    const gallery = new URLSearchParams(window.location.search).get('gallery');
+    this.go(gallery === 'artwork' ? createArtwork : gallery === 'primitives' ? createGallery : createPreview);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.dispose());
     this.events.once(Phaser.Scenes.Events.DESTROY, () => this.dispose());
     window.__game = {
@@ -221,7 +224,7 @@ const app = new Phaser.Game({
   width: window.innerWidth,
   height: window.innerHeight,
   scale: { mode: Phaser.Scale.NONE, autoRound: false },
-  render: { antialias: true, antialiasGL: true, roundPixels: false },
+  render: { antialias: true, antialiasGL: true, roundPixels: false, mipmapFilter: 'LINEAR_MIPMAP_NEAREST' },
   fps: { smoothStep: false },
   input: { keyboard: false, gamepad: false, mouse: false, touch: false },
   audio: { noAudio: true },
