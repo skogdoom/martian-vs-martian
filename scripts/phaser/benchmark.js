@@ -10,6 +10,7 @@ const report = {
   dpr: devicePixelRatio,
   samples: [],
   buildMode: 'development',
+  phaserCandidateUrl: null,
   profiles,
   seconds,
   repeats,
@@ -20,6 +21,20 @@ document.getElementById('run').onclick = async () => {
   document.getElementById('run').disabled = true;
   Object.assign(status.style, { position: 'fixed', top: '4px', left: '4px', zIndex: 2, background: '#101c3d' });
   try {
+    const sourceBase = new URL('../../', location.href);
+    const candidate = params.has('phaser-url') ? new URL(params.get('phaser-url'), location.href) : null;
+    if (candidate) {
+      if (!['http:', 'https:'].includes(candidate.protocol) || !candidate.pathname.endsWith('/'))
+        throw Error('phaser-url must be an HTTP(S) candidate base URL ending in /.');
+      const response = await fetch(new URL('engine-build.json', candidate));
+      if (!response.ok) throw Error('phaser-url does not serve a Phaser candidate build.');
+      const build = await response.json();
+      if (build.engine !== 'phaser' || build.modules.some((name) => name.includes('node_modules/pixi.js/')))
+        throw Error('Candidate manifest must contain only the Phaser runtime.');
+      report.phaserCandidateUrl = candidate.href;
+      report.candidateBuild = build;
+      report.buildMode = 'pixi-development-phaser-candidate';
+    }
     const allowed = ['ordinary', 'abduction', 'combined', 'crowded', 'stress', 'animal-rain', 'snow', 'fireworks'];
     if (
       !Number.isInteger(seconds) ||
@@ -35,10 +50,11 @@ document.getElementById('run').onclick = async () => {
           status.textContent = `${profile}, ${engine}, run ${repeat}/${repeats}. Keep this tab visible.`;
           const date = profile === 'snow' ? '2026-12-24' : profile === 'fireworks' ? '2026-12-31' : '2026-02-15';
           const frame = document.createElement('iframe');
-          let html = await (await fetch('../../index.html')).text();
+          const frameBase = engine === 'phaser' && candidate ? candidate : sourceBase;
+          let html = await (await fetch(new URL('index.html', frameBase))).text();
           const seed = `<script>window.AudioContext=undefined;window.webkitAudioContext=undefined;const D=Date;window.Date=class extends D{constructor(...a){super(...(a.length?a:['${date}T12:00:00']));}static now(){return 1790000000123;}};let seed=12345;window.__resetCosmetics=()=>seed=12345;Math.random=()=>{seed=(seed+0x6d2b79f5)>>>0;let t=Math.imul(seed^(seed>>>15),seed|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};crypto.getRandomValues=a=>{for(let i=0;i<a.length;i++)a[i]=12345;return a;};</script>`;
-          html = html.replace('<head>', `<head><base href="${new URL('../../', location.href)}">${seed}`);
-          html = html.replace('/src/entry.js', engine === 'phaser' ? '/src/phaser/main.js' : '/src/main.js');
+          html = html.replace('<head>', `<head><base href="${frameBase}">${seed}`);
+          if (!(engine === 'phaser' && candidate)) html = html.replace('/src/entry.js', engine === 'phaser' ? '/src/phaser/main.js' : '/src/main.js');
           frame.srcdoc = html;
           document.getElementById('game').replaceChildren(frame);
           await new Promise((resolve) => (frame.onload = resolve));
@@ -47,6 +63,7 @@ document.getElementById('run').onclick = async () => {
             if (performance.now() > deadline) throw Error(`${engine} did not start within 60 seconds; check the browser console.`);
             await new Promise((resolve) => setTimeout(resolve, 100));
           }
+          if ((frame.contentWindow.__game.engine ?? 'pixi') !== engine) throw Error(`Expected ${engine}, but the page loaded another engine.`);
           const sample = await frame.contentWindow.eval(
             `import('${new URL('./performance.js', location.href)}').then(async m=>{await m.start();return m.measure({profile:'${profile}',durationMs:${seconds * 1000},fixtureBase:'${new URL('../../', location.href)}'});})`,
           );

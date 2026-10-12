@@ -155,8 +155,9 @@ allowance, and stress exceeds 16.7 ms p95 CPU. These measured exceptions remain
 explicit; implementation completion does not close the performance acceptance gate.
 See [the performance evidence and review instructions](docs/phaser-performance/README.md).
 **M1 Safari/Chrome performance acceptance remains pending. The cloud runner uses
-SwiftShader and cannot establish the physical 60 fps gate. Milestone 7 has not
-started; the default entry remains Pixi while these gates are reviewed.**
+SwiftShader and cannot establish the physical 60 fps gate. Milestone 7 candidate
+preparation is recorded below; the default entry remains Pixi while these gates
+are reviewed.**
 
 The Safari movement-stutter follow-up removes immutable pixel-buffer copies,
 bounds cross-frame recipe retention, draws animated beams/flames/projectiles
@@ -169,7 +170,20 @@ retest instructions and explicit limitations are in
 A subsequent [simultaneous-event fix](docs/phaser-shader-warmup/README.md) prepares
 Phaser shader variants at startup, removing new program compilation from the
 three tested combined-workload runs. Its cloud p99 CPU improves 108.8 → 27.9 ms;
-physical M1 Safari acceptance and milestone 7 remain pending.
+physical M1 Safari acceptance and final cutover remain pending.
+
+Milestone 7 preparation adds an opt-in `npm run build:phaser` artifact in
+`dist-phaser/`, a module-graph check rejecting Pixi runtime code, production
+root/subdirectory checks and a Chromium/Firefox/WebKit CI matrix. The user chose
+to retain Pixi until manual acceptance passes; the normal entry, dependency graph
+and Pages target remain available for comparison. Node 22.23.3 clean installation,
+lint, all 460 tests, both builds and the ten-round simulator pass. Chromium passes
+six routing cases, twelve exact candidate/selected-Phaser pixel comparisons and
+eight full scene/input cases with 80 match ownership cycles. Firefox/WebKit binary
+downloads remain blocked here; their local checks did not execute. See
+[the candidate review notes](docs/phaser-candidate/README.md) for evidence and
+commands. **Final cutover and milestone 7's exit gate remain open pending physical
+performance, audible sound, controllers and browser acceptance.**
 
 ### 0. Record the preservation baseline
 

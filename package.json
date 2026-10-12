@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:phaser": "vite build --mode phaser",
     "preview": "vite preview",
+    "preview:phaser": "vite preview --mode phaser",
     "test": "vitest run",
     "sim": "node scripts/sim.js",
     "lint": "eslint . && prettier --check .",
