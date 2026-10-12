@@ -35,8 +35,16 @@ scenery and instructions retain their original presentation.
 Halloween pumpkins are centered over the illustrated inner fence posts rather
 than the pen boundaries. Their positions mirror each other across the arena.
 Christmas trees sit entirely outside the pens, on the field side of each gate,
-and render after the foreground fences. On December 24 and 25, the moon wears a
-hat centered on its white brim and has the same smiling face as classic mode.
+and render after the foreground fences. Their 80-pixel height is two-thirds of
+the barn's roof-to-ground height; their width scales proportionally. On December
+24 and 25, the moon wears a hat centered on its white brim, sitting 4 pixels lower,
+and has the same smiling face as classic mode.
+
+May 4 fighters reverse their pose on left-to-right passes while preserving the
+flight path and formation. The battle station retains its recessed laser port
+without a protruding antenna. Midsummer poles use a straight leafy stem, a
+horizontal crossbar and two round wreaths at 92 × 184 pixels, with classic-mode
+proportions and thin fluttering team/yellow ribbons.
 
 The title uses the stacked logo based on the corrected inspiration image, with
 both the red and blue words spelled **MARTIAN**, the yellow lightning burst and
@@ -62,11 +70,12 @@ per-frame texture painting.
 | Tractor beams | Cyan native geometry that follows the exact endpoints, with moving atlas rings |
 | Particles, splats, smoke, rings, confetti and shooting stars | Reused tintable atlas slots; existing event schedules, caps and shake |
 | Sky, moon, hills, ground, pens and flags | Navy gradient, phased moon frames, hill/meadow tiles, grass, barns, hay, fences and flag sprites |
-| Christmas, New Year, Midsummer, May 4 and Halloween | Hat, snowflakes, fireworks, tree, maypole/ribbons, orbital station/fighters, pumpkin and bats |
+| Christmas, New Year, Midsummer, May 4 and Halloween | Hat, snowflakes, fireworks, tree, maypole with native fluttering ribbons, orbital station/fighters, pumpkin and bats |
 | Title and HUD | Comic logo, sprite ammo pips and power icons; readable native text and numerical labels |
 
-Text, full-screen veils, solid fills, progress bars and the variable-length beam
-plane remain native text/geometry. They need arbitrary values or dimensions;
+Text, full-screen veils, solid fills, progress bars, fluttering midsummer ribbons
+and the variable-length beam plane remain native text/geometry. They need
+arbitrary values or dimensions;
 the illustrations use the supplied sheets. The classic renderers remain available.
 No game rules, collision sizes, original options, audio or controller logic changed.
 
@@ -102,6 +111,12 @@ The checks below are recorded in adjacent JSON evidence files:
   on the title screen and during play. Trees remain outside the pens and in front
   of the fences; hat alignment and visible smile pixels pass. Paused style
   switches preserve round state and input subscriptions (`christmas-review.json`).
+- May 4 checks cover both flight directions in classic/cartoon mode and both
+  renderers, preserving speed and formation (`may4-review.json`). All 35 unrelated
+  extras frames retain their pixels after repacking.
+- Midsummer checks cover title/play placement, native ribbons and real WebGL
+  context restoration (`midsummer-review.json`). All 37 unrelated world frames
+  retain their pixels after repacking.
 
 Run the relevant checks with Playwright and the existing Python requirements:
 
@@ -131,3 +146,7 @@ and its rare benchmark outliers remain documented in the cutover notes.
 ![Halloween title](halloween.png)
 
 ![Christmas title](christmas.png)
+
+![Midsummer title](midsummer.png)
+
+![May 4 title](may4.png)

@@ -97,6 +97,7 @@ EXTRA_RECTS = [
     (1062, 1042, 1225, 1217),
 ]
 EXTRAS = list(zip(EXTRA_NAMES, EXTRA_RECTS))
+SOURCE_OVERRIDES = {'battle-station': ('battle-station.png', 168), 'maypole': ('maypole.png', 184)}
 
 def pack(name, rectangles, width=2048, maximum=248):
     source = Image.open(ROOT / 'source' / f'{name}.png').convert('RGBA')
@@ -105,11 +106,17 @@ def pack(name, rectangles, width=2048, maximum=248):
     frames = {}
     for key, rect in rectangles:
         cut = (max(0, rect[0] - 2), max(0, rect[1] - 2), min(source.width, rect[2] + 2), min(source.height, rect[3] + 2))
-        tile = source.crop(cut)
+        if key in SOURCE_OVERRIDES:
+            filename, size = SOURCE_OVERRIDES[key]
+            tile = Image.open(ROOT / 'source' / filename).convert('RGBA')
+        else:
+            tile = source.crop(cut)
         bounds = tile.getchannel('A').getbbox()
         if not bounds:
             raise ValueError(f'Empty sprite: {key}')
         tile = tile.crop(bounds)
+        if key in SOURCE_OVERRIDES:
+            tile.thumbnail((size, size), Image.Resampling.LANCZOS)
         if name == 'fx':
             tile.thumbnail((maximum, maximum), Image.Resampling.LANCZOS)
         # Four transparent pixels protect linear sampling.

@@ -3,11 +3,13 @@ import { PAD, menuLift, layout } from '../../layout.js';
 import { createRng } from '../../logic/rng.js';
 import { occasion } from '../../occasion.js';
 import { createSnow, createFireworks } from '../render/festive.js';
-import { MOON_PHASES, MOON_AT, moonLitOutline, drawMoonSmile } from '../render/backdrop.js';
+import { MOON_PHASES, MOON_AT, moonLitOutline, drawMoonSmile, createMidsummerRibbon } from '../render/backdrop.js';
 
 const GROUND = ARENA.groundY;
 const FENCE_WIDTH = 90;
 const FENCE_HEIGHT = 42;
+const BARN_HEIGHT = 98;
+const BARN_GROUND_OFFSET = 22;
 // The illustrated posts are centered 10% inside the fence frame's edges.
 const FENCE_POST_INSET = FENCE_WIDTH * 0.1;
 
@@ -88,6 +90,7 @@ export function cartoonBackdrop(art, phase) {
   const meadow = sprite('meadow', WIDTH, 115, 0, GROUND + 4, 0, 1);
   const soil = art.graphics((draw) => draw.rect(0, GROUND, WIDTH, HEIGHT - GROUND + PAD, { fill: 0x164a25 }));
   const flags = [];
+  const ribbons = [];
   const lanterns = [];
   art.add(land, hills);
   for (const [x, w, h] of [
@@ -103,7 +106,7 @@ export function cartoonBackdrop(art, phase) {
   for (const side of ['red', 'blue']) {
     const { left, right } = ARENA.pens[side];
     const center = (left + right) / 2;
-    const barn = sprite('barn', 128, 98, center, GROUND - 22, 0.5, 1).setAlpha(0.9);
+    const barn = sprite('barn', 128, BARN_HEIGHT, center, GROUND - BARN_GROUND_OFFSET, 0.5, 1).setAlpha(0.9);
     art.add(land, barn, sprite('hay', 45, 34, side === 'red' ? right - 20 : left + 20, GROUND - 2, 0.5, 1));
     const poleX = side === 'red' ? left + (occasion === 'midsummer' ? 46 : 26) : right - (occasion === 'midsummer' ? 46 : 26);
     const pole = art.container();
@@ -111,10 +114,10 @@ export function cartoonBackdrop(art, phase) {
     pole.setPosition(poleX, GROUND).setScale(side === 'red' ? 1 : -1, 1);
     art.add(land, pole);
     if (occasion === 'midsummer') {
-      const maypole = sprite('maypole', 78, 214, 0, 0, 0.5, 1);
-      const ribbon = sprite(`ribbon-${side}`, 60, 20, 0, -208, 0, 0.3);
-      art.add(pole, maypole, ribbon);
-      flags.push(ribbon);
+      const maypole = sprite('maypole', 92, 184, 0, 0, 0.5, 1);
+      const ribbon = createMidsummerRibbon(art, side);
+      art.add(pole, maypole, ribbon.g);
+      ribbons.push(ribbon);
     } else {
       const stem = art.graphics((draw) => draw.rect(-2, -210, 4, 210, { fill: 0xb8bcc8 }).circle(0, -212, 4, { fill: 0xe8e8f0 }));
       const flag = sprite(`flag-${side}-cloth`, 60, 34, 2, -206, 0, 0);
@@ -148,9 +151,10 @@ export function cartoonBackdrop(art, phase) {
     tick(t) {
       starGroups.forEach((g, i) => (g.alpha = 0.65 + 0.35 * Math.sin(t * (1.3 + i * 0.4) + i * 2.1)));
       moon.setPosition(MOON_AT.x, MOON_AT.y + menuLift());
-      hat?.setPosition(moon.x, moon.y - 20);
+      hat?.setPosition(moon.x, moon.y - 16);
       // Transform the already painted flag/ribbon: zero geometry or uploads.
       flags.forEach((flag, i) => (flag.rotation = Math.sin(t * 5 + i) * 0.018));
+      ribbons.forEach((ribbon) => ribbon.tick(t));
       lanterns.forEach((l) => (l.alpha = 0.8 + 0.15 * Math.sin(t * 11)));
       snow?.tick(t);
       fireworks?.tick(t);
@@ -172,11 +176,12 @@ export function cartoonPenForeground(art) {
   if (occasion === 'christmas') {
     // Keep the whole tree outside the pen, on the field side of its gate.
     // Adding it after the fences keeps the lower branches visible too.
-    const width = 50;
+    const height = ((BARN_HEIGHT + BARN_GROUND_OFFSET) * 2) / 3;
+    const width = (50 / 64) * height;
     for (const side of ['red', 'blue']) {
       const { left, right } = ARENA.pens[side];
       const x = side === 'red' ? right + width / 2 + 10 : left - width / 2 - 10;
-      art.add(view, art.sprites.sprite('christmas-tree', width, 64, x, GROUND + 8, 0.5, 1));
+      art.add(view, art.sprites.sprite('christmas-tree', width, height, x, GROUND + 8, 0.5, 1));
     }
   }
   return { view };

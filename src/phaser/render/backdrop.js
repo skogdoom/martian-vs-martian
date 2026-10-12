@@ -330,8 +330,11 @@ function flag(art, side) {
 
 /** At midsummer: a long ribbon in the team colour fluttering from the top of
  * the maypole, so each pen still shows whose it is. */
-function ribbon(art, g, side, poleX, dir) {
-  const top = GROUND - 178;
+export function createMidsummerRibbon(art, side) {
+  return ribbon(art, art.dynamicGraphics(), side, 0, 1, -178);
+}
+
+function ribbon(art, g, side, poleX, dir, top = GROUND - 178) {
   return {
     g,
     tick(t) {

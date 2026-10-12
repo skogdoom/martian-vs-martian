@@ -11,7 +11,7 @@ frame maps; no external image service is used by the game.
 | `fx.png` | 8 | 1024 × 512 | White/grey tintable particles, rings, sparks, smoke, trails, confetti and shock front |
 | `logo.png` | 1 | 2048 × 1024 | Stacked concept title logo and author credit |
 
-The four shipped PNGs total approximately 4.94 MB. RGBA pixels occupy 26 MiB
+The four shipped PNGs total approximately 4.87 MB. RGBA pixels occupy 26 MiB
 before mipmaps (approximately 34.7 MiB with a complete mip chain). This excludes
 text, scenery gradients and renderer overhead. Source PNGs are retained in
 `source/` for art revisions and are not imported into the production build.
@@ -22,6 +22,10 @@ wood fences and a navy night farm. The companion sheet uses that first sheet as
 its style reference. The logo was isolated from the corrected inspiration image
 using background removal, retaining its stacked typography and author credit;
 neutral VFX allow the renderer to apply accurate team colors.
+Individual revised sources provide the antenna-free battle station and the
+straight midsummer pole with round wreaths. The packer's `SOURCE_OVERRIDES` uses
+`source/battle-station.png` and `source/maypole.png` while retaining the original
+source sheets and every unrelated frame.
 
 Frame names are the stable interface. Animal sprites face right and their
 renderer puts the bottom center at the animal's feet. Saucer views retain the
@@ -31,8 +35,9 @@ blinking pilots have explicit frames. New graphics do not define physics bodies.
 
 `scripts/pack_cartoon.py` records explicit source rectangles: generated sheets
 do not necessarily obey a perfect grid. It crops, trims and packs frames into
-power-of-two images with transparent gutters. It resizes the oversized logo and
-VFX during packing; it does not redraw the illustrations or change the originals.
+power-of-two images with transparent gutters. It resizes individual revisions,
+the oversized logo and VFX during packing; it does not redraw the illustrations
+or change the originals.
 With Python and Pillow installed:
 
 ```sh
