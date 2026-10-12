@@ -1,0 +1,583 @@
+{
+  "schema": 1,
+  "complete": true,
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "dpr": 1,
+  "samples": [
+    {
+      "profile": "ordinary",
+      "durationMs": 1000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 353,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 223,
+        "textures": 37,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 114.116666666667,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 31957922
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 9,
+          "momentumLost": 2,
+          "hit": 9,
+          "dryFire": 3,
+          "dazed": 2,
+          "reload": 2
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 133.39999999999964,
+          "update": 1.800000011920929,
+          "view": 0.20000000298023224,
+          "frame": 3.5,
+          "submission": 1.2999999970197678,
+          "calls": 41,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 166.70000000000073,
+          "update": 2.199999988079071,
+          "view": 0.30000001192092896,
+          "frame": 3.3999999910593033,
+          "submission": 0.8999999910593033,
+          "calls": 41,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 99.89999999999964,
+          "update": 0.30000001192092896,
+          "view": 0.19999998807907104,
+          "frame": 2.4000000059604645,
+          "submission": 1.800000011920929,
+          "calls": 42,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 100,
+          "update": 0.29999999701976776,
+          "view": 0.19999998807907104,
+          "frame": 1.7999999970197678,
+          "submission": 1.1000000089406967,
+          "calls": 41,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 100,
+          "update": 0.30000001192092896,
+          "view": 0.29999999701976776,
+          "frame": 1.6000000089406967,
+          "submission": 1,
+          "calls": 42,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 100.10000000000036,
+          "update": 0.19999998807907104,
+          "view": 0.30000001192092896,
+          "frame": 1.5999999940395355,
+          "submission": 1.0999999940395355,
+          "calls": 41,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 100,
+          "update": 0.29999999701976776,
+          "view": 0.29999999701976776,
+          "frame": 1.5,
+          "submission": 0.9000000059604645,
+          "calls": 42,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 100,
+          "update": 0.29999999701976776,
+          "view": 0.20000000298023224,
+          "frame": 1.4000000059604645,
+          "submission": 0.7999999970197678,
+          "calls": 41,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 116.5,
+          "update": 0.20000000298023224,
+          "view": 0.19999998807907104,
+          "frame": 1.4000000059604645,
+          "submission": 0.9000000059604645,
+          "calls": 41,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 100.10000000000036,
+          "update": 0.30000001192092896,
+          "view": 0.19999998807907104,
+          "frame": 1.2000000029802322,
+          "submission": 0.7000000029802322,
+          "calls": 39,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 10,
+        "p50": 100.10000000000036,
+        "p95": 166.70000000000073,
+        "p99": 166.70000000000073,
+        "max": 166.70000000000073
+      },
+      "updateCpuMs": {
+        "samples": 10,
+        "p50": 0.30000001192092896,
+        "p95": 2.199999988079071,
+        "p99": 2.199999988079071,
+        "max": 2.199999988079071
+      },
+      "viewCpuMs": {
+        "samples": 10,
+        "p50": 0.20000000298023224,
+        "p95": 0.30000001192092896,
+        "p99": 0.30000001192092896,
+        "max": 0.30000001192092896
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 10,
+        "p50": 1,
+        "p95": 1.800000011920929,
+        "p99": 1.800000011920929,
+        "max": 1.800000011920929
+      },
+      "totalCpuMs": {
+        "samples": 10,
+        "p50": 1.6000000089406967,
+        "p95": 3.5,
+        "p99": 3.5,
+        "max": 3.5
+      },
+      "drawCalls": {
+        "samples": 10,
+        "p50": 41,
+        "p95": 42,
+        "p99": 42,
+        "max": 42
+      },
+      "uploads": {
+        "samples": 10,
+        "p50": 0,
+        "p95": 2,
+        "p99": 2,
+        "max": 2
+      },
+      "shaderCompiles": {
+        "samples": 10,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 10,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "meanFps": 8.954956568460638,
+      "framesOver33ms": 10,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "pixi"
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 1000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 361,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 2039,
+        "textures": 611,
+        "effects": {
+          "particles": 45,
+          "popups": 1,
+          "rings": 2,
+          "stains": 0
+        },
+        "textureWrappers": 615,
+        "world": {
+          "phase": "play",
+          "timeLeft": 113.98333333333368,
+          "animals": 11,
+          "projectiles": 1,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": {
+          "cachedRecipes": 552,
+          "pendingRecipes": 0,
+          "retainedRecipes": 1,
+          "retainedRgbaBytes": 4,
+          "canvasRgbaBytes": 63049844
+        },
+        "jsHeapBytes": 65782665
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 10,
+          "momentumLost": 2,
+          "hit": 9,
+          "dryFire": 3,
+          "dazed": 2,
+          "reload": 3
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 83.39999999999964,
+          "update": 1.7000000029802322,
+          "view": 0.29999999701976776,
+          "frame": 4,
+          "submission": 1.7999999970197678,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 66.60000000000036,
+          "update": 0.09999999403953552,
+          "view": 0.9000000059604645,
+          "frame": 2.9000000059604645,
+          "submission": 1.3999999910593033,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 83.39999999999964,
+          "update": 0.29999999701976776,
+          "view": 1.1000000089406967,
+          "frame": 2.7999999970197678,
+          "submission": 1.2999999970197678,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 66.80000000000109,
+          "update": 0.29999998211860657,
+          "view": 0.29999999701976776,
+          "frame": 2.7999999970197678,
+          "submission": 2,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 99.89999999999964,
+          "update": 0.20000000298023224,
+          "view": 0.9000000059604645,
+          "frame": 2.699999988079071,
+          "submission": 1.2999999970197678,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 83.39999999999964,
+          "update": 0.10000000894069672,
+          "view": 0.5,
+          "frame": 2.3999999910593033,
+          "submission": 1.3999999910593033,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 99.89999999999964,
+          "update": 0.29999999701976776,
+          "view": 0.4000000059604645,
+          "frame": 2.300000011920929,
+          "submission": 1.4000000059604645,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 83.39999999999964,
+          "update": 0.19999998807907104,
+          "view": 0.3999999910593033,
+          "frame": 2.2999999970197678,
+          "submission": 1.2999999970197678,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 99.89999999999964,
+          "update": 0.20000000298023224,
+          "view": 0.3999999910593033,
+          "frame": 2.199999988079071,
+          "submission": 1.4000000059604645,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 66.60000000000036,
+          "update": 0.09999999403953552,
+          "view": 0.4000000059604645,
+          "frame": 2.1000000089406967,
+          "submission": 1.2999999970197678,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 83.39999999999964,
+          "update": 0.30000001192092896,
+          "view": 0.3999999910593033,
+          "frame": 2.1000000089406967,
+          "submission": 1.2999999970197678,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 83.39999999999964,
+          "update": 0.29999999701976776,
+          "view": 0.30000001192092896,
+          "frame": 2,
+          "submission": 1.2999999970197678,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 13,
+        "p50": 83.39999999999964,
+        "p95": 99.89999999999964,
+        "p99": 99.89999999999964,
+        "max": 99.89999999999964
+      },
+      "updateCpuMs": {
+        "samples": 13,
+        "p50": 0.20000000298023224,
+        "p95": 1.7000000029802322,
+        "p99": 1.7000000029802322,
+        "max": 1.7000000029802322
+      },
+      "viewCpuMs": {
+        "samples": 13,
+        "p50": 0.3999999910593033,
+        "p95": 1.1000000089406967,
+        "p99": 1.1000000089406967,
+        "max": 1.1000000089406967
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 13,
+        "p50": 1.2999999970197678,
+        "p95": 2,
+        "p99": 2,
+        "max": 2
+      },
+      "totalCpuMs": {
+        "samples": 13,
+        "p50": 2.300000011920929,
+        "p95": 4,
+        "p99": 4,
+        "max": 4
+      },
+      "drawCalls": {
+        "samples": 13,
+        "p50": 36,
+        "p95": 36,
+        "p99": 36,
+        "max": 36
+      },
+      "uploads": {
+        "samples": 13,
+        "p50": 0,
+        "p95": 2,
+        "p99": 2,
+        "max": 2
+      },
+      "shaderCompiles": {
+        "samples": 13,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 13,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1,
+        "max": 1
+      },
+      "meanFps": 12.000369242130535,
+      "framesOver33ms": 13,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "phaser"
+    }
+  ],
+  "buildMode": "pixi-reference-development-phaser-production",
+  "phaserCandidateUrl": "http://127.0.0.1:5185/",
+  "pixiReferenceUrl": "http://127.0.0.1:5184/",
+  "profiles": ["ordinary"],
+  "seconds": 1,
+  "repeats": 1,
+  "candidateBuild": {
+    "schema": 1,
+    "engine": "phaser",
+    "entry": "src/phaser/main.js",
+    "modules": [
+      "\u0000rolldown/runtime.js",
+      "\u0000vite/modulepreload-polyfill.js",
+      "\u0000vite/preload-helper.js",
+      "index.html",
+      "node_modules/phaser/dist/phaser.esm.js",
+      "package.json",
+      "src/audio.js",
+      "src/cheats.js",
+      "src/config.js",
+      "src/entry.js",
+      "src/gamepad.js",
+      "src/layout.js",
+      "src/logic/animal.js",
+      "src/logic/bot.js",
+      "src/logic/golden.js",
+      "src/logic/hook.js",
+      "src/logic/match.js",
+      "src/logic/ordnance.js",
+      "src/logic/powerup.js",
+      "src/logic/projectile.js",
+      "src/logic/rng.js",
+      "src/logic/round.js",
+      "src/logic/saucer.js",
+      "src/logic/scoring.js",
+      "src/logic/tally.js",
+      "src/logic/weapon.js",
+      "src/logic/wolf.js",
+      "src/logic/world.js",
+      "src/occasion.js",
+      "src/options.js",
+      "src/phaser/art.js",
+      "src/phaser/artwork-fixtures.js",
+      "src/phaser/artwork.js",
+      "src/phaser/clock.js",
+      "src/phaser/drawing.js",
+      "src/phaser/fullscreen.js",
+      "src/phaser/gallery-fixtures.js",
+      "src/phaser/gallery.js",
+      "src/phaser/input.js",
+      "src/phaser/listView.js",
+      "src/phaser/main.js",
+      "src/phaser/presentation.js",
+      "src/phaser/preview.js",
+      "src/phaser/render/animalView.js",
+      "src/phaser/render/backdrop.js",
+      "src/phaser/render/effects.js",
+      "src/phaser/render/festive.js",
+      "src/phaser/render/hud.js",
+      "src/phaser/render/listView.js",
+      "src/phaser/render/menu.js",
+      "src/phaser/render/powerupView.js",
+      "src/phaser/render/projectileView.js",
+      "src/phaser/render/saucerView.js",
+      "src/phaser/render/shootingStars.js",
+      "src/phaser/render/text.js",
+      "src/phaser/render/tieFlyby.js",
+      "src/phaser/render/timeBombView.js",
+      "src/phaser/render/uiLayer.js",
+      "src/phaser/render/wolfView.js",
+      "src/phaser/representatives.js",
+      "src/phaser/scenes/play.js",
+      "src/phaser/scenes/roundEnd.js",
+      "src/phaser/scenes/scope.js",
+      "src/phaser/scenes/settings.js",
+      "src/phaser/scenes/tally.js",
+      "src/phaser/scenes/title.js",
+      "src/phaser/shapes.js",
+      "src/phaser/textureSampling.js",
+      "src/phaser/uiLayer.js",
+      "src/phaser/warmup.js",
+      "src/session.js"
+    ]
+  }
+}

@@ -174,12 +174,23 @@ def negative_controls(reference):
 
 def preservation():
     baseline = json.loads((ROOT / 'baselines/pixi/checks.json').read_text())
-    records = baseline['source'] + baseline['tests']['identities']
-    for record in records:
+    archive_file = ROOT / 'references/pixi/archive.json'
+    archived = {row['original']: row for row in json.loads(archive_file.read_text())['files']} if archive_file.exists() else {}
+    for record in baseline['source']:
+        path = ROOT / record['file']
+        if record['file'] in archived:
+            row = archived[record['file']]
+            assert row['sha256'] == record['sha256'], record['file']
+            assert not path.exists(), f'Retired source is still active: {path}'
+            path = ROOT / row['archive']
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == record['sha256'], record['file']
+    for record in baseline['tests']['identities']:
         assert hashlib.sha256((ROOT / record['file']).read_bytes()).hexdigest() == record['sha256'], record['file']
     return {'original_source_hashes_unchanged': len(baseline['source']),
             'original_test_files_unchanged': len(baseline['tests']['identities']),
-            'original_test_identities': sum(len(file['tests']) for file in baseline['tests']['identities'])}
+            'original_test_identities': sum(len(file['tests']) for file in baseline['tests']['identities']),
+            'original_source_files_archived': len(archived),
+            'original_source_files_active': len(baseline['source']) - len(archived)}
 
 
 def main():

@@ -207,15 +207,14 @@ downloads remain blocked here; their local checks did not execute. See
 commands. **Pre-cutover acceptance prerequisites have passed under the user's
 accepted performance budget and exceptions. Browser compatibility, controller
 edge cases and keyboard-combination checks are advisory rather than cutover gates.
-The final cutover implementation and validation remain.**
+The final cutover implementation and validation are recorded below.**
 
 The user confirmed successful gameplay with two physical controllers and working
 rumble. Those manual checks have passed. Controller reconnect and intended keyboard
 combinations remain unconfirmed and are now advisory rather than gates, by user
 decision. Two-controller gameplay and rumble acceptance are passed.
-The user also confirmed that sounds seem OK,
-passing manual sound acceptance. The performance review is also accepted;
-Pixi remains the default pending the final cutover implementation.
+The user also confirmed that sounds seem OK, passing manual sound acceptance.
+The performance review is also accepted; the final cutover is recorded below.
 Safari fullscreen and other browser-specific behavior remain recommended checks
 under the user's non-blocking browser-compatibility decision.
 
@@ -225,6 +224,20 @@ ordinary/busy gameplay on the M1 reference device. The original proposed 10% CPU
 comparison allowance is waived with a documented exception for the approximately
 1 ms p95 overhead. The rare benchmark stalls and matched production comparisons
 remain follow-ups, not cutover blockers. No CPU-parity claim is made.
+
+Milestone 7 is now implemented on the `phaser` branch. Phaser is the normal dev
+and production entry, and the root Pixi dependency and active Pixi runtime files
+are removed. The 24 retired files are retained byte-for-byte in an optional,
+separately installed reference package; all shared original source and original
+test files remain unchanged. The standard build's six files match the accepted
+pre-cutover Phaser candidate exactly. All 460 tests pass, including all 271
+original executed identities. Production routing/flow/ownership, twelve exact
+candidate pixel comparisons, four real Pixi/Phaser logic traces and selected
+reference artwork checks pass. See the [cutover review notes](docs/phaser-cutover/README.md).
+Core implementation/validation is complete; browser compatibility and manual
+input edge checks remain advisory. The user-accepted CPU exception and unresolved
+benchmark stalls remain documented follow-ups. This completes the migration's
+cutover milestone for review; publishing/merging remains a separate action.
 
 ### 0. Record the preservation baseline
 

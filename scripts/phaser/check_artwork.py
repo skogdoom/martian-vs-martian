@@ -213,7 +213,7 @@ def open_page(context, base, date, phaser, renderer, dev_base):
         page.evaluate('__game.app.ticker.stop()')
     page.evaluate("""async base => {
       const {installPaintAudit, snapshotArtwork} = await import(new URL('scripts/phaser/artwork_audit.js', base));
-      installPaintAudit(); window.__snapshotArtwork = snapshotArtwork;
+      await installPaintAudit(); window.__snapshotArtwork = snapshotArtwork;
     }""", dev_base)
     if phaser:
         page.evaluate("""() => {

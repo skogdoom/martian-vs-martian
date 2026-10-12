@@ -17,7 +17,7 @@ export default [
     },
   },
   {
-    files: ['scripts/**', 'tests/**', 'eslint.config.js', 'vite.config.js'],
+    files: ['scripts/**', 'tests/**', 'eslint.config.js', 'vite.config.js', 'references/pixi/vite.config.js'],
     languageOptions: { globals: { ...globals.node } },
   },
 ];

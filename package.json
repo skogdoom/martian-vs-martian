@@ -7,17 +7,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:phaser": "vite build --mode phaser",
+    "build:phaser": "vite build",
     "preview": "vite preview",
-    "preview:phaser": "vite preview --mode phaser",
+    "preview:phaser": "vite preview",
+    "dev:pixi-reference": "vite --config references/pixi/vite.config.js",
     "test": "vitest run",
     "sim": "node scripts/sim.js",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "phaser": "4.2.1",
-    "pixi.js": "^8.21.0"
+    "phaser": "4.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

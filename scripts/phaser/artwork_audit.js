@@ -1,12 +1,15 @@
 // Audit actual Pixi calls and Phaser paint recipes as well as screenshots. This
 // catches vanished low-alpha particles and paths thinner than a device pixel.
-import { Graphics } from 'pixi.js';
 import { starPoints, multiplyColor, colorCss } from '../../src/phaser/shapes.js';
 
 const drawings = new WeakMap();
 let installed = false;
-export function installPaintAudit() {
+let Graphics;
+export async function installPaintAudit() {
+  if (window.__game.engine === 'phaser') return;
   if (installed) return;
+  const reference = new URL('/references/pixi/api.js', location.href);
+  ({ Graphics } = await import(/* @vite-ignore */ reference.href));
   installed = true;
   for (const method of [
     'ellipse',

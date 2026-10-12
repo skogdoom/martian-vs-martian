@@ -1,5 +1,10 @@
 # Milestone 7 preparation: Phaser-only review artifact
 
+The subsequent [final cutover](../phaser-cutover/README.md) makes Phaser the normal
+runtime. The initial preparation evidence and instructions below describe the
+retained-comparison stage; use the final notes for current commands and optional
+Pixi reference setup.
+
 The user chose to keep Pixi available until acceptance passes. This implements the
 review build and automated cutover checks while retaining Pixi as the normal
 runtime. Final cutover and Pixi removal are deferred. The original game entry,
@@ -116,8 +121,8 @@ Chromium candidate report still matches all current game-source hashes. Firefox
 and WebKit are not installed here; a current attempt to retrieve GitHub Actions
 results returned `Forbidden`, so their CI outcomes remain unverified here.
 
-The pre-cutover acceptance items are now resolved. The final cutover implementation
-and its core validation remain to be completed:
+The pre-cutover acceptance items are resolved. The [final cutover](../phaser-cutover/README.md)
+and its core validation are now implemented on the review branch:
 
 | Gate | Evidence and remaining checks | Status |
 | --- | --- | --- |
@@ -126,7 +131,7 @@ and its core validation remain to be completed:
 | Physical controls | The user confirmed successful gameplay with two physical controllers and working rumble. | Passed: two-controller gameplay and rumble |
 | Controller edge cases and keyboard combinations | Disconnect/reconnect and intended keyboard combinations remain unconfirmed; keep them as recommended follow-up checks. Existing automated regression assertions remain intact. | Advisory; not a cutover gate, by user decision |
 | Browser compatibility | Chromium automation and the user's Safari playtest provide coverage. Review Firefox/WebKit CI results, browser fullscreen/activation behavior and broader browser artwork/audio checks when available; a Chrome comparison is also useful. Unverified checks remain documented. | Recommended; not a cutover gate, by user decision |
-| Final production cutover | Switch the normal entry and remove Pixi code/dependency. Keep regression references needed for future checks and run the final core validation. | Ready for implementation; acceptance prerequisites passed |
+| Final production cutover | Switch the normal entry and remove Pixi code/dependency. Keep regression references needed for future checks and run the final core validation. | Implemented and validated; ready for review |
 
 ## Accepted performance budget review
 
@@ -156,6 +161,9 @@ claiming that every stall has been eliminated. Core tests, build checks, preserv
 graphics and lifecycle validation remain required.
 
 ## Compare the candidate on the M1
+
+These are the historical pre-cutover comparison instructions. For the current
+optional-reference comparison, use [the reference package guide](../../references/pixi/README.md).
 
 Keep the candidate preview running and start `npm run dev` in another terminal.
 Open the development server's benchmark with the candidate preview base URL:

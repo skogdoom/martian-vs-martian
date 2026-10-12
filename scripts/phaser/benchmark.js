@@ -11,6 +11,7 @@ const report = {
   samples: [],
   buildMode: 'development',
   phaserCandidateUrl: null,
+  pixiReferenceUrl: null,
   profiles,
   seconds,
   repeats,
@@ -22,6 +23,11 @@ document.getElementById('run').onclick = async () => {
   Object.assign(status.style, { position: 'fixed', top: '4px', left: '4px', zIndex: 2, background: '#101c3d' });
   try {
     const sourceBase = new URL('../../', location.href);
+    const pixiBase = params.has('pixi-url') ? new URL(params.get('pixi-url'), location.href) : null;
+    if (!pixiBase || !['http:', 'https:'].includes(pixiBase.protocol) || !pixiBase.pathname.endsWith('/'))
+      throw Error('Start the optional Pixi reference server and supply pixi-url as an HTTP(S) base URL ending in /.');
+    report.pixiReferenceUrl = pixiBase.href;
+    report.buildMode = 'pixi-reference-development-phaser-development';
     const candidate = params.has('phaser-url') ? new URL(params.get('phaser-url'), location.href) : null;
     if (candidate) {
       if (!['http:', 'https:'].includes(candidate.protocol) || !candidate.pathname.endsWith('/'))
@@ -33,7 +39,7 @@ document.getElementById('run').onclick = async () => {
         throw Error('Candidate manifest must contain only the Phaser runtime.');
       report.phaserCandidateUrl = candidate.href;
       report.candidateBuild = build;
-      report.buildMode = 'pixi-development-phaser-candidate';
+      report.buildMode = 'pixi-reference-development-phaser-production';
     }
     const allowed = ['ordinary', 'abduction', 'combined', 'crowded', 'stress', 'animal-rain', 'snow', 'fireworks'];
     if (
@@ -50,7 +56,7 @@ document.getElementById('run').onclick = async () => {
           status.textContent = `${profile}, ${engine}, run ${repeat}/${repeats}. Keep this tab visible.`;
           const date = profile === 'snow' ? '2026-12-24' : profile === 'fireworks' ? '2026-12-31' : '2026-02-15';
           const frame = document.createElement('iframe');
-          const frameBase = engine === 'phaser' && candidate ? candidate : sourceBase;
+          const frameBase = engine === 'pixi' ? pixiBase : (candidate ?? sourceBase);
           let html = await (await fetch(new URL('index.html', frameBase))).text();
           const seed = `<script>window.AudioContext=undefined;window.webkitAudioContext=undefined;const D=Date;window.Date=class extends D{constructor(...a){super(...(a.length?a:['${date}T12:00:00']));}static now(){return 1790000000123;}};let seed=12345;window.__resetCosmetics=()=>seed=12345;Math.random=()=>{seed=(seed+0x6d2b79f5)>>>0;let t=Math.imul(seed^(seed>>>15),seed|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};crypto.getRandomValues=a=>{for(let i=0;i<a.length;i++)a[i]=12345;return a;};</script>`;
           html = html.replace('<head>', `<head><base href="${frameBase}">${seed}`);

@@ -41,7 +41,11 @@
     Run on the M1 MacBook Air while plugged in, with Low Power Mode off. Close other games and heavy tabs. Keep this tab visible. Each engine gets
     three 60-second samples after five seconds of warmup, at 1280 × 720 and this screen's pixel density. Allow about 30 minutes.
   </p>
-  <p>To compare the Phaser production candidate, add <code>&amp;phaser-url=http://localhost:4173/</code> using the preview URL.</p>
+  <p>
+    Pixi is retained in an optional reference package. Start its server and supply
+    <code>&amp;pixi-url=http://localhost:5174/</code>. To measure production Phaser, also supply
+    <code>&amp;phaser-url=http://localhost:4173/</code> using the preview URL.
+  </p>
   <button id="run">Run comparison</button
   ><button id="save" disabled>Save report</button>
   <p id="status">Ready. Safari is the primary reference; repeat in Chrome.</p>

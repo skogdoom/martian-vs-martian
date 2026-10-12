@@ -37,74 +37,44 @@ touch alone.
 Requires Node.js 20.19+ or 22.12+.
 
 ```sh
-npm install
+npm ci
 npm run dev      # start a dev server, then open the printed URL
 npm run build    # production build in dist/
+npm run preview  # serve that production build
 npm test         # unit tests
 npm run sim      # simulate bot matches and print balance stats
 ```
 
-Built with [PixiJS](https://pixijs.com/) and [Vite](https://vite.dev/). All
+Built with [Phaser](https://phaser.io/) and [Vite](https://vite.dev/). All
 graphics are drawn in code and all sounds are synthesized; there are no asset
 files. `PLAN.md` has the full rules and design notes.
 
-### Phaser migration preview
+### Rendering and review tools
 
-On the `phaser` branch, run `npm ci` and `npm run dev`, then open
-`http://localhost:5173/?engine=phaser` (use the port printed by Vite). The default
-URL still runs the complete Pixi game. Each page loads only its selected engine.
+Phaser is the default in development and production. Open the URL printed by
+`npm run dev` or `npm run preview`; no engine parameter is needed. Old
+`?engine=phaser` and `?engine=pixi` links both run Phaser. `npm run build:phaser`
+and `npm run preview:phaser` remain aliases for the normal commands and use `dist/`.
+The production build enforces a Phaser-only module graph in `engine-build.json`.
 
-The Phaser version now runs the full title/settings/play/result/tally flow,
-including bots, pause, restart, sudden death, cheats, and session tallies.
-Dismiss the startup overlay, choose a mode, and press Space/Enter to start.
-Use the usual move/shoot keys and P/Esc for the pause menu; restart, exit, sound,
-fullscreen, and 16:9 are menu items. F or double-click also toggles fullscreen.
-Add `&renderer=canvas` to check Canvas instead of automatic WebGL.
+Automatic WebGL and Canvas fallback remain available; add `?renderer=canvas` to
+check Canvas explicitly. The render-only galleries remain available at
+`?gallery=primitives` and `?gallery=artwork`. Dismiss the startup overlay. In the
+artwork gallery, left/right changes pages, P freezes, R restarts and V toggles
+16:9. Add `&date=2026-12-24` or another special date for seasonal scenery.
+The earlier calibration round remains at `?gallery=calibration`.
 
-The milestone 1 calibration round is now at
-`http://localhost:5173/?engine=phaser&gallery=calibration`; it retains R/T/V controls.
+The [migration plan](PHASER_MIGRATION.md) and [final cutover notes](docs/phaser-cutover/README.md)
+record preservation checks, the accepted M1 performance budget and unresolved
+benchmark outliers. Sound, smooth Safari gameplay and two-controller/rumble
+playtests passed. Browser compatibility, controller edge cases and keyboard
+combinations remain advisory.
 
-Open `http://localhost:5173/?engine=phaser&gallery=primitives` to review the
-milestone 2 drawing gallery: representative saucers, animals, wolf, parachute,
-curves, transparency, gradient, text, and nested tint. Dismiss the startup overlay;
-V toggles 16:9. This gallery is static.
-
-Open `http://localhost:5173/?engine=phaser&gallery=artwork` for milestone 3:
-complete procedural graphics, animations, HUD, powers, animals, weapons and effects.
-Left/right changes pages; P freezes, R restarts, and V toggles 16:9. Add
-`&date=2026-12-24` (or another special date) to inspect seasonal scenery.
-This remains a render-only artwork preview.
-
-See [the migration plan](PHASER_MIGRATION.md) and the review notes for
-[milestone 1](docs/phaser-host/README.md),
-[milestone 2](docs/phaser-primitives/README.md),
-[milestone 3](docs/phaser-artwork/README.md),
-[milestone 4](docs/phaser-scenes/README.md),
-[milestone 5](docs/phaser-audio/README.md), including audio checks and listening samples, and
-[milestone 6](docs/phaser-performance/README.md), including the M1 MacBook Air
-performance comparison at `/scripts/phaser/benchmark.html`.
-The [Safari stutter follow-up](docs/phaser-stutter-fix/README.md) documents the
-rendering fixes, before/after measurements, and M1 retest instructions.
-The [simultaneous-event follow-up](docs/phaser-shader-warmup/README.md) addresses
-shader compilation when arrivals, shooting and pickups overlap.
-The [M1 report follow-up](docs/phaser-flags/README.md) identifies and removes
-recurring WebGL texture uploads from the waving flags. The user's M1 Safari
-playtest now feels smooth, and manual sound and two-controller/rumble checks pass.
-
-### Phaser-only review build
-
-Pixi remains the default pending the final cutover implementation. To play a
-production artifact containing only Phaser:
-
-```sh
-npm run build:phaser    # writes dist-phaser/
-npm run preview:phaser  # open the printed URL; no engine parameter needed
-```
-
-The normal `build`/`preview` commands still use `dist/` and the existing selector.
-See [milestone 7 preparation](docs/phaser-candidate/README.md) for validation,
-advisory browser CI, remaining review items and comparison instructions. Browser
-compatibility is recommended rather than a cutover gate, by user decision.
+Pixi is absent from the root dependency tree and the shipped game. Original Pixi
+source and comparison tools are retained in an [optional reference package](references/pixi/README.md).
+Its dependencies are installed separately when running historical comparisons;
+normal development, tests, builds and deployment do not need that installation.
+The original test suite and frozen references remain available for regression work.
 
 ## About this project
 
