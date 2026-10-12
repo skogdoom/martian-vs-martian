@@ -111,11 +111,11 @@ full cross-browser artwork/audio and physical acceptance gates.
 
 The cutover remains deferred until these items are reviewed:
 
-| Gate | Evidence still needed | Status |
+| Gate | Evidence and remaining checks | Status |
 | --- | --- | --- |
 | M1 MacBook Air performance | Safari ordinary and busy-play retest after native flag rendering ([M1 report and findings](../phaser-flags/README.md)); matched Pixi/Phaser measurements, with Chrome comparison. Assess the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Open |
 | Audible sound | Human listening for overlapping shots/effects, sustained lift/laser voices, unlock, mute, pause and tab return in supported browsers. | Open |
-| Physical controls | Two real controllers, reconnect/rumble, Safari fullscreen behavior and intended keyboard combinations. Mocked device checks cannot close this gate. | Open |
+| Physical controls | The user confirmed successful gameplay with two physical controllers and working rumble. Reconnect, Safari fullscreen behavior and intended keyboard combinations still need confirmation. | Partially passed: two-controller gameplay and rumble passed |
 | Browser compatibility | Review Firefox/WebKit CI results and complete supported-browser artwork/audio checks and manual Safari checks. | Open |
 | Final production cutover | Switch the normal entry and remove Pixi code/dependency after earlier gates pass. Keep regression references needed for future checks. | Deferred by user decision |
 

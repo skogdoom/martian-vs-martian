@@ -192,7 +192,13 @@ eight full scene/input cases with 80 match ownership cycles. Firefox/WebKit bina
 downloads remain blocked here; their local checks did not execute. See
 [the candidate review notes](docs/phaser-candidate/README.md) for evidence and
 commands. **Final cutover and milestone 7's exit gate remain open pending physical
-performance, audible sound, controllers and browser acceptance.**
+performance, audible sound, remaining control checks and browser acceptance.**
+
+The user confirmed successful gameplay with two physical controllers and working
+rumble. Those manual checks have passed. Controller reconnect, Safari fullscreen
+behavior and intended keyboard combinations remain unconfirmed; the physical
+controls gate is partially passed. Performance and audible sound acceptance remain
+open, and Pixi remains the default until the remaining gates pass.
 
 ### 0. Record the preservation baseline
 
