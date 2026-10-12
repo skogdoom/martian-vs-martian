@@ -17,7 +17,7 @@ import { createRound, stepRound, countdownNumber } from '../../logic/round.js';
 import { scores } from '../../logic/scoring.js';
 import { roundWinner, recordRound, roundNumber, isSuddenDeath, addRoundStats } from '../../logic/match.js';
 import { addRoundToTally, addMatchToTally } from '../../logic/tally.js';
-import { createBackdrop } from '../render/backdrop.js';
+import { createBackdrop, createPenForeground } from '../render/backdrop.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { createProjectileView } from '../render/projectileView.js';
 import { createAnimalView, createBeamView } from '../render/animalView.js';
@@ -45,6 +45,8 @@ export function createPlayScene(game, session) {
     const backdrop = createBackdrop(art);
     const beamView = createBeamView(art);
     const animalView = createAnimalView(art, world.animals);
+    animalView.view.name = 'animal-view';
+    const foreground = createPenForeground(art);
     const saucerViews = {};
     for (const side of SIDES) saucerViews[side] = createSaucerView(art, side);
     const dropsView = createDropsView(art);
@@ -60,6 +62,7 @@ export function createPlayScene(game, session) {
       wolvesView.view,
       dropsView.view,
       timeBombsView.view,
+      foreground.view,
       ...SIDES.map((side) => saucerViews[side].view),
       projectileView.view,
       effects.view,
@@ -73,7 +76,7 @@ export function createPlayScene(game, session) {
     const top = art.container();
     art.add(top, hud.view);
     art.add(view, stage, top);
-    warmGameplayArt(game.presentation, stage);
+    if (game.graphics.classic) warmGameplayArt(game.presentation, stage);
 
     const banner = label(art, '', { size: 96, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
     banner.setPosition(WIDTH / 2, 280);
@@ -114,11 +117,11 @@ export function createPlayScene(game, session) {
     const pauseMenuView = createMenu(art, {
       active: () => paused && round.phase !== 'over',
       y0: 255,
-      gap: 48,
+      gap: 40,
       items: [
         { id: 'resume', text: () => 'RESUME' },
         { id: 'restart', text: () => 'RESTART THE GAME' },
-        ...settingsItems(session),
+        ...settingsItems(session, game.graphics),
         { id: 'exit', text: () => 'EXIT TO MAIN MENU' },
       ],
     });

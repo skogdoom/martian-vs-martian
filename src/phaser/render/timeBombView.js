@@ -5,10 +5,20 @@ import { ANIMALS } from '../../config.js';
 import { drawBomb } from './powerupView.js';
 import { label } from './text.js';
 import { createListView } from './listView.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonTimeBomb, cartoonTimeBombs } from '../sprites/props.js';
 
 const R = 15;
 
 export function createTimeBombSprite(art) {
+  return variant(
+    art,
+    () => classicTimeBomb(art),
+    () => cartoonTimeBomb(art),
+  );
+}
+
+function classicTimeBomb(art) {
   const view = art.container();
   // A pulsing red glow, so it stands out in a crowded pen.
   const glow = art.graphics((draw) => draw.circle(0, 0, R * 2.2, { fill: 0xff3030, alpha: 0.25 }));
@@ -53,5 +63,9 @@ export function createTimeBombSprite(art) {
 }
 
 export function createTimeBombsView(art) {
-  return createListView(art, () => createTimeBombSprite(art));
+  return variant(
+    art,
+    () => createListView(art, () => classicTimeBomb(art)),
+    () => cartoonTimeBombs(art),
+  );
 }

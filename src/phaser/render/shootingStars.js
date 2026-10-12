@@ -3,6 +3,7 @@
 
 import { WIDTH } from '../../config.js';
 import { layout } from '../../layout.js';
+import { createStyleSurface } from '../sprites/adapter.js';
 
 const rand = (art, lo, hi) => lo + art.random() * (hi - lo);
 
@@ -11,7 +12,8 @@ const FIRST = [1.5, 4]; // seconds before the first one
 const START_BELOW = 200; // they start above this
 
 export function createShootingStars(art) {
-  const view = art.graphics();
+  const surface = createStyleSurface(art, {}, false);
+  const view = surface.view;
   let wait = rand(art, ...FIRST);
   let star = null;
   let drawn = false;
@@ -49,12 +51,13 @@ export function createShootingStars(art) {
       star = spawn();
     },
     render() {
+      const draw = surface.draw;
       if (!star) {
-        if (drawn) art.draw(view).clear();
+        if (drawn) draw.clear();
         drawn = false;
         return;
       }
-      art.draw(view).clear();
+      draw.clear();
       drawn = true;
       // Fades in quickly and out slowly.
       const age = 1 - star.life / star.max;
@@ -68,7 +71,7 @@ export function createShootingStars(art) {
         const a = (star.tail * i) / parts;
         const b = (star.tail * (i + 1)) / parts;
         const k = 1 - i / parts;
-        art.draw(view).curve(
+        draw.curve(
           [
             ['moveTo', star.x - ux * a, star.y - uy * a],
             ['lineTo', star.x - ux * b, star.y - uy * b],
@@ -76,8 +79,8 @@ export function createShootingStars(art) {
           { stroke: 0xdfe8ff, width: 0.6 + 1.8 * k, alpha: alpha * k * 0.9 },
         );
       }
-      art.draw(view).circle(star.x, star.y, 4, { fill: 0xffffff, alpha: alpha * 0.25 });
-      art.draw(view).circle(star.x, star.y, 1.8, { fill: 0xffffff, alpha: alpha });
+      draw.circle(star.x, star.y, 4, { fill: 0xffffff, alpha: alpha * 0.25 });
+      draw.circle(star.x, star.y, 1.8, { fill: 0xffffff, alpha: alpha });
     },
   };
 }

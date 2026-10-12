@@ -19,6 +19,7 @@ export function createPresentation(scene) {
   let idleBytes = 0;
   const bytes = (entry) => entry.canvas.width * entry.canvas.height * 4;
   const images = new WeakMap();
+  const atlasImages = new WeakMap();
   const colors = new WeakMap();
   const labels = new WeakMap();
 
@@ -114,8 +115,41 @@ export function createPresentation(scene) {
 
   function applyTint(node, inherited = inheritedTint(node)) {
     const tint = multiplyColor(inherited, colors.get(node) ?? 0xffffff);
+    const atlas = atlasImages.get(node);
     const state = images.get(node);
-    if (state) {
+    if (atlas) {
+      if (scene.game.renderer.gl) node.setTint(tint);
+      else {
+        // Canvas has no native Image tint. Cache a frame/color pair once, using
+        // the same bounded recipe store as classic art; never edit the atlas.
+        let next = null;
+        if (tint !== 0xffffff) {
+          const frame = scene.textures.getFrame(atlas.key, atlas.frame);
+          next = texture(
+            { x: 0, y: 0, width: frame.cutWidth, height: frame.cutHeight },
+            (ctx) => {
+              ctx.drawImage(frame.source.image, frame.cutX, frame.cutY, frame.cutWidth, frame.cutHeight, 0, 0, frame.cutWidth, frame.cutHeight);
+              const pixels = ctx.getImageData(0, 0, frame.cutWidth, frame.cutHeight);
+              const factors = [(tint >> 16) & 255, (tint >> 8) & 255, tint & 255];
+              for (let i = 0; i < pixels.data.length; i += 4)
+                for (let c = 0; c < 3; c++) pixels.data[i + c] = Math.round((pixels.data[i + c] * factors[c]) / 255);
+              ctx.putImageData(pixels, 0, 0);
+            },
+            { resolution: 1, cacheKey: `atlas:${atlas.key}:${atlas.frame}:${tint}` },
+          );
+        }
+        if (next !== atlas.current) {
+          if (next) {
+            activate(next);
+            next.refs++;
+          }
+          const previous = atlas.current;
+          atlas.current = next;
+          node.setTexture(next?.key ?? atlas.key, next ? undefined : atlas.frame);
+          if (previous) release(previous, true);
+        }
+      }
+    } else if (state) {
       const next = scene.game.renderer.gl ? state.base : tinted(state.base, tint);
       if (scene.game.renderer.gl) node.setTint(tint);
       else node.clearTint();
@@ -168,6 +202,29 @@ export function createPresentation(scene) {
       graphics(parent = root) {
         active();
         return attach(parent, scene.make.graphics({ add: false }));
+      },
+      atlasImage(key, frame, parent = root) {
+        active();
+        if (!scene.textures.getFrame(key, frame)) throw new Error(`Missing atlas frame ${key}/${frame}`);
+        const image = scene.make.image({ key, frame, add: false });
+        const state = { key, frame, current: null };
+        atlasImages.set(image, state);
+        image.once('destroy', () => {
+          if (state.current) release(state.current);
+        });
+        return attach(parent, image);
+      },
+      atlasFrame(image, frame, key) {
+        active();
+        const state = atlasImages.get(image);
+        if (!state) throw new Error('Frame changes require a managed atlas image');
+        key ??= state.key;
+        if (state.frame === frame && state.key === key) return;
+        if (!scene.textures.getFrame(key, frame)) throw new Error(`Missing atlas frame ${key}/${frame}`);
+        state.key = key;
+        state.frame = frame;
+        image.setTexture(state.key, frame);
+        applyTint(image);
       },
       image(entry, parent = root) {
         active();

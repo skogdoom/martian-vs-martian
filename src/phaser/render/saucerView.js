@@ -3,6 +3,8 @@
 import { SAUCER } from '../../config.js';
 import { COLORS } from './backdrop.js';
 import { POWER_COLOR, SHIELD_COLOR, drawRocket, drawBomb } from './powerupView.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonSaucer } from '../sprites/actors.js';
 
 const SHADE = { red: 0x9e2a2f, blue: 0x1f5bb0 };
 const LIGHTS = 7;
@@ -47,6 +49,14 @@ function drawHull(art, g, side) {
 }
 
 export function createSaucerView(art, side) {
+  return variant(
+    art,
+    () => classicSaucer(art, side),
+    () => cartoonSaucer(art, side),
+  );
+}
+
+function classicSaucer(art, side) {
   const view = art.container();
   const r = SAUCER.radius;
   const h = SAUCER.halfHeight;

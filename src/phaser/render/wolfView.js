@@ -4,6 +4,8 @@
 import { WOLF } from '../../config.js';
 import { drawParachute } from './powerupView.js';
 import { createListView } from './listView.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonWolf, cartoonWolves } from '../sprites/actors.js';
 
 const FUR = 0x8a9099;
 const DARK = 0x5f656e;
@@ -52,6 +54,14 @@ function drawHead(art, g) {
 }
 
 export function createWolfSprite(art) {
+  return variant(
+    art,
+    () => classicWolf(art),
+    () => cartoonWolf(art),
+  );
+}
+
+function classicWolf(art) {
   const view = art.container();
   const legs = [-17, -11, 11, 17].map((x, i) => {
     const leg = art.graphics();
@@ -121,5 +131,9 @@ export function createWolfSprite(art) {
 
 /** Draws every wolf in the world, making views for new ones as they arrive. */
 export function createWolvesView(art) {
-  return createListView(art, () => createWolfSprite(art));
+  return variant(
+    art,
+    () => createListView(art, () => classicWolf(art)),
+    () => cartoonWolves(art),
+  );
 }

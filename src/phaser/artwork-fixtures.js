@@ -115,6 +115,7 @@ export function buildArtwork(api, page = 'arena', phase = 'waxing') {
     const scenery = api.createBackdrop(phase);
     api.children(scenery.view)[0].visible = false;
     add(scenery, (a, t) => a.tick(t));
+    if (api.sprites) add(api.createPenForeground(), () => {});
     const stars = api.createShootingStars();
     add(stars, (a) => a.render());
     updates.push((dt) => stars.update(dt));
@@ -163,6 +164,7 @@ export function buildArtwork(api, page = 'arena', phase = 'waxing') {
     add(api.createDropsView(), (a, t) => a.sync(world.drops, t), field);
     add(api.createWolvesView(), (a, t) => a.sync(world.wolves, t), field);
     add(api.createTimeBombsView(), (a, t) => a.sync(world.timeBombs, t), field);
+    if (api.sprites) add(api.createPenForeground(), () => {}, field);
     const fx = api.createEffects();
     fx.handle([{ type: 'land', delivered: true, golden: true, value: 15, pen: 'red', side: 'red', x: 150, y: 660 }]);
     add(fx, (a) => a.render(), field);

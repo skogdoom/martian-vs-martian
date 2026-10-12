@@ -14,10 +14,26 @@ import { stabilizeTextureSampling, warmRenderPrograms } from './textureSampling.
 import { createTitleScene } from './scenes/title.js';
 import * as input from './input.js';
 import * as fullscreen from './fullscreen.js';
+import { createGraphicsPreferences } from './graphicsPreferences.js';
+import worldUrl from '../../assets/cartoon/world.png';
+import worldAtlas from '../../assets/cartoon/world.json';
+import extrasUrl from '../../assets/cartoon/extras.png';
+import extrasAtlas from '../../assets/cartoon/extras.json';
+import logoUrl from '../../assets/cartoon/logo.png';
+import logoAtlas from '../../assets/cartoon/logo.json';
+import fxUrl from '../../assets/cartoon/fx.png';
+import fxAtlas from '../../assets/cartoon/fx.json';
 
 class Host extends Phaser.Scene {
   constructor() {
     super('host');
+  }
+
+  preload() {
+    this.load.atlas('cartoon-world', worldUrl, worldAtlas);
+    this.load.atlas('cartoon-extras', extrasUrl, extrasAtlas);
+    this.load.atlas('cartoon-logo', logoUrl, logoAtlas);
+    this.load.atlas('cartoon-fx', fxUrl, fxAtlas);
   }
 
   create() {
@@ -33,6 +49,7 @@ class Host extends Phaser.Scene {
     this.artworkFactory = createArtwork;
     this.setFixed169 = setFixed169;
     this.session = createSession();
+    this.graphics = createGraphicsPreferences(undefined, window.location.search);
     this.disposers = [];
     this.recentErrors = [];
     this.errorLeft = 0;

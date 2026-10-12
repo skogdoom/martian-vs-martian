@@ -22,7 +22,7 @@ only, press any key or click the page once to switch the sound on.
 
 Shooting while carrying an animal drops it. Hover low and still over an animal
 to beam it up. **P** or **Esc** pauses and opens a menu (resume, restart, sound, full screen,
-16:9, exit to the main menu); the same settings are on the title screen under
+16:9, classic graphics, exit to the main menu); the same settings are on the title screen under
 Settings. **M** toggles sound and **F** toggles full screen. In
 single-player you fly Red with either set of keys.
 
@@ -45,9 +45,12 @@ npm test         # unit tests
 npm run sim      # simulate bot matches and print balance stats
 ```
 
-Built with [Phaser](https://phaser.io/) and [Vite](https://vite.dev/). All
-graphics are drawn in code and all sounds are synthesized; there are no asset
-files. `PLAN.md` has the full rules and design notes.
+Built with [Phaser](https://phaser.io/) and [Vite](https://vite.dev/). Cartoon
+graphics use sprite atlases inspired by the supplied concept art. Turn
+**Classic graphics: ON** in Settings or the pause menu to use the original
+procedural artwork; the choice is saved between visits. All sounds are synthesized.
+`PLAN.md` has the full rules and design notes, and the
+[sprite review notes](docs/phaser-sprites/README.md) describe the artwork and validation.
 
 ### Rendering and review tools
 
@@ -63,6 +66,10 @@ check Canvas explicitly. The render-only galleries remain available at
 artwork gallery, left/right changes pages, P freezes, R restarts and V toggles
 16:9. Add `&date=2026-12-24` or another special date for seasonal scenery.
 The earlier calibration round remains at `?gallery=calibration`.
+
+For artwork review, `?graphics=cartoon` and `?graphics=classic` select a style
+for that visit without changing the saved choice. The artwork gallery retains
+the classic audit by default; add `&graphics=cartoon` to review the new sprites.
 
 The [migration plan](PHASER_MIGRATION.md) and [final cutover notes](docs/phaser-cutover/README.md)
 record preservation checks, the accepted M1 performance budget and unresolved

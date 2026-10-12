@@ -4,6 +4,7 @@
 
 import { WIDTH, ARENA } from '../../config.js';
 import { MAX_EXTRA, layout } from '../../layout.js';
+import { createStyleSurface } from '../sprites/adapter.js';
 
 const rand = (art, lo, hi) => lo + art.random() * (hi - lo);
 const GROUND = ARENA.groundY;
@@ -24,7 +25,8 @@ export function createSantaHat(art) {
 
 /** Snow drifting down over the whole sky, however tall the screen. */
 export function createSnow(art, count = 220) {
-  const view = art.graphics();
+  const surface = createStyleSurface(art, { dot: 'snowflake' }, false);
+  const view = surface.view;
   const top = -MAX_EXTRA - 20;
   const span = GROUND - top;
   const flakes = Array.from({ length: count }, () => ({
@@ -39,12 +41,13 @@ export function createSnow(art, count = 220) {
   return {
     view,
     tick(t) {
-      art.draw(view).clear();
+      const draw = surface.draw;
+      draw.clear();
       for (const f of flakes) {
         const y = top + ((f.y + f.speed * t) % span);
         if (y < -layout.extra - 10) continue; // above the screen
         const x = (((f.x + Math.sin(t * f.freq + f.phase) * f.drift) % WIDTH) + WIDTH) % WIDTH;
-        art.draw(view).circle(x, y, f.r, { fill: 0xffffff, alpha: 0.55 + f.r * 0.15 });
+        draw.circle(x, y, f.r, { fill: 0xffffff, alpha: 0.55 + f.r * 0.15 });
       }
     },
   };
@@ -62,7 +65,8 @@ const MAX_SPARKS = 700;
 
 /** Fireworks: rockets rise from behind the hills and burst in the sky. */
 export function createFireworks(art) {
-  const view = art.dynamicGraphics();
+  const surface = createStyleSurface(art);
+  const view = surface.view;
   const rockets = [];
   const sparks = [];
   const flashes = [];
@@ -96,6 +100,7 @@ export function createFireworks(art) {
   return {
     view,
     tick(t) {
+      const draw = surface.draw;
       const dt = last === null ? 0 : Math.max(0, Math.min(0.1, t - last));
       last = t;
       wait -= dt;
@@ -125,30 +130,30 @@ export function createFireworks(art) {
       for (const f of flashes) f.life -= dt;
       for (let i = flashes.length - 1; i >= 0; i--) if (flashes[i].life <= 0) flashes.splice(i, 1);
 
-      art.draw(view).clear();
-      for (const f of flashes) art.draw(view).circle(f.x, f.y, 26, { fill: f.colour, alpha: f.life * 1.2 });
+      draw.clear();
+      for (const f of flashes) draw.circle(f.x, f.y, 26, { fill: f.colour, alpha: f.life * 1.2 });
       for (const r of rockets) {
-        art.draw(view).curve(
+        draw.curve(
           [
             ['moveTo', r.x, r.y],
             ['lineTo', r.x - r.vx * 0.05, r.y - r.vy * 0.05],
           ],
           { stroke: 0xffe2a0, width: 2, alpha: 0.7 },
         );
-        art.draw(view).circle(r.x, r.y, 2, { fill: 0xfff3c8 });
+        draw.circle(r.x, r.y, 2, { fill: 0xfff3c8 });
       }
       // Each spark a short streak along its path, fading and thinning as it burns out.
       for (const s of sparks) {
         const k = s.life / s.max;
         const alpha = Math.min(1, k * 1.6);
-        art.draw(view).curve(
+        draw.curve(
           [
             ['moveTo', s.x - s.vx * 0.06, s.y - s.vy * 0.06],
             ['lineTo', s.x, s.y],
           ],
           { stroke: s.colour, width: 1 + 1.5 * k, alpha: alpha },
         );
-        art.draw(view).circle(s.x, s.y, 0.8 + 1.2 * k, { fill: 0xffffff, alpha: alpha * 0.8 });
+        draw.circle(s.x, s.y, 0.8 + 1.2 * k, { fill: 0xffffff, alpha: alpha * 0.8 });
       }
     },
   };

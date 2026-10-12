@@ -16,6 +16,7 @@ const FORMATION = [
 
 /** One fighter, seen head on: a ball cockpit between two six-sided wings. */
 function fighter(art) {
+  if (art.sprites && !art.sprites.preferences.classic) return art.sprites.sprite('fighter', 36, 25);
   const g = art.graphics();
   const wing = (x) =>
     art
@@ -62,6 +63,7 @@ export function createTieFlyby(art) {
         const [dx, dy] = FORMATION[i];
         // The wingmen trail behind the leader and weave a little.
         s.setPosition(pass.x + dx * pass.dir, pass.y + dy + Math.sin(pass.t * 3 + i * 2) * 3);
+        if (s.getData?.('cartoon-frame') === 'fighter') s.setFlipX(pass.dir < 0);
         s.rotation = Math.sin(pass.t * 2 + i) * 0.08;
       });
     },

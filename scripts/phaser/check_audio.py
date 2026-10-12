@@ -281,7 +281,7 @@ def lifecycle(page, cycles):
         page.evaluate("""()=>{
           window.dispatchEvent(new KeyboardEvent('keyup',{code:'Space'}));
           window.dispatchEvent(new KeyboardEvent('keyup',{code:'Enter'}));__tick();
-          __press('KeyP');for(let i=0;i<5;i++)__press('ArrowDown');__press('Enter');__tick(4);
+          __press('KeyP');__choose('EXIT');__tick(4);
           if(__game.scene.kind!=='title')throw Error('exit did not return to title');
         }""")
         page.wait_for_function('__audioProbe.contexts[0].state==="running"')

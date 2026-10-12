@@ -22,7 +22,8 @@ export function createSettingsScene(game, session) {
     const menu = createMenu(art, {
       active: () => t >= 0.2,
       y0: 300,
-      items: [...settingsItems(session), { id: 'back', text: () => 'BACK' }],
+      gap: 44,
+      items: [...settingsItems(session, game.graphics), { id: 'back', text: () => 'BACK' }],
     });
     const help = label(art, '', { size: 16, color: 0x8a93c0, anchorX: 0.5, anchorY: 0.5 });
     help.setPosition(WIDTH / 2, 540);

@@ -10,7 +10,7 @@ import { saveOptions, pickOptions } from '../../options.js';
 import { label } from './text.js';
 
 /** The display and sound items that both menus share. */
-export function settingsItems(session) {
+export function settingsItems(session, graphics) {
   return [
     { id: 'sound', text: () => `SOUND: ${isMuted() ? 'OFF' : 'ON'}`, run: () => toggleMute() },
     { id: 'fullscreen', text: () => `FULL SCREEN: ${isFullscreen() ? 'ON' : 'OFF'}`, run: () => toggleFullscreen() },
@@ -23,6 +23,7 @@ export function settingsItems(session) {
         saveOptions(pickOptions(session));
       },
     },
+    ...(graphics ? [{ id: 'graphics', text: () => `CLASSIC GRAPHICS: ${graphics.classic ? 'ON' : 'OFF'}`, run: () => graphics.toggle() }] : []),
   ];
 }
 

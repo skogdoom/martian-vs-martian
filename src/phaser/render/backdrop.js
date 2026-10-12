@@ -9,6 +9,8 @@ import { createRng } from '../../logic/rng.js';
 import { label } from './text.js';
 import { occasion } from '../../occasion.js';
 import { createSantaHat, createSnow, createFireworks, createSpookySky, createLanterns } from './festive.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonBackdrop, cartoonPenForeground } from '../sprites/backdrop.js';
 
 export const COLORS = {
   red: 0xe5484d,
@@ -113,7 +115,7 @@ function moon(art, g, phase = moonPhase) {
     { fill: lit },
   );
   if (occasion === 'christmas') {
-    smile(art, g, x, y);
+    drawMoonSmile(art, g, x, y);
     return;
   }
   for (const [dx, dy, cr] of [
@@ -179,7 +181,7 @@ function battleStation(art, g) {
 }
 
 /** A happy face on a full moon of radius 32 at (x, y), under a Santa hat. */
-function smile(art, g, x, y) {
+export function drawMoonSmile(art, g, x = 0, y = 0) {
   const ink = 0x6b5d3e;
   art.draw(g).ellipse(x - 10, y - 4, 3.2, 4.4, { fill: ink });
   art.draw(g).ellipse(x + 10, y - 4, 3.2, 4.4, { fill: ink });
@@ -328,8 +330,11 @@ function flag(art, side) {
 
 /** At midsummer: a long ribbon in the team colour fluttering from the top of
  * the maypole, so each pen still shows whose it is. */
-function ribbon(art, g, side, poleX, dir) {
-  const top = GROUND - 178;
+export function createMidsummerRibbon(art, side) {
+  return ribbon(art, art.dynamicGraphics(), side, 0, 1, -178);
+}
+
+function ribbon(art, g, side, poleX, dir, top = GROUND - 178) {
   return {
     g,
     tick(t) {
@@ -355,6 +360,24 @@ function ribbon(art, g, side, poleX, dir) {
 }
 
 export function createBackdrop(art, phase = moonPhase) {
+  return variant(
+    art,
+    () => classicBackdrop(art, phase),
+    () => cartoonBackdrop(art, phase),
+  );
+}
+
+export function createPenForeground(art) {
+  const layer = variant(
+    art,
+    () => ({ view: art.container() }),
+    () => cartoonPenForeground(art),
+  );
+  layer.view.name = 'pen-foreground';
+  return layer;
+}
+
+function classicBackdrop(art, phase) {
   const view = art.container();
   const rng = createRng(42);
 
