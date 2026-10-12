@@ -5,7 +5,7 @@ removed new program compilation during these runs, but frame pacing still trails
 Pixi. These are **before-fix** physical-device results. The
 [latest Safari retest](#latest-m1-safari-retest) shows fewer long frames and removal
 of the recurring uploads, with isolated stalls remaining. Pixi remains the default
-pending the remaining acceptance checks.
+pending the final cutover implementation and validation.
 
 ## What the supplied report shows
 
@@ -99,13 +99,16 @@ now feel smooth in Safari on the M1 MacBook Air. **The manual Safari gameplay
 smoothness check has passed.** This confirms the perceived improvement during
 play; the recorded benchmark exceptions remain available for budget review.
 
-Quantitative performance acceptance remains open: the benchmark has occasional
-gaps, typical Phaser CPU cost still exceeds Pixi's, and the report retains the
-development/Pixi versus production/Phaser comparison and workload/timing limitations described
-above. Matched production measurements and the comparison budget still need review.
-Browser compatibility remains recommended, but is not a cutover gate by user
-decision. The user's two-controller and
-rumble acceptance remains passed in the [current gate table](../phaser-candidate/README.md).
+The user subsequently accepted the [performance budget review](../phaser-candidate/README.md#accepted-performance-budget-review),
+closing performance acceptance with a documented exception to the original 10%
+relative CPU allowance. Approximately 60 fps in ordinary play, p95 frame work
+below 16.7 ms and smooth ordinary/busy gameplay are the accepted criteria. The
+benchmark's occasional gaps, higher typical CPU cost and comparison limitations
+remain documented; matched production measurements and the unresolved stalls
+are follow-ups rather than cutover blockers. Browser compatibility, controller
+edge cases and keyboard combinations are advisory by user decision. Two-controller
+gameplay, rumble and manual sound acceptance have passed in the
+[current gate table](../phaser-candidate/README.md).
 
 ## Verified source of recurring uploads
 

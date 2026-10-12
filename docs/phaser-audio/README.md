@@ -124,7 +124,8 @@ then unlock with a key or click. Check Safari's interrupted-context recovery and
 Firefox/WebKit behavior; those browsers remain unverified under the existing cloud
 limitation. Browser compatibility is now recommended rather than a cutover gate,
 by user decision. Two-controller gameplay and rumble have also passed the user's
-manual playtest; further control edge cases remain unconfirmed.
+manual playtest. Further controller edge cases and keyboard combinations remain
+unconfirmed, but are advisory rather than cutover gates by user decision.
 
 The automated evidence above describes milestone 5. Subsequent performance,
 lifecycle and candidate work is recorded in the [migration plan](../../PHASER_MIGRATION.md)

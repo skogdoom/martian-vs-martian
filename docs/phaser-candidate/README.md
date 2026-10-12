@@ -116,15 +116,44 @@ Chromium candidate report still matches all current game-source hashes. Firefox
 and WebKit are not installed here; a current attempt to retrieve GitHub Actions
 results returned `Forbidden`, so their CI outcomes remain unverified here.
 
-The cutover remains deferred until these items are reviewed:
+The pre-cutover acceptance items are now resolved. The final cutover implementation
+and its core validation remain to be completed:
 
 | Gate | Evidence and remaining checks | Status |
 | --- | --- | --- |
-| M1 MacBook Air performance | The user confirmed that ordinary and busy Safari gameplay now feel smooth. The [Safari retest](../phaser-flags/README.md#latest-m1-safari-retest) removes recurring uploads and reduces long frames; isolated benchmark stalls and higher typical CPU cost remain for quantitative budget review. Matched production measurements remain open against the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Partially passed: manual Safari gameplay smoothness passed |
+| M1 MacBook Air performance | The user accepted the budget review below: approximately 60 fps in ordinary play, p95 frame work below 16.7 ms, and smooth ordinary/busy gameplay. The 10% relative CPU allowance is waived with a documented exception; isolated benchmark stalls and matched production comparisons remain follow-ups. rAF is callback timing, not physical scanout. | Passed under the user-accepted budget and exceptions |
 | Audible sound | The user confirmed that sounds seem OK during play. Automated signal/lifecycle checks remain available; broader browser and audio edge-case checks are recommended. | Passed: user listening acceptance |
-| Physical controls | The user confirmed successful gameplay with two physical controllers and working rumble. Reconnect and intended keyboard combinations still need confirmation. | Partially passed: two-controller gameplay and rumble passed |
+| Physical controls | The user confirmed successful gameplay with two physical controllers and working rumble. | Passed: two-controller gameplay and rumble |
+| Controller edge cases and keyboard combinations | Disconnect/reconnect and intended keyboard combinations remain unconfirmed; keep them as recommended follow-up checks. Existing automated regression assertions remain intact. | Advisory; not a cutover gate, by user decision |
 | Browser compatibility | Chromium automation and the user's Safari playtest provide coverage. Review Firefox/WebKit CI results, browser fullscreen/activation behavior and broader browser artwork/audio checks when available; a Chrome comparison is also useful. Unverified checks remain documented. | Recommended; not a cutover gate, by user decision |
-| Final production cutover | Switch the normal entry and remove Pixi code/dependency after earlier gates pass. Keep regression references needed for future checks. | Deferred by user decision |
+| Final production cutover | Switch the normal entry and remove Pixi code/dependency. Keep regression references needed for future checks and run the final core validation. | Ready for implementation; acceptance prerequisites passed |
+
+## Accepted performance budget review
+
+The user accepted this proposal. The performance gate is closed under the criteria
+and documented exceptions below; this accepts the M1 experience without claiming
+CPU parity or elimination of every benchmark stall.
+
+The current M1 performance is accepted with a documented exception to the original
+10% CPU comparison allowance. The budget retains approximately 60 fps in ordinary play, p95
+frame work below 16.7 ms, and smooth ordinary/busy gameplay as the practical
+acceptance criteria. The latest report averages 59.93 fps ordinary and 59.55 fps
+combined, with median p95 CPU of 4/6 ms and p99 of 5/8 ms. The user has confirmed
+that both ordinary movement and busy moments now feel smooth.
+
+Phaser still uses about 1 ms more p95 frame work than Pixi. That difference is
+documented; it is not evidence of CPU parity. The current comparison uses
+development Pixi versus production Phaser, with CPU timing quantized around 1 ms
+and differing combined-play event histories. Those limits make a strict 10%
+relative cutoff a poor release criterion for these reports. A matched production
+comparison would strengthen future measurements, but is now a follow-up rather
+than a requirement for cutover.
+
+Keep the 576 ms callback gap and 245 ms renderer-submission stall as unresolved
+performance follow-ups. Their cause is unknown, and averages/percentiles do not
+erase them. Investigate if a visible or repeatable slowdown recurs, without
+claiming that every stall has been eliminated. Core tests, build checks, preserved
+graphics and lifecycle validation remain required.
 
 ## Compare the candidate on the M1
 

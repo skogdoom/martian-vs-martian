@@ -155,10 +155,10 @@ p95 CPU cost in every scenario; all six exceed the proposed 10% CPU comparison
 allowance, and stress exceeds 16.7 ms p95 CPU. These measured exceptions remain
 explicit; implementation completion does not close the performance acceptance gate.
 See [the performance evidence and review instructions](docs/phaser-performance/README.md).
-**M1 Safari/Chrome performance acceptance remains pending. The cloud runner uses
-SwiftShader and cannot establish the physical 60 fps gate. Milestone 7 candidate
-preparation is recorded below; the default entry remains Pixi while these gates
-are reviewed.**
+**The initial cloud measurements did not establish M1 performance acceptance:
+SwiftShader cannot establish the physical 60 fps gate. The subsequent M1 playtest
+and user-accepted performance budget are recorded below. Milestone 7 candidate
+preparation retains Pixi until the final cutover implementation.**
 
 The Safari movement-stutter follow-up removes immutable pixel-buffer copies,
 bounds cross-frame recipe retention, draws animated beams/flames/projectiles
@@ -188,8 +188,10 @@ one combined frame spends 245 ms inside renderer submission with no uploads or
 new shader programs, and that run has a 576 ms callback gap. The cause remains
 unresolved. The user subsequently confirmed that ordinary saucer movement and
 busy moments now feel smooth in Safari on the M1 MacBook Air. The manual Safari
-gameplay smoothness check has passed. Quantitative budget review remains open;
-other browser checks are recommended and non-blocking. See the
+gameplay smoothness check has passed. The user has now accepted the performance
+budget review with a documented exception to the original 10% CPU comparison
+allowance; the remaining benchmark stalls are unresolved follow-ups. Other browser
+checks are recommended and non-blocking. See the
 [Safari retest analysis](docs/phaser-flags/README.md#latest-m1-safari-retest).
 
 Milestone 7 preparation adds an opt-in `npm run build:phaser` artifact in
@@ -202,18 +204,27 @@ six routing cases, twelve exact candidate/selected-Phaser pixel comparisons and
 eight full scene/input cases with 80 match ownership cycles. Firefox/WebKit binary
 downloads remain blocked here; their local checks did not execute. See
 [the candidate review notes](docs/phaser-candidate/README.md) for evidence and
-commands. **Final cutover remains deferred while quantitative performance and
-remaining control checks are reviewed. Browser compatibility is recommended,
-not a cutover gate, by user decision.**
+commands. **Pre-cutover acceptance prerequisites have passed under the user's
+accepted performance budget and exceptions. Browser compatibility, controller
+edge cases and keyboard-combination checks are advisory rather than cutover gates.
+The final cutover implementation and validation remain.**
 
 The user confirmed successful gameplay with two physical controllers and working
 rumble. Those manual checks have passed. Controller reconnect and intended keyboard
-combinations remain unconfirmed; the physical controls gate is partially passed.
+combinations remain unconfirmed and are now advisory rather than gates, by user
+decision. Two-controller gameplay and rumble acceptance are passed.
 The user also confirmed that sounds seem OK,
-passing manual sound acceptance. Quantitative performance review remains open;
-Pixi remains the default pending cutover.
+passing manual sound acceptance. The performance review is also accepted;
+Pixi remains the default pending the final cutover implementation.
 Safari fullscreen and other browser-specific behavior remain recommended checks
 under the user's non-blocking browser-compatibility decision.
+
+The user accepted the [performance budget review](docs/phaser-candidate/README.md#accepted-performance-budget-review):
+approximately 60 fps in ordinary play, p95 frame work below 16.7 ms, and smooth
+ordinary/busy gameplay on the M1 reference device. The original proposed 10% CPU
+comparison allowance is waived with a documented exception for the approximately
+1 ms p95 overhead. The rare benchmark stalls and matched production comparisons
+remain follow-ups, not cutover blockers. No CPU-parity claim is made.
 
 ### 0. Record the preservation baseline
 
@@ -443,11 +454,12 @@ and narrowly scoped optimizations that retain graphics and game behavior.
   long frames, draw calls, active objects/particles, texture count/GPU memory where
   available, JS heap, startup time, and production bytes transferred. Separate
   compile/warmup from a 60-second measurement window and repeat three times.
-- Proposed gate: sustain 60 fps on the reference hardware in ordinary play, with
-  p95 CPU update/render work below 16.7 ms and no more than a 10% regression from
-  the equivalent Pixi sample. Stress-scene stalls must not regress beyond that
-  comparison allowance. These are acceptance targets, not measured results;
-  adjust and document the device-specific budget after milestone 0 measurements.
+- User-accepted M1 budget: approximately 60 fps in ordinary play, p95 CPU
+  update/render frame work below 16.7 ms, and smooth ordinary/busy gameplay.
+  The original proposed 10% relative CPU comparison allowance is waived with a
+  documented exception for the measured approximately 1 ms p95 overhead. Rare
+  benchmark stalls and matched production comparisons remain follow-ups; retain
+  their evidence without claiming CPU parity or that every stall is eliminated.
 - Preserve caps of 1500 gameplay particles, 12 popups, 220 default snowflakes,
   and 700 fireworks sparks. Pool transient views; retain dirty redraws for saucer
   eyes/lights and HUD pips. Consider baked static graphics, batched particles,
@@ -488,6 +500,8 @@ lockfile, temporary comparison entry, documentation, and CI browser checks.
   Browser compatibility is an advisory review item by user decision, rather than
   a requirement to close the cutover gate. Keep reports and failures visible; the
   browser CI matrix is advisory, while core lint/test/build checks remain required.
+  Manual controller edge cases and keyboard combinations are also advisory by
+  user decision; retain existing automated input assertions and original tests.
 - Update README runtime/architecture information and development commands as
   needed. Keep graphics procedural and sounds synthesized; add no runtime CDN or
   external service dependency. Retain `window.__game` debugging access or document

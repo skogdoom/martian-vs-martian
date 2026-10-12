@@ -93,7 +93,7 @@ playtest now feels smooth, and manual sound and two-controller/rumble checks pas
 
 ### Phaser-only review build
 
-Pixi remains the default pending review of the Phaser candidate. To play a
+Pixi remains the default pending the final cutover implementation. To play a
 production artifact containing only Phaser:
 
 ```sh
