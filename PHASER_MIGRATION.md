@@ -172,6 +172,15 @@ Phaser shader variants at startup, removing new program compilation from the
 three tested combined-workload runs. Its cloud p99 CPU improves 108.8 → 27.9 ms;
 physical M1 Safari acceptance and final cutover remain pending.
 
+The saved M1 Safari report confirms zero new shader programs, but Phaser still has
+more callbacks over 33.34 ms: 22 versus Pixi's 1 in ordinary play, and 44 versus 16
+in combined play across three samples each. A [flag rendering follow-up](docs/phaser-flags/README.md)
+traces two recurring texture uploads per ordinary frame to the waving flags and
+switches those changing polygons to native WebGL Graphics. The rendered control
+probe drops 240 uploads to zero over 120 ordinary frames (480 to zero for midsummer
+ribbons), preserving the Canvas path and original geometry. Physical Safari
+retesting remains pending; the report's largest 658 ms gap is not fully diagnosed.
+
 Milestone 7 preparation adds an opt-in `npm run build:phaser` artifact in
 `dist-phaser/`, a module-graph check rejecting Pixi runtime code, production
 root/subdirectory checks and a Chromium/Firefox/WebKit CI matrix. The user chose

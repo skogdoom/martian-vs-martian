@@ -87,6 +87,8 @@ The [Safari stutter follow-up](docs/phaser-stutter-fix/README.md) documents the
 rendering fixes, before/after measurements, and M1 retest instructions.
 The [simultaneous-event follow-up](docs/phaser-shader-warmup/README.md) addresses
 shader compilation when arrivals, shooting and pickups overlap.
+The [M1 report follow-up](docs/phaser-flags/README.md) identifies and removes
+recurring WebGL texture uploads from the waving flags; Safari retesting is pending.
 
 ### Phaser-only review build
 

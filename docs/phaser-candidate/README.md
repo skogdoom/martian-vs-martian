@@ -22,7 +22,7 @@ sound, not a deployment.
 with the same awaited Phaser import used by the existing selector. A build plugin
 rejects Pixi runtime modules and emits `engine-build.json` from the actual output
 module graph. No source copies, compatibility shims or alternate game rules are
-introduced. The checked candidate graph contains 72 modules and zero Pixi modules.
+introduced. The checked candidate graph contains 71 modules and zero Pixi modules.
 The usual Vite large-chunk warning remains; this is not a bundle-size optimization.
 
 `npm run dev`, `npm run build` and `npm run preview` continue to use the existing
@@ -32,6 +32,10 @@ building the candidate does not change the published game or select it for Pages
 Both dependency packages remain installed while this comparison workflow is needed.
 
 ## Checks and evidence
+
+The archived preparation checks below describe commit `443a163`. The later
+[native flag follow-up](../phaser-flags/README.md) changes rendering and includes
+refreshed candidate checks; its physical Safari retest remains pending.
 
 A clean `npm ci`, lint, all **460 tests**, both production builds and the ten-round
 simulator pass under **Node 22.23.3**. All 271 original executed test identities in
@@ -109,7 +113,7 @@ The cutover remains deferred until these items are reviewed:
 
 | Gate | Evidence still needed | Status |
 | --- | --- | --- |
-| M1 MacBook Air performance | Safari ordinary and busy-play retest after shader preparation; matched Pixi/Phaser measurements, with Chrome comparison. Assess the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Open |
+| M1 MacBook Air performance | Safari ordinary and busy-play retest after native flag rendering ([M1 report and findings](../phaser-flags/README.md)); matched Pixi/Phaser measurements, with Chrome comparison. Assess the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Open |
 | Audible sound | Human listening for overlapping shots/effects, sustained lift/laser voices, unlock, mute, pause and tab return in supported browsers. | Open |
 | Physical controls | Two real controllers, reconnect/rumble, Safari fullscreen behavior and intended keyboard combinations. Mocked device checks cannot close this gate. | Open |
 | Browser compatibility | Review Firefox/WebKit CI results and complete supported-browser artwork/audio checks and manual Safari checks. | Open |

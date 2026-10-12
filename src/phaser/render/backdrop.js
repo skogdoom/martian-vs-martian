@@ -299,7 +299,9 @@ function flagpoleX(side) {
 }
 
 function flag(art, side) {
-  const g = art.graphics();
+  // The points change every frame. Submit native geometry in WebGL instead of
+  // allocating, rasterizing and uploading a fresh texture for each flag.
+  const g = art.dynamicGraphics();
   const poleX = flagpoleX(side);
   const dir = side === 'red' ? 1 : -1;
   const top = GROUND - 166;
