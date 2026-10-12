@@ -74,6 +74,18 @@ def main():
             context = browser.new_context(viewport={'width': 1280, 'height': 720})
             page, errors = open_page(context, args.base_url + '?date=2026-02-15' + query)
             page.evaluate('__tick(4);__draw()')
+            scenery = page.evaluate(r"""() => {
+              const nodes=[];const visit=n=>{if(!n.visible||n.alpha===0)return;nodes.push(n);for(const c of n.list??[])visit(c);};visit(__game.scene.view);
+              const assert=(v,m)=>{if(!v)throw Error(m);};
+              const texts=nodes.filter(n=>n.type==='Text').map(n=>n.text);
+              assert(!texts.some(t=>/RED PEN|BLUE PEN|Step [123]:/.test(t)),'cartoon labels remain');
+              const poles=nodes.filter(n=>n.name.startsWith('flagpole-'));
+              assert(poles.length===2&&poles[0].x===26&&poles[1].x===1254,'pole positions are not mirrored');
+              const flags=nodes.filter(n=>/^flag-(red|blue)$/.test(n.name));
+              assert(flags.length===2&&flags.every(n=>Math.abs(n.displayWidth-60)<1e-8&&n.displayHeight===34),'flag size changed');
+              assert(flags.every(n=>n.parentContainer.y+n.y+n.displayHeight<540),'flags overlap barn roofs');
+              return {flags:[60,34],polePositions:[26,1254],labelsRemoved:true,flagsAboveBarns:true};
+            }""")
             page.screenshot(path=str(output / f'{renderer}-title.png'))
             assert not page.evaluate('__game.game.graphics.classic')
             page.evaluate("__press('Digit2');for(let i=0;i<3;i++)__press('ArrowDown');__press('Enter');__tick(3);__choose('CLASSIC GRAPHICS: OFF')")
@@ -96,6 +108,10 @@ def main():
               __choose('CLASSIC GRAPHICS: ON');__draw();
               assert(!__game.game.graphics.classic,'did not switch to cartoon');
               const snapshot=__snapshot();
+              const stage=scene.view.list[0];
+              const animalIndex=stage.list.findIndex(n=>n.name==='animal-view');
+              const fenceIndex=stage.list.findIndex(n=>n.name==='pen-foreground');
+              assert(animalIndex>=0&&fenceIndex>animalIndex,'fences render behind animals');
               for(let i=0;i<12;i++){
                 __choose('CLASSIC GRAPHICS: OFF');__draw();
                 __choose('CLASSIC GRAPHICS: ON');__draw();
@@ -108,12 +124,12 @@ def main():
               assert(snapshot.input.subscriptions===after.input.subscriptions,'input listeners grew');
               __press('KeyP');__tick(4);__draw();
               assert(round.timeLeft<JSON.parse(before).round.timeLeft,'round did not resume');
-              return {toggles:25,roundIdentityPreserved:true,pausedStatePreserved:true,atlasSheets:atlasCount(),before:snapshot,after};
+              return {toggles:25,roundIdentityPreserved:true,pausedStatePreserved:true,foregroundFenceLayer:true,atlasSheets:atlasCount(),before:snapshot,after};
             }""")
             page.screenshot(path=str(output / f'{renderer}-play.png'))
             assert not errors, errors
             assert not page.evaluate('__game.game.halted')
-            report['settings'].append({'renderer': renderer, 'savedChoiceSurvivesReload': True, **result})
+            report['settings'].append({'renderer': renderer, 'savedChoiceSurvivesReload': True, 'scenery':scenery, **result})
             context.close()
             print('Sprite coverage and settings passed:', renderer, flush=True)
         browser.close()

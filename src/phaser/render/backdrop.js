@@ -10,7 +10,7 @@ import { label } from './text.js';
 import { occasion } from '../../occasion.js';
 import { createSantaHat, createSnow, createFireworks, createSpookySky, createLanterns } from './festive.js';
 import { variant } from '../sprites/variant.js';
-import { cartoonBackdrop } from '../sprites/backdrop.js';
+import { cartoonBackdrop, cartoonPenForeground } from '../sprites/backdrop.js';
 
 export const COLORS = {
   red: 0xe5484d,
@@ -362,6 +362,16 @@ export function createBackdrop(art, phase = moonPhase) {
     () => classicBackdrop(art, phase),
     () => cartoonBackdrop(art, phase),
   );
+}
+
+export function createPenForeground(art) {
+  const layer = variant(
+    art,
+    () => ({ view: art.container() }),
+    () => cartoonPenForeground(art),
+  );
+  layer.view.name = 'pen-foreground';
+  return layer;
 }
 
 function classicBackdrop(art, phase) {

@@ -104,6 +104,6 @@ describe('cartoon atlas coverage and sampling bounds', () => {
         occupied.push(f);
       }
     }
-    expect(names.size).toBe(81);
+    expect(names.size).toBe(83);
   });
 });

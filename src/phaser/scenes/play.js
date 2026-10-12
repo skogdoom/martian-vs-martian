@@ -17,7 +17,7 @@ import { createRound, stepRound, countdownNumber } from '../../logic/round.js';
 import { scores } from '../../logic/scoring.js';
 import { roundWinner, recordRound, roundNumber, isSuddenDeath, addRoundStats } from '../../logic/match.js';
 import { addRoundToTally, addMatchToTally } from '../../logic/tally.js';
-import { createBackdrop } from '../render/backdrop.js';
+import { createBackdrop, createPenForeground } from '../render/backdrop.js';
 import { createSaucerView } from '../render/saucerView.js';
 import { createProjectileView } from '../render/projectileView.js';
 import { createAnimalView, createBeamView } from '../render/animalView.js';
@@ -45,6 +45,8 @@ export function createPlayScene(game, session) {
     const backdrop = createBackdrop(art);
     const beamView = createBeamView(art);
     const animalView = createAnimalView(art, world.animals);
+    animalView.view.name = 'animal-view';
+    const foreground = createPenForeground(art);
     const saucerViews = {};
     for (const side of SIDES) saucerViews[side] = createSaucerView(art, side);
     const dropsView = createDropsView(art);
@@ -60,6 +62,7 @@ export function createPlayScene(game, session) {
       wolvesView.view,
       dropsView.view,
       timeBombsView.view,
+      foreground.view,
       ...SIDES.map((side) => saucerViews[side].view),
       projectileView.view,
       effects.view,

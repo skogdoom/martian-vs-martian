@@ -12,7 +12,7 @@
       "renderer": "auto",
       "page": "arena",
       "errors": 0,
-      "visibleAtlasImages": 541
+      "visibleAtlasImages": 562
     },
     {
       "renderer": "auto",
@@ -78,7 +78,7 @@
       "renderer": "auto",
       "page": "effects-a",
       "errors": 0,
-      "visibleAtlasImages": 3
+      "visibleAtlasImages": 2
     },
     {
       "renderer": "auto",
@@ -90,13 +90,13 @@
       "renderer": "auto",
       "page": "effects-c",
       "errors": 0,
-      "visibleAtlasImages": 58
+      "visibleAtlasImages": 50
     },
     {
       "renderer": "canvas",
       "page": "arena",
       "errors": 0,
-      "visibleAtlasImages": 544
+      "visibleAtlasImages": 574
     },
     {
       "renderer": "canvas",
@@ -162,7 +162,7 @@
       "renderer": "canvas",
       "page": "effects-a",
       "errors": 0,
-      "visibleAtlasImages": 3
+      "visibleAtlasImages": 1
     },
     {
       "renderer": "canvas",
@@ -174,7 +174,7 @@
       "renderer": "canvas",
       "page": "effects-c",
       "errors": 0,
-      "visibleAtlasImages": 73
+      "visibleAtlasImages": 77
     }
   ],
   "seasonal": [
@@ -243,12 +243,19 @@
     {
       "renderer": "auto",
       "savedChoiceSurvivesReload": true,
+      "scenery": {
+        "flags": [60, 34],
+        "polePositions": [26, 1254],
+        "labelsRemoved": true,
+        "flagsAboveBarns": true
+      },
       "toggles": 25,
       "roundIdentityPreserved": true,
       "pausedStatePreserved": true,
+      "foregroundFenceLayer": true,
       "atlasSheets": 4,
       "before": {
-        "objects": 1439,
+        "objects": 1447,
         "display": 1,
         "updates": 0,
         "textures": 179,
@@ -256,10 +263,10 @@
         "programs": 17,
         "vaos": 17,
         "store": {
-          "textures": 117,
+          "textures": 119,
           "shared": 0,
           "variants": 0,
-          "references": 668
+          "references": 672
         },
         "input": {
           "active": true,
@@ -273,7 +280,7 @@
         "listeners": 7
       },
       "after": {
-        "objects": 1439,
+        "objects": 1447,
         "display": 1,
         "updates": 0,
         "textures": 179,
@@ -281,10 +288,10 @@
         "programs": 17,
         "vaos": 17,
         "store": {
-          "textures": 117,
+          "textures": 119,
           "shared": 0,
           "variants": 0,
-          "references": 668
+          "references": 672
         },
         "input": {
           "active": true,
@@ -301,12 +308,19 @@
     {
       "renderer": "canvas",
       "savedChoiceSurvivesReload": true,
+      "scenery": {
+        "flags": [60, 34],
+        "polePositions": [26, 1254],
+        "labelsRemoved": true,
+        "flagsAboveBarns": true
+      },
       "toggles": 25,
       "roundIdentityPreserved": true,
       "pausedStatePreserved": true,
+      "foregroundFenceLayer": true,
       "atlasSheets": 4,
       "before": {
-        "objects": 1439,
+        "objects": 1447,
         "display": 1,
         "updates": 0,
         "textures": 202,
@@ -314,10 +328,10 @@
         "programs": 0,
         "vaos": 0,
         "store": {
-          "textures": 139,
+          "textures": 141,
           "shared": 0,
           "variants": 0,
-          "references": 691
+          "references": 695
         },
         "input": {
           "active": true,
@@ -331,7 +345,7 @@
         "listeners": 7
       },
       "after": {
-        "objects": 1439,
+        "objects": 1447,
         "display": 1,
         "updates": 0,
         "textures": 202,
@@ -339,10 +353,10 @@
         "programs": 0,
         "vaos": 0,
         "store": {
-          "textures": 139,
+          "textures": 141,
           "shared": 0,
           "variants": 0,
-          "references": 691
+          "references": 695
         },
         "input": {
           "active": true,
@@ -383,7 +397,7 @@
     "src/occasion.js": "e4dadbf32acbe95688d0cb2d178b9d20304c71926c36064706841af381dbcd3c",
     "src/options.js": "65c4a7b28f5df8b6b5d6d17a8f25f4cc3436cf61cf3d2ad756d227b3a2419ec8",
     "src/phaser/art.js": "1086cba2015ff404190c5554a59edcdc228d0698abc8d04305251f70015c152b",
-    "src/phaser/artwork-fixtures.js": "ed78a81a9881d311676e3eb2494b98f2b2de8cd346919bdbcb7aab476514f109",
+    "src/phaser/artwork-fixtures.js": "b5ad18afe00ed208f94254088cf7bc63328af27dedbd0c474b48b79e9877c4df",
     "src/phaser/artwork.js": "6ddfbeaecdd2cb3f96c185faf17d7e810304e3156da17ca390c03dcdc8c5ac11",
     "src/phaser/clock.js": "789975946e427194667bffbac6bcd8c60632c1cea1e05e2801914beca5c314a6",
     "src/phaser/drawing.js": "9894d05fce219a7a4b9d097019c6e28a4d751ef70c73856ead77a7a7f64c0afe",
@@ -397,7 +411,7 @@
     "src/phaser/presentation.js": "383ccabd73fe7c34b0ea6515007a715eaa86125fb1493488fefe4dbacf1a48dd",
     "src/phaser/preview.js": "2f5033a48379344436cb9f2cc44f92204d9f78f7cd0d80522be1dc03a8b5f478",
     "src/phaser/render/animalView.js": "bcc1732abc6309ccb2e1410c96ef407088818030ea3e634c3a1686bdd3be1ebd",
-    "src/phaser/render/backdrop.js": "1f802aee41be428edfc95453194c283e9ce1d747094a0141e9693fadefab7181",
+    "src/phaser/render/backdrop.js": "343e42913a1a6ca17f30d4c92deae4fbf07d25a12aadcacf00cb289ff4edd8db",
     "src/phaser/render/effects.js": "9af8c9e4827cf634309056da860501a7b6404e70a8ae7308ceb8cbb53cbe799d",
     "src/phaser/render/festive.js": "6798d6e6a5ed20ed8a355f939014d1f30d8d4f130639dddff8dde4c70723905a",
     "src/phaser/render/hud.js": "e05eabd496c64aecde2339b0c94c81fddbe8f9a90bf39e4f3043169b85d63cf7",
@@ -413,16 +427,16 @@
     "src/phaser/render/uiLayer.js": "a575f8ae01868279b45e2b3d9124085e1d717ef80aeac0495ea3acf20453ecab",
     "src/phaser/render/wolfView.js": "8dc67cf19c0cad85c6e2ba744ab0ef6da8f959e2f577a9e56962af3e57d5ff7f",
     "src/phaser/representatives.js": "dedb69ede932763d11d17b49121384da2abdc2da90d1cba1e823809f3097383d",
-    "src/phaser/scenes/play.js": "d2a952a1def4b29307c635bacd9a903f4ba45a9275f0e76d8adcce4a37792f46",
+    "src/phaser/scenes/play.js": "15413bb638981d10e92a14f04b37134f5af357714844e421233c5fe7a02a796b",
     "src/phaser/scenes/roundEnd.js": "64342dde830cdb5c7cba37899fe2cb47b0242bae99b7ad3a9ed579e33fc030b4",
     "src/phaser/scenes/scope.js": "a26c8184abae5969ed09e20c777288ee9a1ee2166563f1351511bab891b96ebb",
     "src/phaser/scenes/settings.js": "da7f7bf2481fa370f1aeb190a6a61efc96a3051a66dc465d10f257176cfd3296",
     "src/phaser/scenes/tally.js": "4c49c64e9130373e349278a140813f81ca54fd22f16f1779b954a601db3bc3a7",
-    "src/phaser/scenes/title.js": "3639cc5f29412cf847e97d3d004699056d9d13bbb73435f853dbc4fa20d22056",
+    "src/phaser/scenes/title.js": "2e9705b554488235fb0553d0677174a7872c024ea0cbf2c7d5493c1a746e3468",
     "src/phaser/shapes.js": "b92c22e9b6c46b16c6f3a9d4f04f38b528916a7fcaff8c3bb203b769bad39bed",
     "src/phaser/sprites/actors.js": "ca700235527357a0232562dc1d251c614a767401d7b6d8b4447ebc4f6d9a20cd",
     "src/phaser/sprites/adapter.js": "62311e800f370e8eb8eb26a020b7c3ded207828a02195d6a50aa78be1c6b39b7",
-    "src/phaser/sprites/backdrop.js": "60fa719958b5ede1635921b6e909ae68e25864feac62b131b735241141ece6a6",
+    "src/phaser/sprites/backdrop.js": "c4ccb305d0fe7e9c43a8994e56523e712183185445074cf0150642f3da91ff1a",
     "src/phaser/sprites/props.js": "eef7cc4b4ab2bb55cb02ab96a77f84a66955b7a871751719badfcd09bcfda932",
     "src/phaser/sprites/variant.js": "288936a92da53da9c5ee5949e3755d9a3a39844c43061ecf05fe82c9cc87254b",
     "src/phaser/textureSampling.js": "620915d662cd0bcc3f4ec6d9bf179d89fe4b537bb859faa100f126dca111fe2d",

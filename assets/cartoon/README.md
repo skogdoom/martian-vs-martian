@@ -6,20 +6,21 @@ frame maps; no external image service is used by the game.
 
 | Sheet | Frames | Size | Contents |
 | --- | ---: | --- | --- |
-| `world.png` | 36 | 2048 × 1024 | Saucers, cow, lamb, wolf, alien, parachute, weapons, scenery, decorations and colored effects |
+| `world.png` | 38 | 2048 × 1024 | Saucers, cow, lamb, wolf, alien, parachute, weapons, scenery, decorations and colored effects |
 | `extras.png` | 36 | 2048 × 1024 | All 13 power icons, animation poses, package, crate, seasonal props and moon phases |
 | `fx.png` | 8 | 1024 × 512 | White/grey tintable particles, rings, sparks, smoke, trails, confetti and shock front |
-| `logo.png` | 1 | 2048 × 512 | Comic title logo |
+| `logo.png` | 1 | 2048 × 1024 | Stacked concept title logo and author credit |
 
-The four shipped PNGs total approximately 4.13 MB. RGBA pixels occupy 22 MiB
-before mipmaps (approximately 29.3 MiB with a complete mip chain). This excludes
+The four shipped PNGs total approximately 4.45 MB. RGBA pixels occupy 26 MiB
+before mipmaps (approximately 34.7 MiB with a complete mip chain). This excludes
 text, scenery gradients and renderer overhead. Source PNGs are retained in
 `source/` for art revisions and are not imported into the production build.
 
 The first source sheet follows the user's concept: red and blue saucers with
 glass domes, cream animals with pink cow muzzles, friendly aliens, red barns,
 wood fences and a navy night farm. The companion sheet uses that first sheet as
-its style reference. The logo uses the same style; neutral VFX allow the renderer
+its style reference. The logo was isolated from the inspiration image using
+background removal, retaining its stacked typography and author credit; neutral VFX allow the renderer
 to apply accurate team colors.
 
 Frame names are the stable interface. Animal sprites face right and their

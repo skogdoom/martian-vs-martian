@@ -31,6 +31,8 @@ WORLD = [
     ('fence', (281, 707, 473, 821)),
     ('flag-blue', (514, 669, 626, 833)),
     ('flag-red', (679, 671, 794, 833)),
+    ('flag-blue-cloth', (535, 684, 626, 769)),
+    ('flag-red-cloth', (694, 685, 794, 769)),
     ('hay', (831, 694, 1020, 833)),
     ('trees', (1044, 668, 1232, 838)),
     ('moon-full', (39, 845, 218, 1019)),
@@ -143,12 +145,17 @@ if __name__ == '__main__':
         ('fx-beam-ring', (863, 592, 1371, 801)), ('fx-shock', (1404, 501, 1740, 873)),
     ], width=1024, maximum=240)
     source = Image.open(ROOT / 'source' / 'logo.png').convert('RGBA')
-    # Ignore stray near-transparent pixels outside the actual logo silhouette.
-    tile = source.crop((12, 145, 2168, 578))
-    tile.thumbnail((2040, 504), Image.Resampling.LANCZOS)
-    atlas = Image.new('RGBA', (2048, 512))
+    # The concept logo is a transparent cutout, retaining its stacked layout.
+    bounds = source.getchannel('A').getbbox()
+    if not bounds:
+        raise ValueError('Empty concept logo')
+    tile = source.crop(bounds)
+    tile.thumbnail((2040, 1016), Image.Resampling.LANCZOS)
+    width = 2 ** (tile.width + 8 - 1).bit_length()
+    height = 2 ** (tile.height + 8 - 1).bit_length()
+    atlas = Image.new('RGBA', (width, height))
     atlas.paste(tile, (4, 4))
     atlas.save(ROOT / 'logo.png', optimize=True)
     data = {'frames': {'logo': {'frame': {'x': 4, 'y': 4, 'w': tile.width, 'h': tile.height}, 'rotated': False, 'trimmed': False}},
-            'meta': {'image': 'logo.png', 'format': 'RGBA8888', 'size': {'w': 2048, 'h': 512}, 'scale': '1'}}
+            'meta': {'image': 'logo.png', 'format': 'RGBA8888', 'size': {'w': width, 'h': height}, 'scale': '1'}}
     (ROOT / 'logo.json').write_text(json.dumps(data, indent=2) + '\n')

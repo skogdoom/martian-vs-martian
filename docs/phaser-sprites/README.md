@@ -1,7 +1,7 @@
 # Phaser sprite review
 
 The `phaser-sprites` branch starts from `phaser` commit `93a86f6` and introduces
-81 cartoon frames across four PNG/JSON atlases based on the supplied concept.
+83 cartoon frames across four PNG/JSON atlases based on the supplied concept.
 Version remains `2.0.0-dev`.
 
 ## Try it
@@ -24,6 +24,18 @@ saved choice without writing it. Gallery URLs such as
 families. The original audit gallery stays classic when no graphics parameter is
 given. Add `&date=2026-12-24`, `2026-12-31`, `2026-06-19`, `2026-05-04` or
 `2026-10-31` for the special-day artwork. `&renderer=canvas` exercises fallback.
+
+## Scenery review revisions
+
+Cartoon flags now use 60 × 34 cloth frames on taller poles at the same mirrored
+positions as classic mode. Pen labels and the three-step title instructions are
+hidden in cartoon mode. A separate foreground fence layer puts landed animals
+behind the rails, and remains part of the frozen round-result view. Classic
+scenery and instructions retain their original presentation.
+
+The title uses the stacked logo isolated from the reattached inspiration image,
+including the yellow lightning burst and author credit. It retains its aspect
+ratio and fits above the menu in the space previously used by the instructions.
 
 ## Coverage
 

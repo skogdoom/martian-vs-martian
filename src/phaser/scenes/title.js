@@ -7,6 +7,7 @@
 import { withSceneScope } from './scope.js';
 import { WIDTH } from '../../config.js';
 import { version } from '../../../package.json';
+import logoAtlas from '../../../assets/cartoon/logo.json';
 import { menuLift } from '../../layout.js';
 import { centerUi, dimmer } from '../render/uiLayer.js';
 import { wasPressed, padSeenYet, setKeyFilter } from '../input.js';
@@ -16,7 +17,7 @@ import { createHerd, updateAnimal } from '../../logic/animal.js';
 import { createRng } from '../../logic/rng.js';
 import { startMatch, DIFFICULTIES } from '../../session.js';
 import { LENGTHS, ROUNDS, step, saveOptions, pickOptions } from '../../options.js';
-import { createBackdrop, COLORS } from '../render/backdrop.js';
+import { createBackdrop, createPenForeground, COLORS } from '../render/backdrop.js';
 import { createShootingStars } from '../render/shootingStars.js';
 import { createTieFlyby } from '../render/tieFlyby.js';
 import { occasion } from '../../occasion.js';
@@ -46,7 +47,8 @@ export function createTitleScene(game, session) {
     const herd = createHerd();
     const herdView = createAnimalView(art, herd);
     const saucers = { red: createSaucerView(art, 'red'), blue: createSaucerView(art, 'blue') };
-    art.add(view, herdView.view, saucers.red.view, saucers.blue.view);
+    const foreground = createPenForeground(art);
+    art.add(view, herdView.view, foreground.view, saucers.red.view, saucers.blue.view);
     art.add(view, dimmer(art, 0.25));
     const scenery = view.list.length; // everything after this is text, centred on a tall screen
 
@@ -57,7 +59,9 @@ export function createTitleScene(game, session) {
     red.setPosition(cx - 40, 150);
     vs.setPosition(cx, 150);
     blue.setPosition(cx + 40, 150);
-    const logo = art.sprites.sprite('logo', 820, 110, cx, 136);
+    const logoFrame = logoAtlas.frames.logo.frame;
+    const logoScale = Math.min(500 / logoFrame.w, 260 / logoFrame.h);
+    const logo = art.sprites.sprite('logo', logoFrame.w * logoScale, logoFrame.h * logoScale, cx, 155);
     red.visible = vs.visible = blue.visible = game.graphics.classic;
     logo.visible = !game.graphics.classic;
     // Which version is running: tiny, right-aligned with the end of the title, just above it.
@@ -72,6 +76,7 @@ export function createTitleScene(game, session) {
     );
     const stepsLeft = cx - Math.max(...steps.map((l) => l.width)) / 2;
     steps.forEach((line, i) => line.setPosition(stepsLeft, 198 + i * 24));
+    steps.forEach((line) => (line.visible = game.graphics.classic));
 
     // Each player's keys in their top corner, with their saucer idling below.
     const keys = {

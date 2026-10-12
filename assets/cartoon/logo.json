@@ -4,8 +4,8 @@
       "frame": {
         "x": 4,
         "y": 4,
-        "w": 2040,
-        "h": 410
+        "w": 1640,
+        "h": 926
       },
       "rotated": false,
       "trimmed": false
@@ -16,7 +16,7 @@
     "format": "RGBA8888",
     "size": {
       "w": 2048,
-      "h": 512
+      "h": 1024
     },
     "scale": "1"
   }

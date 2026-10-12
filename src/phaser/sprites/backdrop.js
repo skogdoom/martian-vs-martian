@@ -2,7 +2,6 @@ import { WIDTH, HEIGHT, ARENA } from '../../config.js';
 import { PAD, menuLift, layout } from '../../layout.js';
 import { createRng } from '../../logic/rng.js';
 import { occasion } from '../../occasion.js';
-import { label } from '../render/text.js';
 import { createSnow, createFireworks } from '../render/festive.js';
 
 const GROUND = ARENA.groundY;
@@ -57,26 +56,29 @@ export function cartoonBackdrop(art, phase) {
     const center = (left + right) / 2;
     const barn = sprite('barn', 128, 98, center, GROUND - 22, 0.5, 1).setAlpha(0.9);
     art.add(land, barn, sprite('hay', 45, 34, side === 'red' ? right - 20 : left + 20, GROUND - 2, 0.5, 1));
-    for (let x = left; x < right; x += 90) art.add(land, sprite('fence', 92, 42, x, GROUND, 0, 1));
     const poleX = side === 'red' ? left + (occasion === 'midsummer' ? 46 : 26) : right - (occasion === 'midsummer' ? 46 : 26);
-    const flag = sprite(occasion === 'midsummer' ? 'maypole' : `flag-${side}`, occasion === 'midsummer' ? 78 : 64, 174, poleX, GROUND, 0.15, 1);
-    if (side === 'blue') flag.flipX = true;
-    art.add(land, flag);
+    const pole = art.container();
+    pole.name = `flagpole-${side}`;
+    pole.setPosition(poleX, GROUND).setScale(side === 'red' ? 1 : -1, 1);
+    art.add(land, pole);
     if (occasion === 'midsummer') {
-      const ribbon = sprite(`ribbon-${side}`, 62, 28, poleX, GROUND - 168, side === 'red' ? 0 : 1, 0.3);
-      ribbon.flipX = side === 'blue';
-      art.add(land, ribbon);
+      const maypole = sprite('maypole', 78, 214, 0, 0, 0.5, 1);
+      const ribbon = sprite(`ribbon-${side}`, 60, 20, 0, -208, 0, 0.3);
+      art.add(pole, maypole, ribbon);
       flags.push(ribbon);
-    } else flags.push(flag);
+    } else {
+      const stem = art.graphics((draw) => draw.rect(-2, -210, 4, 210, { fill: 0xb8bcc8 }).circle(0, -212, 4, { fill: 0xe8e8f0 }));
+      const flag = sprite(`flag-${side}-cloth`, 60, 34, 2, -206, 0, 0);
+      flag.name = `flag-${side}`;
+      art.add(pole, stem, flag);
+      flags.push(flag);
+    }
     if (occasion === 'halloween') {
       const lantern = sprite('pumpkin', 28, 28, side === 'red' ? right : left, GROUND - 42, 0.5, 1);
       lanterns.push(lantern);
       art.add(land, lantern);
     }
     if (occasion === 'christmas') art.add(land, sprite('christmas-tree', 50, 64, side === 'red' ? 155 : 1125, GROUND - 3, 0.5, 1));
-    const text = label(art, side === 'red' ? 'RED PEN' : 'BLUE PEN', { size: 14, color: 0xffffff, bold: true, anchorX: 0.5 });
-    text.setPosition(center, GROUND + 32).setAlpha(0.8);
-    art.add(land, text);
   }
   const snow = occasion === 'christmas' ? createSnow(art) : null;
   const fireworks = occasion === 'newYearsEve' ? createFireworks(art) : null;
@@ -106,6 +108,19 @@ export function cartoonBackdrop(art, phase) {
       bats?.tick(t);
     },
   };
+}
+
+export function cartoonPenForeground(art) {
+  const view = art.container();
+  for (const side of ['red', 'blue']) {
+    const { left, right } = ARENA.pens[side];
+    for (let x = left; x < right; x += 90) {
+      const fence = art.sprites.sprite('fence', 90, 42, x, GROUND, 0, 1);
+      fence.name = `front-fence-${side}`;
+      art.add(view, fence);
+    }
+  }
+  return { view };
 }
 
 function cartoonBats(art) {
