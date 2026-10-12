@@ -2,6 +2,8 @@
 
 import { label } from './text.js';
 import { createListView } from './listView.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonPowerIcon, cartoonDrop, cartoonDrops } from '../sprites/props.js';
 
 export const POWER_NAMES = {
   speed: 'SPEED BOOST',
@@ -49,6 +51,14 @@ export const POWER_COLOR = 0x6cff6c;
 
 /** A round badge with the power-up's symbol, centred on (0, 0). */
 export function createPowerIcon(art, type, r = 14) {
+  return variant(
+    art,
+    () => ({ view: classicPowerIcon(art, type, r) }),
+    () => ({ view: cartoonPowerIcon(art, type, r) }),
+  ).view;
+}
+
+function classicPowerIcon(art, type, r) {
   const view = art.container();
   const g = art.graphics();
   art.draw(g).circle(0, 0, r, { fill: 0x10301a });
@@ -265,6 +275,14 @@ export function drawParachute(art, g) {
 
 /** Green man: parachute on the way down, a power-up sign over his head. */
 export function createGreenManView(art) {
+  return variant(
+    art,
+    () => classicGreenMan(art),
+    () => cartoonDrop(art, 'greenman'),
+  );
+}
+
+function classicGreenMan(art) {
   const view = art.container();
   const chute = art.graphics();
   drawParachute(art, chute);
@@ -334,6 +352,14 @@ export function createGreenManView(art) {
 
 /** Mystery package: a wrapped box with a question mark. */
 export function createPackageView(art) {
+  return variant(
+    art,
+    () => classicPackage(art),
+    () => cartoonDrop(art, 'package'),
+  );
+}
+
+function classicPackage(art) {
   const view = art.container();
   const chute = art.graphics();
   drawParachute(art, chute);
@@ -370,6 +396,14 @@ export function createPackageView(art) {
 
 /** Wooden ammo crate with brass rounds on the front. */
 export function createCrateView(art) {
+  return variant(
+    art,
+    () => classicCrate(art),
+    () => cartoonDrop(art, 'crate'),
+  );
+}
+
+function classicCrate(art) {
   const view = art.container();
   const chute = art.graphics();
   drawParachute(art, chute);
@@ -410,5 +444,9 @@ export function createCrateView(art) {
 
 /** Draws every drop in the world, making views for new ones as they arrive. */
 export function createDropsView(art) {
-  return createListView(art, (d) => ({ crate: createCrateView, package: createPackageView })[d.kind]?.(art) ?? createGreenManView(art));
+  return variant(
+    art,
+    () => createListView(art, (d) => ({ crate: classicCrate, package: classicPackage })[d.kind]?.(art) ?? classicGreenMan(art)),
+    () => cartoonDrops(art),
+  );
 }

@@ -57,9 +57,13 @@ export function createTitleScene(game, session) {
     red.setPosition(cx - 40, 150);
     vs.setPosition(cx, 150);
     blue.setPosition(cx + 40, 150);
+    const logo = art.sprites.sprite('logo', 820, 110, cx, 136);
+    red.visible = vs.visible = blue.visible = game.graphics.classic;
+    logo.visible = !game.graphics.classic;
     // Which version is running: tiny, right-aligned with the end of the title, just above it.
     const versionLabel = label(art, `v${version}`, { size: 11, color: 0x8a93c0, anchorX: 1, anchorY: 1 });
     versionLabel.setPosition(blue.x + blue.width - 4, 150 - blue.height / 2 + 12);
+    if (!game.graphics.classic) versionLabel.setPosition(cx + 410, 242);
 
     // The rest is left for players to find out.
     // Left-aligned, with the block as a whole centred.
@@ -136,6 +140,7 @@ export function createTitleScene(game, session) {
       red,
       vs,
       blue,
+      logo,
       versionLabel,
       ...steps,
       keys.red.title,

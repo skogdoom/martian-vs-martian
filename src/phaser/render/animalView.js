@@ -7,6 +7,8 @@ import { SIDES } from '../../logic/world.js';
 import { COLORS } from './backdrop.js';
 import { drawParachute } from './powerupView.js';
 import { label } from './text.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonAnimals, cartoonBeams } from '../sprites/actors.js';
 
 const GOLD = 0xffcf3a;
 
@@ -222,6 +224,14 @@ function drawBeam(art, g, s, a, side, strength, t) {
 }
 
 export function createBeamView(art) {
+  return variant(
+    art,
+    () => classicBeams(art),
+    () => cartoonBeams(art),
+  );
+}
+
+function classicBeams(art) {
   const g = art.dynamicGraphics();
   return {
     view: g,
@@ -239,6 +249,14 @@ export function createBeamView(art) {
 
 /** Draws every animal in `animals`, including ones added later (golden drops). */
 export function createAnimalView(art, animals) {
+  return variant(
+    art,
+    () => classicAnimals(art, animals),
+    () => cartoonAnimals(art, animals),
+  );
+}
+
+function classicAnimals(art, animals) {
   const view = art.container();
   const sprites = new Map();
   view.once('destroy', () => sprites.clear());

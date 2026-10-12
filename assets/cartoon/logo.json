@@ -1,0 +1,23 @@
+{
+  "frames": {
+    "logo": {
+      "frame": {
+        "x": 4,
+        "y": 4,
+        "w": 2040,
+        "h": 410
+      },
+      "rotated": false,
+      "trimmed": false
+    }
+  },
+  "meta": {
+    "image": "logo.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 2048,
+      "h": 512
+    },
+    "scale": "1"
+  }
+}

@@ -9,6 +9,8 @@ import { createRng } from '../../logic/rng.js';
 import { label } from './text.js';
 import { occasion } from '../../occasion.js';
 import { createSantaHat, createSnow, createFireworks, createSpookySky, createLanterns } from './festive.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonBackdrop } from '../sprites/backdrop.js';
 
 export const COLORS = {
   red: 0xe5484d,
@@ -355,6 +357,14 @@ function ribbon(art, g, side, poleX, dir) {
 }
 
 export function createBackdrop(art, phase = moonPhase) {
+  return variant(
+    art,
+    () => classicBackdrop(art, phase),
+    () => cartoonBackdrop(art, phase),
+  );
+}
+
+function classicBackdrop(art, phase) {
   const view = art.container();
   const rng = createRng(42);
 

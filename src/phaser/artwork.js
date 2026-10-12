@@ -5,6 +5,7 @@ import { createRng } from '../logic/rng.js';
 import { wasPressed } from './input.js';
 import { createArt } from './art.js';
 import { buildArtwork, ARTWORK_PAGES } from './artwork-fixtures.js';
+import { createSpriteAdapter } from './sprites/adapter.js';
 import * as backdrop from './render/backdrop.js';
 import * as saucers from './render/saucerView.js';
 import * as animals from './render/animalView.js';
@@ -25,10 +26,12 @@ export function createArtwork(host, page, phase, cosmeticSeed, audit = false) {
   phase ??= query.get('moon') ?? backdrop.moonPhase;
   const scope = host.presentation.scope();
   const art = createArt(scope, cosmeticSeed === undefined ? { audit } : { random: createRng(cosmeticSeed), audit });
+  // Existing paint audits stay classic unless the review URL asks for cartoons.
+  if (query.get('graphics') === 'cartoon') art.sprites = createSpriteAdapter(art, host.graphics);
   try {
     const api = {
       ...art,
-      children: (node) => node.list,
+      children: (node) => node.getData?.('variant-view')?.list ?? node.list,
       position: (node, x, y) => node.setPosition(x, y),
       scale: (node, x, y = x) => node.setScale(x, y),
       background: () => art.graphics((draw) => draw.rect(0, -400, WIDTH, HEIGHT + 800, { fill: 0x101c3d })),
@@ -39,6 +42,10 @@ export function createArtwork(host, page, phase, cosmeticSeed, audit = false) {
           api[name] = (...args) => fn(art, ...args);
     }
     const fixture = buildArtwork(api, page, phase);
+    if (art.sprites) {
+      const heading = fixture.view.list.find((node) => node.type === 'Text' && node.text.startsWith('PROCEDURAL ARTWORK'));
+      heading?.setText(heading.text.replace('PROCEDURAL ARTWORK', 'CARTOON ARTWORK'));
+    }
     art.add(scope.root, fixture.view);
     const help = art.label('← / → artwork page   P: freeze   R: restart   V: 16:9   seasonal: ?date=12-24', {
       size: 12,

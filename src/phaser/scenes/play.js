@@ -73,7 +73,7 @@ export function createPlayScene(game, session) {
     const top = art.container();
     art.add(top, hud.view);
     art.add(view, stage, top);
-    warmGameplayArt(game.presentation, stage);
+    if (game.graphics.classic) warmGameplayArt(game.presentation, stage);
 
     const banner = label(art, '', { size: 96, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
     banner.setPosition(WIDTH / 2, 280);
@@ -114,11 +114,11 @@ export function createPlayScene(game, session) {
     const pauseMenuView = createMenu(art, {
       active: () => paused && round.phase !== 'over',
       y0: 255,
-      gap: 48,
+      gap: 40,
       items: [
         { id: 'resume', text: () => 'RESUME' },
         { id: 'restart', text: () => 'RESTART THE GAME' },
-        ...settingsItems(session),
+        ...settingsItems(session, game.graphics),
         { id: 'exit', text: () => 'EXIT TO MAIN MENU' },
       ],
     });

@@ -7,6 +7,7 @@ import { scores } from '../../logic/scoring.js';
 import { COLORS } from './backdrop.js';
 import { label } from './text.js';
 import { createPowerIcon, POWER_NAMES, POWER_COLOR } from './powerupView.js';
+import { createStyleSurface } from '../sprites/adapter.js';
 
 const PANEL_W = 180;
 const MARGIN = 16;
@@ -24,7 +25,8 @@ function createPanel(art, side, title) {
   score.x = left ? PANEL_W : 0;
   const wins = label(art, '', { size: 14, color: 0xffd76a, anchorX: left ? 0 : 1 });
   wins.setPosition(left ? 0 : PANEL_W, 80);
-  const pips = art.graphics();
+  const ammoSurface = createStyleSurface(art, {}, false);
+  const pips = ammoSurface.view;
   art.add(view, name, score, pips, ammo, wins);
 
   // Active power-up: icon, name, seconds left and a draining bar.
@@ -70,22 +72,22 @@ function createPanel(art, side, title) {
       }
       // Clip pips and reload bar: redrawn only when they change.
       const progress = reloadProgress(weapon);
-      const key = `${weapon.clip}|${progress === null ? '' : progress.toFixed(3)}`;
+      const key = `${weapon.clip}|${progress === null ? '' : progress.toFixed(3)}|${art.sprites?.preferences.classic ?? true}`;
       if (key === pipsKey) return;
       pipsKey = key;
-      art.draw(pips).clear();
+      ammoSurface.draw.clear();
       const r = 7;
       const gap = 20;
       for (let i = 0; i < COMBAT.clipSize; i++) {
         const cx = left ? r + i * gap : PANEL_W - r - i * gap;
-        if (i < weapon.clip) art.draw(pips).circle(cx, 34, r, { fill: COLORS[side] });
-        else art.draw(pips).circle(cx, 34, r, { stroke: COLORS[side], width: 2, alpha: 0.5 });
+        if (i < weapon.clip) ammoSurface.draw.circle(cx, 34, r, { fill: COLORS[side] });
+        else ammoSurface.draw.circle(cx, 34, r, { stroke: COLORS[side], width: 2, alpha: 0.5 });
       }
       if (progress !== null) {
         const w = COMBAT.clipSize * gap;
         const x = left ? 0 : PANEL_W - w;
-        art.draw(pips).rect(x, 68, w, 4, { fill: 0xffffff, alpha: 0.2 });
-        art.draw(pips).rect(left ? x : x + w * (1 - progress), 68, w * progress, 4, { fill: 0xffffff });
+        ammoSurface.draw.rect(x, 68, w, 4, { fill: 0xffffff, alpha: 0.2 });
+        ammoSurface.draw.rect(left ? x : x + w * (1 - progress), 68, w * progress, 4, { fill: 0xffffff });
       }
     },
   };

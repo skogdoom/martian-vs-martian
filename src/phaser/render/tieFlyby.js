@@ -16,6 +16,7 @@ const FORMATION = [
 
 /** One fighter, seen head on: a ball cockpit between two six-sided wings. */
 function fighter(art) {
+  if (art.sprites && !art.sprites.preferences.classic) return art.sprites.sprite('fighter', 36, 25);
   const g = art.graphics();
   const wing = (x) =>
     art

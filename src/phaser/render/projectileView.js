@@ -3,8 +3,18 @@
 import { COMBAT } from '../../config.js';
 import { COLORS } from './backdrop.js';
 import { drawRocket, drawBomb } from './powerupView.js';
+import { variant } from '../sprites/variant.js';
+import { cartoonProjectiles } from '../sprites/props.js';
 
 export function createProjectileView(art) {
+  return variant(
+    art,
+    () => classicProjectiles(art),
+    () => cartoonProjectiles(art),
+  );
+}
+
+function classicProjectiles(art) {
   const g = art.dynamicGraphics();
   // Rockets and bombs are small shape pools, positioned and rotated each frame.
   const view = art.container();

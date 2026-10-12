@@ -4,6 +4,7 @@ import { COLORS } from './backdrop.js';
 import { label } from './text.js';
 import { ARENA } from '../../config.js';
 import { POWER_COLOR, SHIELD_COLOR } from './powerupView.js';
+import { createStyleSurface } from '../sprites/adapter.js';
 
 const other = (side) => (side === 'red' ? 'blue' : 'red');
 const rand = (art, lo, hi) => lo + art.random() * (hi - lo);
@@ -16,7 +17,8 @@ const BLOOD = {
 
 export function createEffects(art) {
   const view = art.container();
-  const g = art.dynamicGraphics();
+  const surface = createStyleSurface(art);
+  const g = surface.view;
   art.add(view, g);
   const particles = [];
   const rings = [];
@@ -422,28 +424,29 @@ export function createEffects(art) {
   }
 
   function render() {
-    art.draw(g).clear();
+    const draw = surface.draw;
+    draw.clear();
     for (const s of stains) {
       const alpha = Math.min(0.85, (s.life / s.max) * 1.5);
       const { stain } = s.blood ?? BLOOD.red;
-      art.draw(g).ellipse(s.x, ARENA.groundY + 3, s.w, 6, { fill: stain[0], alpha: alpha });
-      art.draw(g).ellipse(s.x - s.w * 0.3, ARENA.groundY + 2, s.w * 0.35, 3, { fill: stain[1], alpha: alpha });
+      draw.ellipse(s.x, ARENA.groundY + 3, s.w, 6, { fill: stain[0], alpha: alpha });
+      draw.ellipse(s.x - s.w * 0.3, ARENA.groundY + 2, s.w * 0.35, 3, { fill: stain[1], alpha: alpha });
     }
     for (const r of rings) {
       const u = 1 - r.life / r.max;
-      art.draw(g).circle(r.x, r.y, 6 + r.radius * Math.sqrt(u), { stroke: r.color, width: 4 * (1 - u) + 1, alpha: 1 - u });
+      draw.circle(r.x, r.y, 6 + r.radius * Math.sqrt(u), { stroke: r.color, width: 4 * (1 - u) + 1, alpha: 1 - u });
     }
     for (const p of particles) {
       const alpha = Math.min(1, (p.life / p.max) * 2);
       if (p.shape === 'confetti') {
         const w = p.size * 1.6 * Math.abs(Math.cos(p.spin));
-        art.draw(g).rect(p.x - w / 2, p.y - p.size / 2, Math.max(0.5, w), p.size, { fill: p.color, alpha: alpha });
+        draw.rect(p.x - w / 2, p.y - p.size / 2, Math.max(0.5, w), p.size, { fill: p.color, alpha: alpha });
       } else if (p.shape === 'star') {
         const s = p.size;
-        art.draw(g).polygon([p.x, p.y - s * 2, p.x + s * 0.5, p.y, p.x, p.y + s * 2, p.x - s * 0.5, p.y], { fill: p.color, alpha: alpha });
-        art.draw(g).polygon([p.x - s * 2, p.y, p.x, p.y - s * 0.5, p.x + s * 2, p.y, p.x, p.y + s * 0.5], { fill: p.color, alpha: alpha });
+        draw.polygon([p.x, p.y - s * 2, p.x + s * 0.5, p.y, p.x, p.y + s * 2, p.x - s * 0.5, p.y], { fill: p.color, alpha: alpha });
+        draw.polygon([p.x - s * 2, p.y, p.x, p.y - s * 0.5, p.x + s * 2, p.y, p.x, p.y + s * 0.5], { fill: p.color, alpha: alpha });
       } else {
-        art.draw(g).circle(p.x, p.y, p.size, { fill: p.color, alpha: alpha });
+        draw.circle(p.x, p.y, p.size, { fill: p.color, alpha: alpha });
       }
     }
   }

@@ -56,6 +56,13 @@ SETUP = r"""() => {
       input:__game.input.inputStats(),fullscreen:__game.fullscreen.fullscreenStats(),
       listeners:__listeners.filter(row=>['keydown','keyup','blur','fullscreenchange','webkitfullscreenchange'].includes(row.type)).length};
   };
+  window.__choose = text => {
+    for(let i=0;i<16;i++){
+      if(__texts().some(row=>row.startsWith('▶ ')&&row.includes(text))){__press('Enter');return;}
+      __press('ArrowDown');
+    }
+    throw Error('Menu item not found: '+text);
+  };
   window.__start = players => {__game.session.players=players;__game.session.rounds=1;__game.session.length=60;
     __press(players===1?'Digit1':'Digit2');__press('Enter');
     if(__game.scene.kind!=='play')throw Error('start did not enter play');};
@@ -145,7 +152,7 @@ def fullscreen_checks(page):
     page.evaluate("__press('Escape');__tick(4);__start(2)")
     page.keyboard.press('f');page.wait_for_function('!!document.fullscreenElement',timeout=10000)
     page.evaluate('document.exitFullscreen()');page.wait_for_function('__game.scene.paused',timeout=10000)
-    page.evaluate("__press('Enter');__press('KeyP');for(let i=0;i<5;i++)__press('ArrowDown');__press('Enter');__tick(4)")
+    page.evaluate("__press('Enter');__press('KeyP');__choose('EXIT');__tick(4)")
     page.locator('canvas').dblclick(position={'x':600,'y':600});page.wait_for_function('!!document.fullscreenElement',timeout=10000)
     page.keyboard.press('f');page.wait_for_function('!document.fullscreenElement',timeout=10000);page.evaluate('__tick()')
     return {'trusted_f_key':True,'trusted_menu_selection_once':True,'double_click':True,'unexpected_exit_pauses':True}
@@ -163,7 +170,7 @@ def match_flow(page,output,label):
       __press('KeyP');__press('ArrowDown');__press('Enter');
       assert(__game.scene!==scene&&__game.scene.round.phase==='countdown','restart');
       assert(__game.session.match.results.length===0,'restart kept match');
-      __press('Escape');for(let i=0;i<5;i++)__press('ArrowDown');__press('Enter');__tick(4);
+      __press('Escape');__choose('EXIT');__tick(4);
       assert(__game.scene.kind==='title','exit to title');
       __start(1);__endRound('blue');
       assert(__game.session.match.over&&__game.session.match.winner==='blue','solo result');
@@ -187,7 +194,7 @@ def match_flow(page,output,label):
       assert(!frozen.scene,'adopted tree survived result');
       __tick(13);const tally=JSON.stringify(__game.session.tally);__press('Space');
       assert(__game.scene.kind==='play'&&JSON.stringify(__game.session.tally)===tally,'play-again lost tally');
-      __press('KeyP');for(let i=0;i<5;i++)__press('ArrowDown');__press('Enter');__tick(4);
+      __press('KeyP');__choose('EXIT');__tick(4);
       __start(2);__endRound('tie');assert(!__game.session.match.over&&__game.session.match.scheduled===2,'tie extension');
       __finishResult();assert(__game.scene.kind==='play'&&__texts().includes('SUDDEN DEATH'),'sudden death');
       __endRound('red');assert(__game.session.match.over&&__game.session.match.wins.red===1,'decisive sudden death');
