@@ -32,6 +32,8 @@ positions as classic mode. Pen labels and the three-step title instructions are
 hidden in cartoon mode. A separate foreground fence layer puts landed animals
 behind the rails, and remains part of the frozen round-result view. Classic
 scenery and instructions retain their original presentation.
+Halloween pumpkins are centered over the illustrated inner fence posts rather
+than the pen boundaries. Their positions mirror each other across the arena.
 
 The title uses the stacked logo based on the corrected inspiration image, with
 both the red and blue words spelled **MARTIAN**, the yellow lightning burst and
@@ -91,6 +93,8 @@ The checks below are recorded in adjacent JSON evidence files:
 - Moon pixel checks cover all four phases in WebGL/Canvas: circular full disk,
   the correct illuminated side and fading haze. Title placement checks cover
   the version in both graphics modes (`moon-review.json`).
+- Focused Halloween placement checks pass on the title screen and during play
+  in both renderers (`pumpkin-review.json`); build and lint pass for this revision.
 
 Run the relevant checks with Playwright and the existing Python requirements:
 
@@ -116,3 +120,5 @@ and its rare benchmark outliers remain documented in the cutover notes.
 ![Cartoon title](title.png)
 
 ![Cartoon gameplay](play.png)
+
+![Halloween title](halloween.png)

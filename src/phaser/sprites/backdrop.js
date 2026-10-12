@@ -6,6 +6,10 @@ import { createSnow, createFireworks } from '../render/festive.js';
 import { MOON_PHASES, MOON_AT, moonLitOutline } from '../render/backdrop.js';
 
 const GROUND = ARENA.groundY;
+const FENCE_WIDTH = 90;
+const FENCE_HEIGHT = 42;
+// The illustrated posts are centered 10% inside the fence frame's edges.
+const FENCE_POST_INSET = FENCE_WIDTH * 0.1;
 
 function cartoonMoon(art, phase) {
   const view = art.container();
@@ -112,7 +116,8 @@ export function cartoonBackdrop(art, phase) {
       flags.push(flag);
     }
     if (occasion === 'halloween') {
-      const lantern = sprite('pumpkin', 28, 28, side === 'red' ? right : left, GROUND - 42, 0.5, 1);
+      const postX = side === 'red' ? right - FENCE_POST_INSET : left + FENCE_POST_INSET;
+      const lantern = sprite('pumpkin', 28, 28, postX, GROUND - FENCE_HEIGHT, 0.5, 1);
       lanterns.push(lantern);
       art.add(land, lantern);
     }
@@ -152,8 +157,8 @@ export function cartoonPenForeground(art) {
   const view = art.container();
   for (const side of ['red', 'blue']) {
     const { left, right } = ARENA.pens[side];
-    for (let x = left; x < right; x += 90) {
-      const fence = art.sprites.sprite('fence', 90, 42, x, GROUND, 0, 1);
+    for (let x = left; x < right; x += FENCE_WIDTH) {
+      const fence = art.sprites.sprite('fence', FENCE_WIDTH, FENCE_HEIGHT, x, GROUND, 0, 1);
       fence.name = `front-fence-${side}`;
       art.add(view, fence);
     }
