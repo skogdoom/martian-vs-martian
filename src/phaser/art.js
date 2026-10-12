@@ -20,6 +20,57 @@ export function createArt(scope, { random = createRng(crypto.getRandomValues(new
       recipe?.(painter);
       return view;
     },
+    dynamicGraphics() {
+      if (!scope.webgl) return this.graphics();
+      const view = scope.graphics();
+      const recipes = [];
+      const painter = {
+        recipes,
+        clear() {
+          view.clear();
+          recipes.length = 0;
+          return this;
+        },
+        ellipse(x, y, rx, ry, style) {
+          if (audit) recipes.push({ kind: 'ellipse', values: [x, y, rx, ry], style });
+          if (style.fill !== undefined) view.fillStyle(style.fill, style.alpha ?? 1).fillEllipse(x, y, rx * 2, ry * 2, 64);
+          if (style.stroke !== undefined) view.lineStyle(style.width ?? 1, style.stroke, style.alpha ?? 1).strokeEllipse(x, y, rx * 2, ry * 2, 64);
+          return this;
+        },
+        circle(x, y, r, style) {
+          return this.ellipse(x, y, r, r, style);
+        },
+        rect(x, y, width, height, style) {
+          if (audit) recipes.push({ kind: 'rect', values: [x, y, width, height], style });
+          if (style.fill !== undefined) view.fillStyle(style.fill, style.alpha ?? 1).fillRect(x, y, width, height);
+          if (style.stroke !== undefined) view.lineStyle(style.width ?? 1, style.stroke, style.alpha ?? 1).strokeRect(x, y, width, height);
+          return this;
+        },
+        curve(commands, style) {
+          if (audit) recipes.push({ kind: 'curve', values: [commands], style });
+          view.beginPath();
+          for (const [method, x, y] of commands) {
+            if (method === 'moveTo') view.moveTo(x, y);
+            else if (method === 'lineTo') view.lineTo(x, y);
+            else throw new Error('Dynamic paths support straight segments only');
+          }
+          if (style.fill !== undefined) view.fillStyle(style.fill, style.alpha ?? 1).fillPath();
+          if (style.stroke !== undefined) view.lineStyle(style.width ?? 1, style.stroke, style.alpha ?? 1).strokePath();
+          return this;
+        },
+        polygon(points, style) {
+          if (audit) recipes.push({ kind: 'polygon', values: [points], style });
+          view.beginPath().moveTo(points[0], points[1]);
+          for (let i = 2; i < points.length; i += 2) view.lineTo(points[i], points[i + 1]);
+          view.closePath();
+          if (style.fill !== undefined) view.fillStyle(style.fill, style.alpha ?? 1).fillPath();
+          if (style.stroke !== undefined) view.lineStyle(style.width ?? 1, style.stroke, style.alpha ?? 1).strokePath();
+          return this;
+        },
+      };
+      painters.set(view, painter);
+      return view;
+    },
     draw(view) {
       const painter = painters.get(view);
       if (!painter) throw new Error('Drawing requires an artwork paint container');
@@ -92,14 +143,14 @@ export function createArt(scope, { random = createRng(crypto.getRandomValues(new
       };
       let slot = slots[next];
       if (!slot) {
-        const image = scope.bitmap(area, render, { resolution, imageSmoothingQuality: 'high' }, view);
+        const image = scope.bitmap(area, render, { resolution, imageSmoothingQuality: 'high', cacheKey: signature }, view);
         // Graphics can have children (the wolf's blood); paint precedes them.
         scope.attach(view, image, next);
         slot = { image, signature };
         slots.push(slot);
         uploads++;
       } else if (signature !== slot.signature) {
-        scope.repaint(slot.image, area, render, { resolution });
+        scope.repaint(slot.image, area, render, { resolution, cacheKey: signature });
         slot.signature = signature;
         uploads++;
       }

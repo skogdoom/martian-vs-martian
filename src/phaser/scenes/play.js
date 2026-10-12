@@ -234,6 +234,9 @@ export function createPlayScene(game, session) {
       view,
       kind: 'play',
       round,
+      get diagnostics() {
+        return { effects: effects.stats, paintRequests: art.uploads };
+      },
       refit,
       get paused() {
         return paused;

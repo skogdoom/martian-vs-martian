@@ -1,0 +1,5946 @@
+{
+  "complete": true,
+  "preservation": {
+    "original_source_hashes_unchanged": 48,
+    "original_test_files_unchanged": 30,
+    "original_test_identities": 271
+  },
+  "samples": [
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3754,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 248,
+        "textures": 40,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 57.35000000000356,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 16101609
+      },
+      "frameIntervalMs": {
+        "samples": 636,
+        "p50": 99.90000000000146,
+        "p95": 116.70000000000437,
+        "p99": 166.6999999999989,
+        "max": 183.40000000000146
+      },
+      "updateCpuMs": {
+        "samples": 636,
+        "p50": 0.10000000894069672,
+        "p95": 0.3999999910593033,
+        "p99": 1.6000000089406967,
+        "max": 3.6000000089406967
+      },
+      "viewCpuMs": {
+        "samples": 636,
+        "p50": 0.20000000298023224,
+        "p95": 0.3999999910593033,
+        "p99": 0.7000000029802322,
+        "max": 7.299999997019768
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 636,
+        "p50": 0.7999999970197678,
+        "p95": 1.5999999940395355,
+        "p99": 5.5,
+        "max": 8.599999994039536
+      },
+      "totalCpuMs": {
+        "samples": 636,
+        "p50": 1.1000000089406967,
+        "p95": 2.2000000029802322,
+        "p99": 7.700000002980232,
+        "max": 19.599999994039536
+      },
+      "drawCalls": {
+        "samples": 636,
+        "p50": 39,
+        "p95": 42,
+        "p99": 45,
+        "max": 45
+      },
+      "uploads": {
+        "samples": 636,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "meanFps": 10.582785335853677,
+      "framesOver33ms": 633,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 772.2000000029802,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3801,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1318,
+        "textures": 542,
+        "textureWrappers": 546,
+        "world": {
+          "phase": "play",
+          "timeLeft": 56.56666666667027,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 500,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59388012
+        },
+        "jsHeapBytes": 95484950
+      },
+      "frameIntervalMs": {
+        "samples": 716,
+        "p50": 83.30000000000291,
+        "p95": 116.60000000000218,
+        "p99": 149.89999999999418,
+        "max": 283.3000000000029
+      },
+      "updateCpuMs": {
+        "samples": 716,
+        "p50": 0.20000000298023224,
+        "p95": 0.5,
+        "p99": 2.0999999940395355,
+        "max": 4.700000002980232
+      },
+      "viewCpuMs": {
+        "samples": 716,
+        "p50": 1.6000000089406967,
+        "p95": 3,
+        "p99": 17.600000008940697,
+        "max": 50
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 716,
+        "p50": 1.3999999910593033,
+        "p95": 3.300000011920929,
+        "p99": 10.400000005960464,
+        "max": 280.79999999701977
+      },
+      "totalCpuMs": {
+        "samples": 716,
+        "p50": 3.5,
+        "p95": 8.100000008940697,
+        "p99": 23,
+        "max": 283.5
+      },
+      "drawCalls": {
+        "samples": 716,
+        "p50": 34,
+        "p95": 36,
+        "p99": 37,
+        "max": 37
+      },
+      "uploads": {
+        "samples": 716,
+        "p50": 2,
+        "p95": 3,
+        "p99": 6,
+        "max": 49
+      },
+      "meanFps": 11.910643557356572,
+      "framesOver33ms": 707,
+      "longTasks": [
+        {
+          "start": 17931.90000000596,
+          "duration": 54
+        },
+        {
+          "start": 27898.59999999404,
+          "duration": 284
+        },
+        {
+          "start": 31014.20000000298,
+          "duration": 89
+        },
+        {
+          "start": 66725.5,
+          "duration": 57
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 518.4000000059605,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3723,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 249,
+        "textures": 40,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 57.95000000000353,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 14593743
+      },
+      "frameIntervalMs": {
+        "samples": 612,
+        "p50": 100,
+        "p95": 133.3000000000029,
+        "p99": 183.29999999999563,
+        "max": 216.70000000000437
+      },
+      "updateCpuMs": {
+        "samples": 612,
+        "p50": 0.10000000894069672,
+        "p95": 0.3999999910593033,
+        "p99": 0.6000000089406967,
+        "max": 5.9000000059604645
+      },
+      "viewCpuMs": {
+        "samples": 612,
+        "p50": 0.19999998807907104,
+        "p95": 0.30000001192092896,
+        "p99": 0.5,
+        "max": 5.299999997019768
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 612,
+        "p50": 0.7999999970197678,
+        "p95": 1.7000000029802322,
+        "p99": 4.700000002980232,
+        "max": 13.700000002980232
+      },
+      "totalCpuMs": {
+        "samples": 612,
+        "p50": 1.2000000029802322,
+        "p95": 2.2999999970197678,
+        "p99": 5.899999991059303,
+        "max": 16
+      },
+      "drawCalls": {
+        "samples": 612,
+        "p50": 39,
+        "p95": 42,
+        "p99": 45,
+        "max": 45
+      },
+      "uploads": {
+        "samples": 612,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "meanFps": 10.18341800102167,
+      "framesOver33ms": 607,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 511.20000000298023,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3796,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1318,
+        "textures": 542,
+        "textureWrappers": 546,
+        "world": {
+          "phase": "play",
+          "timeLeft": 56.73333333333693,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 500,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59388012
+        },
+        "jsHeapBytes": 82055785
+      },
+      "frameIntervalMs": {
+        "samples": 740,
+        "p50": 83.29999999999927,
+        "p95": 100.10000000000582,
+        "p99": 166.60000000000582,
+        "max": 183.29999999999927
+      },
+      "updateCpuMs": {
+        "samples": 740,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 2.5,
+        "max": 7.5
+      },
+      "viewCpuMs": {
+        "samples": 740,
+        "p50": 1.6000000089406967,
+        "p95": 2.7000000029802322,
+        "p99": 10.799999997019768,
+        "max": 36
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 740,
+        "p50": 1.300000011920929,
+        "p95": 2.2000000029802322,
+        "p99": 7.0999999940395355,
+        "max": 81.70000000298023
+      },
+      "totalCpuMs": {
+        "samples": 740,
+        "p50": 3.300000011920929,
+        "p95": 6.4000000059604645,
+        "p99": 18.299999997019768,
+        "max": 83.8999999910593
+      },
+      "drawCalls": {
+        "samples": 740,
+        "p50": 34,
+        "p95": 36,
+        "p99": 37,
+        "max": 37
+      },
+      "uploads": {
+        "samples": 740,
+        "p50": 2,
+        "p95": 3,
+        "p99": 8,
+        "max": 27
+      },
+      "meanFps": 12.316726280731482,
+      "framesOver33ms": 725,
+      "longTasks": [
+        {
+          "start": 29030.90000000596,
+          "duration": 80
+        },
+        {
+          "start": 30078.79999999702,
+          "duration": 84
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 641.7000000029802,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3726,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 249,
+        "textures": 40,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 57.90000000000353,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 14077759
+      },
+      "frameIntervalMs": {
+        "samples": 621,
+        "p50": 100,
+        "p95": 133.20000000000437,
+        "p99": 183.29999999999563,
+        "max": 216.70000000000073
+      },
+      "updateCpuMs": {
+        "samples": 621,
+        "p50": 0.10000000894069672,
+        "p95": 0.30000001192092896,
+        "p99": 0.9000000059604645,
+        "max": 6
+      },
+      "viewCpuMs": {
+        "samples": 621,
+        "p50": 0.20000000298023224,
+        "p95": 0.30000001192092896,
+        "p99": 1,
+        "max": 16.799999997019768
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 621,
+        "p50": 0.7999999970197678,
+        "p95": 1.6000000089406967,
+        "p99": 4,
+        "max": 9.099999994039536
+      },
+      "totalCpuMs": {
+        "samples": 621,
+        "p50": 1.1000000089406967,
+        "p95": 2.3999999910593033,
+        "p99": 5.0999999940395355,
+        "max": 29.600000008940697
+      },
+      "drawCalls": {
+        "samples": 621,
+        "p50": 39,
+        "p95": 42,
+        "p99": 45,
+        "max": 45
+      },
+      "uploads": {
+        "samples": 621,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "meanFps": 10.344672493665762,
+      "framesOver33ms": 610,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 393.29999999701977,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3811,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1318,
+        "textures": 542,
+        "textureWrappers": 546,
+        "world": {
+          "phase": "play",
+          "timeLeft": 56.41666666667028,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 500,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59388012
+        },
+        "jsHeapBytes": 82042867
+      },
+      "frameIntervalMs": {
+        "samples": 742,
+        "p50": 83.29999999999927,
+        "p95": 100.09999999999854,
+        "p99": 150,
+        "max": 216.60000000000218
+      },
+      "updateCpuMs": {
+        "samples": 742,
+        "p50": 0.20000000298023224,
+        "p95": 0.5,
+        "p99": 1.9999999850988388,
+        "max": 3.3999999910593033
+      },
+      "viewCpuMs": {
+        "samples": 742,
+        "p50": 1.5999999940395355,
+        "p95": 2.5999999940395355,
+        "p99": 8.300000011920929,
+        "max": 25.299999997019768
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 742,
+        "p50": 1.2999999970197678,
+        "p95": 2.2999999970197678,
+        "p99": 8.400000005960464,
+        "max": 92.70000000298023
+      },
+      "totalCpuMs": {
+        "samples": 742,
+        "p50": 3.2000000029802322,
+        "p95": 6.200000002980232,
+        "p99": 16.399999991059303,
+        "max": 94.5
+      },
+      "drawCalls": {
+        "samples": 742,
+        "p50": 34,
+        "p95": 36,
+        "p99": 37,
+        "max": 37
+      },
+      "uploads": {
+        "samples": 742,
+        "p50": 2,
+        "p95": 3,
+        "p99": 8,
+        "max": 27
+      },
+      "meanFps": 12.353407342785411,
+      "framesOver33ms": 729,
+      "longTasks": [
+        {
+          "start": 27819.79999999702,
+          "duration": 79
+        },
+        {
+          "start": 30673.79999999702,
+          "duration": 99
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 616.5,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "crowded",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3390,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 382,
+        "textures": 51,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 63.50000000000321,
+          "animals": 24,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 13829633
+      },
+      "frameIntervalMs": {
+        "samples": 524,
+        "p50": 116.59999999999854,
+        "p95": 150,
+        "p99": 200,
+        "max": 216.70000000001164
+      },
+      "updateCpuMs": {
+        "samples": 524,
+        "p50": 0.19999998807907104,
+        "p95": 0.4000000059604645,
+        "p99": 1,
+        "max": 2.999999985098839
+      },
+      "viewCpuMs": {
+        "samples": 524,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 1.5,
+        "max": 5.600000008940697
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 524,
+        "p50": 1.0999999940395355,
+        "p95": 2.1000000089406967,
+        "p99": 5.0999999940395355,
+        "max": 23.5
+      },
+      "totalCpuMs": {
+        "samples": 524,
+        "p50": 1.5,
+        "p95": 3.2999999970197678,
+        "p99": 6.799999997019768,
+        "max": 24.099999994039536
+      },
+      "drawCalls": {
+        "samples": 524,
+        "p50": 65,
+        "p95": 67,
+        "p99": 68,
+        "max": 68
+      },
+      "uploads": {
+        "samples": 524,
+        "p50": 0,
+        "p95": 2,
+        "p99": 3,
+        "max": 3
+      },
+      "meanFps": 8.721573744734183,
+      "framesOver33ms": 524,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 264,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "crowded",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3693,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1977,
+        "textures": 560,
+        "textureWrappers": 564,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.350000000003504,
+          "animals": 24,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 504,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59420784
+        },
+        "jsHeapBytes": 99208118
+      },
+      "frameIntervalMs": {
+        "samples": 638,
+        "p50": 99.90000000000146,
+        "p95": 133.29999999999927,
+        "p99": 183.29999999999927,
+        "max": 233.29999999999563
+      },
+      "updateCpuMs": {
+        "samples": 638,
+        "p50": 0.20000000298023224,
+        "p95": 0.5,
+        "p99": 2.1000000089406967,
+        "max": 18.200000002980232
+      },
+      "viewCpuMs": {
+        "samples": 638,
+        "p50": 1.6000000089406967,
+        "p95": 2.5,
+        "p99": 4.899999991059303,
+        "max": 36.900000005960464
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 638,
+        "p50": 1.5,
+        "p95": 2.300000011920929,
+        "p99": 13.900000005960464,
+        "max": 94.3999999910593
+      },
+      "totalCpuMs": {
+        "samples": 638,
+        "p50": 3.5999999940395355,
+        "p95": 6.0999999940395355,
+        "p99": 20.200000002980232,
+        "max": 96.5
+      },
+      "drawCalls": {
+        "samples": 638,
+        "p50": 43,
+        "p95": 51,
+        "p99": 53,
+        "max": 53
+      },
+      "uploads": {
+        "samples": 638,
+        "p50": 2,
+        "p95": 4,
+        "p99": 8,
+        "max": 50
+      },
+      "meanFps": 10.630799659414505,
+      "framesOver33ms": 625,
+      "longTasks": [
+        {
+          "start": 28175.10000000894,
+          "duration": 101
+        },
+        {
+          "start": 28501.5,
+          "duration": 95
+        },
+        {
+          "start": 29493.10000000894,
+          "duration": 97
+        },
+        {
+          "start": 68394.60000000894,
+          "duration": 58
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 619.1000000089407,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "crowded",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3490,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 384,
+        "textures": 51,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 61.83333333333664,
+          "animals": 24,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 22265501
+      },
+      "frameIntervalMs": {
+        "samples": 542,
+        "p50": 100.09999999999854,
+        "p95": 133.40000000000146,
+        "p99": 200,
+        "max": 266.59999999999854
+      },
+      "updateCpuMs": {
+        "samples": 542,
+        "p50": 0.19999998807907104,
+        "p95": 0.4000000059604645,
+        "p99": 0.7999999970197678,
+        "max": 4.699999988079071
+      },
+      "viewCpuMs": {
+        "samples": 542,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 0.6000000089406967,
+        "max": 13.400000005960464
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 542,
+        "p50": 1,
+        "p95": 2.0999999940395355,
+        "p99": 4.600000008940697,
+        "max": 28
+      },
+      "totalCpuMs": {
+        "samples": 542,
+        "p50": 1.5,
+        "p95": 2.7999999970197678,
+        "p99": 6.0999999940395355,
+        "max": 42.3999999910593
+      },
+      "drawCalls": {
+        "samples": 542,
+        "p50": 65,
+        "p95": 67,
+        "p99": 68,
+        "max": 68
+      },
+      "uploads": {
+        "samples": 542,
+        "p50": 0,
+        "p95": 2,
+        "p99": 3,
+        "max": 3
+      },
+      "meanFps": 9.016157553194498,
+      "framesOver33ms": 540,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 364.70000000298023,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "crowded",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3768,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1976,
+        "textures": 558,
+        "textureWrappers": 562,
+        "world": {
+          "phase": "play",
+          "timeLeft": 57.20000000000357,
+          "animals": 24,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 503,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59420780
+        },
+        "jsHeapBytes": 86051869
+      },
+      "frameIntervalMs": {
+        "samples": 638,
+        "p50": 99.90000000000146,
+        "p95": 116.70000000000073,
+        "p99": 150,
+        "max": 183.3000000000029
+      },
+      "updateCpuMs": {
+        "samples": 638,
+        "p50": 0.20000000298023224,
+        "p95": 0.7000000029802322,
+        "p99": 2.5999999940395355,
+        "max": 5.5999999940395355
+      },
+      "viewCpuMs": {
+        "samples": 638,
+        "p50": 1.7999999970197678,
+        "p95": 2.800000011920929,
+        "p99": 11.100000008940697,
+        "max": 41.5
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 638,
+        "p50": 1.7999999970197678,
+        "p95": 3.9000000059604645,
+        "p99": 14.900000005960464,
+        "max": 122.6000000089407
+      },
+      "totalCpuMs": {
+        "samples": 638,
+        "p50": 4.0999999940395355,
+        "p95": 8.900000005960464,
+        "p99": 30.899999991059303,
+        "max": 125.30000001192093
+      },
+      "drawCalls": {
+        "samples": 638,
+        "p50": 43,
+        "p95": 51,
+        "p99": 52,
+        "max": 53
+      },
+      "uploads": {
+        "samples": 638,
+        "p50": 2,
+        "p95": 4,
+        "p99": 8,
+        "max": 49
+      },
+      "meanFps": 10.592569594676487,
+      "framesOver33ms": 634,
+      "longTasks": [
+        {
+          "start": 10405.59999999404,
+          "duration": 126
+        },
+        {
+          "start": 27963.5,
+          "duration": 103
+        },
+        {
+          "start": 28270.70000000298,
+          "duration": 85
+        },
+        {
+          "start": 29386.40000000596,
+          "duration": 99
+        },
+        {
+          "start": 67262.40000000596,
+          "duration": 68
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 549.0999999940395,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "crowded",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3369,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 382,
+        "textures": 51,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 63.85000000000319,
+          "animals": 24,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 13992694
+      },
+      "frameIntervalMs": {
+        "samples": 524,
+        "p50": 100.10000000000582,
+        "p95": 166.70000000000073,
+        "p99": 200,
+        "max": 316.7000000000007
+      },
+      "updateCpuMs": {
+        "samples": 524,
+        "p50": 0.20000000298023224,
+        "p95": 0.5999999940395355,
+        "p99": 1.1000000089406967,
+        "max": 2.5
+      },
+      "viewCpuMs": {
+        "samples": 524,
+        "p50": 0.20000000298023224,
+        "p95": 0.7000000029802322,
+        "p99": 1.3999999910593033,
+        "max": 2.2999999970197678
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 524,
+        "p50": 1.0999999940395355,
+        "p95": 3.5,
+        "p99": 8.699999988079071,
+        "max": 29.200000002980232
+      },
+      "totalCpuMs": {
+        "samples": 524,
+        "p50": 1.5,
+        "p95": 5.200000002980232,
+        "p99": 10.599999994039536,
+        "max": 30.5
+      },
+      "drawCalls": {
+        "samples": 524,
+        "p50": 65,
+        "p95": 67,
+        "p99": 68,
+        "max": 68
+      },
+      "uploads": {
+        "samples": 524,
+        "p50": 0,
+        "p95": 2,
+        "p99": 3,
+        "max": 3
+      },
+      "meanFps": 8.709498339544115,
+      "framesOver33ms": 524,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 390.70000000298023,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "crowded",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3671,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1977,
+        "textures": 559,
+        "textureWrappers": 563,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.71666666667015,
+          "animals": 24,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 503,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59420780
+        },
+        "jsHeapBytes": 90425131
+      },
+      "frameIntervalMs": {
+        "samples": 620,
+        "p50": 100,
+        "p95": 133.3000000000029,
+        "p99": 166.6999999999971,
+        "max": 233.29999999999563
+      },
+      "updateCpuMs": {
+        "samples": 620,
+        "p50": 0.20000000298023224,
+        "p95": 0.7000000178813934,
+        "p99": 2.5,
+        "max": 4.399999991059303
+      },
+      "viewCpuMs": {
+        "samples": 620,
+        "p50": 1.7999999970197678,
+        "p95": 3.2999999970197678,
+        "p99": 11.899999991059303,
+        "max": 54.599999994039536
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 620,
+        "p50": 1.7000000029802322,
+        "p95": 3.5999999940395355,
+        "p99": 12,
+        "max": 114.70000000298023
+      },
+      "totalCpuMs": {
+        "samples": 620,
+        "p50": 4,
+        "p95": 8.799999997019768,
+        "p99": 26.099999994039536,
+        "max": 116.80000001192093
+      },
+      "drawCalls": {
+        "samples": 620,
+        "p50": 43,
+        "p95": 51,
+        "p99": 52,
+        "max": 53
+      },
+      "uploads": {
+        "samples": 620,
+        "p50": 2,
+        "p95": 4,
+        "p99": 8,
+        "max": 49
+      },
+      "meanFps": 10.322288484654752,
+      "framesOver33ms": 614,
+      "longTasks": [
+        {
+          "start": 28760.20000000298,
+          "duration": 102
+        },
+        {
+          "start": 29020.20000000298,
+          "duration": 117
+        },
+        {
+          "start": 30082.30000001192,
+          "duration": 97
+        },
+        {
+          "start": 68808.10000000894,
+          "duration": 61
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 593.9000000059605,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "stress",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3029,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 414,
+        "textures": 40,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 69.51666666666954,
+          "animals": 25,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 32031089
+      },
+      "frameIntervalMs": {
+        "samples": 476,
+        "p50": 116.70000000000437,
+        "p95": 166.6999999999971,
+        "p99": 216.59999999999854,
+        "max": 283.29999999999563
+      },
+      "updateCpuMs": {
+        "samples": 476,
+        "p50": 0.29999999701976776,
+        "p95": 0.6000000089406967,
+        "p99": 2.2999999970197678,
+        "max": 3.2999999970197678
+      },
+      "viewCpuMs": {
+        "samples": 476,
+        "p50": 0.5,
+        "p95": 0.9000000059604645,
+        "p99": 1.4000000059604645,
+        "max": 6.9000000059604645
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 476,
+        "p50": 2.5,
+        "p95": 8.399999991059303,
+        "p99": 19.200000002980232,
+        "max": 39.8999999910593
+      },
+      "totalCpuMs": {
+        "samples": 476,
+        "p50": 3.2999999970197678,
+        "p95": 10.200000002980232,
+        "p99": 20.900000005960464,
+        "max": 40.69999998807907
+      },
+      "drawCalls": {
+        "samples": 476,
+        "p50": 47,
+        "p95": 69,
+        "p99": 69,
+        "max": 69
+      },
+      "uploads": {
+        "samples": 476,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1,
+        "max": 2
+      },
+      "meanFps": 7.920449402305584,
+      "framesOver33ms": 473,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 447.30000001192093,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "stress",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3436,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 2157,
+        "textures": 666,
+        "textureWrappers": 670,
+        "world": {
+          "phase": "play",
+          "timeLeft": 62.73333333333659,
+          "animals": 25,
+          "projectiles": 0,
+          "rockets": 1,
+          "bombs": 1
+        },
+        "paint": {
+          "cachedRecipes": 610,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 64663668
+        },
+        "jsHeapBytes": 135537426
+      },
+      "frameIntervalMs": {
+        "samples": 554,
+        "p50": 100,
+        "p95": 150,
+        "p99": 199.90000000000146,
+        "max": 383.2999999999993
+      },
+      "updateCpuMs": {
+        "samples": 554,
+        "p50": 0.29999999701976776,
+        "p95": 0.7999999970197678,
+        "p99": 1.5999999940395355,
+        "max": 3.2000000029802322
+      },
+      "viewCpuMs": {
+        "samples": 554,
+        "p50": 5.899999991059303,
+        "p95": 8.800000011920929,
+        "p99": 17.799999997019768,
+        "max": 32.20000000298023
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 554,
+        "p50": 4.200000002980232,
+        "p95": 14.299999997019768,
+        "p99": 29.400000005960464,
+        "max": 171.59999999403954
+      },
+      "totalCpuMs": {
+        "samples": 554,
+        "p50": 11.699999988079071,
+        "p95": 25.200000002980232,
+        "p99": 41.29999999701977,
+        "max": 193.20000000298023
+      },
+      "drawCalls": {
+        "samples": 554,
+        "p50": 51,
+        "p95": 69,
+        "p99": 71,
+        "max": 71
+      },
+      "uploads": {
+        "samples": 554,
+        "p50": 11,
+        "p95": 12,
+        "p99": 13,
+        "max": 13
+      },
+      "meanFps": 9.205563217626826,
+      "framesOver33ms": 549,
+      "longTasks": [
+        {
+          "start": 12859,
+          "duration": 144
+        },
+        {
+          "start": 13370.90000000596,
+          "duration": 193
+        },
+        {
+          "start": 14029.20000000298,
+          "duration": 147
+        },
+        {
+          "start": 15199.70000000298,
+          "duration": 150
+        },
+        {
+          "start": 19862.5,
+          "duration": 153
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 584.9000000059605,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "stress",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 2971,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 414,
+        "textures": 40,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 70.48333333333615,
+          "animals": 25,
+          "projectiles": 0,
+          "rockets": 1,
+          "bombs": 1
+        },
+        "paint": null,
+        "jsHeapBytes": 54171830
+      },
+      "frameIntervalMs": {
+        "samples": 465,
+        "p50": 116.70000000001164,
+        "p95": 183.29999999999927,
+        "p99": 233.29999999998836,
+        "max": 316.70000000000437
+      },
+      "updateCpuMs": {
+        "samples": 465,
+        "p50": 0.29999999701976776,
+        "p95": 0.7000000029802322,
+        "p99": 1.300000011920929,
+        "max": 3.2000000029802322
+      },
+      "viewCpuMs": {
+        "samples": 465,
+        "p50": 0.5999999940395355,
+        "p95": 0.9000000059604645,
+        "p99": 1.2000000029802322,
+        "max": 1.5999999940395355
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 465,
+        "p50": 2.5,
+        "p95": 8.900000005960464,
+        "p99": 22.899999991059303,
+        "max": 28.900000005960464
+      },
+      "totalCpuMs": {
+        "samples": 465,
+        "p50": 3.5,
+        "p95": 10.200000002980232,
+        "p99": 24,
+        "max": 30.100000008940697
+      },
+      "drawCalls": {
+        "samples": 465,
+        "p50": 47,
+        "p95": 69,
+        "p99": 69,
+        "max": 69
+      },
+      "uploads": {
+        "samples": 465,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1,
+        "max": 2
+      },
+      "meanFps": 7.7438565404778865,
+      "framesOver33ms": 464,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 413.90000000596046,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "stress",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3453,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 2157,
+        "textures": 666,
+        "effects": {
+          "particles": 466,
+          "popups": 0,
+          "rings": 2,
+          "stains": 0
+        },
+        "textureWrappers": 670,
+        "world": {
+          "phase": "play",
+          "timeLeft": 62.45000000000327,
+          "animals": 25,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 1
+        },
+        "paint": {
+          "cachedRecipes": 610,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 64598132
+        },
+        "jsHeapBytes": 160963197
+      },
+      "frameIntervalMs": {
+        "samples": 560,
+        "p50": 100,
+        "p95": 149.90000000000146,
+        "p99": 183.3000000000029,
+        "max": 350
+      },
+      "updateCpuMs": {
+        "samples": 560,
+        "p50": 0.29999999701976776,
+        "p95": 0.800000011920929,
+        "p99": 2.4000000059604645,
+        "max": 19.099999994039536
+      },
+      "viewCpuMs": {
+        "samples": 560,
+        "p50": 5.4000000059604645,
+        "p95": 11.099999994039536,
+        "p99": 27.900000005960464,
+        "max": 58.5
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 560,
+        "p50": 3.5,
+        "p95": 14.400000005960464,
+        "p99": 24.799999997019768,
+        "max": 140.70000000298023
+      },
+      "totalCpuMs": {
+        "samples": 560,
+        "p50": 10.099999994039536,
+        "p95": 27.400000005960464,
+        "p99": 63,
+        "max": 147.59999999403954
+      },
+      "drawCalls": {
+        "samples": 560,
+        "p50": 51,
+        "p95": 70,
+        "p99": 71,
+        "max": 71
+      },
+      "uploads": {
+        "samples": 560,
+        "p50": 11,
+        "p95": 12,
+        "p99": 13,
+        "max": 13
+      },
+      "meanFps": 9.318175767418332,
+      "framesOver33ms": 551,
+      "longTasks": [
+        {
+          "start": 12977,
+          "duration": 132
+        },
+        {
+          "start": 13566.09999999404,
+          "duration": 131
+        },
+        {
+          "start": 14020.5,
+          "duration": 146
+        },
+        {
+          "start": 15218.20000000298,
+          "duration": 148
+        },
+        {
+          "start": 21327.09999999404,
+          "duration": 144
+        },
+        {
+          "start": 52519.70000000298,
+          "duration": 54
+        },
+        {
+          "start": 53823.89999999106,
+          "duration": 63
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 829.8999999910593,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "stress",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 2941,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 414,
+        "textures": 40,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 70.98333333333612,
+          "animals": 25,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 33292588
+      },
+      "frameIntervalMs": {
+        "samples": 461,
+        "p50": 133.20000000000437,
+        "p95": 183.3000000000029,
+        "p99": 233.3000000000029,
+        "max": 250
+      },
+      "updateCpuMs": {
+        "samples": 461,
+        "p50": 0.29999999701976776,
+        "p95": 0.7000000029802322,
+        "p99": 1.300000011920929,
+        "max": 2.5
+      },
+      "viewCpuMs": {
+        "samples": 461,
+        "p50": 0.5,
+        "p95": 0.9000000059604645,
+        "p99": 1.2000000029802322,
+        "max": 3.2000000029802322
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 461,
+        "p50": 2.5,
+        "p95": 7.800000011920929,
+        "p99": 20.19999998807907,
+        "max": 26.299999997019768
+      },
+      "totalCpuMs": {
+        "samples": 461,
+        "p50": 3.4000000059604645,
+        "p95": 9.099999994039536,
+        "p99": 21.099999994039536,
+        "max": 28.5
+      },
+      "drawCalls": {
+        "samples": 461,
+        "p50": 43,
+        "p95": 69,
+        "p99": 69,
+        "max": 69
+      },
+      "uploads": {
+        "samples": 461,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1,
+        "max": 1
+      },
+      "meanFps": 7.662351261462362,
+      "framesOver33ms": 458,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 670,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "stress",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3537,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 2157,
+        "textures": 666,
+        "effects": {
+          "particles": 374,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 670,
+        "world": {
+          "phase": "play",
+          "timeLeft": 60.95000000000336,
+          "animals": 25,
+          "projectiles": 0,
+          "rockets": 1,
+          "bombs": 1
+        },
+        "paint": {
+          "cachedRecipes": 610,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 64974964
+        },
+        "jsHeapBytes": 132298941
+      },
+      "frameIntervalMs": {
+        "samples": 574,
+        "p50": 100,
+        "p95": 133.40000000000146,
+        "p99": 183.29999999999927,
+        "max": 250
+      },
+      "updateCpuMs": {
+        "samples": 574,
+        "p50": 0.29999999701976776,
+        "p95": 0.9999999850988388,
+        "p99": 2.9000000059604645,
+        "max": 9.100000008940697
+      },
+      "viewCpuMs": {
+        "samples": 574,
+        "p50": 5.0999999940395355,
+        "p95": 7.799999997019768,
+        "p99": 18.200000002980232,
+        "max": 29.099999994039536
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 574,
+        "p50": 3.5,
+        "p95": 14.299999997019768,
+        "p99": 75.29999999701977,
+        "max": 125.19999998807907
+      },
+      "totalCpuMs": {
+        "samples": 574,
+        "p50": 9.5,
+        "p95": 24.899999991059303,
+        "p99": 86.20000000298023,
+        "max": 133.59999999403954
+      },
+      "drawCalls": {
+        "samples": 574,
+        "p50": 51,
+        "p95": 69,
+        "p99": 71,
+        "max": 71
+      },
+      "uploads": {
+        "samples": 574,
+        "p50": 11,
+        "p95": 12,
+        "p99": 13,
+        "max": 15
+      },
+      "meanFps": 9.551130161603792,
+      "framesOver33ms": 573,
+      "longTasks": [
+        {
+          "start": 10707.09999999404,
+          "duration": 137
+        },
+        {
+          "start": 13026.89999999106,
+          "duration": 131
+        },
+        {
+          "start": 13352,
+          "duration": 86
+        },
+        {
+          "start": 14007.699999988079,
+          "duration": 126
+        },
+        {
+          "start": 15014.79999999702,
+          "duration": 122
+        },
+        {
+          "start": 18004.29999999702,
+          "duration": 134
+        },
+        {
+          "start": 18146.59999999404,
+          "duration": 82
+        },
+        {
+          "start": 44008.19999998808,
+          "duration": 56
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 567.3999999910593,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "animal-rain",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3678,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 333,
+        "textures": 45,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.700000000003485,
+          "animals": 18,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 15448519
+      },
+      "frameIntervalMs": {
+        "samples": 623,
+        "p50": 99.90000000000873,
+        "p95": 133.3000000000029,
+        "p99": 183.3000000000029,
+        "max": 299.89999999999964
+      },
+      "updateCpuMs": {
+        "samples": 623,
+        "p50": 0.09999999403953552,
+        "p95": 0.20000000298023224,
+        "p99": 0.5,
+        "max": 2.8999999910593033
+      },
+      "viewCpuMs": {
+        "samples": 623,
+        "p50": 0.19999998807907104,
+        "p95": 0.29999999701976776,
+        "p99": 0.3999999910593033,
+        "max": 21.200000002980232
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 623,
+        "p50": 0.7000000029802322,
+        "p95": 1.2000000029802322,
+        "p99": 1.9000000059604645,
+        "max": 11.099999994039536
+      },
+      "totalCpuMs": {
+        "samples": 623,
+        "p50": 1,
+        "p95": 1.6000000089406967,
+        "p99": 3.4000000059604645,
+        "max": 31.200000002980232
+      },
+      "drawCalls": {
+        "samples": 623,
+        "p50": 39,
+        "p95": 41,
+        "p99": 43,
+        "max": 43
+      },
+      "uploads": {
+        "samples": 623,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1,
+        "max": 1
+      },
+      "meanFps": 10.363607932901045,
+      "framesOver33ms": 617,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 417,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "animal-rain",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3816,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1621,
+        "textures": 549,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 553,
+        "world": {
+          "phase": "play",
+          "timeLeft": 56.400000000003615,
+          "animals": 18,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 499,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 61059168
+        },
+        "jsHeapBytes": 97533757
+      },
+      "frameIntervalMs": {
+        "samples": 725,
+        "p50": 83.30000000000291,
+        "p95": 100.09999999999854,
+        "p99": 133.40000000000146,
+        "max": 183.40000000000873
+      },
+      "updateCpuMs": {
+        "samples": 725,
+        "p50": 0.10000000894069672,
+        "p95": 0.29999999701976776,
+        "p99": 0.4000000059604645,
+        "max": 2.7000000029802322
+      },
+      "viewCpuMs": {
+        "samples": 725,
+        "p50": 3.0999999940395355,
+        "p95": 5.0999999940395355,
+        "p99": 17.200000002980232,
+        "max": 47.3999999910593
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 725,
+        "p50": 1.1000000089406967,
+        "p95": 1.7999999970197678,
+        "p99": 5.5999999940395355,
+        "max": 136.29999999701977
+      },
+      "totalCpuMs": {
+        "samples": 725,
+        "p50": 4.5,
+        "p95": 7.799999997019768,
+        "p99": 25.200000002980232,
+        "max": 139
+      },
+      "drawCalls": {
+        "samples": 725,
+        "p50": 40,
+        "p95": 43,
+        "p99": 44,
+        "max": 44
+      },
+      "uploads": {
+        "samples": 725,
+        "p50": 6,
+        "p95": 7,
+        "p99": 8,
+        "max": 31
+      },
+      "meanFps": 12.080454158425574,
+      "framesOver33ms": 718,
+      "longTasks": [
+        {
+          "start": 13362.40000000596,
+          "duration": 139
+        },
+        {
+          "start": 63928.30000001192,
+          "duration": 54
+        },
+        {
+          "start": 66346.70000000298,
+          "duration": 79
+        },
+        {
+          "start": 66430.60000000894,
+          "duration": 52
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 1,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 561.7000000029802,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "animal-rain",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3684,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 333,
+        "textures": 45,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.60000000000349,
+          "animals": 18,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 15780119
+      },
+      "frameIntervalMs": {
+        "samples": 615,
+        "p50": 100,
+        "p95": 133.40000000000146,
+        "p99": 183.20000000000437,
+        "max": 250
+      },
+      "updateCpuMs": {
+        "samples": 615,
+        "p50": 0.09999999403953552,
+        "p95": 0.20000000298023224,
+        "p99": 0.6000000089406967,
+        "max": 15.299999997019768
+      },
+      "viewCpuMs": {
+        "samples": 615,
+        "p50": 0.19999998807907104,
+        "p95": 0.29999999701976776,
+        "p99": 0.5,
+        "max": 28.900000005960464
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 615,
+        "p50": 0.7000000029802322,
+        "p95": 1.2999999970197678,
+        "p99": 3.5999999940395355,
+        "max": 13.200000002980232
+      },
+      "totalCpuMs": {
+        "samples": 615,
+        "p50": 1,
+        "p95": 1.7999999970197678,
+        "p99": 4.100000008940697,
+        "max": 41.599999994039536
+      },
+      "drawCalls": {
+        "samples": 615,
+        "p50": 39,
+        "p95": 41,
+        "p99": 43,
+        "max": 43
+      },
+      "uploads": {
+        "samples": 615,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1,
+        "max": 1
+      },
+      "meanFps": 10.239027175876519,
+      "framesOver33ms": 610,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 389.79999999701977,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "animal-rain",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3849,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1621,
+        "textures": 549,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 553,
+        "world": {
+          "phase": "play",
+          "timeLeft": 55.85000000000365,
+          "animals": 18,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 499,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 60928096
+        },
+        "jsHeapBytes": 102791231
+      },
+      "frameIntervalMs": {
+        "samples": 734,
+        "p50": 83.30000000000109,
+        "p95": 100.09999999999854,
+        "p99": 133.3000000000011,
+        "max": 166.70000000000073
+      },
+      "updateCpuMs": {
+        "samples": 734,
+        "p50": 0.10000000894069672,
+        "p95": 0.29999999701976776,
+        "p99": 0.5,
+        "max": 3.999999985098839
+      },
+      "viewCpuMs": {
+        "samples": 734,
+        "p50": 3,
+        "p95": 4.5999999940395355,
+        "p99": 20.299999997019768,
+        "max": 60.70000000298023
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 734,
+        "p50": 1.1000000089406967,
+        "p95": 1.5,
+        "p99": 3.4000000059604645,
+        "max": 76.90000000596046
+      },
+      "totalCpuMs": {
+        "samples": 734,
+        "p50": 4.5,
+        "p95": 6.5,
+        "p99": 23,
+        "max": 80.5
+      },
+      "drawCalls": {
+        "samples": 734,
+        "p50": 40,
+        "p95": 43,
+        "p99": 44,
+        "max": 44
+      },
+      "uploads": {
+        "samples": 734,
+        "p50": 6,
+        "p95": 7,
+        "p99": 8,
+        "max": 54
+      },
+      "meanFps": 12.213466095151889,
+      "framesOver33ms": 732,
+      "longTasks": [
+        {
+          "start": 13305.60000000894,
+          "duration": 81
+        },
+        {
+          "start": 60736.80000001192,
+          "duration": 64
+        },
+        {
+          "start": 65987.30000001192,
+          "duration": 56
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 2,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 618.3000000119209,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "animal-rain",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3757,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 333,
+        "textures": 45,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 57.38333333333689,
+          "animals": 18,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 18741963
+      },
+      "frameIntervalMs": {
+        "samples": 641,
+        "p50": 99.89999999999782,
+        "p95": 116.70000000000437,
+        "p99": 183.29999999999563,
+        "max": 200
+      },
+      "updateCpuMs": {
+        "samples": 641,
+        "p50": 0.09999999403953552,
+        "p95": 0.20000000298023224,
+        "p99": 0.29999999701976776,
+        "max": 4.4000000059604645
+      },
+      "viewCpuMs": {
+        "samples": 641,
+        "p50": 0.19999998807907104,
+        "p95": 0.29999999701976776,
+        "p99": 0.30000001192092896,
+        "max": 7.299999997019768
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 641,
+        "p50": 0.7000000029802322,
+        "p95": 1.2000000029802322,
+        "p99": 2.5,
+        "max": 13.799999997019768
+      },
+      "totalCpuMs": {
+        "samples": 641,
+        "p50": 1,
+        "p95": 1.6000000089406967,
+        "p99": 3.2000000029802322,
+        "max": 14.299999997019768
+      },
+      "drawCalls": {
+        "samples": 641,
+        "p50": 39,
+        "p95": 41,
+        "p99": 43,
+        "max": 43
+      },
+      "uploads": {
+        "samples": 641,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1,
+        "max": 2
+      },
+      "meanFps": 10.665983333777058,
+      "framesOver33ms": 633,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 367.29999999701977,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "animal-rain",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3827,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1621,
+        "textures": 549,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 553,
+        "world": {
+          "phase": "play",
+          "timeLeft": 56.21666666667029,
+          "animals": 18,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 499,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 61059168
+        },
+        "jsHeapBytes": 85551919
+      },
+      "frameIntervalMs": {
+        "samples": 740,
+        "p50": 83.30000000000291,
+        "p95": 100,
+        "p99": 133.40000000000146,
+        "max": 200
+      },
+      "updateCpuMs": {
+        "samples": 740,
+        "p50": 0.10000000894069672,
+        "p95": 0.29999999701976776,
+        "p99": 0.800000011920929,
+        "max": 7.200000002980232
+      },
+      "viewCpuMs": {
+        "samples": 740,
+        "p50": 3,
+        "p95": 4.600000008940697,
+        "p99": 12.900000005960464,
+        "max": 38.79999999701977
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 740,
+        "p50": 1.2000000029802322,
+        "p95": 1.8999999910593033,
+        "p99": 6.199999988079071,
+        "max": 84.29999999701977
+      },
+      "totalCpuMs": {
+        "samples": 740,
+        "p50": 4.600000008940697,
+        "p95": 7.700000002980232,
+        "p99": 20.200000002980232,
+        "max": 88
+      },
+      "drawCalls": {
+        "samples": 740,
+        "p50": 40,
+        "p95": 43,
+        "p99": 44,
+        "max": 44
+      },
+      "uploads": {
+        "samples": 740,
+        "p50": 6,
+        "p95": 7,
+        "p99": 8,
+        "max": 31
+      },
+      "meanFps": 12.326964401725773,
+      "framesOver33ms": 731,
+      "longTasks": [
+        {
+          "start": 13600.300000011921,
+          "duration": 88
+        },
+        {
+          "start": 66173.90000000596,
+          "duration": 78
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 3,
+      "date": "2026-02-15",
+      "startup": {
+        "readyMs": 576.7000000029802,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "snow",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3586,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 228,
+        "textures": 40,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 60.133333333336736,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 44858798
+      },
+      "frameIntervalMs": {
+        "samples": 578,
+        "p50": 100,
+        "p95": 150,
+        "p99": 183.40000000000146,
+        "max": 233.29999999999927
+      },
+      "updateCpuMs": {
+        "samples": 578,
+        "p50": 0.10000000894069672,
+        "p95": 0.30000001192092896,
+        "p99": 0.6000000089406967,
+        "max": 11.300000011920929
+      },
+      "viewCpuMs": {
+        "samples": 578,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 0.6000000089406967,
+        "max": 3.2999999970197678
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 578,
+        "p50": 1.0999999940395355,
+        "p95": 1.7999999970197678,
+        "p99": 5.799999997019768,
+        "max": 20.5
+      },
+      "totalCpuMs": {
+        "samples": 578,
+        "p50": 1.5,
+        "p95": 2.6000000089406967,
+        "p99": 8,
+        "max": 21.099999994039536
+      },
+      "drawCalls": {
+        "samples": 578,
+        "p50": 42,
+        "p95": 44,
+        "p99": 45,
+        "max": 45
+      },
+      "uploads": {
+        "samples": 578,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "meanFps": 9.620361878733508,
+      "framesOver33ms": 570,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 1,
+      "date": "2026-12-24",
+      "startup": {
+        "readyMs": 389.59999999403954,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "snow",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3689,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1490,
+        "textures": 709,
+        "effects": {
+          "particles": 53,
+          "popups": 1,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 713,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.51666666667016,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 666,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 62038124
+        },
+        "jsHeapBytes": 95367749
+      },
+      "frameIntervalMs": {
+        "samples": 618,
+        "p50": 100,
+        "p95": 133.29999999999927,
+        "p99": 183.29999999999563,
+        "max": 250
+      },
+      "updateCpuMs": {
+        "samples": 618,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 2,
+        "max": 5.200000002980232
+      },
+      "viewCpuMs": {
+        "samples": 618,
+        "p50": 2.2999999970197678,
+        "p95": 3.7000000029802322,
+        "p99": 8.599999994039536,
+        "max": 31.899999991059303
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 618,
+        "p50": 1.5,
+        "p95": 5.600000008940697,
+        "p99": 15.900000005960464,
+        "max": 101.6000000089407
+      },
+      "totalCpuMs": {
+        "samples": 618,
+        "p50": 4.299999997019768,
+        "p95": 9.5,
+        "p99": 26.100000008940697,
+        "max": 104.59999999403954
+      },
+      "drawCalls": {
+        "samples": 618,
+        "p50": 43,
+        "p95": 45,
+        "p99": 46,
+        "max": 48
+      },
+      "uploads": {
+        "samples": 618,
+        "p50": 3,
+        "p95": 6,
+        "p99": 8,
+        "max": 50
+      },
+      "meanFps": 10.29754575159587,
+      "framesOver33ms": 609,
+      "longTasks": [
+        {
+          "start": 11223.59999999404,
+          "duration": 105
+        },
+        {
+          "start": 15408.40000000596,
+          "duration": 99
+        },
+        {
+          "start": 27269.09999999404,
+          "duration": 94
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 1,
+      "date": "2026-12-24",
+      "startup": {
+        "readyMs": 679.4000000059605,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "snow",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3701,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 251,
+        "textures": 40,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.31666666667017,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 16532962
+      },
+      "frameIntervalMs": {
+        "samples": 604,
+        "p50": 100,
+        "p95": 133.3000000000029,
+        "p99": 183.29999999999927,
+        "max": 283.2999999999993
+      },
+      "updateCpuMs": {
+        "samples": 604,
+        "p50": 0.10000000894069672,
+        "p95": 0.30000001192092896,
+        "p99": 0.7999999970197678,
+        "max": 1.699999988079071
+      },
+      "viewCpuMs": {
+        "samples": 604,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 0.5999999940395355,
+        "max": 4.600000008940697
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 604,
+        "p50": 1,
+        "p95": 2,
+        "p99": 7,
+        "max": 19
+      },
+      "totalCpuMs": {
+        "samples": 604,
+        "p50": 1.4000000059604645,
+        "p95": 2.7999999970197678,
+        "p99": 7.5,
+        "max": 19.400000005960464
+      },
+      "drawCalls": {
+        "samples": 604,
+        "p50": 42,
+        "p95": 45,
+        "p99": 48,
+        "max": 48
+      },
+      "uploads": {
+        "samples": 604,
+        "p50": 0,
+        "p95": 1,
+        "p99": 3,
+        "max": 3
+      },
+      "meanFps": 10.047542843454623,
+      "framesOver33ms": 595,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 2,
+      "date": "2026-12-24",
+      "startup": {
+        "readyMs": 393.20000000298023,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "snow",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3721,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1490,
+        "textures": 708,
+        "effects": {
+          "particles": 4,
+          "popups": 1,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 712,
+        "world": {
+          "phase": "play",
+          "timeLeft": 57.98333333333686,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 665,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 62046316
+        },
+        "jsHeapBytes": 103005266
+      },
+      "frameIntervalMs": {
+        "samples": 619,
+        "p50": 100,
+        "p95": 116.70000000000437,
+        "p99": 166.70000000000437,
+        "max": 200
+      },
+      "updateCpuMs": {
+        "samples": 619,
+        "p50": 0.20000000298023224,
+        "p95": 0.5,
+        "p99": 2,
+        "max": 4.4000000059604645
+      },
+      "viewCpuMs": {
+        "samples": 619,
+        "p50": 2.2999999970197678,
+        "p95": 3.7999999970197678,
+        "p99": 16.200000002980232,
+        "max": 31.399999991059303
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 619,
+        "p50": 1.4000000059604645,
+        "p95": 3,
+        "p99": 17.100000008940697,
+        "max": 98.3999999910593
+      },
+      "totalCpuMs": {
+        "samples": 619,
+        "p50": 4.0999999940395355,
+        "p95": 8.5,
+        "p99": 33.900000005960464,
+        "max": 103.40000000596046
+      },
+      "drawCalls": {
+        "samples": 619,
+        "p50": 43,
+        "p95": 45,
+        "p99": 48,
+        "max": 48
+      },
+      "uploads": {
+        "samples": 619,
+        "p50": 3,
+        "p95": 6,
+        "p99": 8,
+        "max": 52
+      },
+      "meanFps": 10.29420813591681,
+      "framesOver33ms": 613,
+      "longTasks": [
+        {
+          "start": 11622.29999999702,
+          "duration": 101
+        },
+        {
+          "start": 25124.20000000298,
+          "duration": 95
+        },
+        {
+          "start": 27361.90000000596,
+          "duration": 104
+        },
+        {
+          "start": 32046.79999999702,
+          "duration": 101
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 2,
+      "date": "2026-12-24",
+      "startup": {
+        "readyMs": 646.2999999970198,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "snow",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3708,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 251,
+        "textures": 40,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.20000000000351,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 19900744
+      },
+      "frameIntervalMs": {
+        "samples": 600,
+        "p50": 100,
+        "p95": 133.39999999999418,
+        "p99": 183.3000000000029,
+        "max": 200
+      },
+      "updateCpuMs": {
+        "samples": 600,
+        "p50": 0.10000000894069672,
+        "p95": 0.3999999910593033,
+        "p99": 0.9000000059604645,
+        "max": 2.5
+      },
+      "viewCpuMs": {
+        "samples": 600,
+        "p50": 0.20000000298023224,
+        "p95": 0.3999999910593033,
+        "p99": 0.6000000089406967,
+        "max": 24.799999997019768
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 600,
+        "p50": 1,
+        "p95": 2,
+        "p99": 12.700000002980232,
+        "max": 18.700000002980232
+      },
+      "totalCpuMs": {
+        "samples": 600,
+        "p50": 1.4000000059604645,
+        "p95": 2.800000011920929,
+        "p99": 13.899999991059303,
+        "max": 30.5
+      },
+      "drawCalls": {
+        "samples": 600,
+        "p50": 42,
+        "p95": 45,
+        "p99": 48,
+        "max": 48
+      },
+      "uploads": {
+        "samples": 600,
+        "p50": 0,
+        "p95": 1,
+        "p99": 3,
+        "max": 3
+      },
+      "meanFps": 9.986534822214715,
+      "framesOver33ms": 592,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 3,
+      "date": "2026-12-24",
+      "startup": {
+        "readyMs": 369.5,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "snow",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3610,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1486,
+        "textures": 705,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 709,
+        "world": {
+          "phase": "play",
+          "timeLeft": 59.83333333333675,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 663,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 62001260
+        },
+        "jsHeapBytes": 92082568
+      },
+      "frameIntervalMs": {
+        "samples": 588,
+        "p50": 100,
+        "p95": 133.40000000000146,
+        "p99": 183.20000000000437,
+        "max": 400
+      },
+      "updateCpuMs": {
+        "samples": 588,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 2,
+        "max": 3.7999999970197678
+      },
+      "viewCpuMs": {
+        "samples": 588,
+        "p50": 2.2999999970197678,
+        "p95": 3.5,
+        "p99": 7.5,
+        "max": 42.900000005960464
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 588,
+        "p50": 1.5,
+        "p95": 3.7999999970197678,
+        "p99": 8,
+        "max": 102.5
+      },
+      "totalCpuMs": {
+        "samples": 588,
+        "p50": 4.199999988079071,
+        "p95": 8,
+        "p99": 23,
+        "max": 112.70000000298023
+      },
+      "drawCalls": {
+        "samples": 588,
+        "p50": 43,
+        "p95": 45,
+        "p99": 45,
+        "max": 46
+      },
+      "uploads": {
+        "samples": 588,
+        "p50": 3,
+        "p95": 6,
+        "p99": 9,
+        "max": 52
+      },
+      "meanFps": 9.784084555789251,
+      "framesOver33ms": 581,
+      "longTasks": [
+        {
+          "start": 11419.59999999404,
+          "duration": 102
+        },
+        {
+          "start": 28171.79999999702,
+          "duration": 113
+        },
+        {
+          "start": 32725.59999999404,
+          "duration": 100
+        },
+        {
+          "start": 70252.5,
+          "duration": 51
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 3,
+      "date": "2026-12-24",
+      "startup": {
+        "readyMs": 596.6999999880791,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "fireworks",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3698,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 250,
+        "textures": 40,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.36666666667017,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 22354543
+      },
+      "frameIntervalMs": {
+        "samples": 601,
+        "p50": 100,
+        "p95": 133.3000000000029,
+        "p99": 183.29999999999563,
+        "max": 216.70000000000437
+      },
+      "updateCpuMs": {
+        "samples": 601,
+        "p50": 0.10000000894069672,
+        "p95": 0.29999999701976776,
+        "p99": 0.5999999940395355,
+        "max": 2.300000011920929
+      },
+      "viewCpuMs": {
+        "samples": 601,
+        "p50": 0.29999999701976776,
+        "p95": 0.5,
+        "p99": 0.7999999970197678,
+        "max": 4.4000000059604645
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 601,
+        "p50": 1,
+        "p95": 1.800000011920929,
+        "p99": 4.299999997019768,
+        "max": 13.800000011920929
+      },
+      "totalCpuMs": {
+        "samples": 601,
+        "p50": 1.5,
+        "p95": 2.6000000089406967,
+        "p99": 4.899999991059303,
+        "max": 14.200000002980232
+      },
+      "drawCalls": {
+        "samples": 601,
+        "p50": 40,
+        "p95": 43,
+        "p99": 44,
+        "max": 46
+      },
+      "uploads": {
+        "samples": 601,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "meanFps": 10.003179046918405,
+      "framesOver33ms": 597,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 1,
+      "date": "2026-12-31",
+      "startup": {
+        "readyMs": 431.5,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "fireworks",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3769,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1319,
+        "textures": 542,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 546,
+        "world": {
+          "phase": "play",
+          "timeLeft": 57.183333333336904,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 500,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59388012
+        },
+        "jsHeapBytes": 120126721
+      },
+      "frameIntervalMs": {
+        "samples": 715,
+        "p50": 83.30000000000291,
+        "p95": 116.70000000000073,
+        "p99": 150,
+        "max": 200.10000000000582
+      },
+      "updateCpuMs": {
+        "samples": 715,
+        "p50": 0.19999998807907104,
+        "p95": 0.4000000059604645,
+        "p99": 2,
+        "max": 4.600000008940697
+      },
+      "viewCpuMs": {
+        "samples": 715,
+        "p50": 1.7999999970197678,
+        "p95": 3.0999999940395355,
+        "p99": 13.099999994039536,
+        "max": 42.69999998807907
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 715,
+        "p50": 1.4000000059604645,
+        "p95": 2.7000000029802322,
+        "p99": 9.200000002980232,
+        "max": 122.40000000596046
+      },
+      "totalCpuMs": {
+        "samples": 715,
+        "p50": 3.5,
+        "p95": 8,
+        "p99": 25,
+        "max": 124.59999999403954
+      },
+      "drawCalls": {
+        "samples": 715,
+        "p50": 35,
+        "p95": 36,
+        "p99": 38,
+        "max": 38
+      },
+      "uploads": {
+        "samples": 715,
+        "p50": 2,
+        "p95": 3,
+        "p99": 8,
+        "max": 27
+      },
+      "meanFps": 11.89731370304305,
+      "framesOver33ms": 709,
+      "longTasks": [
+        {
+          "start": 12180.70000000298,
+          "duration": 124
+        },
+        {
+          "start": 28588,
+          "duration": 89
+        },
+        {
+          "start": 31416.80000001192,
+          "duration": 95
+        },
+        {
+          "start": 67380,
+          "duration": 50
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 1,
+      "date": "2026-12-31",
+      "startup": {
+        "readyMs": 581.3000000119209,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "fireworks",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3636,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 249,
+        "textures": 40,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 59.400000000003445,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 15647667
+      },
+      "frameIntervalMs": {
+        "samples": 606,
+        "p50": 100,
+        "p95": 150,
+        "p99": 200.09999999999854,
+        "max": 233.3000000000029
+      },
+      "updateCpuMs": {
+        "samples": 606,
+        "p50": 0.10000000894069672,
+        "p95": 0.30000001192092896,
+        "p99": 0.7999999970197678,
+        "max": 5.299999997019768
+      },
+      "viewCpuMs": {
+        "samples": 606,
+        "p50": 0.29999999701976776,
+        "p95": 0.5,
+        "p99": 0.7000000029802322,
+        "max": 20
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 606,
+        "p50": 0.9000000059604645,
+        "p95": 1.7000000029802322,
+        "p99": 6.399999991059303,
+        "max": 23.700000002980232
+      },
+      "totalCpuMs": {
+        "samples": 606,
+        "p50": 1.4000000059604645,
+        "p95": 2.5,
+        "p99": 6.899999991059303,
+        "max": 33.20000000298023
+      },
+      "drawCalls": {
+        "samples": 606,
+        "p50": 40,
+        "p95": 42,
+        "p99": 43,
+        "max": 44
+      },
+      "uploads": {
+        "samples": 606,
+        "p50": 0,
+        "p95": 1,
+        "p99": 3,
+        "max": 3
+      },
+      "meanFps": 10.080812852870038,
+      "framesOver33ms": 588,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 2,
+      "date": "2026-12-31",
+      "startup": {
+        "readyMs": 357.5,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "fireworks",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3796,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1319,
+        "textures": 542,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 546,
+        "world": {
+          "phase": "play",
+          "timeLeft": 56.73333333333693,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 500,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59388012
+        },
+        "jsHeapBytes": 103349438
+      },
+      "frameIntervalMs": {
+        "samples": 729,
+        "p50": 83.30000000000291,
+        "p95": 100.09999999999854,
+        "p99": 150,
+        "max": 216.6999999999971
+      },
+      "updateCpuMs": {
+        "samples": 729,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 1.9000000059604645,
+        "max": 4.199999988079071
+      },
+      "viewCpuMs": {
+        "samples": 729,
+        "p50": 1.7999999970197678,
+        "p95": 2.7000000029802322,
+        "p99": 9.799999997019768,
+        "max": 25.600000008940697
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 729,
+        "p50": 1.5,
+        "p95": 2.800000011920929,
+        "p99": 9.900000005960464,
+        "max": 85
+      },
+      "totalCpuMs": {
+        "samples": 729,
+        "p50": 3.7000000029802322,
+        "p95": 7.600000008940697,
+        "p99": 21.400000005960464,
+        "max": 87.40000000596046
+      },
+      "drawCalls": {
+        "samples": 729,
+        "p50": 35,
+        "p95": 37,
+        "p99": 38,
+        "max": 38
+      },
+      "uploads": {
+        "samples": 729,
+        "p50": 2,
+        "p95": 3,
+        "p99": 7,
+        "max": 50
+      },
+      "meanFps": 12.140348423003713,
+      "framesOver33ms": 722,
+      "longTasks": [
+        {
+          "start": 12076.09999999404,
+          "duration": 88
+        },
+        {
+          "start": 28212.79999999702,
+          "duration": 81
+        },
+        {
+          "start": 29179,
+          "duration": 87
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 2,
+      "date": "2026-12-31",
+      "startup": {
+        "readyMs": 579.5999999940395,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    },
+    {
+      "profile": "fireworks",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3682,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 250,
+        "textures": 40,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 58.63333333333682,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 14695868
+      },
+      "frameIntervalMs": {
+        "samples": 605,
+        "p50": 100,
+        "p95": 133.39999999999782,
+        "p99": 183.3000000000011,
+        "max": 233.40000000000146
+      },
+      "updateCpuMs": {
+        "samples": 605,
+        "p50": 0.10000000894069672,
+        "p95": 0.30000001192092896,
+        "p99": 1.0999999940395355,
+        "max": 2.6000000089406967
+      },
+      "viewCpuMs": {
+        "samples": 605,
+        "p50": 0.29999999701976776,
+        "p95": 0.5999999940395355,
+        "p99": 0.7999999970197678,
+        "max": 26.19999998807907
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 605,
+        "p50": 1,
+        "p95": 2.0999999940395355,
+        "p99": 7.5,
+        "max": 22.200000002980232
+      },
+      "totalCpuMs": {
+        "samples": 605,
+        "p50": 1.5,
+        "p95": 3,
+        "p99": 11.5,
+        "max": 29.700000002980232
+      },
+      "drawCalls": {
+        "samples": 605,
+        "p50": 40,
+        "p95": 43,
+        "p99": 44,
+        "max": 46
+      },
+      "uploads": {
+        "samples": 605,
+        "p50": 0,
+        "p95": 1,
+        "p99": 3,
+        "max": 3
+      },
+      "meanFps": 10.061366017528396,
+      "framesOver33ms": 600,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "pixi",
+      "repeat": 3,
+      "date": "2026-12-31",
+      "startup": {
+        "readyMs": 343.70000000298023,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-CvCKjdRX.js",
+            "encoded": 103414,
+            "transferred": 103714
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/Geometry-IpHxCVTc.js",
+            "encoded": 109697,
+            "transferred": 109997
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getPo2TextureFromSource-BZjp2c1c.js",
+            "encoded": 25109,
+            "transferred": 25409
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/canvasUtils-BVGwBBBn.js",
+            "encoded": 6054,
+            "transferred": 6354
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/RenderTargetSystem-BOePwWk1.js",
+            "encoded": 78085,
+            "transferred": 78385
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/CanvasRenderer-B1YGhA7X.js",
+            "encoded": 88562,
+            "transferred": 88862
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/getTextureBatchBindGroup-ClDkMdT3.js",
+            "encoded": 342,
+            "transferred": 642
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-DZ4LHvYR.js",
+            "encoded": 75,
+            "transferred": 375
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/WebGLRenderer-Crg7AiCI.js",
+            "encoded": 71661,
+            "transferred": 71961
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/BufferResource-C5CQIR6-.js",
+            "encoded": 11027,
+            "transferred": 11327
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/browserAll-VMSClpaX.js",
+            "encoded": 42665,
+            "transferred": 42965
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/init-CeGg-dAz.js",
+            "encoded": 15379,
+            "transferred": 15679
+          }
+        ]
+      }
+    },
+    {
+      "profile": "fireworks",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3820,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1319,
+        "textures": 542,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 546,
+        "world": {
+          "phase": "play",
+          "timeLeft": 56.33333333333695,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 500,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 59388012
+        },
+        "jsHeapBytes": 108886362
+      },
+      "frameIntervalMs": {
+        "samples": 724,
+        "p50": 83.30000000000291,
+        "p95": 100.10000000000218,
+        "p99": 150,
+        "max": 183.39999999999782
+      },
+      "updateCpuMs": {
+        "samples": 724,
+        "p50": 0.19999998807907104,
+        "p95": 0.4000000059604645,
+        "p99": 1.8999999910593033,
+        "max": 3.2000000029802322
+      },
+      "viewCpuMs": {
+        "samples": 724,
+        "p50": 1.7999999970197678,
+        "p95": 2.7000000029802322,
+        "p99": 9.899999991059303,
+        "max": 34.29999999701977
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 724,
+        "p50": 1.5,
+        "p95": 2.8999999910593033,
+        "p99": 7.700000002980232,
+        "max": 146.40000000596046
+      },
+      "totalCpuMs": {
+        "samples": 724,
+        "p50": 3.7000000029802322,
+        "p95": 6.9000000059604645,
+        "p99": 19.099999994039536,
+        "max": 149
+      },
+      "drawCalls": {
+        "samples": 724,
+        "p50": 35,
+        "p95": 37,
+        "p99": 38,
+        "max": 38
+      },
+      "uploads": {
+        "samples": 724,
+        "p50": 2,
+        "p95": 3,
+        "p99": 8,
+        "max": 27
+      },
+      "meanFps": 12.053749065584714,
+      "framesOver33ms": 721,
+      "longTasks": [
+        {
+          "start": 27510.39999999106,
+          "duration": 72
+        },
+        {
+          "start": 29664.59999999404,
+          "duration": 153
+        }
+      ],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "engine": "phaser",
+      "repeat": 3,
+      "date": "2026-12-31",
+      "startup": {
+        "readyMs": 667,
+        "resources": [
+          {
+            "name": "http://127.0.0.1:5181/assets/index-BouHCEyg.js",
+            "encoded": 1375,
+            "transferred": 1675
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/preload-helper-uBIymjUX.js",
+            "encoded": 1233,
+            "transferred": 1533
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/main-BZL3V6PA.js",
+            "encoded": 1477474,
+            "transferred": 1477774
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/rolldown-runtime-hePW80VL.js",
+            "encoded": 716,
+            "transferred": 1016
+          },
+          {
+            "name": "http://127.0.0.1:5181/assets/round-DV3gRBWZ.js",
+            "encoded": 53147,
+            "transferred": 53447
+          },
+          {
+            "name": "http://127.0.0.1:5181/favicon.svg",
+            "encoded": 712,
+            "transferred": 1012
+          }
+        ]
+      }
+    }
+  ],
+  "runtime_source_sha256": {
+    "src/audio.js": "750cfacd8bf51b7518395971838cab3f60c2db9d2acac1102895aa63c3d5719e",
+    "src/cheats.js": "d42efe467f9c61ea256880385b859e43aa70c1778e382fb189de18cfa94919f3",
+    "src/config.js": "c8bc19d46d536e29de2eb0a828a0a362a1865bdee1d215f750bf4923dd51a980",
+    "src/entry.js": "a4b257d2a3b3af81904e973a9e2965250bbde4cc6f60ece6681b5051405529bc",
+    "src/fullscreen.js": "025651cd50dfa1db3001b4ec050c8daac5c8350613b92d96789e1eb43b99c98f",
+    "src/gamepad.js": "89870afbbbc53293648c0cf76e82492f351a18c5ff95ecb01e0a94ee86306aae",
+    "src/input.js": "cf2af0464319ed4f50c53c619710f7823b4ba9a0e2de85769a1763bf3827c520",
+    "src/layout.js": "b1cc5b477c18c9ac4229947d985f83a3136f05fc41fbaa3596433f8279e48d78",
+    "src/logic/animal.js": "5af8f9536cd7ece70389eed47e8fe9ca268d2812ab054e7ea09615f31bb51aff",
+    "src/logic/bot.js": "9046fba1fb6040268ec28d89129c7019f800908c4759666477db853eb12b630f",
+    "src/logic/golden.js": "d71278b54b9c0f1d96028ed8b56ae0fdab83251a20096bc627a70a145d90cad6",
+    "src/logic/hook.js": "002549af69ab947d8f8244e0682d4a74856ee15581ddc3f832769c4ab54120c1",
+    "src/logic/match.js": "190e81d216bb7e0aebf8c19e0b8b4c92583e2aa2c52877a3833d3e901d391633",
+    "src/logic/ordnance.js": "b28d4e9af3b265327fb69ed88f9c63cf6a6665bff0d3d11ffc02b152698fd363",
+    "src/logic/powerup.js": "a437f5bca37a1f61c33705b59a2f277aaca475377d09344e523ed1e0a45ba8d2",
+    "src/logic/projectile.js": "f237d2ba79e3374fbc22a9906194e82809444b0bd72203b69bbbf181e76e57eb",
+    "src/logic/rng.js": "bca408e92a5c31d1e0e286f88da4c66d6c03644999d49f8f8910e97517202f35",
+    "src/logic/round.js": "e31137f01674402f264505aa8a6a1d04effabe297bb3de92a63eb740ce58de69",
+    "src/logic/saucer.js": "11d7b097026167065d07fd05a5bd839eef6ff58637ce5293d8b6ff4f574aa1a3",
+    "src/logic/scoring.js": "1107b565a0d34bba8d82afff5b0b8bf3d2899ef05897a3d28608e383c8c47182",
+    "src/logic/tally.js": "0aab236441acc1dc44e166fd0af121367b29f2f01cf1dc3d42db07ffeea68382",
+    "src/logic/weapon.js": "cd612c5ec7142809d22407b7b4525857db3d962e21f187fd9aecf0968286c550",
+    "src/logic/wolf.js": "0f4cb50fd43cde4a30b284a21c0790ea443916413a959842bcc429711a1cea16",
+    "src/logic/world.js": "4bb95906ee320264b849adeafdaed7c9e8fa71ed3c5318acf76c326c4b4d0ea4",
+    "src/main.js": "b96ee3d167fb2d43d216350bf5f4307516112e92f1df728358680d31fc2e7851",
+    "src/occasion.js": "e4dadbf32acbe95688d0cb2d178b9d20304c71926c36064706841af381dbcd3c",
+    "src/options.js": "65c4a7b28f5df8b6b5d6d17a8f25f4cc3436cf61cf3d2ad756d227b3a2419ec8",
+    "src/phaser/art.js": "1086cba2015ff404190c5554a59edcdc228d0698abc8d04305251f70015c152b",
+    "src/phaser/artwork-fixtures.js": "ed78a81a9881d311676e3eb2494b98f2b2de8cd346919bdbcb7aab476514f109",
+    "src/phaser/artwork.js": "30af78bbacfd63b15fa79d880fdb3bc436bc0693d6b7a49623d123b7e1354e9d",
+    "src/phaser/clock.js": "789975946e427194667bffbac6bcd8c60632c1cea1e05e2801914beca5c314a6",
+    "src/phaser/drawing.js": "9894d05fce219a7a4b9d097019c6e28a4d751ef70c73856ead77a7a7f64c0afe",
+    "src/phaser/fullscreen.js": "87de1aabe41da24926a649c01665a3e9c52a17fec6118707e7d8c87dd0ba6d65",
+    "src/phaser/gallery-fixtures.js": "b0adb68f232182cb4a2ef09ddfbd79a6e45bc2c30c26deae691290e8912ad16d",
+    "src/phaser/gallery.js": "aaea9f2d7cf0d0847776559fcd271ceab4441cae87ec2936fe839e1db29be373",
+    "src/phaser/input.js": "bff16e64037d08c64beb928982acc83b6e2a373ae79b10e7ab644133188d8cac",
+    "src/phaser/listView.js": "c9fda75577377d98124b9079e44eb403b9da7a7e1b83214511d5cda43704fdc2",
+    "src/phaser/main.js": "59b113d0056ed1be90f58a87bd4d1c405a1bb5d1dba78d7372896aeb2dc7480f",
+    "src/phaser/presentation.js": "9508f7b580afd07c4be18e4484b7a6a31627453f899713bc203e7e6368bf1f0b",
+    "src/phaser/preview.js": "2f5033a48379344436cb9f2cc44f92204d9f78f7cd0d80522be1dc03a8b5f478",
+    "src/phaser/render/animalView.js": "b4aeb0e62216caeed105519be57adaf9005aa013131f1368e922a36667d9fb7d",
+    "src/phaser/render/backdrop.js": "e5ccb9b4de3eac9dc8b4926b50b6b92dee7c2c5548e59aad4834870fde04fc8b",
+    "src/phaser/render/effects.js": "9259f83afe24d4216cb75c230e84dcae8359f482eea8e439edadeb356d02be09",
+    "src/phaser/render/festive.js": "5003e430d546e16742eaa163049b175d10ac0c297c6d8aeaf9e95ea3981d9b07",
+    "src/phaser/render/hud.js": "68585e5be2f592e415d993da602267007e633113acc22651a492876554551161",
+    "src/phaser/render/listView.js": "c6ba9c47e2c745f5a01d59a69d988371af6b2be059edc8131e752fcabe80a0f8",
+    "src/phaser/render/menu.js": "44867c4b229e93bfa180c2f2c75b0573215d4b27edf4ce6738b42523cbe8f5a9",
+    "src/phaser/render/powerupView.js": "931f9cfbdf7513e4bc0d09110c41bfc7443f44558a8aff3ce9482e9d221cbb61",
+    "src/phaser/render/projectileView.js": "398947b0edbe5989fb80e38d66068a7b5032ad4e0a18b935ffb85014e8506f56",
+    "src/phaser/render/saucerView.js": "b16076e35d82df2703dd20ec1b0ee43204a000ae8092facefde1bbaed52cc05d",
+    "src/phaser/render/shootingStars.js": "41290b554b2ba9ae419cb6053244ab9543ad3f765a8ef9c1e0c7bcf0774cfcca",
+    "src/phaser/render/text.js": "ebabc0ef64cc9635da510217e5714c5d899ced780cc26ae9cc0a8c707abdaa56",
+    "src/phaser/render/tieFlyby.js": "e68b5fb2d173b6db209fc1791f67014fda62cb3f6164e35dac4e4c073f738344",
+    "src/phaser/render/timeBombView.js": "959dd211da05f100e9a9b0997c443702b32cecbd76b98190529f5f2060b5b6bd",
+    "src/phaser/render/uiLayer.js": "a575f8ae01868279b45e2b3d9124085e1d717ef80aeac0495ea3acf20453ecab",
+    "src/phaser/render/wolfView.js": "658f7ea285867e8c64863b2dc4fbdcebea4561ef169942d3246cf62923b0d265",
+    "src/phaser/representatives.js": "dedb69ede932763d11d17b49121384da2abdc2da90d1cba1e823809f3097383d",
+    "src/phaser/scenes/play.js": "5796ddc29629edcb3f32c3778f33be8edddec89f78fd8ac27624233688d4824b",
+    "src/phaser/scenes/roundEnd.js": "64342dde830cdb5c7cba37899fe2cb47b0242bae99b7ad3a9ed579e33fc030b4",
+    "src/phaser/scenes/scope.js": "9ff3c6b9ac5c2dbc9b79540d5c951db05bdffaa7c8b11ea9902d81027cab1a27",
+    "src/phaser/scenes/settings.js": "55644115e213e4ffec75cad16d8e18df711a9bf6e2c96db945efa2796d9aa4de",
+    "src/phaser/scenes/tally.js": "4c49c64e9130373e349278a140813f81ca54fd22f16f1779b954a601db3bc3a7",
+    "src/phaser/scenes/title.js": "3ea77ba2fca2192b810d53c00fdfe9396c926a1dfed97805987a4e66284a7bc2",
+    "src/phaser/shapes.js": "b92c22e9b6c46b16c6f3a9d4f04f38b528916a7fcaff8c3bb203b769bad39bed",
+    "src/phaser/textureSampling.js": "42b20c4410ebaa3ac7a770a53eac54421802dc5293828146301058b8991e621c",
+    "src/phaser/uiLayer.js": "3c714665ac758a059f6177343773392c0570caefd278afbd2b3700630b382d96",
+    "src/render/animalView.js": "f800c56682a44b32ed2d520beabad9578f916d646f710c51595c08a820cd36a3",
+    "src/render/backdrop.js": "03d1d6d93194b895e84cfbca7bfef94e3a191dff7470fc52757d0f62aa8cae27",
+    "src/render/effects.js": "f475c3d7f99ee26ffd30773202a56913af2b7c1128efbe674cde332eb23642be",
+    "src/render/festive.js": "6d9cf1c4b0f6e711dff4fa9b00ca42895e22e0dd827f8a3ae22d94b8d9c14ea1",
+    "src/render/hud.js": "f5de15734b961c5843f908ac9e326c65750697a57ccc5f2d6f3de63907e519be",
+    "src/render/listView.js": "d9ee49816639c28d908f234e80d8ea229b37e0934391eac1815055518a0877b1",
+    "src/render/menu.js": "1c7972ada0d7d0534175720819245c319d64d205ef7534269d47e897957f7345",
+    "src/render/powerupView.js": "935559e3f4d0f5e50d9e7d10a58f31fdbac643c5a92c5af89f6fa0891dfdc3bc",
+    "src/render/projectileView.js": "cd407d544dc2970624368cc4ae894a7119917c5e357f39fb612bb00db9b4f347",
+    "src/render/saucerView.js": "9d2b08f53e021fd71b883117b9d956727bc2e5727633c8a2ecb01fa94dc82842",
+    "src/render/shootingStars.js": "6712d922f84061c7124f45ca16e3274157d384219a8c162a6d5145c3d7535fbe",
+    "src/render/text.js": "e542d322b44edad22fac29756c68f533c59c80d3e4815847b47e7e834cdb333e",
+    "src/render/tieFlyby.js": "fc2861374a7bd976ff8b3d8abbb1f5cde9bd2779bb277cb4119550a0897af37b",
+    "src/render/timeBombView.js": "3048c7dcc217a7bc19e2b740d34133394732d6b977eb20cf865cc02502aa9f42",
+    "src/render/uiLayer.js": "9f7815359b7eec1083d1c4ebdf5edca4bc770b7386d76b3566f038a13841433e",
+    "src/render/wolfView.js": "bfd5c3db5ce28a615c3853557c13f745abea270b95bb9ef013daf8bc784af0a6",
+    "src/scenes/play.js": "aea9023bbff75b08df75c92cda14aba811083b218ff0741428b4c2867a39be64",
+    "src/scenes/roundEnd.js": "3beeebe106fc41e18bb59825e3d2c2ff07f4a02911510bf5bf4bc2103c7fbc6a",
+    "src/scenes/settings.js": "f1f11e2b3d7e231ecb0d1b34bae37cf0ac97e981eff9c353871a0e20ccf75f3b",
+    "src/scenes/tally.js": "a7e032a04304817863101572be2ce4732d5f0f9df06da153e71d702e0153c813",
+    "src/scenes/title.js": "7d56fb04c4631982de764eeaff506aa78a7a42223c3ab452c3b4f1017af8ef72",
+    "src/session.js": "2cbc4569f1518537472ca3d2e9fc23274069519916d67088026de700be8c20bd"
+  },
+  "browser": "154.0.8037.57",
+  "configuration": {
+    "base_url": "http://127.0.0.1:5181",
+    "fixture_url": "http://127.0.0.1:5174",
+    "seconds": 60,
+    "warmup": 5,
+    "repeats": 3,
+    "profiles": ["ordinary", "crowded", "stress", "animal-rain", "snow", "fireworks"],
+    "engines": ["pixi", "phaser"],
+    "dpr": 1,
+    "software_gpu": true
+  },
+  "timing_helper_sha256": "1a090b514444ce4ec6ab190213837b7a3c475d2e4bfaf6ba3acde0c5bb8db513",
+  "resumption_notes": [
+    "A Vite reload interrupted stress repeat 2 Phaser. That incomplete attempt was discarded; all 15 complete samples were retained.",
+    "The post-window inspect snapshot gained Phaser effect counts; timed measure/start functions and seeded input fixtures were unchanged. Earlier effect counts are unavailable.",
+    "Configuration and timed-helper fingerprints were added retrospectively to the 15 complete records for strict resumption; subsequent records use these guards at capture."
+  ]
+}

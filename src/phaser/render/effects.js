@@ -16,7 +16,7 @@ const BLOOD = {
 
 export function createEffects(art) {
   const view = art.container();
-  const g = art.graphics();
+  const g = art.dynamicGraphics();
   art.add(view, g);
   const particles = [];
   const rings = [];
@@ -450,6 +450,9 @@ export function createEffects(art) {
 
   return {
     view,
+    get stats() {
+      return { particles: particles.length, popups: popups.length, rings: rings.length, stains: stains.length };
+    },
     handle,
     ambient,
     update,

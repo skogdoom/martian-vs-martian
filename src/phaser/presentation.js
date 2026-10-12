@@ -10,39 +10,55 @@ export function createPresentation(scene) {
   const entries = new Map();
   const shared = new Map();
   const variants = new Map();
+  const cached = new Map();
+  const pending = new Set();
   const images = new WeakMap();
   const colors = new WeakMap();
   const labels = new WeakMap();
 
-  function texture(bounds, draw, { resolution = 2, sharedId = null, imageSmoothingQuality = null } = {}) {
+  function texture(bounds, draw, { resolution = 2, sharedId = null, imageSmoothingQuality = null, cacheKey = null } = {}) {
     if (disposed) throw new Error('Presentation has been disposed');
     if (sharedId !== null && shared.has(sharedId)) return shared.get(sharedId);
+    if (cacheKey !== null && cached.has(cacheKey)) return cached.get(cacheKey);
     const key = `${prefix}-${nextTexture++}`;
     const canvas = document.createElement('canvas');
     canvas.width = Math.ceil(bounds.width * resolution);
     canvas.height = Math.ceil(bounds.height * resolution);
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('2d', { willReadFrequently: true });
     context.scale(resolution, resolution);
     context.translate(-bounds.x, -bounds.y);
     draw(context);
     const resource = scene.textures.addCanvas(key, canvas);
     if (!resource) throw new Error(`Cannot allocate texture ${key}`);
-    const entry = { key, bounds, resolution, canvas, refs: 0, sharedId, variantId: null, revision: 0, imageSmoothingQuality };
+    const entry = { key, bounds, resolution, canvas, refs: 0, sharedId, variantId: null, revision: 0, imageSmoothingQuality, cacheKey };
     entries.set(key, entry);
     if (sharedId !== null) shared.set(sharedId, entry);
+    if (cacheKey !== null) cached.set(cacheKey, entry);
     return entry;
   }
 
-  function release(entry) {
+  function remove(entry) {
+    scene.textures.remove(entry.key);
+    entries.delete(entry.key);
+    pending.delete(entry);
+    if (entry.variantId) variants.delete(entry.variantId);
+    if (entry.cacheKey !== null && cached.get(entry.cacheKey) === entry) cached.delete(entry.cacheKey);
+  }
+  function flush() {
+    for (const entry of pending) if (entry.refs === 0) remove(entry);
+    pending.clear();
+  }
+  scene.game.events.on('postrender', flush);
+  function release(entry, defer = false) {
     entry.refs--;
     if (entry.refs < 0) throw new Error(`Texture released twice: ${entry.key}`);
     if (entry.refs === 0 && entry.sharedId === null) {
-      scene.textures.remove(entry.key);
-      entries.delete(entry.key);
-      if (entry.variantId) variants.delete(entry.variantId);
+      // Keep a displaced recipe through this frame: another particle slot may
+      // need it later in the same render. Destroyed views release immediately.
+      if (defer && entry.cacheKey !== null) pending.add(entry);
+      else remove(entry);
     }
   }
-
   function tinted(base, tint) {
     if (tint === 0xffffff) return base;
     const id = `${base.key}:${base.revision}:${tint}`;
@@ -78,7 +94,9 @@ export function createPresentation(scene) {
     const tint = multiplyColor(inherited, colors.get(node) ?? 0xffffff);
     const state = images.get(node);
     if (state) {
-      const next = tinted(state.base, tint);
+      const next = scene.game.renderer.gl ? state.base : tinted(state.base, tint);
+      if (scene.game.renderer.gl) node.setTint(tint);
+      else node.clearTint();
       if (next !== state.current) {
         if (next !== state.base) next.refs++;
         const previous = state.current;
@@ -110,12 +128,14 @@ export function createPresentation(scene) {
     let ended = false;
     root.once('destroy', () => {
       ended = true;
+      flush();
     });
     function active() {
       if (ended || disposed) throw new Error('Presentation scope has been disposed');
     }
     return {
       root,
+      webgl: Boolean(scene.game.renderer.gl),
       get disposed() {
         return ended;
       },
@@ -134,16 +154,18 @@ export function createPresentation(scene) {
         image
           .setOrigin((-entry.bounds.x * entry.resolution) / entry.canvas.width, (-entry.bounds.y * entry.resolution) / entry.canvas.height)
           .setScale(1 / entry.resolution);
+        pending.delete(entry);
         entry.refs++;
         if (entry.imageSmoothingQuality) {
           const nativeRender = image.renderCanvas;
+          const quality = entry.imageSmoothingQuality;
           // A supersampled mask needs area filtering when it shrinks in Canvas.
           // Scope this setting to paint images; text and other page graphics keep
           // their original sampling. WebGL still uses the native Image renderer.
           image.renderCanvas = function (renderer, ...args) {
             const context = renderer.currentContext;
             const previous = context.imageSmoothingQuality;
-            context.imageSmoothingQuality = entry.imageSmoothingQuality;
+            context.imageSmoothingQuality = quality;
             try {
               return nativeRender.call(this, renderer, ...args);
             } finally {
@@ -187,27 +209,49 @@ export function createPresentation(scene) {
         active();
         return this.image(texture(bounds, draw, options), parent);
       },
-      repaint(image, bounds, draw, { resolution = 2 } = {}) {
+      repaint(image, bounds, draw, { resolution = 2, cacheKey = null } = {}) {
         active();
         const state = images.get(image);
         const entry = state?.base;
-        if (!entry || entry.sharedId !== null || entry.refs !== 1) throw new Error('Repaint requires an exclusively owned bitmap');
-        entry.bounds = bounds;
-        entry.resolution = resolution;
-        entry.revision++;
-        const resource = scene.textures.get(entry.key);
-        resource.setSize(Math.ceil(bounds.width * resolution), Math.ceil(bounds.height * resolution));
-        const context = entry.canvas.getContext('2d');
-        context.setTransform(1, 0, 0, 1, 0, 0);
-        context.clearRect(0, 0, entry.canvas.width, entry.canvas.height);
-        context.scale(resolution, resolution);
-        context.translate(-bounds.x, -bounds.y);
-        draw(context);
-        resource.refresh();
+        if (!entry || entry.sharedId !== null || (cacheKey === null && entry.refs !== 1))
+          throw new Error('Repaint requires an exclusively owned bitmap');
+        if (cacheKey !== null) {
+          const replacement = texture(bounds, draw, { resolution, cacheKey, imageSmoothingQuality: entry.imageSmoothingQuality });
+          pending.delete(replacement);
+          replacement.refs++;
+          const old = state.base;
+          const current = state.current;
+          state.base = state.current = replacement;
+          image.setTexture(replacement.key);
+          if (current !== old) release(current);
+          release(old, true);
+        } else {
+          entry.bounds = bounds;
+          entry.resolution = resolution;
+          entry.revision++;
+          const resource = scene.textures.get(entry.key);
+          // setSize uploads a blank resized canvas. Defer that upload until
+          // drawing has finished, while retaining its native size/frame updates.
+          const refresh = resource.refresh;
+          resource.refresh = () => resource;
+          try {
+            resource.setSize(Math.ceil(bounds.width * resolution), Math.ceil(bounds.height * resolution));
+          } finally {
+            resource.refresh = refresh;
+          }
+          const context = entry.canvas.getContext('2d');
+          context.setTransform(1, 0, 0, 1, 0, 0);
+          context.clearRect(0, 0, entry.canvas.width, entry.canvas.height);
+          context.scale(resolution, resolution);
+          context.translate(-bounds.x, -bounds.y);
+          draw(context);
+          resource.refresh();
+        }
         applyTint(image);
+        const base = state.base;
         image
           .setTexture(state.current.key)
-          .setOrigin((-bounds.x * resolution) / entry.canvas.width, (-bounds.y * resolution) / entry.canvas.height)
+          .setOrigin((-bounds.x * resolution) / base.canvas.width, (-bounds.y * resolution) / base.canvas.height)
           .setScale(1 / resolution);
       },
       attach(parent, child, index) {
@@ -233,6 +277,13 @@ export function createPresentation(scene) {
     shared(id, bounds, draw, resolution = 2) {
       return texture(bounds, draw, { sharedId: id, resolution });
     },
+    get metrics() {
+      return {
+        cachedRecipes: cached.size,
+        pendingRecipes: pending.size,
+        canvasRgbaBytes: [...entries.values()].reduce((sum, e) => sum + e.canvas.width * e.canvas.height * 4, 0),
+      };
+    },
     get stats() {
       return {
         textures: entries.size,
@@ -249,6 +300,9 @@ export function createPresentation(scene) {
       entries.clear();
       shared.clear();
       variants.clear();
+      cached.clear();
+      pending.clear();
+      scene.game.events.off('postrender', flush);
       disposed = true;
     },
   };

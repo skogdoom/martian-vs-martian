@@ -135,8 +135,28 @@ drain sources after the existing laser modulation tail. All 460 tests, lint,
 build and simulator checks pass; original source/test hashes are unchanged.
 Review [the audio evidence and listening samples](docs/phaser-audio/README.md).
 **Human listening and Firefox/WebKit/Safari acceptance remain pending; the audible
-parity exit gate is not closed by automated signal checks. Milestones 6–7 have
-not started; work stops here for review.**
+parity exit gate is not closed by automated signal checks.**
+
+Milestone 6 adds sequential production performance measurements, a local M1
+MacBook Air comparison runner, a real 30-minute lifecycle soak, and cache/context
+restoration checks. Phaser shares identical procedural textures, uses native
+WebGL tinting, and draws gameplay effects/fireworks with native WebGL Graphics.
+Canvas retains its raster path; snow retains supersampled raster masks in both
+renderers. Original drawing recipes, effect caps and simulation remain preserved.
+All 460 tests, the original 271 identities/source hashes, lint, build and simulator
+checks pass. Browser checks pass 816 development artwork cases and 232 production
+cases at each root/subdirectory URL, primitive ownership, four real play traces,
+cache lifetimes and active-play context restoration. A real 30-minute production
+soak completes 50 matches, 60 rounds and five restarts, with stable listeners and
+collected heap and drained sources after disposal. All 36 sequential production
+timing windows are saved. Phaser has faster median cloud rAF pacing but higher
+p95 CPU cost in every scenario; all six exceed the proposed 10% CPU comparison
+allowance, and stress exceeds 16.7 ms p95 CPU. These measured exceptions remain
+explicit; implementation completion does not close the performance acceptance gate.
+See [the performance evidence and review instructions](docs/phaser-performance/README.md).
+**M1 Safari/Chrome performance acceptance remains pending. The cloud runner uses
+SwiftShader and cannot establish the physical 60 fps gate. Milestone 7 has not
+started; the default entry remains Pixi while these gates are reviewed.**
 
 ### 0. Record the preservation baseline
 

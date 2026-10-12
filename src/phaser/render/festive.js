@@ -62,7 +62,7 @@ const MAX_SPARKS = 700;
 
 /** Fireworks: rockets rise from behind the hills and burst in the sky. */
 export function createFireworks(art) {
-  const view = art.graphics();
+  const view = art.dynamicGraphics();
   const rockets = [];
   const sparks = [];
   const flashes = [];

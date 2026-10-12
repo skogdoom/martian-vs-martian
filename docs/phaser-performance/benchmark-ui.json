@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "complete": true,
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "dpr": 1,
+  "samples": [
+    {
+      "profile": "ordinary",
+      "durationMs": 3000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 464,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 222,
+        "textures": 37,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 112.2666666666671,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": null,
+        "jsHeapBytes": 34130392
+      },
+      "frameIntervalMs": {
+        "samples": 31,
+        "p50": 100,
+        "p95": 133.29999999999927,
+        "p99": 150.10000000000036,
+        "max": 150.10000000000036
+      },
+      "updateCpuMs": {
+        "samples": 31,
+        "p50": 0.20000000298023224,
+        "p95": 0.5,
+        "p99": 0.8999999910593033,
+        "max": 0.8999999910593033
+      },
+      "viewCpuMs": {
+        "samples": 31,
+        "p50": 0.20000000298023224,
+        "p95": 0.4000000059604645,
+        "p99": 0.5,
+        "max": 0.5
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 31,
+        "p50": 1,
+        "p95": 1.9000000059604645,
+        "p99": 2.0999999940395355,
+        "max": 2.0999999940395355
+      },
+      "totalCpuMs": {
+        "samples": 31,
+        "p50": 1.5,
+        "p95": 2.5,
+        "p99": 2.5999999940395355,
+        "max": 2.5999999940395355
+      },
+      "drawCalls": {
+        "samples": 31,
+        "p50": 41,
+        "p95": 42,
+        "p99": 42,
+        "max": 42
+      },
+      "uploads": {
+        "samples": 31,
+        "p50": 0,
+        "p95": 2,
+        "p99": 2,
+        "max": 2
+      },
+      "meanFps": 9.738627795928624,
+      "framesOver33ms": 31,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "pixi"
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 3000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 464,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 1,
+        "backing": [1280, 720],
+        "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "objects": 1189,
+        "textures": 493,
+        "effects": {
+          "particles": 34,
+          "popups": 0,
+          "rings": 1,
+          "stains": 0
+        },
+        "textureWrappers": 497,
+        "world": {
+          "phase": "play",
+          "timeLeft": 112.2666666666671,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0
+        },
+        "paint": {
+          "cachedRecipes": 452,
+          "pendingRecipes": 0,
+          "canvasRgbaBytes": 53821512
+        },
+        "jsHeapBytes": 139247000
+      },
+      "frameIntervalMs": {
+        "samples": 39,
+        "p50": 83.29999999999927,
+        "p95": 100.10000000000036,
+        "p99": 100.10000000000036,
+        "max": 100.10000000000036
+      },
+      "updateCpuMs": {
+        "samples": 39,
+        "p50": 0.20000000298023224,
+        "p95": 1.5999999940395355,
+        "p99": 1.9000000059604645,
+        "max": 1.9000000059604645
+      },
+      "viewCpuMs": {
+        "samples": 39,
+        "p50": 1.8999999910593033,
+        "p95": 4.100000008940697,
+        "p99": 5.699999988079071,
+        "max": 5.699999988079071
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 39,
+        "p50": 1.5,
+        "p95": 8.399999991059303,
+        "p99": 18.900000005960464,
+        "max": 18.900000005960464
+      },
+      "totalCpuMs": {
+        "samples": 39,
+        "p50": 3.9000000059604645,
+        "p95": 13.400000005960464,
+        "p99": 23.5,
+        "max": 23.5
+      },
+      "drawCalls": {
+        "samples": 39,
+        "p50": 34,
+        "p95": 35,
+        "p99": 35,
+        "max": 35
+      },
+      "uploads": {
+        "samples": 39,
+        "p50": 2,
+        "p95": 4,
+        "p99": 5,
+        "max": 5
+      },
+      "meanFps": 12.649195640892584,
+      "framesOver33ms": 39,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "phaser"
+    }
+  ],
+  "buildMode": "development",
+  "profiles": ["ordinary"],
+  "seconds": 3,
+  "repeats": 1,
+  "invalid_options_fail_with_partial_report": true,
+  "page_errors": [],
+  "purpose": "UI smoke only; separate 36 full production samples establish cloud timing."
+}

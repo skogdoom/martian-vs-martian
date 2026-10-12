@@ -44,7 +44,8 @@ export function checkOwnership(host, referenceLabel) {
     assert(sharedImage.originX === 0.5 && sharedImage.originY === 0.5 && sharedImage.displayWidth === 20, 'bitmap origin/resolution changed');
     scope.tint(holder, 0xffcf3a);
     scope.tint(privateImage, 0xb8a898);
-    assert(store.stats.variants === 2 && privateImage.tintTopLeft === 0xffffff, 'Canvas tint relies on WebGL-only native tint');
+    assert(store.stats.variants === (host.game.renderer.gl ? 0 : 2), 'tint variants do not match the renderer');
+    assert(host.game.renderer.gl || privateImage.tintTopLeft === 0xffffff, 'Canvas tint relies on WebGL-only native tint');
     // Reparenting changes inherited tint without destroying either texture.
     const other = scope.container();
     scope.attach(other, privateImage, 0);
