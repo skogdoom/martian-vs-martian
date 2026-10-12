@@ -20,7 +20,7 @@ document.getElementById('run').onclick = async () => {
   document.getElementById('run').disabled = true;
   Object.assign(status.style, { position: 'fixed', top: '4px', left: '4px', zIndex: 2, background: '#101c3d' });
   try {
-    const allowed = ['ordinary', 'crowded', 'stress', 'animal-rain', 'snow', 'fireworks'];
+    const allowed = ['ordinary', 'abduction', 'crowded', 'stress', 'animal-rain', 'snow', 'fireworks'];
     if (
       !Number.isInteger(seconds) ||
       seconds < 1 ||

@@ -21,6 +21,8 @@ export function checkCache(host) {
   const red = b.list[0].texture.key,
     green = a.list[0].texture.key;
   draw(b, 0x00ff00);
+  host.game.events.emit('postrender');
+  assert(store.metrics.retainedRecipes === 1, 'unused animation recipe was not retained');
   draw(a, 0xff0000);
   assert(a.list[0].texture.key === red && b.list[0].texture.key === green, 'slot permutation rebaked or lost recipes');
   const stable = store.stats.textures;
@@ -34,8 +36,25 @@ export function checkCache(host) {
   for (let i = 0; i < 100; i++) {
     draw(a, i + 1, 5 + i / 100);
     host.game.events.emit('postrender');
-    assert(store.stats.textures <= 2, 'unused recipes retained after rendering');
+    assert(store.stats.textures <= 66 && store.metrics.retainedRecipes <= 64, 'recipe retention exceeded its count budget');
+    assert(store.metrics.retainedRgbaBytes <= 4 * 1024 * 1024, 'recipe retention exceeded its byte budget');
   }
+  assert(a.list[0].texture.imageData === undefined, 'immutable recipe allocated an unused pixel buffer');
+  const box = { x: 0, y: 0, width: 256, height: 256 };
+  const fill = (ctx) => ctx.fillRect(0, 0, 256, 256);
+  const budget = scope.bitmap(box, fill, { resolution: 1, cacheKey: 'budget-start' });
+  for (let i = 0; i < 24; i++) {
+    scope.repaint(budget, box, fill, { resolution: 1, cacheKey: `budget-${i}` });
+    host.game.events.emit('postrender');
+    assert(store.metrics.retainedRgbaBytes <= 4 * 1024 * 1024, 'byte budget failed before count budget');
+  }
+  let rejected = false;
+  try {
+    scope.repaint(budget, box, fill);
+  } catch {
+    rejected = true;
+  }
+  assert(rejected, 'cached immutable recipe allowed mutable repaint');
   const parent = scope.container();
   art.add(parent, a);
   scope.tint(parent, 0x808080);
@@ -44,5 +63,15 @@ export function checkCache(host) {
   assert(store.stats.textures === 0 && store.metrics.cachedRecipes === 0, 'cache survived scope disposal');
   store.dispose();
   assert(host.textures.getTextureKeys().length === baseline, 'temporary store leaked resources');
-  return { shared_recipes: true, copy_on_change: true, permutation_reuses: 100, unique_recipes_released: 100, inherited_tint: true, disposal: true };
+  return {
+    shared_recipes: true,
+    copy_on_change: true,
+    permutation_reuses: 100,
+    cross_frame_reuse: true,
+    bounded_unique_recipes: 100,
+    byte_budget_checked: true,
+    immutable_pixel_copy_avoided: true,
+    inherited_tint: true,
+    disposal: true,
+  };
 }

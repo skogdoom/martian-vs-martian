@@ -158,6 +158,15 @@ See [the performance evidence and review instructions](docs/phaser-performance/R
 SwiftShader and cannot establish the physical 60 fps gate. Milestone 7 has not
 started; the default entry remains Pixi while these gates are reviewed.**
 
+The Safari movement-stutter follow-up removes immutable pixel-buffer copies,
+bounds cross-frame recipe retention, draws animated beams/flames/projectiles
+natively in WebGL, and prewarms scene-owned static recipes before active play.
+Three matched production repeats show ordinary p95 CPU 7.4 → 5.4 ms and p99
+19.7 → 18.0 ms; lifting p95 88.3 → 4.4 ms on SwiftShader. Original tests, logic
+and graphics remain preserved. Actual M1 Safari elimination is not established;
+retest instructions and explicit limitations are in
+[the stutter review notes](docs/phaser-stutter-fix/README.md).
+
 ### 0. Record the preservation baseline
 
 **Deliverables:** a feature/visual checklist, reproducible logic fixtures, and a

@@ -40,6 +40,7 @@ export function inspect() {
           projectiles: scene.round.world.projectiles.length,
           rockets: scene.round.world.rockets.length,
           bombs: scene.round.world.bombs.length,
+          beams: Object.values(scene.round.world.hooks).filter((h) => h.target || h.carrying).length,
         }
       : null,
     paint: runtime.game.presentation?.metrics ?? null,
@@ -84,9 +85,11 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
     Object.assign(drop, { state: 'field', y: 660, vx: 0 });
     Object.assign(world.saucers.red, { x: drop.x, y: 470, vx: 0, vy: 0 });
   }
+  const liftAnimals = profile === 'abduction' ? [world.animals[0], world.animals[1]] : null;
   let step = 0,
     calls = 0,
-    uploads = 0;
+    uploads = 0,
+    readbacks = 0;
   let work = { update: 0, view: 0, frame: 0, submission: 0 };
   const frames = [],
     restorers = [];
@@ -114,6 +117,17 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
         world.rockets.push(createRocket(world.saucers.red, world.saucers.blue));
         world.bombs.push(createBomb({ ...world.saucers.red, x: 1180 }));
       }
+    } else if (profile === 'abduction') {
+      for (const [i, side] of ['red', 'blue'].entries()) {
+        const a = liftAnimals[i],
+          h = world.hooks[side];
+        const x = i ? 880 : 400;
+        if ((!h.target && !h.carrying) || (h.carrying && step % 120 === 0)) {
+          Object.assign(h, { target: null, carrying: null, second: null, progress: 0 });
+          Object.assign(a, { state: 'field', pen: null, hookedBy: null, x, y: 660, vx: 0 });
+        }
+        Object.assign(world.saucers[side], { x, y: 470 + Math.sin(step / 45) * 30, vx: 0, vy: 0 });
+      }
     } else if (profile !== 'animal-rain') {
       for (const [code, down] of [
         ['KeyD', step % 240 < 120],
@@ -129,6 +143,12 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
     work.update += performance.now() - start;
   };
   restorers.push(() => (scene.update = update));
+  const getPixels = CanvasRenderingContext2D.prototype.getImageData;
+  CanvasRenderingContext2D.prototype.getImageData = function (...args) {
+    readbacks++;
+    return getPixels.apply(this, args);
+  };
+  restorers.push(() => (CanvasRenderingContext2D.prototype.getImageData = getPixels));
   wrap(scene, 'render', 'view');
   wrap(app.renderer, 'render', 'submission');
   // Phaser binds Game.step during boot. Wrap TimeStep.callback, not app.step.
@@ -155,10 +175,10 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
   try {
     await new Promise((resolve) => {
       function sample(now) {
-        if (previous !== null && now - start >= warmupMs) frames.push({ interval: now - previous, ...work, calls, uploads });
+        if (previous !== null && now - start >= warmupMs) frames.push({ interval: now - previous, ...work, calls, uploads, readbacks });
         previous = now;
         work = { update: 0, view: 0, frame: 0, submission: 0 };
-        calls = uploads = 0;
+        calls = uploads = readbacks = 0;
         if (now - start < warmupMs + durationMs) requestAnimationFrame(sample);
         else resolve();
       }
@@ -185,6 +205,7 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
     totalCpuMs: distribution(frames.map((f) => f.frame)),
     drawCalls: distribution(frames.map((f) => f.calls)),
     uploads: distribution(frames.map((f) => f.uploads)),
+    pixelReadbacks: distribution(frames.map((f) => f.readbacks)),
     meanFps: (frames.length * 1000) / frames.reduce((sum, f) => sum + f.interval, 0),
     framesOver33ms: frames.filter((f) => f.interval > 33.34).length,
     longTasks: longTasks.filter((r) => r.start >= start + warmupMs),

@@ -1,6 +1,7 @@
 // Play scene: one round, from the countdown to the final whistle.
 
 import { withSceneScope } from './scope.js';
+import { warmGameplayArt } from '../warmup.js';
 import { WIDTH, BOT, RAM, PAUSE_KEY } from '../../config.js';
 import { layout } from '../../layout.js';
 import { onUnexpectedExit } from '../fullscreen.js';
@@ -72,6 +73,7 @@ export function createPlayScene(game, session) {
     const top = art.container();
     art.add(top, hud.view);
     art.add(view, stage, top);
+    warmGameplayArt(game.presentation, stage);
 
     const banner = label(art, '', { size: 96, color: 0xffffff, bold: true, anchorX: 0.5, anchorY: 0.5 });
     banner.setPosition(WIDTH / 2, 280);

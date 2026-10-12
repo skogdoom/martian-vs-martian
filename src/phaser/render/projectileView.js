@@ -5,7 +5,7 @@ import { COLORS } from './backdrop.js';
 import { drawRocket, drawBomb } from './powerupView.js';
 
 export function createProjectileView(art) {
-  const g = art.graphics();
+  const g = art.dynamicGraphics();
   // Rockets and bombs are small shape pools, positioned and rotated each frame.
   const view = art.container();
   const pools = { rockets: [], bombs: [] };

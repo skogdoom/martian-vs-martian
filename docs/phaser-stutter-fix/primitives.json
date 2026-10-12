@@ -1,0 +1,4093 @@
+{
+  "complete": true,
+  "pixi_url": "http://127.0.0.1:5174/",
+  "phaser_url": "http://127.0.0.1:5174/",
+  "edge_radius": "max(1, ceil(layout_scale * DPR)) device pixels",
+  "edge_allowance": "coverage/blending only; bounded silhouette in both directions",
+  "interior_color_allowance": 3,
+  "gradient_color_allowance": 2,
+  "preservation": {
+    "original_source_hashes_unchanged": 48,
+    "original_test_files_unchanged": 30,
+    "original_test_identities": 271
+  },
+  "cases": [
+    {
+      "name": "auto-dpr1-1280x720-sky",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [1280, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.253825
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.291096
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208361
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 63,
+          "mean_channel_error": 0.076866
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.108187
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 115,
+          "mean_channel_error": 0.211946
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 21,
+          "mean_channel_error": 0.055294
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.220297
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.17787
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.00023
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 37,
+          "mean_channel_error": 0.047465
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.10874
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-1280x720-fixed",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [1280, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.253825
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.291096
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208361
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 63,
+          "mean_channel_error": 0.076866
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.108187
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 115,
+          "mean_channel_error": 0.211946
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 21,
+          "mean_channel_error": 0.055294
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.220297
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.17787
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.00023
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 37,
+          "mean_channel_error": 0.047465
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.10874
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-1440x900-sky",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [1440, 900],
+      "fixed169": false,
+      "gradient_max_channel_error": 2,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.269161
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 77,
+          "mean_channel_error": 0.307147
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 130,
+          "mean_channel_error": 0.312431
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.101695
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 83,
+          "mean_channel_error": 0.179435
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.198544
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 22,
+          "mean_channel_error": 0.057784
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.308843
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 2,
+          "mean_channel_error": 0.176692
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000382
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 55,
+          "mean_channel_error": 0.042779
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.100238
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-1440x900-fixed",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [1440, 900],
+      "fixed169": true,
+      "gradient_max_channel_error": 2,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.269161
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 77,
+          "mean_channel_error": 0.307147
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 130,
+          "mean_channel_error": 0.312431
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.101695
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 83,
+          "mean_channel_error": 0.179435
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.198544
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 22,
+          "mean_channel_error": 0.057784
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.308843
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 2,
+          "mean_channel_error": 0.176692
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000382
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 55,
+          "mean_channel_error": 0.042779
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.100238
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-1024x768-sky",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [1024, 768],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.347662
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.387409
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 126,
+          "mean_channel_error": 0.495768
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.139169
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.258545
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 102,
+          "mean_channel_error": 0.379872
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.078749
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 129,
+          "mean_channel_error": 0.559764
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.162914
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000296
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.050331
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 50,
+          "mean_channel_error": 0.149266
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-1024x768-fixed",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [1024, 768],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.347662
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.387409
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 126,
+          "mean_channel_error": 0.495768
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.139169
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.258545
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 102,
+          "mean_channel_error": 0.379872
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.078749
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 129,
+          "mean_channel_error": 0.559764
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.162914
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000296
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.050331
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 50,
+          "mean_channel_error": 0.149266
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-2000x720-sky",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [2000, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.253825
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.291096
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208361
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 63,
+          "mean_channel_error": 0.076866
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.108187
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 115,
+          "mean_channel_error": 0.211946
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 21,
+          "mean_channel_error": 0.055294
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.220297
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.17787
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.00023
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 37,
+          "mean_channel_error": 0.047465
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.10874
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-2000x720-fixed",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [2000, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.253825
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.291096
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208361
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 63,
+          "mean_channel_error": 0.076866
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.108187
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 115,
+          "mean_channel_error": 0.211946
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 21,
+          "mean_channel_error": 0.055294
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.220297
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.17787
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.00023
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 37,
+          "mean_channel_error": 0.047465
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.10874
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-600x1200-sky",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [600, 1200],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 96,
+          "mean_channel_error": 0.731572
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.780286
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 139,
+          "mean_channel_error": 0.881954
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 103,
+          "mean_channel_error": 0.365972
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 136,
+          "mean_channel_error": 0.603089
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 108,
+          "mean_channel_error": 0.892787
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.114202
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 130,
+          "mean_channel_error": 0.986814
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.171118
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000231
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 45,
+          "mean_channel_error": 0.03563
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 59,
+          "mean_channel_error": 0.285019
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr1-600x1200-fixed",
+      "renderer": "auto",
+      "dpr": 1,
+      "viewport": [600, 1200],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 96,
+          "mean_channel_error": 0.731572
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.780286
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 139,
+          "mean_channel_error": 0.881954
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 103,
+          "mean_channel_error": 0.365972
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 136,
+          "mean_channel_error": 0.603089
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 108,
+          "mean_channel_error": 0.892787
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.114202
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 130,
+          "mean_channel_error": 0.986814
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.171118
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000231
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 45,
+          "mean_channel_error": 0.03563
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 59,
+          "mean_channel_error": 0.285019
+        }
+      ],
+      "right_aligned_text": {
+        "name": "text-center",
+        "outside_edge_or_color_bound": 0,
+        "outside_silhouette_bound": 0,
+        "max_channel_error": 111,
+        "mean_channel_error": 0.122734
+      }
+    },
+    {
+      "name": "auto-dpr2-1280x720-sky",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [1280, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.07158
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187307
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.040283
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.08591
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.177346
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047776
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.075452
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-1280x720-fixed",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [1280, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.07158
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187307
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.040283
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.08591
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.177346
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047776
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.075452
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-1440x900-sky",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [1440, 900],
+      "fixed169": false,
+      "gradient_max_channel_error": 2,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.299688
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.341193
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 152,
+          "mean_channel_error": 0.285269
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.093199
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 132,
+          "mean_channel_error": 0.144522
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 138,
+          "mean_channel_error": 0.183454
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 20,
+          "mean_channel_error": 0.040499
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 140,
+          "mean_channel_error": 0.115747
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 2,
+          "mean_channel_error": 0.17601
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000277
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 66,
+          "mean_channel_error": 0.046646
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 67,
+          "mean_channel_error": 0.076852
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-1440x900-fixed",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [1440, 900],
+      "fixed169": true,
+      "gradient_max_channel_error": 2,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.299688
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.341193
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 152,
+          "mean_channel_error": 0.285269
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.093199
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 132,
+          "mean_channel_error": 0.144522
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 138,
+          "mean_channel_error": 0.183454
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 20,
+          "mean_channel_error": 0.040499
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 140,
+          "mean_channel_error": 0.115747
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 2,
+          "mean_channel_error": 0.17601
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000277
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 66,
+          "mean_channel_error": 0.046646
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 67,
+          "mean_channel_error": 0.076852
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-1024x768-sky",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [1024, 768],
+      "fixed169": false,
+      "gradient_max_channel_error": 2,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 71,
+          "mean_channel_error": 0.263045
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 69,
+          "mean_channel_error": 0.301783
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 139,
+          "mean_channel_error": 0.281064
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 73,
+          "mean_channel_error": 0.084593
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 101,
+          "mean_channel_error": 0.154638
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.193112
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 22,
+          "mean_channel_error": 0.044869
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 133,
+          "mean_channel_error": 0.159726
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 2,
+          "mean_channel_error": 0.174905
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000264
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 53,
+          "mean_channel_error": 0.045769
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 59,
+          "mean_channel_error": 0.077147
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-1024x768-fixed",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [1024, 768],
+      "fixed169": true,
+      "gradient_max_channel_error": 2,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 71,
+          "mean_channel_error": 0.263045
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 69,
+          "mean_channel_error": 0.301783
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 139,
+          "mean_channel_error": 0.281064
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 73,
+          "mean_channel_error": 0.084593
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 101,
+          "mean_channel_error": 0.154638
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.193112
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 22,
+          "mean_channel_error": 0.044869
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 133,
+          "mean_channel_error": 0.159726
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 2,
+          "mean_channel_error": 0.174905
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000264
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 53,
+          "mean_channel_error": 0.045769
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 59,
+          "mean_channel_error": 0.077147
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-2000x720-sky",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [2000, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.071454
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187307
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.040283
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.08591
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.177346
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047776
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.075452
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-2000x720-fixed",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [2000, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.071454
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187307
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.040283
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.08591
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.177346
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047776
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.075452
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-600x1200-sky",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [600, 1200],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.312802
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.350891
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 116,
+          "mean_channel_error": 0.378612
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.124824
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.19224
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.314277
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.063213
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 127,
+          "mean_channel_error": 0.398045
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.17368
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000432
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.04467
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 71,
+          "mean_channel_error": 0.119167
+        }
+      ]
+    },
+    {
+      "name": "auto-dpr2-600x1200-fixed",
+      "renderer": "auto",
+      "dpr": 2,
+      "viewport": [600, 1200],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.312802
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.350891
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 116,
+          "mean_channel_error": 0.378612
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.124824
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.19224
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.314277
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.063213
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 127,
+          "mean_channel_error": 0.398045
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.17368
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000432
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.04467
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 71,
+          "mean_channel_error": 0.119167
+        }
+      ],
+      "right_aligned_text": {
+        "name": "text-center",
+        "outside_edge_or_color_bound": 0,
+        "outside_silhouette_bound": 0,
+        "max_channel_error": 99,
+        "mean_channel_error": 0.09357
+      }
+    },
+    {
+      "name": "canvas-dpr1-1280x720-sky",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [1280, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.379314
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.426861
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208694
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 64,
+          "mean_channel_error": 0.078162
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.109171
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 98,
+          "mean_channel_error": 0.405694
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 21,
+          "mean_channel_error": 0.116549
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.219452
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.363297
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 91,
+          "mean_channel_error": 0.504434
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 78,
+          "mean_channel_error": 0.458525
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.263676
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-1280x720-fixed",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [1280, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.379314
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.426861
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208694
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 64,
+          "mean_channel_error": 0.078162
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.109171
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 98,
+          "mean_channel_error": 0.405694
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 21,
+          "mean_channel_error": 0.116549
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.219452
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.363297
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 91,
+          "mean_channel_error": 0.504434
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 78,
+          "mean_channel_error": 0.458525
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.263676
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-1440x900-sky",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [1440, 900],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.263369
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.301363
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 130,
+          "mean_channel_error": 0.307175
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.095124
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 83,
+          "mean_channel_error": 0.179448
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 115,
+          "mean_channel_error": 0.320512
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 18,
+          "mean_channel_error": 0.10825
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 105,
+          "mean_channel_error": 0.225928
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 9,
+          "mean_channel_error": 0.258008
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 5,
+          "mean_channel_error": 0.000483
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 55,
+          "mean_channel_error": 0.04284
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.128815
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-1440x900-fixed",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [1440, 900],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.263369
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.301363
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 130,
+          "mean_channel_error": 0.307175
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.095124
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 83,
+          "mean_channel_error": 0.179448
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 115,
+          "mean_channel_error": 0.320512
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 18,
+          "mean_channel_error": 0.10825
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 105,
+          "mean_channel_error": 0.225928
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 9,
+          "mean_channel_error": 0.258008
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 5,
+          "mean_channel_error": 0.000483
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 55,
+          "mean_channel_error": 0.04284
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 51,
+          "mean_channel_error": 0.128815
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-1024x768-sky",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [1024, 768],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.34187
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.381624
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 126,
+          "mean_channel_error": 0.493968
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.138681
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.258977
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.294131
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 20,
+          "mean_channel_error": 0.11912
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 105,
+          "mean_channel_error": 0.398738
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.242448
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 8,
+          "mean_channel_error": 0.001184
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.050683
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.179251
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-1024x768-fixed",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [1024, 768],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.34187
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.381624
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 126,
+          "mean_channel_error": 0.493968
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.138681
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.258977
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.294131
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 20,
+          "mean_channel_error": 0.11912
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 105,
+          "mean_channel_error": 0.398738
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.242448
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 8,
+          "mean_channel_error": 0.001184
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.050683
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 49,
+          "mean_channel_error": 0.179251
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-2000x720-sky",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [2000, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.253722
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.29106
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208351
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 63,
+          "mean_channel_error": 0.076841
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.108172
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 98,
+          "mean_channel_error": 0.292719
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 12,
+          "mean_channel_error": 0.106636
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 81,
+          "mean_channel_error": 0.152186
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.258484
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000353
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 37,
+          "mean_channel_error": 0.047194
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 58,
+          "mean_channel_error": 0.139227
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-2000x720-fixed",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [2000, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 61,
+          "mean_channel_error": 0.253722
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.29106
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.208351
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 63,
+          "mean_channel_error": 0.076841
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 60,
+          "mean_channel_error": 0.108172
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 98,
+          "mean_channel_error": 0.292719
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 12,
+          "mean_channel_error": 0.106636
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 81,
+          "mean_channel_error": 0.152186
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.258484
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000353
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 37,
+          "mean_channel_error": 0.047194
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 58,
+          "mean_channel_error": 0.139227
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-600x1200-sky",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [600, 1200],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 96,
+          "mean_channel_error": 0.720529
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.770595
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 134,
+          "mean_channel_error": 0.88277
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.34603
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 136,
+          "mean_channel_error": 0.603182
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.615833
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.155205
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.762743
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 3,
+          "mean_channel_error": 0.26823
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 3,
+          "mean_channel_error": 0.002721
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 45,
+          "mean_channel_error": 0.037936
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.316337
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr1-600x1200-fixed",
+      "renderer": "canvas",
+      "dpr": 1,
+      "viewport": [600, 1200],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 52
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 96,
+          "mean_channel_error": 0.713284
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.76286
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 139,
+          "mean_channel_error": 0.868442
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 101,
+          "mean_channel_error": 0.335803
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 136,
+          "mean_channel_error": 0.603182
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.615833
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 22,
+          "mean_channel_error": 0.15609
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 114,
+          "mean_channel_error": 0.762743
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 3,
+          "mean_channel_error": 0.26823
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 3,
+          "mean_channel_error": 0.002721
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 45,
+          "mean_channel_error": 0.037936
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.316337
+        }
+      ],
+      "right_aligned_text": {
+        "name": "text-center",
+        "outside_edge_or_color_bound": 0,
+        "outside_silhouette_bound": 0,
+        "max_channel_error": 166,
+        "mean_channel_error": 1.131613
+      }
+    },
+    {
+      "name": "canvas-dpr2-1280x720-sky",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [1280, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.07158
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187309
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.100941
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 122,
+          "mean_channel_error": 0.086052
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.233395
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047775
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.103271
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-1280x720-fixed",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [1280, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.07158
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187309
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.100941
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 122,
+          "mean_channel_error": 0.086052
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.233395
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047775
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.103271
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-1440x900-sky",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [1440, 900],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.299688
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.341201
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 152,
+          "mean_channel_error": 0.285013
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.093114
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 132,
+          "mean_channel_error": 0.14444
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 138,
+          "mean_channel_error": 0.183415
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 20,
+          "mean_channel_error": 0.101083
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 140,
+          "mean_channel_error": 0.11575
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 11,
+          "mean_channel_error": 0.234029
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 7,
+          "mean_channel_error": 0.000356
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 66,
+          "mean_channel_error": 0.046764
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 66,
+          "mean_channel_error": 0.10444
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-1440x900-fixed",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [1440, 900],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.299688
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 104,
+          "mean_channel_error": 0.341201
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 152,
+          "mean_channel_error": 0.285013
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.093114
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 132,
+          "mean_channel_error": 0.14444
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 138,
+          "mean_channel_error": 0.183415
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 20,
+          "mean_channel_error": 0.101083
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 140,
+          "mean_channel_error": 0.11575
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 11,
+          "mean_channel_error": 0.234029
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 7,
+          "mean_channel_error": 0.000356
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 66,
+          "mean_channel_error": 0.046764
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 66,
+          "mean_channel_error": 0.10444
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-1024x768-sky",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [1024, 768],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 71,
+          "mean_channel_error": 0.263069
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 69,
+          "mean_channel_error": 0.301789
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 139,
+          "mean_channel_error": 0.281054
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 73,
+          "mean_channel_error": 0.084571
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 101,
+          "mean_channel_error": 0.154958
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.193124
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 22,
+          "mean_channel_error": 0.105451
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 133,
+          "mean_channel_error": 0.159744
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.232317
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 3,
+          "mean_channel_error": 0.000448
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 53,
+          "mean_channel_error": 0.045923
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 62,
+          "mean_channel_error": 0.105721
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-1024x768-fixed",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [1024, 768],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 71,
+          "mean_channel_error": 0.263069
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 69,
+          "mean_channel_error": 0.301789
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 139,
+          "mean_channel_error": 0.281054
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 73,
+          "mean_channel_error": 0.084571
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 101,
+          "mean_channel_error": 0.154958
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 109,
+          "mean_channel_error": 0.193124
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 22,
+          "mean_channel_error": 0.105451
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 133,
+          "mean_channel_error": 0.159744
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.232317
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 3,
+          "mean_channel_error": 0.000448
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 53,
+          "mean_channel_error": 0.045923
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 62,
+          "mean_channel_error": 0.105721
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-2000x720-sky",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [2000, 720],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.071454
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187309
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.100732
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.085918
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.233395
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047775
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.103271
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-2000x720-fixed",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [2000, 720],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.188386
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 82,
+          "mean_channel_error": 0.22236
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 174,
+          "mean_channel_error": 0.143514
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 94,
+          "mean_channel_error": 0.045959
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 92,
+          "mean_channel_error": 0.071454
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 157,
+          "mean_channel_error": 0.187309
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 16,
+          "mean_channel_error": 0.100732
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 121,
+          "mean_channel_error": 0.085918
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.233395
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 1,
+          "mean_channel_error": 0.000298
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 75,
+          "mean_channel_error": 0.047775
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 65,
+          "mean_channel_error": 0.103271
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-600x1200-sky",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [600, 1200],
+      "fixed169": false,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.310087
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.348047
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 116,
+          "mean_channel_error": 0.375088
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.118256
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.192246
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.306214
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.123934
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 127,
+          "mean_channel_error": 0.398057
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 14,
+          "mean_channel_error": 0.270226
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 4,
+          "mean_channel_error": 0.000671
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 64,
+          "mean_channel_error": 0.044845
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 67,
+          "mean_channel_error": 0.148206
+        }
+      ]
+    },
+    {
+      "name": "canvas-dpr2-600x1200-fixed",
+      "renderer": "canvas",
+      "dpr": 2,
+      "viewport": [600, 1200],
+      "fixed169": true,
+      "gradient_max_channel_error": 1,
+      "label_reference_bounds": {
+        "width": 132.451171875,
+        "height": 54
+      },
+      "tiles": [
+        {
+          "name": "saucer-red",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 76,
+          "mean_channel_error": 0.310087
+        },
+        {
+          "name": "saucer-blue",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 93,
+          "mean_channel_error": 0.348047
+        },
+        {
+          "name": "cow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 116,
+          "mean_channel_error": 0.375088
+        },
+        {
+          "name": "lamb",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 86,
+          "mean_channel_error": 0.118256
+        },
+        {
+          "name": "wolf",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.192246
+        },
+        {
+          "name": "parachute",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 107,
+          "mean_channel_error": 0.311372
+        },
+        {
+          "name": "glow",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 23,
+          "mean_channel_error": 0.123934
+        },
+        {
+          "name": "paths",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 127,
+          "mean_channel_error": 0.398057
+        },
+        {
+          "name": "gradient",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 14,
+          "mean_channel_error": 0.270226
+        },
+        {
+          "name": "text-left",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 4,
+          "mean_channel_error": 0.000671
+        },
+        {
+          "name": "text-center",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 64,
+          "mean_channel_error": 0.044845
+        },
+        {
+          "name": "nested-tint",
+          "outside_edge_or_color_bound": 0,
+          "outside_silhouette_bound": 0,
+          "max_channel_error": 67,
+          "mean_channel_error": 0.148206
+        }
+      ],
+      "right_aligned_text": {
+        "name": "text-center",
+        "outside_edge_or_color_bound": 0,
+        "outside_silhouette_bound": 0,
+        "max_channel_error": 107,
+        "mean_channel_error": 0.476014
+      }
+    }
+  ],
+  "ownership": [
+    {
+      "renderer": "auto",
+      "dpr": 1,
+      "scope_cycles": 100,
+      "gallery_transitions": 100,
+      "pooled_slot_reuses": 100,
+      "adoption_survives_old_disposer": true,
+      "destruction_once": true,
+      "private_and_text_textures_released": true,
+      "shared_textures_retained_until_host_disposal": true,
+      "baseline": {
+        "objects": 244,
+        "display": 1,
+        "updates": 0,
+        "textures": 157,
+        "gpuTextures": 161,
+        "store": {
+          "textures": 137,
+          "shared": 137,
+          "variants": 0,
+          "references": 173
+        }
+      },
+      "host_disposal": true
+    },
+    {
+      "renderer": "auto",
+      "dpr": 2,
+      "scope_cycles": 100,
+      "gallery_transitions": 100,
+      "pooled_slot_reuses": 100,
+      "adoption_survives_old_disposer": true,
+      "destruction_once": true,
+      "private_and_text_textures_released": true,
+      "shared_textures_retained_until_host_disposal": true,
+      "baseline": {
+        "objects": 244,
+        "display": 1,
+        "updates": 0,
+        "textures": 157,
+        "gpuTextures": 161,
+        "store": {
+          "textures": 137,
+          "shared": 137,
+          "variants": 0,
+          "references": 173
+        }
+      },
+      "host_disposal": true
+    },
+    {
+      "renderer": "canvas",
+      "dpr": 1,
+      "scope_cycles": 100,
+      "gallery_transitions": 100,
+      "pooled_slot_reuses": 100,
+      "adoption_survives_old_disposer": true,
+      "destruction_once": true,
+      "private_and_text_textures_released": true,
+      "shared_textures_retained_until_host_disposal": true,
+      "baseline": {
+        "objects": 244,
+        "display": 1,
+        "updates": 0,
+        "textures": 178,
+        "gpuTextures": 0,
+        "store": {
+          "textures": 157,
+          "shared": 137,
+          "variants": 20,
+          "references": 197
+        }
+      },
+      "host_disposal": true
+    },
+    {
+      "renderer": "canvas",
+      "dpr": 2,
+      "scope_cycles": 100,
+      "gallery_transitions": 100,
+      "pooled_slot_reuses": 100,
+      "adoption_survives_old_disposer": true,
+      "destruction_once": true,
+      "private_and_text_textures_released": true,
+      "shared_textures_retained_until_host_disposal": true,
+      "baseline": {
+        "objects": 244,
+        "display": 1,
+        "updates": 0,
+        "textures": 178,
+        "gpuTextures": 0,
+        "store": {
+          "textures": 157,
+          "shared": 137,
+          "variants": 20,
+          "references": 197
+        }
+      },
+      "host_disposal": true
+    }
+  ],
+  "browser": "Chromium 154.0.8037.57",
+  "negative_controls": {
+    "missing-saucer": {
+      "outside_edge_or_color_bound": 8742,
+      "outside_silhouette_bound": 14009,
+      "max_channel_error": 239,
+      "mean_channel_error": 1.082025
+    },
+    "missing-thin-ropes": {
+      "outside_edge_or_color_bound": 2,
+      "outside_silhouette_bound": 500,
+      "max_channel_error": 205,
+      "mean_channel_error": 0.073167
+    },
+    "changed-interior": {
+      "outside_edge_or_color_bound": 1333,
+      "outside_silhouette_bound": 0,
+      "max_channel_error": 242,
+      "mean_channel_error": 0.220522
+    },
+    "displaced-text": {
+      "outside_edge_or_color_bound": 444,
+      "outside_silhouette_bound": 846,
+      "max_channel_error": 239,
+      "mean_channel_error": 5.374839
+    }
+  }
+}

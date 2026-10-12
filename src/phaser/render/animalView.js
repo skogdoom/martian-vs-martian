@@ -110,7 +110,7 @@ function createAnimalSprite(art, a) {
   alarm.y = a.kind === 'cow' ? -50 : -40;
   alarm.visible = false;
   // Flames along the back after a bomb blast (cosmetic).
-  const fire = art.graphics();
+  const fire = art.dynamicGraphics();
   const backY = a.kind === 'cow' ? -36 : -30;
   const badge = art.graphics();
   const star = [];
@@ -222,7 +222,7 @@ function drawBeam(art, g, s, a, side, strength, t) {
 }
 
 export function createBeamView(art) {
-  const g = art.graphics();
+  const g = art.dynamicGraphics();
   return {
     view: g,
     sync(world, t) {

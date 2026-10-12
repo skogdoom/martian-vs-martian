@@ -12,6 +12,12 @@ export function createPresentation(scene) {
   const variants = new Map();
   const cached = new Map();
   const pending = new Set();
+  // Reuse blink/animation recipes across frames without retaining a whole round.
+  const idle = new Map();
+  const idleLimit = 64;
+  const idleByteLimit = 4 * 1024 * 1024;
+  let idleBytes = 0;
+  const bytes = (entry) => entry.canvas.width * entry.canvas.height * 4;
   const images = new WeakMap();
   const colors = new WeakMap();
   const labels = new WeakMap();
@@ -28,7 +34,9 @@ export function createPresentation(scene) {
     context.scale(resolution, resolution);
     context.translate(-bounds.x, -bounds.y);
     draw(context);
-    const resource = scene.textures.addCanvas(key, canvas);
+    // Immutable artwork needs a canvas source, not CanvasTexture's unused
+    // getImageData / pixel-array copy. Mutable private bitmaps keep that API.
+    const resource = cacheKey !== null || sharedId !== null ? scene.textures.addImage(key, canvas) : scene.textures.addCanvas(key, canvas);
     if (!resource) throw new Error(`Cannot allocate texture ${key}`);
     const entry = { key, bounds, resolution, canvas, refs: 0, sharedId, variantId: null, revision: 0, imageSmoothingQuality, cacheKey };
     entries.set(key, entry);
@@ -37,18 +45,32 @@ export function createPresentation(scene) {
     return entry;
   }
 
+  function activate(entry) {
+    pending.delete(entry);
+    if (idle.delete(entry)) idleBytes -= bytes(entry);
+  }
   function remove(entry) {
+    activate(entry);
     scene.textures.remove(entry.key);
     entries.delete(entry.key);
     pending.delete(entry);
     if (entry.variantId) variants.delete(entry.variantId);
     if (entry.cacheKey !== null && cached.get(entry.cacheKey) === entry) cached.delete(entry.cacheKey);
   }
-  function flush() {
-    for (const entry of pending) if (entry.refs === 0) remove(entry);
+  function flush(force = false) {
+    for (const entry of pending) {
+      if (entry.refs !== 0) continue;
+      if (force || bytes(entry) > idleByteLimit) remove(entry);
+      else if (!idle.has(entry)) {
+        idle.set(entry, true);
+        idleBytes += bytes(entry);
+      }
+    }
     pending.clear();
+    while (idle.size && (force || idle.size > idleLimit || idleBytes > idleByteLimit)) remove(idle.keys().next().value);
   }
-  scene.game.events.on('postrender', flush);
+  const postrender = () => flush();
+  scene.game.events.on('postrender', postrender);
   function release(entry, defer = false) {
     entry.refs--;
     if (entry.refs < 0) throw new Error(`Texture released twice: ${entry.key}`);
@@ -128,7 +150,7 @@ export function createPresentation(scene) {
     let ended = false;
     root.once('destroy', () => {
       ended = true;
-      flush();
+      flush(true);
     });
     function active() {
       if (ended || disposed) throw new Error('Presentation scope has been disposed');
@@ -154,7 +176,7 @@ export function createPresentation(scene) {
         image
           .setOrigin((-entry.bounds.x * entry.resolution) / entry.canvas.width, (-entry.bounds.y * entry.resolution) / entry.canvas.height)
           .setScale(1 / entry.resolution);
-        pending.delete(entry);
+        activate(entry);
         entry.refs++;
         if (entry.imageSmoothingQuality) {
           const nativeRender = image.renderCanvas;
@@ -213,11 +235,11 @@ export function createPresentation(scene) {
         active();
         const state = images.get(image);
         const entry = state?.base;
-        if (!entry || entry.sharedId !== null || (cacheKey === null && entry.refs !== 1))
+        if (!entry || entry.sharedId !== null || (cacheKey === null && (entry.refs !== 1 || entry.cacheKey !== null)))
           throw new Error('Repaint requires an exclusively owned bitmap');
         if (cacheKey !== null) {
           const replacement = texture(bounds, draw, { resolution, cacheKey, imageSmoothingQuality: entry.imageSmoothingQuality });
-          pending.delete(replacement);
+          activate(replacement);
           replacement.refs++;
           const old = state.base;
           const current = state.current;
@@ -281,6 +303,8 @@ export function createPresentation(scene) {
       return {
         cachedRecipes: cached.size,
         pendingRecipes: pending.size,
+        retainedRecipes: idle.size,
+        retainedRgbaBytes: idleBytes,
         canvasRgbaBytes: [...entries.values()].reduce((sum, e) => sum + e.canvas.width * e.canvas.height * 4, 0),
       };
     },
@@ -302,7 +326,9 @@ export function createPresentation(scene) {
       variants.clear();
       cached.clear();
       pending.clear();
-      scene.game.events.off('postrender', flush);
+      idle.clear();
+      idleBytes = 0;
+      scene.game.events.off('postrender', postrender);
       disposed = true;
     },
   };

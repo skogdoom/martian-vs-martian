@@ -1,5 +1,10 @@
 # Milestone 6: performance and soak verification
 
+This records the milestone 6 implementation and measurements. The later
+[Safari stutter follow-up](../phaser-stutter-fix/README.md) changes idle-cache
+retention, avoids immutable pixel copies, and prewarms static recipes. The data
+below remains evidence for its recorded source fingerprints.
+
 The hardware reference is an **M1 MacBook Air**, with Safari as the primary browser
 and Chrome for comparison. Cloud timing uses Chromium/ANGLE SwiftShader and cannot
 establish that device's 60 fps acceptance. The default game remains Pixi pending

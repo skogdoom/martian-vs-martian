@@ -365,6 +365,7 @@ def main():
     parser.add_argument('--smoke', action='store_true', help='Production routing/scaling smoke check')
     parser.add_argument('--controls-only', action='store_true', help='Preview keyboard controls and frozen rendering')
     parser.add_argument('--motion-only', action='store_true', help='Longer atmospheric animation samples')
+    parser.add_argument('--pages', nargs='+', choices=PAGES, help='Check selected artwork pages with unchanged pixel/pose policy')
     parser.add_argument('--resume', action='store_true', help='Keep passing cases when resuming a failed run')
     args = parser.parse_args()
     output = args.output or Path(tempfile.mkdtemp(prefix='martian-artwork-'))
@@ -375,6 +376,7 @@ def main():
                       for path in sorted((ROOT / 'src').rglob('*.js'))}
     report = {'complete': False, 'preservation': preservation(), 'cases': [], 'ownership': [], 'controls': [],
               'pixel_policy': 'flat interiors +/-3 RGB; antialiasing/blending allowed only in bounded reference pixel/geometry edge neighbourhood and image border; silhouette hysteresis 16/3 bounded in both directions; geometry exceptions never mask missing reference silhouettes; independent sky <=2 RGB',
+              'selected_pages': args.pages,
               'runtime_source_sha256': runtime_hashes,
               'pixi_url': args.base_url, 'phaser_url': args.phaser_url or args.base_url,
               'radius': 'ceil(3 * layout_scale * DPR) device pixels', 'sky_max_channel_error': 2, 'minified_text_cell_height_limit': '8 device pixels; non-space monospace cells from audited reference metrics; missing silhouettes still fail',
@@ -402,6 +404,7 @@ def main():
                 if args.smoke: cases = [(name, phase, [300]) for name, phase, _ in cases]
                 if args.motion_only: cases = [(name, 'full', [300, 330, 480, 600]) for name in ['arena', 'scenery']]
                 if args.controls_only: cases = []
+                if args.pages: cases = [case for case in cases if case[0] in args.pages]
                 for name, phase, times in cases:
                     if all(f'{renderer}-dpr{dpr}-{date}-{phase}-{name}-{stamp}' in completed for stamp in times): continue
                     prepare(pixi, name, phase, False); prepare(phaser, name, phase, True)
@@ -442,6 +445,7 @@ def main():
                 if not args.quick and not args.motion_only and not args.controls_only:
                     for size in (LAYOUTS[-2:] if args.smoke else LAYOUTS[1:]):
                         for name in (['arena', 'menus', 'saucers', 'sky'] if date == '02-15' else ['arena', 'scenery']):
+                            if args.pages and name not in args.pages: continue
                             ident = f'{renderer}-dpr{dpr}-{date}-{name}-{size[0]}x{size[1]}-fixed{size[2]}'
                             if ident in completed: continue
                             set_layout(pixi, size, False); set_layout(phaser, size, True)

@@ -83,6 +83,8 @@ See [the migration plan](PHASER_MIGRATION.md) and the review notes for
 [milestone 5](docs/phaser-audio/README.md), including audio checks and listening samples, and
 [milestone 6](docs/phaser-performance/README.md), including the M1 MacBook Air
 performance comparison at `/scripts/phaser/benchmark.html`.
+The [Safari stutter follow-up](docs/phaser-stutter-fix/README.md) documents the
+rendering fixes, before/after measurements, and M1 retest instructions.
 
 ## About this project
 
