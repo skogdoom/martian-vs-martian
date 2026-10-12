@@ -63,7 +63,7 @@ export function createTieFlyby(art) {
         const [dx, dy] = FORMATION[i];
         // The wingmen trail behind the leader and weave a little.
         s.setPosition(pass.x + dx * pass.dir, pass.y + dy + Math.sin(pass.t * 3 + i * 2) * 3);
-        if (s.getData?.('cartoon-frame') === 'fighter') s.setFlipX(pass.dir > 0);
+        if (s.getData?.('cartoon-frame') === 'fighter') s.setFlipX(pass.dir < 0);
         s.rotation = Math.sin(pass.t * 2 + i) * 0.08;
       });
     },

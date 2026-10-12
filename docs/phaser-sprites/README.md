@@ -40,11 +40,11 @@ the barn's roof-to-ground height; their width scales proportionally. On December
 24 and 25, the moon wears a hat centered on its white brim, sitting 4 pixels lower,
 and has the same smiling face as classic mode.
 
-May 4 fighters reverse their pose on left-to-right passes while preserving the
-flight path and formation. The battle station retains its recessed laser port
-without a protruding antenna. Midsummer poles use a straight leafy stem, a
-horizontal crossbar and two round wreaths at 92 × 184 pixels, with classic-mode
-proportions and thin fluttering team/yellow ribbons.
+May 4 fighters face right on left-to-right passes and left on right-to-left passes,
+preserving the flight path and formation. The battle station retains its recessed
+laser port without a protruding antenna. Midsummer poles use a straight leafy
+stem, a horizontal crossbar and two round wreaths at 92 × 184 pixels, with
+classic-mode proportions and thin fluttering team/yellow ribbons.
 
 The title uses the stacked logo based on the corrected inspiration image, with
 both the red and blue words spelled **MARTIAN**, the yellow lightning burst and

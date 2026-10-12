@@ -6,7 +6,7 @@
       "classic": false,
       "direction": 1,
       "xDelta": 30,
-      "mirrored": true,
+      "mirrored": false,
       "formationPreserved": true
     },
     {
@@ -14,7 +14,7 @@
       "classic": false,
       "direction": -1,
       "xDelta": -30,
-      "mirrored": false,
+      "mirrored": true,
       "formationPreserved": true
     },
     {
@@ -38,7 +38,7 @@
       "classic": false,
       "direction": 1,
       "xDelta": 30,
-      "mirrored": true,
+      "mirrored": false,
       "formationPreserved": true
     },
     {
@@ -46,7 +46,7 @@
       "classic": false,
       "direction": -1,
       "xDelta": -30,
-      "mirrored": false,
+      "mirrored": true,
       "formationPreserved": true
     },
     {
@@ -124,7 +124,7 @@
     "src/phaser/render/saucerView.js": "2348db449ba34c68217d10ac81e20de0fa13b81998f4a2609dbd0fb0987da0fa",
     "src/phaser/render/shootingStars.js": "abc8553a1bb407ba5f55794cdd0f9569047dad7291ac6aef05d4662c2298a6d4",
     "src/phaser/render/text.js": "ebabc0ef64cc9635da510217e5714c5d899ced780cc26ae9cc0a8c707abdaa56",
-    "src/phaser/render/tieFlyby.js": "33cbc63d1d959df798433265051f1c154d64171d5403269eeb0898c727dbee80",
+    "src/phaser/render/tieFlyby.js": "80642abac5d3224b0cd5b89d8d785d5ad24998553b35688aac383b29d55ea030",
     "src/phaser/render/timeBombView.js": "64f16207bff86605eddc674cd1821b07418398a646150c781c8dec2c5f644916",
     "src/phaser/render/uiLayer.js": "a575f8ae01868279b45e2b3d9124085e1d717ef80aeac0495ea3acf20453ecab",
     "src/phaser/render/wolfView.js": "8dc67cf19c0cad85c6e2ba744ab0ef6da8f959e2f577a9e56962af3e57d5ff7f",
