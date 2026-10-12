@@ -11,7 +11,7 @@ frame maps; no external image service is used by the game.
 | `fx.png` | 8 | 1024 × 512 | White/grey tintable particles, rings, sparks, smoke, trails, confetti and shock front |
 | `logo.png` | 1 | 2048 × 1024 | Stacked concept title logo and author credit |
 
-The four shipped PNGs total approximately 4.45 MB. RGBA pixels occupy 26 MiB
+The four shipped PNGs total approximately 4.94 MB. RGBA pixels occupy 26 MiB
 before mipmaps (approximately 34.7 MiB with a complete mip chain). This excludes
 text, scenery gradients and renderer overhead. Source PNGs are retained in
 `source/` for art revisions and are not imported into the production build.
@@ -19,9 +19,9 @@ text, scenery gradients and renderer overhead. Source PNGs are retained in
 The first source sheet follows the user's concept: red and blue saucers with
 glass domes, cream animals with pink cow muzzles, friendly aliens, red barns,
 wood fences and a navy night farm. The companion sheet uses that first sheet as
-its style reference. The logo was isolated from the inspiration image using
-background removal, retaining its stacked typography and author credit; neutral VFX allow the renderer
-to apply accurate team colors.
+its style reference. The logo was isolated from the corrected inspiration image
+using background removal, retaining its stacked typography and author credit;
+neutral VFX allow the renderer to apply accurate team colors.
 
 Frame names are the stable interface. Animal sprites face right and their
 renderer puts the bottom center at the animal's feet. Saucer views retain the

@@ -12,7 +12,7 @@
       "renderer": "auto",
       "page": "arena",
       "errors": 0,
-      "visibleAtlasImages": 562
+      "visibleAtlasImages": 566
     },
     {
       "renderer": "auto",
@@ -78,7 +78,7 @@
       "renderer": "auto",
       "page": "effects-a",
       "errors": 0,
-      "visibleAtlasImages": 2
+      "visibleAtlasImages": 0
     },
     {
       "renderer": "auto",
@@ -90,13 +90,13 @@
       "renderer": "auto",
       "page": "effects-c",
       "errors": 0,
-      "visibleAtlasImages": 50
+      "visibleAtlasImages": 42
     },
     {
       "renderer": "canvas",
       "page": "arena",
       "errors": 0,
-      "visibleAtlasImages": 574
+      "visibleAtlasImages": 548
     },
     {
       "renderer": "canvas",
@@ -162,7 +162,7 @@
       "renderer": "canvas",
       "page": "effects-a",
       "errors": 0,
-      "visibleAtlasImages": 1
+      "visibleAtlasImages": 4
     },
     {
       "renderer": "canvas",
@@ -174,7 +174,7 @@
       "renderer": "canvas",
       "page": "effects-c",
       "errors": 0,
-      "visibleAtlasImages": 77
+      "visibleAtlasImages": 66
     }
   ],
   "seasonal": [

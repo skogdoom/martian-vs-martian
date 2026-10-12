@@ -33,9 +33,10 @@ hidden in cartoon mode. A separate foreground fence layer puts landed animals
 behind the rails, and remains part of the frozen round-result view. Classic
 scenery and instructions retain their original presentation.
 
-The title uses the stacked logo isolated from the reattached inspiration image,
-including the yellow lightning burst and author credit. It retains its aspect
-ratio and fits above the menu in the space previously used by the instructions.
+The title uses the stacked logo based on the corrected inspiration image, with
+both the red and blue words spelled **MARTIAN**, the yellow lightning burst and
+author credit. It retains its aspect ratio and fits above the menu in the space
+previously used by the instructions.
 
 ## Coverage
 
