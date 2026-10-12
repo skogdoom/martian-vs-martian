@@ -7,14 +7,17 @@ from check_primitives import preservation
 ROOT=Path(__file__).resolve().parents[2]
 INIT="""(()=>{window.AudioContext=undefined;window.webkitAudioContext=undefined;Date.now=()=>1790000000123;let seed=12345;window.__resetCosmetics=()=>seed=12345;Math.random=()=>{seed=(seed+0x6d2b79f5)>>>0;let t=Math.imul(seed^(seed>>>15),seed|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};crypto.getRandomValues=a=>{for(let i=0;i<a.length;i++)a[i]=12345;return a;};})();"""
 def main():
- p=argparse.ArgumentParser();p.add_argument('--base-url',default='http://127.0.0.1:5174/');p.add_argument('--fixture-url');p.add_argument('--output',type=Path);p.add_argument('--seconds',type=int,default=60);p.add_argument('--warmup',type=int,default=5);p.add_argument('--repeats',type=int,default=3);p.add_argument('--profiles',nargs='+',default=['ordinary','crowded','stress','animal-rain','snow','fireworks']);p.add_argument('--engines',nargs='+',default=['pixi','phaser']);p.add_argument('--dpr',type=int,default=1);p.add_argument('--browser',default=which('chromium'));p.add_argument('--software-gpu',action='store_true');p.add_argument('--resume',action='store_true',help='Keep complete samples with matching runtime and settings')
+ p=argparse.ArgumentParser();p.add_argument('--base-url',default='http://127.0.0.1:5174/');p.add_argument('--fixture-url');p.add_argument('--runtime-source-dir',type=Path,help='Source snapshot matching the served production build; defaults to checkout');p.add_argument('--output',type=Path);p.add_argument('--seconds',type=int,default=60);p.add_argument('--warmup',type=int,default=5);p.add_argument('--repeats',type=int,default=3);p.add_argument('--profiles',nargs='+',default=['ordinary','crowded','stress','animal-rain','snow','fireworks']);p.add_argument('--engines',nargs='+',default=['pixi','phaser']);p.add_argument('--dpr',type=int,default=1);p.add_argument('--browser',default=which('chromium'));p.add_argument('--software-gpu',action='store_true');p.add_argument('--resume',action='store_true',help='Keep complete samples with matching runtime and settings')
  args=p.parse_args();out=args.output or Path(tempfile.mkdtemp(prefix='martian-performance-'));out.mkdir(parents=True,exist_ok=True)
  if out.resolve().is_relative_to(ROOT/'baselines/pixi'):raise ValueError('Frozen references cannot be overwritten')
  if min(args.seconds,args.repeats,args.dpr)<1:raise ValueError('Positive samples/duration/DPR required')
+ runtime_root=args.runtime_source_dir or ROOT
+ if not (runtime_root/'src').is_dir():raise ValueError('Runtime source snapshot must contain src/')
  configuration={'base_url':args.base_url.rstrip('/'),'fixture_url':(args.fixture_url or args.base_url).rstrip('/'),'seconds':args.seconds,'warmup':args.warmup,'repeats':args.repeats,'profiles':args.profiles,'engines':args.engines,'dpr':args.dpr,'software_gpu':args.software_gpu}
+ if args.runtime_source_dir:configuration['runtime_source_dir']=str(args.runtime_source_dir.resolve())
  timed=(ROOT/'scripts/phaser/performance.js').read_text().split('export async function measure',1)[1]
  timing_hash=hashlib.sha256((INIT+timed).encode()).hexdigest()
- report={'configuration':configuration,'timing_helper_sha256':timing_hash,'complete':False,'preservation':preservation(),'samples':[],'runtime_source_sha256':{str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted((ROOT/'src').rglob('*.js'))}}
+ report={'configuration':configuration,'timing_helper_sha256':timing_hash,'complete':False,'preservation':preservation(),'samples':[],'runtime_source_sha256':{str(f.relative_to(runtime_root)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted((runtime_root/'src').rglob('*.js'))}}
  if args.resume and (out/'performance.json').exists():
   prior=json.loads((out/'performance.json').read_text())
   assert prior['configuration']==configuration,'Settings changed; choose a new output directory'

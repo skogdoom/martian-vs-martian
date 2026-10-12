@@ -51,7 +51,8 @@ SETUP = r"""() => {
     const count=n=>1+(n.list??[]).reduce((sum,c)=>sum+count(c),0);
     return {objects:count(__game.game.root),display:__game.game.sys.displayList.length,
       updates:__game.game.sys.updateList.getActive().length,textures:__game.app.textures.getTextureKeys().length,
-      gpu:__game.app.renderer.glTextureWrappers?.length??0,store:__game.game.presentation.stats,
+      gpu:__game.app.renderer.glTextureWrappers?.length??0,
+      programs:__game.app.renderer.glProgramWrappers?.length??0,vaos:__game.app.renderer.glVAOWrappers?.length??0,store:__game.game.presentation.stats,
       input:__game.input.inputStats(),fullscreen:__game.fullscreen.fullscreenStats(),
       listeners:__listeners.filter(row=>['keydown','keyup','blur','fullscreenchange','webkitfullscreenchange'].includes(row.type)).length};
   };

@@ -16,8 +16,9 @@ def main():
   browser=p.chromium.launch(executable_path=which('chromium'),args=['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
   for renderer,dpr in [('auto',1),('canvas',1),('auto',2),('canvas',2)]:
    context=browser.new_context(viewport={'width':1280,'height':720},device_scale_factor=dpr);page,errors=open_page(context,args.base_url,renderer)
+   shaders=page.evaluate("async()=>{const m=await import('/scripts/phaser/shader_checks.js');return m.checkRenderPrograms(__game.game,__draw);}")
    cache=page.evaluate("async()=>{const m=await import('/scripts/phaser/cache_checks.js');return m.checkCache(__game.game);}")
-   row={'renderer':renderer,'dpr':dpr,'cache':cache}
+   row={'renderer':renderer,'dpr':dpr,'cache':cache,'shaders':shaders}
    if renderer=='auto':
     page.evaluate('__start(2);while(__game.scene.round.phase==="countdown")__tick();__game.scene.round.world.animals[0].onFire=true;__press("Space");__draw()');before=page.screenshot();snapshot=page.evaluate('__snapshot()')
     page.evaluate("window.__restore=__game.app.renderer.gl.getExtension('WEBGL_lose_context');__restore.loseContext()")

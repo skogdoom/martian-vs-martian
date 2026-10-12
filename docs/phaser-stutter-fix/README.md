@@ -1,5 +1,9 @@
 # Safari movement stutter follow-up
 
+The later [simultaneous-event follow-up](../phaser-shader-warmup/README.md) prepares
+shader variants at startup. The reports below remain evidence for this earlier
+implementation and its recorded source fingerprints.
+
 The report was ordinary-play micro stutters, most visible on moving saucers in
 Safari on an M1 MacBook Air. This patch removes verified rendering/allocation
 bursts. Cloud measurements show improvement, but do not establish complete

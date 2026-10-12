@@ -166,6 +166,10 @@ Three matched production repeats show ordinary p95 CPU 7.4 → 5.4 ms and p99
 and graphics remain preserved. Actual M1 Safari elimination is not established;
 retest instructions and explicit limitations are in
 [the stutter review notes](docs/phaser-stutter-fix/README.md).
+A subsequent [simultaneous-event fix](docs/phaser-shader-warmup/README.md) prepares
+Phaser shader variants at startup, removing new program compilation from the
+three tested combined-workload runs. Its cloud p99 CPU improves 108.8 → 27.9 ms;
+physical M1 Safari acceptance and milestone 7 remain pending.
 
 ### 0. Record the preservation baseline
 

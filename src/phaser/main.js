@@ -10,7 +10,7 @@ import { createPreview } from './preview.js';
 import { createPresentation } from './presentation.js';
 import { createGallery } from './gallery.js';
 import { createArtwork } from './artwork.js';
-import { stabilizeTextureSampling } from './textureSampling.js';
+import { stabilizeTextureSampling, warmRenderPrograms } from './textureSampling.js';
 import { createTitleScene } from './scenes/title.js';
 import * as input from './input.js';
 import * as fullscreen from './fullscreen.js';
@@ -24,6 +24,7 @@ class Host extends Phaser.Scene {
     startInput();
     startFullscreen();
     stabilizeTextureSampling(this.game.renderer);
+    warmRenderPrograms(this.game.renderer);
     this.root = this.add.container();
     this.layer = this.add.container();
     this.root.add(this.layer);

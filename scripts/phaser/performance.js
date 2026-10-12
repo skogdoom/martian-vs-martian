@@ -56,12 +56,13 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
   round.timeLeft = 120;
   const world = round.world;
   const source = new URL('src/logic/', fixtureBase);
-  const [{ spawnDrop, spawnWolf, spawnGolden, spawnCrate }, { createAnimal }, { createRocket, createBomb }, { grantPower }] = await Promise.all([
-    import(new URL('world.js', source)),
-    import(new URL('animal.js', source)),
-    import(new URL('ordnance.js', source)),
-    import(new URL('powerup.js', source)),
-  ]);
+  const [{ spawnDrop, spawnWolf, spawnGolden, spawnCrate }, { createAnimal, parachute }, { createRocket, createBomb }, { grantPower }] =
+    await Promise.all([
+      import(new URL('world.js', source)),
+      import(new URL('animal.js', source)),
+      import(new URL('ordnance.js', source)),
+      import(new URL('powerup.js', source)),
+    ]);
   if (profile === 'crowded' || profile === 'stress') {
     for (let i = world.animals.length; i < 24; i++) world.animals.push(createAnimal(`stress-${i}`, i % 2 ? 'cow' : 'lamb', 250 + i * 28));
     world.animals.forEach((a, i) => Object.assign(a, { x: 230 + i * 34, onFire: profile === 'stress', golden: profile === 'stress' && i % 3 === 0 }));
@@ -85,11 +86,13 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
     Object.assign(drop, { state: 'field', y: 660, vx: 0 });
     Object.assign(world.saucers.red, { x: drop.x, y: 470, vx: 0, vy: 0 });
   }
-  const liftAnimals = profile === 'abduction' ? [world.animals[0], world.animals[1]] : null;
+  const liftAnimals = ['abduction', 'combined'].includes(profile) ? [world.animals[0], world.animals[1]] : null;
   let step = 0,
     calls = 0,
     uploads = 0,
-    readbacks = 0;
+    readbacks = 0,
+    compiles = 0;
+  const activity = { animalArrivals: 0, dropArrivals: 0, wolfArrivals: 0, crateArrivals: 0, events: {} };
   let work = { update: 0, view: 0, frame: 0, submission: 0 };
   const frames = [],
     restorers = [];
@@ -117,7 +120,26 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
         world.rockets.push(createRocket(world.saucers.red, world.saucers.blue));
         world.bombs.push(createBomb({ ...world.saucers.red, x: 1180 }));
       }
-    } else if (profile === 'abduction') {
+    } else if (profile === 'abduction' || profile === 'combined') {
+      if (profile === 'combined') {
+        key('Space', step % 30 === 0);
+        key('Enter', step % 30 === 0);
+        if (step % 240 === 0) {
+          for (let i = 0; i < 4; i++) {
+            const a = createAnimal(`combined-${world.animals.length}`, i % 2 ? 'cow' : 'lamb', 540 + i * 60);
+            parachute(a);
+            world.animals.push(a);
+            activity.animalArrivals++;
+          }
+          spawnDrop(world, ['speed', 'triple', 'shield'][Math.floor(step / 240) % 3]);
+          spawnDrop(world, 'laser', true);
+          spawnWolf(world);
+          spawnCrate(world, 'red');
+          activity.dropArrivals += 2;
+          activity.wolfArrivals++;
+          activity.crateArrivals++;
+        }
+      }
       for (const [i, side] of ['red', 'blue'].entries()) {
         const a = liftAnimals[i],
           h = world.hooks[side];
@@ -140,9 +162,21 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
     }
     step++;
     update(dt);
+    for (const e of round.events) activity.events[e.type] = (activity.events[e.type] ?? 0) + 1;
     work.update += performance.now() - start;
   };
   restorers.push(() => (scene.update = update));
+  const shaderCompilations = [];
+  if (phaser && app.renderer.gl) {
+    const factory = app.renderer.shaderProgramFactory;
+    const create = factory.createShaderProgram;
+    factory.createShaderProgram = function (...args) {
+      compiles++;
+      shaderCompilations.push({ name: args[0], atMs: performance.now() });
+      return create.apply(this, args);
+    };
+    restorers.push(() => (factory.createShaderProgram = create));
+  }
   const getPixels = CanvasRenderingContext2D.prototype.getImageData;
   CanvasRenderingContext2D.prototype.getImageData = function (...args) {
     readbacks++;
@@ -175,10 +209,10 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
   try {
     await new Promise((resolve) => {
       function sample(now) {
-        if (previous !== null && now - start >= warmupMs) frames.push({ interval: now - previous, ...work, calls, uploads, readbacks });
+        if (previous !== null && now - start >= warmupMs) frames.push({ interval: now - previous, ...work, calls, uploads, readbacks, compiles });
         previous = now;
         work = { update: 0, view: 0, frame: 0, submission: 0 };
-        calls = uploads = readbacks = 0;
+        calls = uploads = readbacks = compiles = 0;
         if (now - start < warmupMs + durationMs) requestAnimationFrame(sample);
         else resolve();
       }
@@ -198,6 +232,9 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
     warmupMs,
     fixedStepsIncludingWarmup: step,
     metadata: inspect(),
+    activity,
+    shaderCompilations: shaderCompilations.map((s) => ({ ...s, atMs: s.atMs - start })),
+    slowestFrames: [...frames].sort((a, b) => b.frame - a.frame).slice(0, 12),
     frameIntervalMs: distribution(frames.map((f) => f.interval)),
     updateCpuMs: distribution(frames.map((f) => f.update)),
     viewCpuMs: distribution(frames.map((f) => f.view)),
@@ -205,6 +242,7 @@ export async function measure({ profile = 'ordinary', durationMs = 60000, warmup
     totalCpuMs: distribution(frames.map((f) => f.frame)),
     drawCalls: distribution(frames.map((f) => f.calls)),
     uploads: distribution(frames.map((f) => f.uploads)),
+    shaderCompiles: distribution(frames.map((f) => f.compiles)),
     pixelReadbacks: distribution(frames.map((f) => f.readbacks)),
     meanFps: (frames.length * 1000) / frames.reduce((sum, f) => sum + f.interval, 0),
     framesOver33ms: frames.filter((f) => f.interval > 33.34).length,

@@ -85,6 +85,8 @@ See [the migration plan](PHASER_MIGRATION.md) and the review notes for
 performance comparison at `/scripts/phaser/benchmark.html`.
 The [Safari stutter follow-up](docs/phaser-stutter-fix/README.md) documents the
 rendering fixes, before/after measurements, and M1 retest instructions.
+The [simultaneous-event follow-up](docs/phaser-shader-warmup/README.md) addresses
+shader compilation when arrivals, shooting and pickups overlap.
 
 ## About this project
 
