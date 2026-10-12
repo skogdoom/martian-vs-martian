@@ -35,7 +35,8 @@ Both dependency packages remain installed while this comparison workflow is need
 
 The archived preparation checks below describe commit `443a163`. The later
 [native flag follow-up](../phaser-flags/README.md) changes rendering and includes
-refreshed candidate checks; its physical Safari retest remains pending.
+refreshed candidate checks. The subsequent Safari playtest and sound acceptance
+are recorded in the current table below.
 
 A clean `npm ci`, lint, all **460 tests**, both production builds and the ten-round
 simulator pass under **Node 22.23.3**. All 271 original executed test identities in
@@ -99,24 +100,30 @@ auto Canvas fallback is not described as a successful WebGL test.
 
 CI now runs on `phaser` pushes as well as master/PRs. Node 22 builds both artifacts.
 A Playwright matrix installs Chromium, Firefox and WebKit and runs the candidate
-checks, retaining reports and images as job artifacts. Jobs fail when checks fail;
-there is no continue-on-error or passing zero-case fallback.
+checks, retaining reports and images as job artifacts. The user has made browser
+compatibility advisory rather than a cutover gate. The browser job now uses
+job-level `continue-on-error`: failed checks remain failures in their logs/reports,
+but do not fail the overall workflow. The core lint/test/build job remains required.
+Assertions and required case counts remain enforced; zero-case runs do not pass.
 
 Firefox 153 and WebKit 26.5 downloads were attempted here and rejected with
 HTTP 403 **Domain forbidden** from the official Playwright download hosts. Those
 browsers did not execute in this cloud runner. The CI matrix is configured, but
 its remote results are not claimed by the saved local report. This runner covers
 production flow/input and within-engine pixel stability; it does not replace the
-full cross-browser artwork/audio and physical acceptance gates.
+full cross-browser artwork/audio checks or physical acceptance. The latest saved
+Chromium candidate report still matches all current game-source hashes. Firefox
+and WebKit are not installed here; a current attempt to retrieve GitHub Actions
+results returned `Forbidden`, so their CI outcomes remain unverified here.
 
 The cutover remains deferred until these items are reviewed:
 
 | Gate | Evidence and remaining checks | Status |
 | --- | --- | --- |
-| M1 MacBook Air performance | The user confirmed that ordinary and busy Safari gameplay now feel smooth. The [Safari retest](../phaser-flags/README.md#latest-m1-safari-retest) removes recurring uploads and reduces long frames; isolated benchmark stalls and higher typical CPU cost remain for quantitative budget review. Matched production measurements and Chrome comparison remain open against the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Partially passed: manual Safari gameplay smoothness passed |
-| Audible sound | Human listening for overlapping shots/effects, sustained lift/laser voices, unlock, mute, pause and tab return in supported browsers. | Open |
-| Physical controls | The user confirmed successful gameplay with two physical controllers and working rumble. Reconnect, Safari fullscreen behavior and intended keyboard combinations still need confirmation. | Partially passed: two-controller gameplay and rumble passed |
-| Browser compatibility | Review Firefox/WebKit CI results and complete supported-browser artwork/audio checks and manual Safari checks. | Open |
+| M1 MacBook Air performance | The user confirmed that ordinary and busy Safari gameplay now feel smooth. The [Safari retest](../phaser-flags/README.md#latest-m1-safari-retest) removes recurring uploads and reduces long frames; isolated benchmark stalls and higher typical CPU cost remain for quantitative budget review. Matched production measurements remain open against the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Partially passed: manual Safari gameplay smoothness passed |
+| Audible sound | The user confirmed that sounds seem OK during play. Automated signal/lifecycle checks remain available; broader browser and audio edge-case checks are recommended. | Passed: user listening acceptance |
+| Physical controls | The user confirmed successful gameplay with two physical controllers and working rumble. Reconnect and intended keyboard combinations still need confirmation. | Partially passed: two-controller gameplay and rumble passed |
+| Browser compatibility | Chromium automation and the user's Safari playtest provide coverage. Review Firefox/WebKit CI results, browser fullscreen/activation behavior and broader browser artwork/audio checks when available; a Chrome comparison is also useful. Unverified checks remain documented. | Recommended; not a cutover gate, by user decision |
 | Final production cutover | Switch the normal entry and remove Pixi code/dependency after earlier gates pass. Keep regression references needed for future checks. | Deferred by user decision |
 
 ## Compare the candidate on the M1

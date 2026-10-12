@@ -25,6 +25,8 @@ jobs:
 
   phaser-candidate:
     runs-on: ubuntu-latest
+    # Browser coverage is recommended, but the user made it non-blocking.
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:

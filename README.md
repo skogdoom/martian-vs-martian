@@ -88,12 +88,13 @@ rendering fixes, before/after measurements, and M1 retest instructions.
 The [simultaneous-event follow-up](docs/phaser-shader-warmup/README.md) addresses
 shader compilation when arrivals, shooting and pickups overlap.
 The [M1 report follow-up](docs/phaser-flags/README.md) identifies and removes
-recurring WebGL texture uploads from the waving flags; Safari retesting is pending.
+recurring WebGL texture uploads from the waving flags. The user's M1 Safari
+playtest now feels smooth, and manual sound and two-controller/rumble checks pass.
 
 ### Phaser-only review build
 
-Pixi remains the default until performance, sound and physical-controller
-acceptance passes. To review a production artifact containing only Phaser:
+Pixi remains the default pending review of the Phaser candidate. To play a
+production artifact containing only Phaser:
 
 ```sh
 npm run build:phaser    # writes dist-phaser/
@@ -102,7 +103,8 @@ npm run preview:phaser  # open the printed URL; no engine parameter needed
 
 The normal `build`/`preview` commands still use `dist/` and the existing selector.
 See [milestone 7 preparation](docs/phaser-candidate/README.md) for validation,
-browser CI, remaining gates and comparison instructions.
+advisory browser CI, remaining review items and comparison instructions. Browser
+compatibility is recommended rather than a cutover gate, by user decision.
 
 ## About this project
 

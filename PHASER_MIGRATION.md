@@ -134,8 +134,9 @@ and production root/subdirectory lifecycle checks retain one page context and
 drain sources after the existing laser modulation tail. All 460 tests, lint,
 build and simulator checks pass; original source/test hashes are unchanged.
 Review [the audio evidence and listening samples](docs/phaser-audio/README.md).
-**Human listening and Firefox/WebKit/Safari acceptance remain pending; the audible
-parity exit gate is not closed by automated signal checks.**
+The user subsequently confirmed that sounds seem OK during play, passing manual
+listening acceptance. Broader browser/audio edge-case checks remain recommended;
+the user has made browser compatibility non-blocking for cutover.
 
 Milestone 6 adds sequential production performance measurements, a local M1
 MacBook Air comparison runner, a real 30-minute lifecycle soak, and cache/context
@@ -187,8 +188,8 @@ one combined frame spends 245 ms inside renderer submission with no uploads or
 new shader programs, and that run has a 576 ms callback gap. The cause remains
 unresolved. The user subsequently confirmed that ordinary saucer movement and
 busy moments now feel smooth in Safari on the M1 MacBook Air. The manual Safari
-gameplay smoothness check has passed; quantitative budget review and the other
-browser checks remain open. See the
+gameplay smoothness check has passed. Quantitative budget review remains open;
+other browser checks are recommended and non-blocking. See the
 [Safari retest analysis](docs/phaser-flags/README.md#latest-m1-safari-retest).
 
 Milestone 7 preparation adds an opt-in `npm run build:phaser` artifact in
@@ -201,14 +202,18 @@ six routing cases, twelve exact candidate/selected-Phaser pixel comparisons and
 eight full scene/input cases with 80 match ownership cycles. Firefox/WebKit binary
 downloads remain blocked here; their local checks did not execute. See
 [the candidate review notes](docs/phaser-candidate/README.md) for evidence and
-commands. **Final cutover and milestone 7's exit gate remain open pending physical
-performance, audible sound, remaining control checks and browser acceptance.**
+commands. **Final cutover remains deferred while quantitative performance and
+remaining control checks are reviewed. Browser compatibility is recommended,
+not a cutover gate, by user decision.**
 
 The user confirmed successful gameplay with two physical controllers and working
-rumble. Those manual checks have passed. Controller reconnect, Safari fullscreen
-behavior and intended keyboard combinations remain unconfirmed; the physical
-controls gate is partially passed. Performance and audible sound acceptance remain
-open, and Pixi remains the default until the remaining gates pass.
+rumble. Those manual checks have passed. Controller reconnect and intended keyboard
+combinations remain unconfirmed; the physical controls gate is partially passed.
+The user also confirmed that sounds seem OK,
+passing manual sound acceptance. Quantitative performance review remains open;
+Pixi remains the default pending cutover.
+Safari fullscreen and other browser-specific behavior remain recommended checks
+under the user's non-blocking browser-compatibility decision.
 
 ### 0. Record the preservation baseline
 
@@ -475,17 +480,22 @@ lockfile, temporary comparison entry, documentation, and CI browser checks.
   generated graphics, playable flow, and browser console failures. Preserve
   `base: './'` and GitHub Pages deployment. Run Node 22 CI checks as well as the
   cloud runtime checks, and verify browser checks execute actual test cases.
-- Complete Chromium/Firefox/WebKit coverage, plus manual Safari/fullscreen,
-  real-controller/rumble, audible sound, and keyboard-ghosting checks where
-  automation cannot faithfully cover them. Keep the keyboard/controller-required
-  touch notice. Report unsupported capabilities separately from failed checks.
+- Run recommended, non-blocking Chromium/Firefox/WebKit coverage, including manual
+  Safari/fullscreen and browser-specific artwork/audio checks. Retain physical
+  controller/rumble, audible sound and keyboard-ghosting checks where automation
+  cannot faithfully cover them. Keep the keyboard/controller-required touch
+  notice. Report unsupported capabilities separately from failed checks.
+  Browser compatibility is an advisory review item by user decision, rather than
+  a requirement to close the cutover gate. Keep reports and failures visible; the
+  browser CI matrix is advisory, while core lint/test/build checks remain required.
 - Update README runtime/architecture information and development commands as
   needed. Keep graphics procedural and sounds synthesized; add no runtime CDN or
   external service dependency. Retain `window.__game` debugging access or document
   its deliberate replacement.
 
 **Exit gate:** Phaser-only build; all original tests retained and passing; logic,
-visual, control, audio, browser, performance, lifecycle, and hosting gates passed.
+visual, control, audio, performance, lifecycle, and hosting gates passed. Browser
+compatibility checks are recommended and recorded, but do not block this gate.
 No skipped required gate can be described as parity. Migration work can be split
 into one reviewable commit/PR per milestone; publishing remains a separate action.
 

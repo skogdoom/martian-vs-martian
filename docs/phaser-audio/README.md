@@ -112,17 +112,21 @@ require roughly 30 seconds after the last laser start. Scene trace tests control
 the audio clock to make throttling deterministic; lifecycle/unlock checks use real
 context time and state. Instrumentation is loaded only by the harness.
 
-## Manual acceptance still required
+## Manual acceptance and recommended follow-ups
 
-Cloud automation establishes signals and lifecycle behavior; human listening on
-supported browsers and physical output devices remains necessary to close the
-milestone's audible-parity gate. Listen for retained timbre, clean sustained-voice
+The user subsequently confirmed that sounds seem OK during play. **Manual sound
+acceptance has passed.** Cloud automation establishes signals and lifecycle
+behavior; the listening checklist remains useful for broader verification.
+Listen for retained timbre, clean sustained-voice
 interruptions, overlapping bursts, mute/pause transitions, and tab/device return.
 Check controller-only startup in a fresh browser session with no prior gesture,
 then unlock with a key or click. Check Safari's interrupted-context recovery and
 Firefox/WebKit behavior; those browsers remain unverified under the existing cloud
-limitation. Physical controller/rumble acceptance from milestone 4 remains pending.
+limitation. Browser compatibility is now recommended rather than a cutover gate,
+by user decision. Two-controller gameplay and rumble have also passed the user's
+manual playtest; further control edge cases remain unconfirmed.
 
-Milestones 6 and 7 have not started. Performance budgets, long-session audio/node
-plateaus, the 30-minute soak, and production cutover remain later work. Stop here
-for review and listening acceptance.
+The automated evidence above describes milestone 5. Subsequent performance,
+lifecycle and candidate work is recorded in the [migration plan](../../PHASER_MIGRATION.md)
+and [current acceptance table](../phaser-candidate/README.md). Pixi remains the
+default pending cutover; browser compatibility no longer blocks that step.

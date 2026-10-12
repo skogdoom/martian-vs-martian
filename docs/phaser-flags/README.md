@@ -100,11 +100,11 @@ smoothness check has passed.** This confirms the perceived improvement during
 play; the recorded benchmark exceptions remain available for budget review.
 
 Quantitative performance acceptance remains open: the benchmark has occasional
-gaps, typical
-Phaser CPU cost still exceeds Pixi's, and the report retains the development/Pixi
-versus production/Phaser comparison and workload/timing limitations described
-above. Matched production measurements, the comparison budget and supported-browser
-coverage still need review. The user's two-controller and
+gaps, typical Phaser CPU cost still exceeds Pixi's, and the report retains the
+development/Pixi versus production/Phaser comparison and workload/timing limitations described
+above. Matched production measurements and the comparison budget still need review.
+Browser compatibility remains recommended, but is not a cutover gate by user
+decision. The user's two-controller and
 rumble acceptance remains passed in the [current gate table](../phaser-candidate/README.md).
 
 ## Verified source of recurring uploads
