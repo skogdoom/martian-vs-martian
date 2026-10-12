@@ -86,18 +86,25 @@ measure elapsed time inside calls: blocking, garbage collection or descheduling
 can contribute, alongside JavaScript and driver work. They do not measure physical
 GPU execution or identify a particular WebGL call.
 
-The next diagnostic target is the renderer-submission stall. A Safari performance
+The renderer-submission stall remains a diagnostic target if slowdowns recur or
+the quantitative budget review needs more evidence. A Safari performance
 trace during a busy-play slowdown, or a separate diagnostic capture of unusually
 slow WebGL calls and their enclosing renderer stages, would help distinguish
 renderer JavaScript from blocking driver/browser work. Profiling should be kept
 separate from the normal comparison because instrumentation adds overhead. This
 report alone does not justify a speculative rendering change.
 
-Performance acceptance remains open: ordinary play has occasional gaps, typical
+The user subsequently confirmed that ordinary saucer movement and busy moments
+now feel smooth in Safari on the M1 MacBook Air. **The manual Safari gameplay
+smoothness check has passed.** This confirms the perceived improvement during
+play; the recorded benchmark exceptions remain available for budget review.
+
+Quantitative performance acceptance remains open: the benchmark has occasional
+gaps, typical
 Phaser CPU cost still exceeds Pixi's, and the report retains the development/Pixi
 versus production/Phaser comparison and workload/timing limitations described
-above. Physical gameplay smoothness, matched production measurements and the
-supported-browser comparison still need review. The user's two-controller and
+above. Matched production measurements, the comparison budget and supported-browser
+coverage still need review. The user's two-controller and
 rumble acceptance remains passed in the [current gate table](../phaser-candidate/README.md).
 
 ## Verified source of recurring uploads

@@ -185,7 +185,10 @@ three samples each. Phaser averages 59.93 fps ordinary and 59.55 fps combined.
 Its median p95 CPU remains 4/6 ms versus Pixi's 3/5 ms. Isolated stalls remain:
 one combined frame spends 245 ms inside renderer submission with no uploads or
 new shader programs, and that run has a 576 ms callback gap. The cause remains
-unresolved; physical performance acceptance is still open. See the
+unresolved. The user subsequently confirmed that ordinary saucer movement and
+busy moments now feel smooth in Safari on the M1 MacBook Air. The manual Safari
+gameplay smoothness check has passed; quantitative budget review and the other
+browser checks remain open. See the
 [Safari retest analysis](docs/phaser-flags/README.md#latest-m1-safari-retest).
 
 Milestone 7 preparation adds an opt-in `npm run build:phaser` artifact in

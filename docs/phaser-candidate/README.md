@@ -113,7 +113,7 @@ The cutover remains deferred until these items are reviewed:
 
 | Gate | Evidence and remaining checks | Status |
 | --- | --- | --- |
-| M1 MacBook Air performance | The [Safari retest](../phaser-flags/README.md#latest-m1-safari-retest) removes recurring uploads and reduces long frames, but isolated stalls and higher typical CPU cost remain. Review gameplay smoothness, matched production measurements and Chrome comparison against the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Open |
+| M1 MacBook Air performance | The user confirmed that ordinary and busy Safari gameplay now feel smooth. The [Safari retest](../phaser-flags/README.md#latest-m1-safari-retest) removes recurring uploads and reduces long frames; isolated benchmark stalls and higher typical CPU cost remain for quantitative budget review. Matched production measurements and Chrome comparison remain open against the plan's 60 fps / 16.7 ms p95 / 10% regression targets. rAF is callback timing, not physical scanout. | Partially passed: manual Safari gameplay smoothness passed |
 | Audible sound | Human listening for overlapping shots/effects, sustained lift/laser voices, unlock, mute, pause and tab return in supported browsers. | Open |
 | Physical controls | The user confirmed successful gameplay with two physical controllers and working rumble. Reconnect, Safari fullscreen behavior and intended keyboard combinations still need confirmation. | Partially passed: two-controller gameplay and rumble passed |
 | Browser compatibility | Review Firefox/WebKit CI results and complete supported-browser artwork/audio checks and manual Safari checks. | Open |
