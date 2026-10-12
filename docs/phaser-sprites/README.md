@@ -34,6 +34,9 @@ behind the rails, and remains part of the frozen round-result view. Classic
 scenery and instructions retain their original presentation.
 Halloween pumpkins are centered over the illustrated inner fence posts rather
 than the pen boundaries. Their positions mirror each other across the arena.
+Christmas trees sit entirely outside the pens, on the field side of each gate,
+and render after the foreground fences. On December 24 and 25, the moon wears a
+hat centered on its white brim and has the same smiling face as classic mode.
 
 The title uses the stacked logo based on the corrected inspiration image, with
 both the red and blue words spelled **MARTIAN**, the yellow lightning burst and
@@ -95,6 +98,10 @@ The checks below are recorded in adjacent JSON evidence files:
   the version in both graphics modes (`moon-review.json`).
 - Focused Halloween placement checks pass on the title screen and during play
   in both renderers (`pumpkin-review.json`); build and lint pass for this revision.
+- Christmas checks cover December 24/25 and the adjacent dates in both renderers,
+  on the title screen and during play. Trees remain outside the pens and in front
+  of the fences; hat alignment and visible smile pixels pass. Paused style
+  switches preserve round state and input subscriptions (`christmas-review.json`).
 
 Run the relevant checks with Playwright and the existing Python requirements:
 
@@ -122,3 +129,5 @@ and its rare benchmark outliers remain documented in the cutover notes.
 ![Cartoon gameplay](play.png)
 
 ![Halloween title](halloween.png)
+
+![Christmas title](christmas.png)

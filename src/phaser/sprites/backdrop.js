@@ -3,7 +3,7 @@ import { PAD, menuLift, layout } from '../../layout.js';
 import { createRng } from '../../logic/rng.js';
 import { occasion } from '../../occasion.js';
 import { createSnow, createFireworks } from '../render/festive.js';
-import { MOON_PHASES, MOON_AT, moonLitOutline } from '../render/backdrop.js';
+import { MOON_PHASES, MOON_AT, moonLitOutline, drawMoonSmile } from '../render/backdrop.js';
 
 const GROUND = ARENA.groundY;
 const FENCE_WIDTH = 90;
@@ -46,6 +46,12 @@ function cartoonMoon(art, phase) {
   lit.name = 'cartoon-moon-lit';
   if (occasion === 'halloween') art.tint(lit, 0xffb15c);
   art.add(view, atmosphere, lit);
+  if (occasion === 'christmas') {
+    const face = art.graphics();
+    face.name = 'moon-smile';
+    drawMoonSmile(art, face);
+    art.add(view, face);
+  }
   return view;
 }
 
@@ -75,7 +81,8 @@ export function cartoonBackdrop(art, phase) {
   }
   const full = occasion === 'christmas' || occasion === 'halloween';
   const moon = occasion === 'mayTheFourth' ? sprite('battle-station', 66, 66) : cartoonMoon(art, full ? 'full' : phase);
-  const hat = occasion === 'christmas' ? sprite('santa-hat', 72, 48, 0, -42) : null;
+  // Center the white brim, excluding the pom-pom on the right of the frame.
+  const hat = occasion === 'christmas' ? sprite('santa-hat', 72, 48, 0, 0, 0.4, 1) : null;
   const land = art.container();
   const hills = sprite('hills', WIDTH, 170, 0, 620, 0, 1);
   const meadow = sprite('meadow', WIDTH, 115, 0, GROUND + 4, 0, 1);
@@ -121,7 +128,6 @@ export function cartoonBackdrop(art, phase) {
       lanterns.push(lantern);
       art.add(land, lantern);
     }
-    if (occasion === 'christmas') art.add(land, sprite('christmas-tree', 50, 64, side === 'red' ? 155 : 1125, GROUND - 3, 0.5, 1));
   }
   const snow = occasion === 'christmas' ? createSnow(art) : null;
   const fireworks = occasion === 'newYearsEve' ? createFireworks(art) : null;
@@ -142,7 +148,7 @@ export function cartoonBackdrop(art, phase) {
     tick(t) {
       starGroups.forEach((g, i) => (g.alpha = 0.65 + 0.35 * Math.sin(t * (1.3 + i * 0.4) + i * 2.1)));
       moon.setPosition(MOON_AT.x, MOON_AT.y + menuLift());
-      hat?.setPosition(moon.x, moon.y - 41);
+      hat?.setPosition(moon.x, moon.y - 20);
       // Transform the already painted flag/ribbon: zero geometry or uploads.
       flags.forEach((flag, i) => (flag.rotation = Math.sin(t * 5 + i) * 0.018));
       lanterns.forEach((l) => (l.alpha = 0.8 + 0.15 * Math.sin(t * 11)));
@@ -161,6 +167,16 @@ export function cartoonPenForeground(art) {
       const fence = art.sprites.sprite('fence', FENCE_WIDTH, FENCE_HEIGHT, x, GROUND, 0, 1);
       fence.name = `front-fence-${side}`;
       art.add(view, fence);
+    }
+  }
+  if (occasion === 'christmas') {
+    // Keep the whole tree outside the pen, on the field side of its gate.
+    // Adding it after the fences keeps the lower branches visible too.
+    const width = 50;
+    for (const side of ['red', 'blue']) {
+      const { left, right } = ARENA.pens[side];
+      const x = side === 'red' ? right + width / 2 + 10 : left - width / 2 - 10;
+      art.add(view, art.sprites.sprite('christmas-tree', width, 64, x, GROUND + 8, 0.5, 1));
     }
   }
   return { view };
