@@ -3,8 +3,47 @@ import { PAD, menuLift, layout } from '../../layout.js';
 import { createRng } from '../../logic/rng.js';
 import { occasion } from '../../occasion.js';
 import { createSnow, createFireworks } from '../render/festive.js';
+import { MOON_PHASES, MOON_AT, moonLitOutline } from '../render/backdrop.js';
 
 const GROUND = ARENA.groundY;
+
+function cartoonMoon(art, phase) {
+  const view = art.container();
+  view.name = 'cartoon-moon';
+  const glow = (1 + MOON_PHASES[phase].bulge) / 2;
+  const haze = occasion === 'halloween' ? 0xffb35c : 0xfff6d8;
+  const atmosphere = art.graphics((draw) =>
+    draw
+      .circle(0, 0, 60, { fill: haze, alpha: 0.02 + 0.04 * glow })
+      .circle(0, 0, 44, { fill: haze, alpha: 0.03 + 0.05 * glow })
+      .circle(0, 0, 32, { fill: 0x2b3150, alpha: 0.9 }),
+  );
+  // A trimmed phase frame is narrower than the full disk. Clip the full-moon
+  // artwork instead of stretching each phase to a square or centering its lit
+  // half. Bake once per view; movement never repaints or uploads the texture.
+  const source = art.sprites.sprite('moon-full', 64, 64);
+  const frame = source.frame;
+  const points = moonLitOutline(phase, 32, 64);
+  const lit = art.scope.bitmap(
+    { x: -32, y: -32, width: 64, height: 64 },
+    (ctx) => {
+      ctx.beginPath();
+      ctx.moveTo(points[0], points[1]);
+      for (let i = 2; i < points.length; i += 2) ctx.lineTo(points[i], points[i + 1]);
+      ctx.closePath();
+      ctx.clip();
+      // Slightly overscan the source to keep its heavy outline outside the
+      // moon's circular limb and away from the phase terminator.
+      ctx.drawImage(frame.source.image, frame.cutX, frame.cutY, frame.cutWidth, frame.cutHeight, -34, -34, 68, 68);
+    },
+    { resolution: 4, cacheKey: `cartoon-moon-${phase}`, imageSmoothingQuality: 'high' },
+  );
+  source.destroy();
+  lit.name = 'cartoon-moon-lit';
+  if (occasion === 'halloween') art.tint(lit, 0xffb15c);
+  art.add(view, atmosphere, lit);
+  return view;
+}
 
 export function cartoonBackdrop(art, phase) {
   const { sprite } = art.sprites;
@@ -31,8 +70,7 @@ export function cartoonBackdrop(art, phase) {
     art.add(starGroups[i % 3], sprite('fx-spark', size, size, x, y).setAlpha(0.5 + rng() * 0.5));
   }
   const full = occasion === 'christmas' || occasion === 'halloween';
-  const moon = sprite(occasion === 'mayTheFourth' ? 'battle-station' : `moon-${full ? 'full' : phase}`, 66, 66);
-  if (occasion === 'halloween') art.tint(moon, 0xffb15c);
+  const moon = occasion === 'mayTheFourth' ? sprite('battle-station', 66, 66) : cartoonMoon(art, full ? 'full' : phase);
   const hat = occasion === 'christmas' ? sprite('santa-hat', 72, 48, 0, -42) : null;
   const land = art.container();
   const hills = sprite('hills', WIDTH, 170, 0, 620, 0, 1);
@@ -98,7 +136,7 @@ export function cartoonBackdrop(art, phase) {
     view,
     tick(t) {
       starGroups.forEach((g, i) => (g.alpha = 0.65 + 0.35 * Math.sin(t * (1.3 + i * 0.4) + i * 2.1)));
-      moon.setPosition(1002, 188 + menuLift());
+      moon.setPosition(MOON_AT.x, MOON_AT.y + menuLift());
       hat?.setPosition(moon.x, moon.y - 41);
       // Transform the already painted flag/ribbon: zero geometry or uploads.
       flags.forEach((flag, i) => (flag.rotation = Math.sin(t * 5 + i) * 0.018));

@@ -37,6 +37,11 @@ The title uses the stacked logo based on the corrected inspiration image, with
 both the red and blue words spelled **MARTIAN**, the yellow lightning burst and
 author credit. It retains its aspect ratio and fits above the menu in the space
 previously used by the instructions.
+The version is right-aligned above the logo. Cartoon moons use the classic
+64-pixel circular disk and phase geometry, with a faint dark side and two subtle
+haze layers. The full-moon atlas texture supplies the craters; it is clipped once
+when a view is created, avoiding stretched or misplaced phase sprites and any
+per-frame texture painting.
 
 ## Coverage
 
@@ -83,6 +88,9 @@ The checks below are recorded in adjacent JSON evidence files:
   six routing cases, complete match flow, mocked controllers and 80 scene cycles.
 - Texture/cache checks cover both renderers at DPR 1/2 and real WebGL context
   restoration at both densities.
+- Moon pixel checks cover all four phases in WebGL/Canvas: circular full disk,
+  the correct illuminated side and fading haze. Title placement checks cover
+  the version in both graphics modes (`moon-review.json`).
 
 Run the relevant checks with Playwright and the existing Python requirements:
 
@@ -93,6 +101,7 @@ npm run build
 python scripts/phaser/check_sprites.py --base-url http://127.0.0.1:5173/
 python scripts/phaser/check_production.py --browser-executable /usr/bin/chromium --software-gpu
 python scripts/phaser/check_resources.py --base-url http://127.0.0.1:5173/
+python scripts/phaser/check_moons.py --base-url http://127.0.0.1:5173/
 ```
 
 These automated checks use Chromium and a software GPU. They establish asset
