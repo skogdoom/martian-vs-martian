@@ -178,8 +178,15 @@ in combined play across three samples each. A [flag rendering follow-up](docs/ph
 traces two recurring texture uploads per ordinary frame to the waving flags and
 switches those changing polygons to native WebGL Graphics. The rendered control
 probe drops 240 uploads to zero over 120 ordinary frames (480 to zero for midsummer
-ribbons), preserving the Canvas path and original geometry. Physical Safari
-retesting remains pending; the report's largest 658 ms gap is not fully diagnosed.
+ribbons), preserving the Canvas path and original geometry. A second saved Safari
+report shows median uploads falling from two to zero, ordinary callbacks over
+33.34 ms falling from 22 to 3, and combined callbacks falling from 44 to 14 across
+three samples each. Phaser averages 59.93 fps ordinary and 59.55 fps combined.
+Its median p95 CPU remains 4/6 ms versus Pixi's 3/5 ms. Isolated stalls remain:
+one combined frame spends 245 ms inside renderer submission with no uploads or
+new shader programs, and that run has a 576 ms callback gap. The cause remains
+unresolved; physical performance acceptance is still open. See the
+[Safari retest analysis](docs/phaser-flags/README.md#latest-m1-safari-retest).
 
 Milestone 7 preparation adds an opt-in `npm run build:phaser` artifact in
 `dist-phaser/`, a module-graph check rejecting Pixi runtime code, production

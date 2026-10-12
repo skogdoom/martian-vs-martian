@@ -2,9 +2,10 @@
 
 The saved [M1 Safari report](m1-safari-before.json) confirms that shader preparation
 removed new program compilation during these runs, but frame pacing still trails
-Pixi. These are **before-fix** physical-device results; no M1 results for the flag
-change have been collected. Pixi remains the default and all acceptance gates
-remain open.
+Pixi. These are **before-fix** physical-device results. The
+[latest Safari retest](#latest-m1-safari-retest) shows fewer long frames and removal
+of the recurring uploads, with isolated stalls remaining. Pixi remains the default
+pending the remaining acceptance checks.
 
 ## What the supplied report shows
 
@@ -42,6 +43,63 @@ collision/event histories and some different fixed-step totals. Both engines
 run in fixed Pixi-then-Phaser order. Those limits matter for the plan's 10% comparison
 gate; this report does not close performance acceptance.
 
+## Latest M1 Safari retest
+
+The second supplied [Safari report](m1-safari-retest.json) is complete and has the
+same reported browser, GPU, viewport, DPR, build mode, profiles and sampling
+settings. Both reports contain three 60-second runs per engine/profile after
+five-second warmups. The [retest summary](m1-retest-summary.json) records aggregates
+and upload/archive hashes; archived JSON formatting is normalized without changing
+the supplied data. The manifest still lacks bundle hashes, so the exact tested
+commit cannot be verified. The upload and resource changes match the flag fix.
+
+| Metric | Previous Phaser | Retest Phaser | Retest Pixi |
+| --- | ---: | ---: | ---: |
+| Ordinary mean rAF fps | 59.77 | 59.93 | 60.00 |
+| Ordinary callbacks >33.34 ms, across three runs | 22 | 3 | 1 |
+| Ordinary median p95 CPU ms | 4 | 4 | 3 |
+| Combined mean rAF fps | 58.82 | 59.55 | 59.81 |
+| Combined callbacks >33.34 ms, across three runs | 44 | 14 | 12 |
+| Combined median p95 CPU ms | 6 | 6 | 5 |
+| Median uploads per callback, both profiles | 2 | 0 | 0 |
+
+The recurring uploads are gone in all six Phaser runs: ordinary p50/p95 uploads
+are zero, while combined p50 is zero and p95 is 1–2. Ordinary callbacks over
+33.34 ms fall by about 86%, and combined callbacks by about 68%. Phaser's measured
+view p95 falls from 2 ms to approximately 1 ms in both profiles. Its frame p95
+remains 4/6 ms, and p99 remains 5/8 ms. All Phaser runs record zero new shader
+programs. These are observed differences between sessions, not a controlled proof
+that every timing change comes from the patch.
+
+Ordinary Phaser runs 1 and 2 each reach approximately 60 fps with zero callbacks
+over 33.34 ms. Run 3 reaches 59.80 fps with three such callbacks and a maximum gap
+of 176 ms. Combined runs reach 59.93, 59.13 and 59.58 fps, with 2, 7 and 5 long
+callbacks respectively. The improvements do not establish elimination of stalls.
+
+Combined Phaser run 2 contains a measured frame of approximately 248 ms, including
+245 ms inside renderer submission, with zero texture uploads, pixel readbacks or
+new shader programs in that frame. Its recorded update and view work are about
+1 ms each. The same run has a largest callback gap of 576 ms. The slowest-frame
+array is sorted by frame duration, so it does not establish the ordering of those
+events or show that the 245 ms submission fully explains the gap. These timers
+measure elapsed time inside calls: blocking, garbage collection or descheduling
+can contribute, alongside JavaScript and driver work. They do not measure physical
+GPU execution or identify a particular WebGL call.
+
+The next diagnostic target is the renderer-submission stall. A Safari performance
+trace during a busy-play slowdown, or a separate diagnostic capture of unusually
+slow WebGL calls and their enclosing renderer stages, would help distinguish
+renderer JavaScript from blocking driver/browser work. Profiling should be kept
+separate from the normal comparison because instrumentation adds overhead. This
+report alone does not justify a speculative rendering change.
+
+Performance acceptance remains open: ordinary play has occasional gaps, typical
+Phaser CPU cost still exceeds Pixi's, and the report retains the development/Pixi
+versus production/Phaser comparison and workload/timing limitations described
+above. Physical gameplay smoothness, matched production measurements and the
+supported-browser comparison still need review. The user's two-controller and
+rumble acceptance remains passed in the [current gate table](../phaser-candidate/README.md).
+
 ## Verified source of recurring uploads
 
 An instrumented copy of the preceding production candidate traces the two ordinary
@@ -66,7 +124,8 @@ production bundles at DPR 2, with no upload batching:
 
 The change trades texture allocation/rasterization/upload for two additional
 native draw calls per scenery frame. It addresses confirmed recurring work, but
-does not establish how much Safari frame pacing improves. These are Chromium
+the cloud probe does not measure the Safari pacing improvements reported above.
+These are Chromium
 154/ANGLE SwiftShader allocation checks, not M1 performance measurements.
 [The raw control probe](production-probe.json) identifies both source snapshots
 and bundle hashes.
