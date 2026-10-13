@@ -3,7 +3,10 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [master]
+    branches: [master, phaser]
+
+permissions:
+  contents: read
 
 jobs:
   check:
@@ -18,3 +21,36 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+
+  phaser-candidate:
+    runs-on: ubuntu-latest
+    # Browser coverage is recommended, but the user made it non-blocking.
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: python -m pip install -r scripts/phaser/requirements.txt
+      - run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - run: npm run build
+      - name: Check the default Phaser production build
+        run: >-
+          python scripts/phaser/check_production.py
+          --browser-engine ${{ matrix.browser }} --software-gpu
+          --output candidate-checks
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phaser-candidate-${{ matrix.browser }}
+          path: candidate-checks
+          if-no-files-found: warn

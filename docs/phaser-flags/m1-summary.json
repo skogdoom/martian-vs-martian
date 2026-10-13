@@ -1,0 +1,69 @@
+{
+  "user_reported_device": "M1 MacBook Air",
+  "buildMode": "pixi-development-phaser-candidate",
+  "module_graph_matches_saved_candidate": true,
+  "rows": [
+    {
+      "profile": "ordinary",
+      "engine": "pixi",
+      "runs": 3,
+      "mean_raf_fps": 59.99944451294503,
+      "median_p95_cpu_ms": 3,
+      "median_p99_cpu_ms": 4,
+      "callbacks_over_33_34_ms": 1,
+      "callbacks_measured": 10802,
+      "largest_callback_interval_ms": 34,
+      "largest_recorded_cpu_frame_ms": 16,
+      "p50_uploads_by_run": [0, 0, 0],
+      "p95_uploads_by_run": [0, 0, 0],
+      "new_programs_by_run": [0, 0, 0]
+    },
+    {
+      "profile": "ordinary",
+      "engine": "phaser",
+      "runs": 3,
+      "mean_raf_fps": 59.766066288623406,
+      "median_p95_cpu_ms": 4.000000000007276,
+      "median_p99_cpu_ms": 5.000000000003638,
+      "callbacks_over_33_34_ms": 22,
+      "callbacks_measured": 10761,
+      "largest_callback_interval_ms": 87,
+      "largest_recorded_cpu_frame_ms": 22,
+      "p50_uploads_by_run": [2, 2, 2],
+      "p95_uploads_by_run": [2, 2, 2],
+      "new_programs_by_run": [0, 0, 0]
+    },
+    {
+      "profile": "combined",
+      "engine": "pixi",
+      "runs": 3,
+      "mean_raf_fps": 59.76573583326898,
+      "median_p95_cpu_ms": 5,
+      "median_p99_cpu_ms": 7.000000000007276,
+      "callbacks_over_33_34_ms": 16,
+      "callbacks_measured": 10761,
+      "largest_callback_interval_ms": 146,
+      "largest_recorded_cpu_frame_ms": 41,
+      "p50_uploads_by_run": [0, 0, 0],
+      "p95_uploads_by_run": [1, 1, 1],
+      "new_programs_by_run": [0, 0, 0]
+    },
+    {
+      "profile": "combined",
+      "engine": "phaser",
+      "runs": 3,
+      "mean_raf_fps": 58.822222592487684,
+      "median_p95_cpu_ms": 6,
+      "median_p99_cpu_ms": 8,
+      "callbacks_over_33_34_ms": 44,
+      "callbacks_measured": 10591,
+      "largest_callback_interval_ms": 658,
+      "largest_recorded_cpu_frame_ms": 34,
+      "p50_uploads_by_run": [2, 2, 2],
+      "p95_uploads_by_run": [4, 4, 4],
+      "new_programs_by_run": [0, 0, 0]
+    }
+  ],
+  "supplied_report_sha256": "926777a28e9945d2909f774d5c5bcdd15c245f244a3960249ffa572b09a388dd",
+  "archived_report_sha256": "ff35a588505f2affd49cc842f5ae959d180bf6c4953e6ab00d4311d0258afe1d"
+}

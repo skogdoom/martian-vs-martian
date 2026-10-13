@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-13",
+  "device": "M1 MacBook Air",
+  "browser": "Safari",
+  "evidence": "User confirmation in this conversation",
+  "question": "Does ordinary and busy gameplay feel smooth in both cartoon and classic graphics, including after switching styles while paused?",
+  "answer": "Already tested; both modes feel smooth",
+  "result": "passed by user confirmation",
+  "scope": ["Production-build ordinary and busy gameplay in cartoon and classic graphics", "Graphics changes while paused"],
+  "limitations": ["No new numeric M1 timing or browser-version report was supplied."]
+}

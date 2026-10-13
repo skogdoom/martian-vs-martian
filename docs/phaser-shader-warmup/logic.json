@@ -1,0 +1,40 @@
+{
+  "complete": true,
+  "preservation": {
+    "original_source_hashes_unchanged": 48,
+    "original_test_files_unchanged": 30,
+    "original_test_identities": 271
+  },
+  "cases": [
+    {
+      "players": 2,
+      "difficulty": "normal",
+      "compared_frames": 600,
+      "compared_steps": 1190,
+      "round_and_every_step_events_sha256": "431491c53813ca77f0819eac88c5eed28d78e0ec49c27c8aa6958859965ba69a"
+    },
+    {
+      "players": 1,
+      "difficulty": "easy",
+      "compared_frames": 600,
+      "compared_steps": 1190,
+      "round_and_every_step_events_sha256": "307a14e75353d76fa3a94b2e658b4e5d3a3ac3388c47c2bbe1410c10d21542cc"
+    },
+    {
+      "players": 1,
+      "difficulty": "normal",
+      "compared_frames": 600,
+      "compared_steps": 1190,
+      "round_and_every_step_events_sha256": "5e2937247844f37cee5cd4df04bdfcae8176695a148634a4d3928c576aae175f"
+    },
+    {
+      "players": 1,
+      "difficulty": "hard",
+      "compared_frames": 600,
+      "compared_steps": 1190,
+      "round_and_every_step_events_sha256": "b6db0d5b01ed4e3cee71254c413c07d4c7c32ffbfb04fd6c5cc9ad8be97d526c"
+    }
+  ],
+  "seed": 1790000000123,
+  "frames_per_trace": 600
+}

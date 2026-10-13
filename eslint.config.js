@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export default [
-  { ignores: ['dist/', 'node_modules/'] },
+  { ignores: ['dist/', 'dist-phaser/', 'node_modules/'] },
   js.configs.recommended,
   {
     languageOptions: {
@@ -17,7 +17,7 @@ export default [
     },
   },
   {
-    files: ['scripts/**', 'tests/**', 'eslint.config.js', 'vite.config.js'],
+    files: ['scripts/**', 'tests/**', 'eslint.config.js', 'vite.config.js', 'references/pixi/vite.config.js'],
     languageOptions: { globals: { ...globals.node } },
   },
 ];

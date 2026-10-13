@@ -1,0 +1,37 @@
+{
+  "checked_date": "2026-10-13",
+  "commit": "ce680f92a6b156a280cc9ce6777b99303ef22f22",
+  "run_url": "https://github.com/skogdoom/martian-vs-martian/actions/runs/38386189362",
+  "status": "completed",
+  "conclusion": "success",
+  "method": "Public GitHub Actions run/job pages; GitHub API request was Forbidden",
+  "jobs": [
+    {
+      "name": "check",
+      "status": "success",
+      "url": "https://github.com/skogdoom/martian-vs-martian/actions/runs/38386189362/job/115258456956"
+    },
+    {
+      "name": "phaser-candidate (chromium)",
+      "status": "success",
+      "production_step": "success",
+      "advisory": true,
+      "url": "https://github.com/skogdoom/martian-vs-martian/actions/runs/38386189362/job/115258457404"
+    },
+    {
+      "name": "phaser-candidate (firefox)",
+      "status": "success",
+      "production_step": "success",
+      "advisory": true,
+      "url": "https://github.com/skogdoom/martian-vs-martian/actions/runs/38386189362/job/115258457384"
+    },
+    {
+      "name": "phaser-candidate (webkit)",
+      "status": "success",
+      "production_step": "success",
+      "advisory": true,
+      "url": "https://github.com/skogdoom/martian-vs-martian/actions/runs/38386189362/job/115258457385"
+    }
+  ],
+  "scope": "This is the tested input commit; the following documentation commit triggers its own CI run. Browser jobs cover production flow/routing, not full cross-browser art/audio parity."
+}

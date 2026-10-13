@@ -1,0 +1,470 @@
+// Particles, score pop-ups and screen shake, driven by world events.
+
+import { COLORS } from './backdrop.js';
+import { label } from './text.js';
+import { ARENA } from '../../config.js';
+import { POWER_COLOR, SHIELD_COLOR } from './powerupView.js';
+import { createStyleSurface } from '../sprites/adapter.js';
+
+const other = (side) => (side === 'red' ? 'blue' : 'red');
+const rand = (art, lo, hi) => lo + art.random() * (hi - lo);
+const MAX_PARTICLES = 1500;
+const MAX_POPUPS = 12;
+const BLOOD = {
+  red: { spray: [0xd21f2a, 0xa3121c, 0xff4050, 0x6e0a12], cloud: [0xb5171f, 0xe0303a], stain: [0x7a0c14, 0xa3121c] },
+  green: { spray: [0x3fd13a, 0x1f8f1c, 0x7dff6c, 0x0f5a0e], cloud: [0x2fae2a, 0x5be852], stain: [0x145c12, 0x1f8f1c] },
+};
+
+export function createEffects(art) {
+  const view = art.container();
+  const surface = createStyleSurface(art);
+  const g = surface.view;
+  art.add(view, g);
+  const particles = [];
+  const rings = [];
+  const stains = []; // splat marks on the ground, fading out
+  const popups = [];
+  let shake = 0;
+  const hitFlash = { red: 0, blue: 0 };
+  const deflect = { red: 0, blue: 0 }; // shots bouncing off a shield
+
+  /** Spray `count` particles. `dir` biases them sideways (-1/+1), `up` upward. */
+  function burst(x, y, { count, colors, speed = [60, 240], life = [0.3, 0.7], size = [1.5, 3.5], gravity = 400, dir = 0, up = 0, shape = 'dot' }) {
+    // Many bursts at once (a cow rain, a bomb) must not pile up without end.
+    const room = Math.max(0, MAX_PARTICLES - particles.length);
+    for (let i = 0; i < Math.min(count, room); i++) {
+      let angle = rand(art, 0, Math.PI * 2);
+      if (dir) angle = (dir > 0 ? 0 : Math.PI) + rand(art, -0.9, 0.9);
+      if (up) angle = -Math.PI / 2 + rand(art, -up, up);
+      const v = rand(art, ...speed);
+      const max = rand(art, ...life);
+      particles.push({
+        x,
+        y,
+        vx: Math.cos(angle) * v,
+        vy: Math.sin(angle) * v,
+        life: max,
+        max,
+        size: rand(art, ...size),
+        color: colors[i % colors.length],
+        gravity,
+        shape,
+        spin: rand(art, 0, Math.PI),
+      });
+    }
+  }
+
+  function ring(x, y, color, radius, life = 0.35) {
+    rings.push({ x, y, color, radius, life, max: life });
+  }
+
+  function popup(text, x, y, color) {
+    if (popups.length >= MAX_POPUPS) {
+      const oldest = popups.shift();
+      oldest.t.destroy();
+    }
+    const t = label(art, text, { size: 26, color, bold: true, anchorX: 0.5, anchorY: 0.5 });
+    t.setPosition(x, y);
+    art.add(view, t);
+    popups.push({ t, life: 1.2 });
+  }
+
+  function handle(events) {
+    for (const e of events) {
+      switch (e.type) {
+        case 'shot':
+          burst(e.x, e.y, { count: 6, colors: [COLORS[e.side], 0xffffff], speed: [40, 120], life: [0.1, 0.25], gravity: 0 });
+          break;
+        case 'hit':
+          if (e.shielded) {
+            burst(e.x, e.y, {
+              count: 16,
+              colors: [0xffffff, SHIELD_COLOR],
+              dir: -e.dir,
+              speed: [120, 360],
+              life: [0.2, 0.45],
+              size: [1.5, 3],
+              gravity: 100,
+              shape: 'star',
+            });
+            ring(e.x, e.y, SHIELD_COLOR, 30, 0.25);
+            deflect[e.side] = 1;
+            shake = Math.max(shake, 2);
+            break;
+          }
+          burst(e.x, e.y, {
+            count: 34,
+            colors: [0xffffff, COLORS[other(e.side)], 0xfff3a0],
+            dir: e.dir,
+            speed: [140, 480],
+            life: [0.35, 0.8],
+            size: [2, 4.5],
+          });
+          ring(e.x, e.y, COLORS[other(e.side)], 56);
+          hitFlash[e.side] = 1;
+          shake = Math.max(shake, 7);
+          break;
+        case 'bump':
+          burst(e.x, e.y, { count: 10, colors: [0xcfd6ff, 0x8a93c0], speed: [40, 140], life: [0.2, 0.4], gravity: 0 });
+          shake = Math.max(shake, 2);
+          break;
+        case 'interrupt':
+          burst(e.x, e.y, { count: 8, colors: [COLORS[e.side]], speed: [30, 100], life: [0.2, 0.4], gravity: 0 });
+          break;
+        case 'pickup':
+          burst(e.x, e.y, { count: 12, colors: [0xffffff, COLORS[e.side]], speed: [40, 120], life: [0.3, 0.6], gravity: -60, shape: 'star' });
+          break;
+        case 'dropLanded':
+          burst(e.x, e.y, { count: 8, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
+          break;
+        case 'powerup':
+          burst(e.x, e.y - 15, {
+            count: 36,
+            colors: [POWER_COLOR, 0xffffff, 0xfff3a0],
+            speed: [80, 320],
+            life: [0.5, 1],
+            size: [2, 4],
+            gravity: -40,
+            shape: 'star',
+          });
+          ring(e.x, e.y - 15, POWER_COLOR, 80, 0.5);
+          break;
+        case 'ammoCrate':
+          burst(e.x, e.y - 15, {
+            count: 24,
+            colors: [0xd9a93a, 0xffd76a, 0xffffff],
+            speed: [80, 260],
+            life: [0.4, 0.8],
+            size: [2, 4],
+            gravity: -30,
+            shape: 'star',
+          });
+          ring(e.x, e.y - 15, 0xffd76a, 60, 0.4);
+          break;
+        case 'explosion':
+          if (e.big) {
+            burst(e.x, e.y, {
+              count: 50,
+              colors: [0xffd24a, 0xff8a3a, 0xff4a2a, 0xffffff],
+              speed: [120, 520],
+              life: [0.3, 0.9],
+              size: [2.5, 6],
+              gravity: 250,
+            });
+            burst(e.x, e.y, { count: 16, colors: [0x5a5f6a, 0x7a7f8a], speed: [30, 120], life: [0.8, 1.4], size: [5, 9], gravity: -60 });
+            ring(e.x, e.y, 0xffa53a, 110, 0.45);
+            shake = Math.max(shake, 11);
+          } else {
+            burst(e.x, e.y, { count: 16, colors: [0xffd24a, 0xff8a3a, 0x7a7f8a], speed: [60, 220], life: [0.2, 0.5], size: [2, 4], gravity: 100 });
+          }
+          break;
+        case 'rocketLaunch':
+          burst(e.x, e.y, { count: 12, colors: [0xcfd6ff, 0x8a93c0], speed: [40, 140], life: [0.3, 0.6], size: [3, 5], gravity: -40 });
+          break;
+        case 'spooked':
+          burst(e.x, e.y, { count: 12, colors: [0x7a5a3a, 0x9c7a52, 0xffffff], up: 1.2, speed: [40, 140], life: [0.3, 0.6], gravity: 300 });
+          break;
+        case 'extinguish':
+          // Put out: a puff of steam.
+          burst(e.x, e.y, {
+            count: 22,
+            colors: [0xffffff, 0xdfe6ee, 0xb8c0cc],
+            up: 0.9,
+            speed: [40, 160],
+            life: [0.5, 1.1],
+            size: [4, 8],
+            gravity: -90,
+          });
+          break;
+        case 'splat': {
+          // A cartoon cloud of blood (green for a Martian), a stain on the grass, and a "SPLAT!".
+          const blood = BLOOD[e.kind === 'greenman' ? 'green' : 'red'];
+          burst(e.x, e.y - 12, {
+            count: 60,
+            colors: blood.spray,
+            up: 1.3,
+            speed: [120, 480],
+            life: [0.5, 1.1],
+            size: [2.5, 6],
+            gravity: 900,
+          });
+          burst(e.x, e.y - 18, { count: 18, colors: blood.cloud, speed: [20, 90], life: [0.6, 1.2], size: [6, 11], gravity: -20 });
+          ring(e.x, e.y - 12, blood.spray[0], 60, 0.35);
+          stains.push({ x: e.x, w: 30 + art.random() * 20, life: 8, max: 8, blood });
+          popup('SPLAT!', e.x, e.y - 70, blood.spray[2]);
+          shake = Math.max(shake, 5);
+          break;
+        }
+        case 'chuteOpen':
+          burst(e.x, e.y - 60, { count: 10, colors: [0xffffff, 0xe5484d], speed: [30, 110], life: [0.2, 0.45], gravity: 0 });
+          break;
+        case 'greenmanGone':
+          // He blows up, green bits everywhere (no stain: it is the power-up going, not a fall).
+          burst(e.x, e.y - 18, {
+            count: 50,
+            colors: BLOOD.green.spray,
+            up: 1.6,
+            speed: [120, 420],
+            life: [0.5, 1],
+            size: [2.5, 5.5],
+            gravity: 800,
+          });
+          popup('POOF!', e.x, e.y - 70, BLOOD.green.spray[2]);
+          break;
+        case 'burst':
+          // Cow rain / lamb rain: it goes pop to make room for the new ones.
+          burst(e.x, e.y - 14, {
+            count: 40,
+            colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xffffff],
+            up: 1.4,
+            speed: [100, 420],
+            life: [0.5, 1],
+            size: [2.5, 5.5],
+            gravity: 800,
+          });
+          burst(e.x, e.y - 20, { count: 10, colors: [0xffffff, 0xf3eee2, 0x222222], speed: [30, 120], life: [0.6, 1.1], size: [5, 9], gravity: -20 });
+          ring(e.x, e.y - 14, 0xffffff, 50, 0.35);
+          stains.push({ x: e.x, w: 24 + art.random() * 16, life: 6, max: 6 });
+          popup('POP!', e.x, e.y - 70, 0xffffff);
+          shake = Math.max(shake, 4);
+          break;
+        case 'dazed':
+          popup('DAZED!', e.x, e.y - 50, 0xffe45c);
+          ring(e.x, e.y, 0xffe45c, 60, 0.4);
+          break;
+        case 'momentumLost':
+          // The shock front breaks up.
+          burst(e.x, e.y, { count: 14, colors: [0xffffff, 0xcfd6ff], speed: [60, 200], life: [0.2, 0.45], size: [1.5, 3], gravity: 0 });
+          break;
+        case 'ram':
+          if (e.shielded) {
+            burst(e.x, e.y, {
+              count: 20,
+              colors: [0xffffff, SHIELD_COLOR],
+              speed: [120, 380],
+              life: [0.2, 0.5],
+              size: [1.5, 3.5],
+              gravity: 100,
+              shape: 'star',
+            });
+            ring(e.x, e.y, SHIELD_COLOR, 50, 0.3);
+            deflect[e.victim] = 1;
+            shake = Math.max(shake, 5);
+            break;
+          }
+          burst(e.x, e.y, {
+            count: 44,
+            colors: [0xffffff, COLORS[e.side], 0xfff3a0],
+            speed: [160, 560],
+            life: [0.35, 0.8],
+            size: [2, 5],
+            gravity: 200,
+            shape: 'star',
+          });
+          burst(e.x, e.y, { count: 14, colors: [0x9aa0ab, 0x6a707b], speed: [30, 120], life: [0.6, 1.1], size: [4, 8], gravity: -40 });
+          ring(e.x, e.y, COLORS[e.side], 90, 0.4);
+          hitFlash[e.victim] = 1;
+          popup('RAM!', e.x, e.y - 50, COLORS[e.side]);
+          shake = Math.max(shake, 12);
+          break;
+        case 'wolfEat':
+          burst(e.x, e.y - 14, {
+            count: 36,
+            colors: [0xd21f2a, 0xa3121c, 0xff4050, 0xfdfbf4],
+            up: 1.2,
+            speed: [80, 320],
+            life: [0.4, 0.9],
+            size: [2, 5],
+            gravity: 800,
+          });
+          burst(e.x, e.y - 16, { count: 10, colors: [0xfdfbf4, 0xe8e2d4], speed: [20, 90], life: [0.6, 1.2], size: [4, 7], gravity: 60 }); // wool
+          stains.push({ x: e.x, w: 18 + art.random() * 10, life: 6, max: 6 });
+          popup('CHOMP!', e.x, e.y - 60, 0xff4050);
+          shake = Math.max(shake, 3);
+          break;
+        case 'timeBombHeld':
+          hitFlash[e.side] = 1;
+          popup('BOOM!', e.x, e.y - 40, 0xffa53a);
+          break;
+        case 'timeBombLand':
+        case 'wolfLand':
+          burst(e.x, e.y, { count: 12, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 110], life: [0.2, 0.5], gravity: 300 });
+          break;
+        case 'wolfLeaves':
+          burst(e.x, e.y, { count: 10, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
+          break;
+        case 'knockLoose':
+          burst(e.x, e.y, {
+            count: 20,
+            colors: [0xffffff, 0xff5ce1, COLORS[e.side]],
+            speed: [80, 260],
+            life: [0.3, 0.6],
+            size: [2, 4],
+            gravity: 200,
+            shape: 'star',
+          });
+          ring(e.x, e.y, 0xff5ce1, 40);
+          break;
+        case 'land':
+          if (e.delivered && e.golden) {
+            burst(e.x, e.y - 10, {
+              count: 70,
+              colors: [0xffcf3a, 0xfff3a0, 0xffffff],
+              up: 1.1,
+              speed: [200, 560],
+              life: [0.8, 1.6],
+              size: [3, 6],
+              gravity: 500,
+              shape: 'star',
+            });
+            ring(e.x, e.y - 14, 0xffcf3a, 120, 0.7);
+            popup(`+${e.value}`, e.x, e.y - 70, 0xffcf3a);
+          } else if (e.delivered) {
+            burst(e.x, e.y - 10, {
+              count: 44,
+              colors: [COLORS[e.pen], 0xffd76a, 0xffffff],
+              up: 0.7,
+              speed: [200, 460],
+              life: [0.8, 1.3],
+              size: [3, 5.5],
+              gravity: 650,
+              shape: 'confetti',
+            });
+            ring(e.x, e.y - 14, 0xffd76a, 70, 0.45);
+            popup(`+${e.value}`, e.x, e.y - 60, e.stolen ? 0xcfd6ff : 0xffd76a);
+          } else {
+            burst(e.x, e.y, { count: 10, colors: [0x7a5a3a, 0x9c7a52], up: 1.2, speed: [30, 90], life: [0.2, 0.4], gravity: 300 });
+          }
+          break;
+      }
+    }
+  }
+
+  /** Continuous effects that follow world state rather than events. */
+  function ambient(world) {
+    // Burning animals throw off embers and smoke.
+    for (const a of world.animals) {
+      if (!a.onFire || a.state === 'gone' || art.random() > 0.5) continue;
+      const top = a.y - (a.kind === 'cow' ? 44 : 36);
+      burst(a.x + rand(art, -16, 16), top, {
+        count: 1,
+        colors: [0xffb03a, 0xff6a1a],
+        up: 0.5,
+        speed: [30, 90],
+        life: [0.3, 0.6],
+        size: [1.5, 2.5],
+        gravity: -80,
+      });
+      if (art.random() < 0.4)
+        burst(a.x + rand(art, -10, 10), top - 6, {
+          count: 1,
+          colors: [0x5a5f6a, 0x7a7f8a],
+          up: 0.3,
+          speed: [15, 40],
+          life: [0.8, 1.4],
+          size: [4, 7],
+          gravity: -40,
+        });
+    }
+    // Rockets leave a smoke trail.
+    for (const r of world.rockets) {
+      const bx = r.x - Math.cos(r.angle) * 14;
+      const by = r.y - Math.sin(r.angle) * 14;
+      burst(bx, by, { count: 1, colors: [0xffa53a], speed: [10, 40], life: [0.1, 0.2], size: [2, 3.5], gravity: 0 });
+      burst(bx, by, { count: 1, colors: [0x9aa0ab, 0x6a707b], speed: [5, 25], life: [0.5, 0.9], size: [3, 6], gravity: -30 });
+    }
+    // Golden animals glitter, while they are still around (not splatted or eaten).
+    for (const a of world.animals) {
+      if (!a.golden || a.state === 'gone' || art.random() > 0.25) continue;
+      const x = a.x + rand(art, -30, 30);
+      const y = a.y - rand(art, 0, 50);
+      burst(x, y, { count: 1, colors: [0xfff3a0, 0xffffff], speed: [5, 25], life: [0.3, 0.6], size: [1.5, 3], gravity: -30, shape: 'star' });
+    }
+    for (const side of ['red', 'blue']) {
+      const b = world.lasers[side];
+      if (b?.hit) {
+        burst(b.x1, b.y, { count: 2, colors: [0xffffff, 0xff5ce1], dir: -b.dir, speed: [80, 260], life: [0.15, 0.35], gravity: 200 });
+        shake = Math.max(shake, 1.5);
+      }
+    }
+  }
+
+  function update(dt) {
+    for (const p of particles) {
+      p.life -= dt;
+      p.vy += p.gravity * dt;
+      p.vx *= Math.exp(-1.5 * dt);
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.spin += dt * 8;
+    }
+    for (let i = particles.length - 1; i >= 0; i--) if (particles[i].life <= 0) particles.splice(i, 1);
+    for (const r of rings) r.life -= dt;
+    for (const s of stains) s.life -= dt;
+    for (let i = stains.length - 1; i >= 0; i--) if (stains[i].life <= 0) stains.splice(i, 1);
+    for (let i = rings.length - 1; i >= 0; i--) if (rings[i].life <= 0) rings.splice(i, 1);
+
+    for (const p of popups) {
+      p.life -= dt;
+      p.t.y -= 40 * dt;
+      p.t.alpha = Math.min(1, p.life * 2);
+    }
+    for (let i = popups.length - 1; i >= 0; i--) {
+      if (popups[i].life <= 0) {
+        popups[i].t.destroy();
+        popups.splice(i, 1);
+      }
+    }
+
+    shake = Math.max(0, shake - dt * 30);
+    hitFlash.red = Math.max(0, hitFlash.red - dt * 2.5);
+    hitFlash.blue = Math.max(0, hitFlash.blue - dt * 2.5);
+    deflect.red = Math.max(0, deflect.red - dt * 4);
+    deflect.blue = Math.max(0, deflect.blue - dt * 4);
+  }
+
+  function render() {
+    const draw = surface.draw;
+    draw.clear();
+    for (const s of stains) {
+      const alpha = Math.min(0.85, (s.life / s.max) * 1.5);
+      const { stain } = s.blood ?? BLOOD.red;
+      draw.ellipse(s.x, ARENA.groundY + 3, s.w, 6, { fill: stain[0], alpha: alpha });
+      draw.ellipse(s.x - s.w * 0.3, ARENA.groundY + 2, s.w * 0.35, 3, { fill: stain[1], alpha: alpha });
+    }
+    for (const r of rings) {
+      const u = 1 - r.life / r.max;
+      draw.circle(r.x, r.y, 6 + r.radius * Math.sqrt(u), { stroke: r.color, width: 4 * (1 - u) + 1, alpha: 1 - u });
+    }
+    for (const p of particles) {
+      const alpha = Math.min(1, (p.life / p.max) * 2);
+      if (p.shape === 'confetti') {
+        const w = p.size * 1.6 * Math.abs(Math.cos(p.spin));
+        draw.rect(p.x - w / 2, p.y - p.size / 2, Math.max(0.5, w), p.size, { fill: p.color, alpha: alpha });
+      } else if (p.shape === 'star') {
+        const s = p.size;
+        draw.polygon([p.x, p.y - s * 2, p.x + s * 0.5, p.y, p.x, p.y + s * 2, p.x - s * 0.5, p.y], { fill: p.color, alpha: alpha });
+        draw.polygon([p.x - s * 2, p.y, p.x, p.y - s * 0.5, p.x + s * 2, p.y, p.x, p.y + s * 0.5], { fill: p.color, alpha: alpha });
+      } else {
+        draw.circle(p.x, p.y, p.size, { fill: p.color, alpha: alpha });
+      }
+    }
+  }
+
+  return {
+    view,
+    get stats() {
+      return { particles: particles.length, popups: popups.length, rings: rings.length, stains: stains.length };
+    },
+    handle,
+    ambient,
+    update,
+    render,
+    hitFlash,
+    deflect,
+    /** Current camera offset for screen shake. */
+    shakeOffset() {
+      return shake > 0 ? { x: rand(art, -shake, shake), y: rand(art, -shake, shake) } : { x: 0, y: 0 };
+    },
+  };
+}

@@ -1,0 +1,75 @@
+{
+  "failures": [],
+  "rounding": [
+    {
+      "file": "screens/power-speed-0.png",
+      "changedPixels": 2,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-speed-1.png",
+      "changedPixels": 5,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-laser-0.png",
+      "changedPixels": 1,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-laser-1.png",
+      "changedPixels": 2,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-bomb-0.png",
+      "changedPixels": 1,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-bomb-1.png",
+      "changedPixels": 3,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-unlimited-0.png",
+      "changedPixels": 2,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-unlimited-1.png",
+      "changedPixels": 4,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-shield-0.png",
+      "changedPixels": 2,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-shield-1.png",
+      "changedPixels": 4,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-timeBomb-0.png",
+      "changedPixels": 1,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-timeBomb-1.png",
+      "changedPixels": 3,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-parachute-0.png",
+      "changedPixels": 1,
+      "maximumChannelDifference": 1
+    },
+    {
+      "file": "screens/power-parachute-1.png",
+      "changedPixels": 3,
+      "maximumChannelDifference": 1
+    }
+  ]
+}

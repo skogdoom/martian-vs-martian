@@ -1,0 +1,112 @@
+
+> martian-vs-martian@2.0.0-dev sim
+> node scripts/sim.js 10
+
+
+10 rounds, 90 s each
+
+┌────────────────────────────────────────────────────────────────────┬────────────────────────────────────────┐
+│ (index)                                                            │ Values                                 │
+├────────────────────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│ hooks started                                                      │ '45.5'                                 │
+│   broken by drift                                                  │ '0.1 (0% of hooks)'                    │
+│   broken by drift < 0.25 s (accidental)                            │ '0.0 (0%)'                             │
+│   broken by drift after a bump mid-lift                            │ '0.1'                                  │
+│   broken by a shot                                                 │ '14.9'                                 │
+│ pickups completed                                                  │ '27.0'                                 │
+│ deliveries                                                         │ '16.3'                                 │
+│   of which stolen                                                  │ '3.2'                                  │
+│ animals splatted (knocked loose or dropped too high)               │ '0.60'                                 │
+│ green men splatted (pickup broken too high)                        │ '0.00'                                 │
+│ green men gone (nobody picked them up)                             │ '0.00'                                 │
+│ animals spooked out of a pen                                       │ '1.60'                                 │
+│ field restocks (empty for too long)                                │ '0.90'                                 │
+│ animals in pens at the end                                         │ '8.3 (herd of 11, 14.3 with restocks)' │
+│ first delivery (median s)                                          │ '3.3'                                  │
+│ field emptied (median s)                                           │ '49.4 (90% of rounds)'                 │
+│ shots per player                                                   │ '33.0'                                 │
+│ hit rate                                                           │ '58%'                                  │
+│ after 60 s: hooks / pickups / broken by shot / by drift            │ '12.5 / 8.7 / 3.0 / 0.1'               │
+│ after 60 s: share of time a saucer is neither lifting nor carrying │ '51%'                                  │
+│ lead changes per round                                             │ '2.80'                                 │
+│ score still changing in the last 10 s                              │ '90%'                                  │
+│ ammo used up (median s)                                            │ '35.9'                                 │
+│ bumps                                                              │ '7.5 (0.5 within 0.3 s of the last)'   │
+│ dazed by three hits in a row                                       │ '3.20'                                 │
+│ rams (animals knocked loose by them)                               │ '0.20 (0.20)'                          │
+│ final score (avg per player)                                       │ '5.97'                                 │
+│ winning margin (avg)                                               │ '3.05'                                 │
+│ red wins / blue wins / ties                                        │ '50% / 40% / 10%'                      │
+└────────────────────────────────────────────────────────────────────┴────────────────────────────────────────┘
+
+The wolf
+┌───────────────────────────────────────────────┬───────────────┐
+│ (index)                                       │ Values        │
+├───────────────────────────────────────────────┼───────────────┤
+│ rounds with a wolf                            │ '6 (60%)'     │
+│ lambs eaten in the field (avg)                │ '1.33'        │
+│ lambs eaten in a pen (avg)                    │ '3.17'        │
+│ dropped in the opponent's pen / own pen (avg) │ '2.17 / 0.00' │
+│ got bored and left before the end             │ '50%'         │
+└───────────────────────────────────────────────┴───────────────┘
+
+Time bombs
+┌────────────────────────────────────────────────────┬──────────────────┐
+│ (index)                                            │ Values           │
+├────────────────────────────────────────────────────┼──────────────────┤
+│ time bombs dropped                                 │ 2                │
+│ lifted again (avg times)                           │ '1.50'           │
+│ went off in the opponent's pen / dropper's own pen │ '0% / 0%'        │
+│ in the field / in a beam / not before the end      │ '100% / 0% / 0%' │
+│ animals blown out per pen blast                    │ '0.00'           │
+└────────────────────────────────────────────────────┴──────────────────┘
+
+Power-ups
+┌────────────────────────────────────────────────────────┬────────────────────────┐
+│ (index)                                                │ Values                 │
+├────────────────────────────────────────────────────────┼────────────────────────┤
+│ rounds with at least one drop                          │ '10 (100%)'            │
+│ green men grabbed per round                            │ '1.50'                 │
+│ grabber wins the round                                 │ '60% (n=15)'           │
+│ grabber wins when behind at the grab                   │ '0% (n=4)'             │
+│ grabber wins when behind by 2+                         │ '0% (n=4)'             │
+│ speed: lead gained during power / wins when behind     │ '- pts / -'            │
+│ laser: lead gained during power / wins when behind     │ '- pts / -'            │
+│ triple: lead gained during power / wins when behind    │ '0.75 pts / -'         │
+│ steal: lead gained during power / wins when behind     │ '-1.25 pts / 0% (n=1)' │
+│ rocket: lead gained during power / wins when behind    │ '- pts / -'            │
+│ twin: lead gained during power / wins when behind      │ '- pts / -'            │
+│ bomb: lead gained during power / wins when behind      │ '3.50 pts / -'         │
+│ unlimited: lead gained during power / wins when behind │ '0.00 pts / -'         │
+│ shield: lead gained during power / wins when behind    │ '2.00 pts / 0% (n=1)'  │
+│ cowRain: lead gained during power / wins when behind   │ '0.00 pts / 0% (n=1)'  │
+│ lambRain: lead gained during power / wins when behind  │ '- pts / -'            │
+│ timeBomb: lead gained during power / wins when behind  │ '-8.00 pts / 0% (n=1)' │
+│ parachute: lead gained during power / wins when behind │ '- pts / -'            │
+└────────────────────────────────────────────────────────┴────────────────────────┘
+
+Golden animals
+┌───────────────────────────────────────────────────────┬─────────────────────────┐
+│ (index)                                               │ Values                  │
+├───────────────────────────────────────────────────────┼─────────────────────────┤
+│ lead at 60 s: 2+ / 3+ / 4+ / 5+                       │ '80% / 50% / 50% / 20%' │
+│ rounds with a golden animal                           │ '4 (40%)'               │
+│ delivered by the trailing player                      │ '75% (n=4)'             │
+│ delivered by the leader                               │ '25% (n=4)'             │
+│ trailing player wins / ties (all golden rounds)       │ '0% (n=4) / 25% (n=4)'  │
+│   when the trailer delivered it                       │ '0% (n=3) / 33% (n=3)'  │
+│   when the leader delivered it                        │ '0% (n=1) / 0% (n=1)'   │
+│   trailer delivered it, then the leader stole it back │ '67% (n=3)'             │
+└───────────────────────────────────────────────────────┴─────────────────────────┘
+
+Ammo crates
+┌───────────────────────────────────┬──────────────┐
+│ (index)                           │ Values       │
+├───────────────────────────────────┼──────────────┤
+│ rounds with a crate               │ '100%'       │
+│ crates per round (avg)            │ '1.70'       │
+│ dropped at (median s)             │ '37.9'       │
+│ grabbed by the player who ran out │ '53% (n=17)' │
+│ grabbed by the other player       │ '41% (n=17)' │
+│ not grabbed                       │ '6% (n=17)'  │
+└───────────────────────────────────┴──────────────┘

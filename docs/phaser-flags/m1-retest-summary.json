@@ -1,0 +1,93 @@
+{
+  "supplied_report_sha256": "63974137ee16d326bc2fb425b3e313304f2989052473eeffcb8359e6699635c2",
+  "archived_report_sha256": "ad18ca796ae9019912754c416a3d8e0633e609fc9898ae388f648f97eb924dbe",
+  "comparison_report": "m1-safari-before.json",
+  "same_reported_configuration": true,
+  "user_reported_device": "M1 MacBook Air",
+  "buildMode": "pixi-development-phaser-candidate",
+  "exact_runtime_commit_verified": false,
+  "rows": [
+    {
+      "profile": "ordinary",
+      "engine": "pixi",
+      "runs": 3,
+      "mean_raf_fps": 59.99877804991993,
+      "median_p95_cpu_ms": 3,
+      "median_p99_cpu_ms": 4.000000000003638,
+      "callbacks_over_33_34_ms": 1,
+      "callbacks_measured": 10802,
+      "largest_callback_interval_ms": 35,
+      "largest_recorded_cpu_frame_ms": 12,
+      "p50_uploads_by_run": [0, 0, 0],
+      "p95_uploads_by_run": [0, 0, 0],
+      "new_programs_by_run": [0, 0, 0],
+      "fixed_steps_including_warmup_by_run": [3901, 3901, 3901]
+    },
+    {
+      "profile": "ordinary",
+      "engine": "phaser",
+      "runs": 3,
+      "mean_raf_fps": 59.933018977956245,
+      "median_p95_cpu_ms": 4,
+      "median_p99_cpu_ms": 5,
+      "callbacks_over_33_34_ms": 3,
+      "callbacks_measured": 10791,
+      "largest_callback_interval_ms": 176,
+      "largest_recorded_cpu_frame_ms": 18,
+      "p50_uploads_by_run": [0, 0, 0],
+      "p95_uploads_by_run": [0, 0, 0],
+      "new_programs_by_run": [0, 0, 0],
+      "fixed_steps_including_warmup_by_run": [3901, 3901, 3897]
+    },
+    {
+      "profile": "combined",
+      "engine": "pixi",
+      "runs": 3,
+      "mean_raf_fps": 59.81505755423759,
+      "median_p95_cpu_ms": 5,
+      "median_p99_cpu_ms": 7.000000000007276,
+      "callbacks_over_33_34_ms": 12,
+      "callbacks_measured": 10770,
+      "largest_callback_interval_ms": 131,
+      "largest_recorded_cpu_frame_ms": 32.000000000007276,
+      "p50_uploads_by_run": [0, 0, 0],
+      "p95_uploads_by_run": [1, 1, 1],
+      "new_programs_by_run": [0, 0, 0],
+      "fixed_steps_including_warmup_by_run": [3901, 3899, 3898]
+    },
+    {
+      "profile": "combined",
+      "engine": "phaser",
+      "runs": 3,
+      "mean_raf_fps": 59.54847361749755,
+      "median_p95_cpu_ms": 6,
+      "median_p99_cpu_ms": 8,
+      "callbacks_over_33_34_ms": 14,
+      "callbacks_measured": 10722,
+      "largest_callback_interval_ms": 576,
+      "largest_recorded_cpu_frame_ms": 247.99999999999818,
+      "p50_uploads_by_run": [0, 0, 0],
+      "p95_uploads_by_run": [2, 1, 2],
+      "new_programs_by_run": [0, 0, 0],
+      "fixed_steps_including_warmup_by_run": [3901, 3870, 3891]
+    }
+  ],
+  "remaining_stall": {
+    "profile": "combined",
+    "engine": "phaser",
+    "repeat": 2,
+    "largest_callback_gap_ms": 576,
+    "slowest_recorded_cpu_frame": {
+      "interval": 16,
+      "update": 0.999999999998181,
+      "view": 1,
+      "frame": 247.99999999999818,
+      "submission": 245,
+      "calls": 56,
+      "uploads": 0,
+      "readbacks": 0,
+      "compiles": 0
+    },
+    "interpretation": "Renderer-submission elapsed time includes any blocking/descheduling during that call; this is not a direct CPU or GPU execution measurement. Sorted slowest frames do not establish an ordered timeline."
+  }
+}

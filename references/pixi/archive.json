@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "retired_from_commit": "208f3d5e5d84594d4d5c5e4902a9a4d0d8d04206",
+  "files": [
+    {
+      "original": "src/fullscreen.js",
+      "archive": "references/pixi/src/fullscreen.js",
+      "sha256": "025651cd50dfa1db3001b4ec050c8daac5c8350613b92d96789e1eb43b99c98f"
+    },
+    {
+      "original": "src/input.js",
+      "archive": "references/pixi/src/input.js",
+      "sha256": "cf2af0464319ed4f50c53c619710f7823b4ba9a0e2de85769a1763bf3827c520"
+    },
+    {
+      "original": "src/main.js",
+      "archive": "references/pixi/src/main.js",
+      "sha256": "b96ee3d167fb2d43d216350bf5f4307516112e92f1df728358680d31fc2e7851"
+    },
+    {
+      "original": "src/render/animalView.js",
+      "archive": "references/pixi/src/render/animalView.js",
+      "sha256": "f800c56682a44b32ed2d520beabad9578f916d646f710c51595c08a820cd36a3"
+    },
+    {
+      "original": "src/render/backdrop.js",
+      "archive": "references/pixi/src/render/backdrop.js",
+      "sha256": "03d1d6d93194b895e84cfbca7bfef94e3a191dff7470fc52757d0f62aa8cae27"
+    },
+    {
+      "original": "src/render/effects.js",
+      "archive": "references/pixi/src/render/effects.js",
+      "sha256": "f475c3d7f99ee26ffd30773202a56913af2b7c1128efbe674cde332eb23642be"
+    },
+    {
+      "original": "src/render/festive.js",
+      "archive": "references/pixi/src/render/festive.js",
+      "sha256": "6d9cf1c4b0f6e711dff4fa9b00ca42895e22e0dd827f8a3ae22d94b8d9c14ea1"
+    },
+    {
+      "original": "src/render/hud.js",
+      "archive": "references/pixi/src/render/hud.js",
+      "sha256": "f5de15734b961c5843f908ac9e326c65750697a57ccc5f2d6f3de63907e519be"
+    },
+    {
+      "original": "src/render/listView.js",
+      "archive": "references/pixi/src/render/listView.js",
+      "sha256": "d9ee49816639c28d908f234e80d8ea229b37e0934391eac1815055518a0877b1"
+    },
+    {
+      "original": "src/render/menu.js",
+      "archive": "references/pixi/src/render/menu.js",
+      "sha256": "1c7972ada0d7d0534175720819245c319d64d205ef7534269d47e897957f7345"
+    },
+    {
+      "original": "src/render/powerupView.js",
+      "archive": "references/pixi/src/render/powerupView.js",
+      "sha256": "935559e3f4d0f5e50d9e7d10a58f31fdbac643c5a92c5af89f6fa0891dfdc3bc"
+    },
+    {
+      "original": "src/render/projectileView.js",
+      "archive": "references/pixi/src/render/projectileView.js",
+      "sha256": "cd407d544dc2970624368cc4ae894a7119917c5e357f39fb612bb00db9b4f347"
+    },
+    {
+      "original": "src/render/saucerView.js",
+      "archive": "references/pixi/src/render/saucerView.js",
+      "sha256": "9d2b08f53e021fd71b883117b9d956727bc2e5727633c8a2ecb01fa94dc82842"
+    },
+    {
+      "original": "src/render/shootingStars.js",
+      "archive": "references/pixi/src/render/shootingStars.js",
+      "sha256": "6712d922f84061c7124f45ca16e3274157d384219a8c162a6d5145c3d7535fbe"
+    },
+    {
+      "original": "src/render/text.js",
+      "archive": "references/pixi/src/render/text.js",
+      "sha256": "e542d322b44edad22fac29756c68f533c59c80d3e4815847b47e7e834cdb333e"
+    },
+    {
+      "original": "src/render/tieFlyby.js",
+      "archive": "references/pixi/src/render/tieFlyby.js",
+      "sha256": "fc2861374a7bd976ff8b3d8abbb1f5cde9bd2779bb277cb4119550a0897af37b"
+    },
+    {
+      "original": "src/render/timeBombView.js",
+      "archive": "references/pixi/src/render/timeBombView.js",
+      "sha256": "3048c7dcc217a7bc19e2b740d34133394732d6b977eb20cf865cc02502aa9f42"
+    },
+    {
+      "original": "src/render/uiLayer.js",
+      "archive": "references/pixi/src/render/uiLayer.js",
+      "sha256": "9f7815359b7eec1083d1c4ebdf5edca4bc770b7386d76b3566f038a13841433e"
+    },
+    {
+      "original": "src/render/wolfView.js",
+      "archive": "references/pixi/src/render/wolfView.js",
+      "sha256": "bfd5c3db5ce28a615c3853557c13f745abea270b95bb9ef013daf8bc784af0a6"
+    },
+    {
+      "original": "src/scenes/play.js",
+      "archive": "references/pixi/src/scenes/play.js",
+      "sha256": "aea9023bbff75b08df75c92cda14aba811083b218ff0741428b4c2867a39be64"
+    },
+    {
+      "original": "src/scenes/roundEnd.js",
+      "archive": "references/pixi/src/scenes/roundEnd.js",
+      "sha256": "3beeebe106fc41e18bb59825e3d2c2ff07f4a02911510bf5bf4bc2103c7fbc6a"
+    },
+    {
+      "original": "src/scenes/settings.js",
+      "archive": "references/pixi/src/scenes/settings.js",
+      "sha256": "f1f11e2b3d7e231ecb0d1b34bae37cf0ac97e981eff9c353871a0e20ccf75f3b"
+    },
+    {
+      "original": "src/scenes/tally.js",
+      "archive": "references/pixi/src/scenes/tally.js",
+      "sha256": "a7e032a04304817863101572be2ce4732d5f0f9df06da153e71d702e0153c813"
+    },
+    {
+      "original": "src/scenes/title.js",
+      "archive": "references/pixi/src/scenes/title.js",
+      "sha256": "7d56fb04c4631982de764eeaff506aa78a7a42223c3ab452c3b4f1017af8ef72"
+    }
+  ]
+}

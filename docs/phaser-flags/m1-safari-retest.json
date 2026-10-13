@@ -1,0 +1,3310 @@
+{
+  "schema": 1,
+  "complete": true,
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+  "dpr": 2,
+  "samples": [
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3901,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 248,
+        "textures": 41,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 54.96666666667036,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": null,
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 32,
+          "momentumLost": 6,
+          "hit": 32,
+          "dryFire": 83,
+          "dazed": 5,
+          "reload": 10,
+          "crateIncoming": 1,
+          "bump": 10,
+          "ram": 15,
+          "dropLanded": 1,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 16,
+          "update": 2,
+          "view": 2,
+          "frame": 11,
+          "submission": 7,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 0,
+          "frame": 9.000000000003638,
+          "submission": 8.000000000003638,
+          "calls": 41,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1.999999999992724,
+          "view": 0,
+          "frame": 9,
+          "submission": 7.000000000007276,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1.000000000007276,
+          "view": 3.999999999992724,
+          "frame": 9,
+          "submission": 4,
+          "calls": 41,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 15,
+          "update": 1.000000000007276,
+          "view": 1.999999999992724,
+          "frame": 9,
+          "submission": 6,
+          "calls": 43,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 2.000000000007276,
+          "view": 0.999999999992724,
+          "frame": 8.000000000007276,
+          "submission": 5.000000000007276,
+          "calls": 45,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 2,
+          "view": 0,
+          "frame": 8,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 7,
+          "submission": 5,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 0,
+          "frame": 7,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1.000000000007276,
+          "frame": 7,
+          "submission": 4.999999999992724,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 0,
+          "frame": 7,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 6,
+          "submission": 4,
+          "calls": 41,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3601,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 25
+      },
+      "updateCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 2.000000000007276
+      },
+      "viewCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 3.999999999992724
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3601,
+        "p50": 1,
+        "p95": 2,
+        "p99": 4,
+        "max": 8.000000000003638
+      },
+      "totalCpuMs": {
+        "samples": 3601,
+        "p50": 1.999999999992724,
+        "p95": 3,
+        "p99": 5,
+        "max": 11
+      },
+      "drawCalls": {
+        "samples": 3601,
+        "p50": 39,
+        "p95": 43,
+        "p99": 45,
+        "max": 45
+      },
+      "uploads": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 3
+      },
+      "shaderCompiles": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "meanFps": 59.9986670665467,
+      "framesOver33ms": 0,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "pixi"
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3901,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 2167,
+        "textures": 611,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 615,
+        "world": {
+          "phase": "play",
+          "timeLeft": 54.9500000000037,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": {
+          "cachedRecipes": 552,
+          "pendingRecipes": 0,
+          "retainedRecipes": 2,
+          "retainedRgbaBytes": 65540,
+          "canvasRgbaBytes": 63049844
+        },
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 32,
+          "momentumLost": 6,
+          "hit": 32,
+          "dryFire": 83,
+          "dazed": 5,
+          "reload": 10,
+          "crateIncoming": 1,
+          "bump": 10,
+          "ram": 15,
+          "dropLanded": 1,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 17,
+          "update": 4.999999999996362,
+          "view": 1.000000000003638,
+          "frame": 9,
+          "submission": 3,
+          "calls": 37,
+          "uploads": 8,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 5,
+          "view": 1,
+          "frame": 8,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 5,
+          "view": 2.000000000007276,
+          "frame": 8,
+          "submission": 0.999999999992724,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 5,
+          "view": 1,
+          "frame": 7.000000000003638,
+          "submission": 1.000000000003638,
+          "calls": 37,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 3,
+          "view": 1,
+          "frame": 7,
+          "submission": 3,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4,
+          "view": 1,
+          "frame": 7,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 4,
+          "view": 1,
+          "frame": 7,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 4,
+          "view": 1,
+          "frame": 7,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4,
+          "view": 1,
+          "frame": 7,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 2.000000000001819,
+          "view": 0.999999999998181,
+          "frame": 6,
+          "submission": 3,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 3,
+          "view": 1,
+          "frame": 6,
+          "submission": 2,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 3,
+          "view": 1,
+          "frame": 6,
+          "submission": 2,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3601,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 29
+      },
+      "updateCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 5
+      },
+      "viewCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1.000000000003638,
+        "p99": 2,
+        "max": 2.000000000014552
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3601,
+        "p50": 2,
+        "p95": 3,
+        "p99": 3.000000000001819,
+        "max": 4.000000000003638
+      },
+      "totalCpuMs": {
+        "samples": 3601,
+        "p50": 3,
+        "p95": 4,
+        "p99": 5,
+        "max": 9
+      },
+      "drawCalls": {
+        "samples": 3601,
+        "p50": 36,
+        "p95": 38,
+        "p99": 39,
+        "max": 39
+      },
+      "uploads": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 8
+      },
+      "shaderCompiles": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 2
+      },
+      "meanFps": 59.999666761084356,
+      "framesOver33ms": 0,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "phaser"
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3901,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 248,
+        "textures": 41,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 54.98333333333703,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": null,
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 32,
+          "momentumLost": 6,
+          "hit": 32,
+          "dryFire": 83,
+          "dazed": 5,
+          "reload": 10,
+          "crateIncoming": 1,
+          "bump": 10,
+          "ram": 15,
+          "dropLanded": 1,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 0,
+          "frame": 12,
+          "submission": 11,
+          "calls": 42,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 1,
+          "frame": 8,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 8,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 2,
+          "view": 0,
+          "frame": 8,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 1,
+          "frame": 8,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0.999999999992724,
+          "view": 1,
+          "frame": 7.999999999992724,
+          "submission": 6,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1.999999999992724,
+          "view": 0,
+          "frame": 7.000000000007276,
+          "submission": 5.000000000014552,
+          "calls": 45,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 7,
+          "submission": 5,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 0,
+          "frame": 6.000000000007276,
+          "submission": 5.000000000007276,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 6,
+          "submission": 4,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 6,
+          "submission": 4,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1.000000000007276,
+          "view": 0.9999999999854481,
+          "frame": 6,
+          "submission": 4.000000000007276,
+          "calls": 43,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3600,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 21
+      },
+      "updateCpuMs": {
+        "samples": 3600,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 2
+      },
+      "viewCpuMs": {
+        "samples": 3600,
+        "p50": 0,
+        "p95": 1.000000000001819,
+        "p99": 1.000000000007276,
+        "max": 1.000000000014552
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3600,
+        "p50": 1,
+        "p95": 2,
+        "p99": 3.000000000003638,
+        "max": 11
+      },
+      "totalCpuMs": {
+        "samples": 3600,
+        "p50": 2,
+        "p95": 3,
+        "p99": 4.000000000003638,
+        "max": 12
+      },
+      "drawCalls": {
+        "samples": 3600,
+        "p50": 39,
+        "p95": 43,
+        "p99": 45,
+        "max": 45
+      },
+      "uploads": {
+        "samples": 3600,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 3
+      },
+      "shaderCompiles": {
+        "samples": 3600,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3600,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "meanFps": 59.999000016666386,
+      "framesOver33ms": 0,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 2,
+      "engine": "pixi"
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3901,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 2167,
+        "textures": 611,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 615,
+        "world": {
+          "phase": "play",
+          "timeLeft": 54.9500000000037,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": {
+          "cachedRecipes": 552,
+          "pendingRecipes": 0,
+          "retainedRecipes": 2,
+          "retainedRgbaBytes": 65540,
+          "canvasRgbaBytes": 63049844
+        },
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 32,
+          "momentumLost": 6,
+          "hit": 32,
+          "dryFire": 83,
+          "dazed": 5,
+          "reload": 10,
+          "crateIncoming": 1,
+          "bump": 10,
+          "ram": 15,
+          "dropLanded": 1,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 17,
+          "update": 7,
+          "view": 1,
+          "frame": 10,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 5,
+          "view": 1,
+          "frame": 9,
+          "submission": 3,
+          "calls": 37,
+          "uploads": 8,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4.000000000007276,
+          "view": 3,
+          "frame": 9,
+          "submission": 1.999999999992724,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 5,
+          "view": 1,
+          "frame": 8,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 5,
+          "view": 1,
+          "frame": 8,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4.000000000007276,
+          "view": 0.999999999992724,
+          "frame": 7.000000000007276,
+          "submission": 2.000000000007276,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 5,
+          "view": 0,
+          "frame": 7,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 5,
+          "view": 0,
+          "frame": 7,
+          "submission": 2,
+          "calls": 39,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4.999999999992724,
+          "view": 0,
+          "frame": 6.999999999992724,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 3,
+          "view": 1,
+          "frame": 6.000000000001819,
+          "submission": 2.000000000001819,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 3,
+          "view": 1,
+          "frame": 6,
+          "submission": 2,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 2,
+          "view": 0,
+          "frame": 6,
+          "submission": 3,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3601,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 22
+      },
+      "updateCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000003638,
+        "max": 7
+      },
+      "viewCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3601,
+        "p50": 2,
+        "p95": 3,
+        "p99": 3.000000000001819,
+        "max": 4.000000000007276
+      },
+      "totalCpuMs": {
+        "samples": 3601,
+        "p50": 3,
+        "p95": 4,
+        "p99": 5,
+        "max": 10
+      },
+      "drawCalls": {
+        "samples": 3601,
+        "p50": 36,
+        "p95": 38,
+        "p99": 39,
+        "max": 39
+      },
+      "uploads": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 8
+      },
+      "shaderCompiles": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 2
+      },
+      "meanFps": 59.999666761084356,
+      "framesOver33ms": 0,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 2,
+      "engine": "phaser"
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3901,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 248,
+        "textures": 41,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 54.98333333333703,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": null,
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 32,
+          "momentumLost": 6,
+          "hit": 32,
+          "dryFire": 83,
+          "dazed": 5,
+          "reload": 10,
+          "crateIncoming": 1,
+          "bump": 10,
+          "ram": 15,
+          "dropLanded": 1,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 0,
+          "frame": 8.000000000007276,
+          "submission": 7.000000000007276,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 0,
+          "frame": 8,
+          "submission": 7,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0.999999999992724,
+          "view": 0,
+          "frame": 7.999999999992724,
+          "submission": 7,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 15,
+          "update": 1.000000000007276,
+          "view": 1.999999999992724,
+          "frame": 7.000000000007276,
+          "submission": 4.000000000007276,
+          "calls": 41,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 7,
+          "submission": 5,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 1,
+          "frame": 6,
+          "submission": 5,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 2,
+          "view": 1,
+          "frame": 6,
+          "submission": 3,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 0,
+          "frame": 6,
+          "submission": 5,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 1,
+          "frame": 6,
+          "submission": 5,
+          "calls": 41,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 1,
+          "frame": 6,
+          "submission": 5,
+          "calls": 41,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 0.9999999999854481,
+          "frame": 6,
+          "submission": 5.000000000014552,
+          "calls": 45,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 18,
+          "update": 1,
+          "view": 1,
+          "frame": 5,
+          "submission": 3,
+          "calls": 41,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3601,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 35
+      },
+      "updateCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 2
+      },
+      "viewCpuMs": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 1.000000000003638,
+        "p99": 1.000000000007276,
+        "max": 1.999999999992724
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3601,
+        "p50": 1,
+        "p95": 2,
+        "p99": 3.999999999998181,
+        "max": 7.000000000007276
+      },
+      "totalCpuMs": {
+        "samples": 3601,
+        "p50": 2,
+        "p95": 3,
+        "p99": 4.000000000003638,
+        "max": 8.000000000007276
+      },
+      "drawCalls": {
+        "samples": 3601,
+        "p50": 39,
+        "p95": 43,
+        "p99": 45,
+        "max": 45
+      },
+      "uploads": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 3
+      },
+      "shaderCompiles": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3601,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "meanFps": 59.9986670665467,
+      "framesOver33ms": 1,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 3,
+      "engine": "pixi"
+    },
+    {
+      "profile": "ordinary",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3897,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 2167,
+        "textures": 611,
+        "effects": {
+          "particles": 0,
+          "popups": 0,
+          "rings": 0,
+          "stains": 0
+        },
+        "textureWrappers": 615,
+        "world": {
+          "phase": "play",
+          "timeLeft": 55.01666666667036,
+          "animals": 11,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": {
+          "cachedRecipes": 552,
+          "pendingRecipes": 0,
+          "retainedRecipes": 2,
+          "retainedRgbaBytes": 65540,
+          "canvasRgbaBytes": 63049844
+        },
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 0,
+        "dropArrivals": 0,
+        "wolfArrivals": 0,
+        "crateArrivals": 0,
+        "events": {
+          "shot": 32,
+          "momentumLost": 6,
+          "hit": 32,
+          "dryFire": 82,
+          "dazed": 5,
+          "reload": 10,
+          "crateIncoming": 1,
+          "bump": 10,
+          "ram": 15,
+          "dropLanded": 1,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 24,
+          "update": 3,
+          "view": 1.999999999992724,
+          "frame": 18,
+          "submission": 9.999999999992724,
+          "calls": 35,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 6,
+          "view": 9.999999999992724,
+          "frame": 16.999999999992724,
+          "submission": 1,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 2,
+          "frame": 13,
+          "submission": 10,
+          "calls": 36,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 6.999999999996362,
+          "view": 1,
+          "frame": 10.999999999996362,
+          "submission": 3,
+          "calls": 37,
+          "uploads": 8,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 5,
+          "view": 3,
+          "frame": 10.000000000003638,
+          "submission": 2.000000000003638,
+          "calls": 37,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 6,
+          "view": 0,
+          "frame": 9,
+          "submission": 3,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 5.999999999992724,
+          "view": 0,
+          "frame": 8.999999999992724,
+          "submission": 3,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 5.000000000007276,
+          "view": 0,
+          "frame": 8.000000000007276,
+          "submission": 3,
+          "calls": 37,
+          "uploads": 6,
+          "readbacks": 2,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4.000000000007276,
+          "view": 0.999999999992724,
+          "frame": 7.000000000007276,
+          "submission": 2.000000000007276,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4.000000000003638,
+          "view": 0.999999999996362,
+          "frame": 7.000000000003638,
+          "submission": 2.000000000003638,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 3,
+          "view": 1,
+          "frame": 7,
+          "submission": 3,
+          "calls": 36,
+          "uploads": 2,
+          "readbacks": 1,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 4,
+          "view": 1,
+          "frame": 7,
+          "submission": 2,
+          "calls": 37,
+          "uploads": 4,
+          "readbacks": 1,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3589,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 176
+      },
+      "updateCpuMs": {
+        "samples": 3589,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 6.999999999996362
+      },
+      "viewCpuMs": {
+        "samples": 3589,
+        "p50": 0,
+        "p95": 1.000000000001819,
+        "p99": 2,
+        "max": 9.999999999992724
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3589,
+        "p50": 2,
+        "p95": 3,
+        "p99": 3.000000000003638,
+        "max": 10
+      },
+      "totalCpuMs": {
+        "samples": 3589,
+        "p50": 3,
+        "p95": 4,
+        "p99": 5,
+        "max": 18
+      },
+      "drawCalls": {
+        "samples": 3589,
+        "p50": 36,
+        "p95": 38,
+        "p99": 39,
+        "max": 39
+      },
+      "uploads": {
+        "samples": 3589,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 8
+      },
+      "shaderCompiles": {
+        "samples": 3589,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3589,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 2
+      },
+      "meanFps": 59.79972341170002,
+      "framesOver33ms": 3,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 3,
+      "engine": "phaser"
+    },
+    {
+      "profile": "combined",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3901,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 1591,
+        "textures": 76,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 54.96666666667036,
+          "animals": 79,
+          "projectiles": 3,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 0
+        },
+        "paint": null,
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 68,
+        "dropArrivals": 34,
+        "wolfArrivals": 17,
+        "crateArrivals": 17,
+        "events": {
+          "shot": 90,
+          "hook": 129,
+          "hit": 127,
+          "interrupt": 97,
+          "dazed": 21,
+          "reload": 29,
+          "dryFire": 60,
+          "pickup": 26,
+          "knockLoose": 8,
+          "dropLanded": 139,
+          "wolfEat": 107,
+          "ammoCrate": 2,
+          "greenmanPanic": 11,
+          "explosion": 10,
+          "greenmanGone": 10,
+          "release": 13,
+          "land": 20,
+          "powerup": 4,
+          "laserOn": 20,
+          "laserOff": 20,
+          "wolfLand": 13,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 18,
+          "update": 5,
+          "view": 11,
+          "frame": 32.000000000007276,
+          "submission": 15.000000000007276,
+          "calls": 148,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 21,
+          "update": 6,
+          "view": 12,
+          "frame": 32,
+          "submission": 14,
+          "calls": 94,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 9,
+          "frame": 22,
+          "submission": 12,
+          "calls": 158,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 0,
+          "frame": 18,
+          "submission": 18,
+          "calls": 90,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 9.000000000007276,
+          "frame": 17,
+          "submission": 6.999999999992724,
+          "calls": 126,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1.000000000003638,
+          "view": 4.999999999996362,
+          "frame": 14,
+          "submission": 8,
+          "calls": 110,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 11,
+          "submission": 9,
+          "calls": 94,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0.999999999996362,
+          "view": 1,
+          "frame": 10.999999999996362,
+          "submission": 9,
+          "calls": 97,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 3,
+          "frame": 10.000000000007276,
+          "submission": 6.000000000007276,
+          "calls": 113,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 4,
+          "frame": 10.000000000007276,
+          "submission": 5.000000000007276,
+          "calls": 119,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 10.000000000007276,
+          "submission": 8.000000000007276,
+          "calls": 115,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 3,
+          "frame": 10.000000000007276,
+          "submission": 6.000000000007276,
+          "calls": 138,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3588,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 102
+      },
+      "updateCpuMs": {
+        "samples": 3588,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000003638,
+        "max": 6
+      },
+      "viewCpuMs": {
+        "samples": 3588,
+        "p50": 1,
+        "p95": 1.000000000003638,
+        "p99": 1.000000000014552,
+        "max": 12
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3588,
+        "p50": 2,
+        "p95": 4,
+        "p99": 6,
+        "max": 18
+      },
+      "totalCpuMs": {
+        "samples": 3588,
+        "p50": 3,
+        "p95": 5,
+        "p99": 8,
+        "max": 32.000000000007276
+      },
+      "drawCalls": {
+        "samples": 3588,
+        "p50": 109,
+        "p95": 158,
+        "p99": 165,
+        "max": 166
+      },
+      "uploads": {
+        "samples": 3588,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "shaderCompiles": {
+        "samples": 3588,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3588,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "meanFps": 59.78206538038589,
+      "framesOver33ms": 6,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "pixi"
+    },
+    {
+      "profile": "combined",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3901,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 7816,
+        "textures": 718,
+        "effects": {
+          "particles": 120,
+          "popups": 0,
+          "rings": 2,
+          "stains": 3
+        },
+        "textureWrappers": 722,
+        "world": {
+          "phase": "play",
+          "timeLeft": 54.96666666667036,
+          "animals": 79,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 2
+        },
+        "paint": {
+          "cachedRecipes": 557,
+          "pendingRecipes": 0,
+          "retainedRecipes": 3,
+          "retainedRgbaBytes": 131076,
+          "canvasRgbaBytes": 63656056
+        },
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 68,
+        "dropArrivals": 34,
+        "wolfArrivals": 17,
+        "crateArrivals": 17,
+        "events": {
+          "shot": 100,
+          "hook": 132,
+          "hit": 129,
+          "interrupt": 100,
+          "dazed": 22,
+          "reload": 33,
+          "dryFire": 46,
+          "pickup": 22,
+          "knockLoose": 10,
+          "dropLanded": 136,
+          "wolfEat": 127,
+          "ammoCrate": 2,
+          "greenmanPanic": 11,
+          "explosion": 9,
+          "greenmanGone": 9,
+          "release": 8,
+          "land": 22,
+          "powerup": 6,
+          "laserOn": 21,
+          "laserOff": 19,
+          "powerEnd": 1,
+          "wolfLand": 4,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 17,
+          "update": 4.000000000007276,
+          "view": 10.999999999992724,
+          "frame": 19.000000000007276,
+          "submission": 4.000000000007276,
+          "calls": 112,
+          "uploads": 16,
+          "readbacks": 7,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 14.000000000003638,
+          "frame": 18.000000000003638,
+          "submission": 3,
+          "calls": 76,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 13,
+          "frame": 17,
+          "submission": 3,
+          "calls": 71,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1.000000000007276,
+          "view": 10.999999999996362,
+          "frame": 16.000000000007276,
+          "submission": 4.000000000003638,
+          "calls": 83,
+          "uploads": 14,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1.000000000001819,
+          "view": 11.999999999998181,
+          "frame": 16,
+          "submission": 3,
+          "calls": 62,
+          "uploads": 14,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 11,
+          "frame": 15,
+          "submission": 4,
+          "calls": 118,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 9,
+          "frame": 13,
+          "submission": 3,
+          "calls": 79,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 8,
+          "frame": 13,
+          "submission": 4,
+          "calls": 96,
+          "uploads": 13,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 8,
+          "frame": 13,
+          "submission": 4,
+          "calls": 100,
+          "uploads": 13,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 8,
+          "frame": 13,
+          "submission": 5,
+          "calls": 105,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 10,
+          "frame": 12.000000000003638,
+          "submission": 2.000000000003638,
+          "calls": 66,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 7,
+          "frame": 12,
+          "submission": 4,
+          "calls": 87,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3597,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 76
+      },
+      "updateCpuMs": {
+        "samples": 3597,
+        "p50": 0,
+        "p95": 1.000000000001819,
+        "p99": 2,
+        "max": 6
+      },
+      "viewCpuMs": {
+        "samples": 3597,
+        "p50": 1,
+        "p95": 1.000000000007276,
+        "p99": 2,
+        "max": 14.000000000003638
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3597,
+        "p50": 3.999999999992724,
+        "p95": 4.000000000007276,
+        "p99": 5,
+        "max": 5.000000000007276
+      },
+      "totalCpuMs": {
+        "samples": 3597,
+        "p50": 4.000000000014552,
+        "p95": 6,
+        "p99": 8,
+        "max": 19.000000000007276
+      },
+      "drawCalls": {
+        "samples": 3597,
+        "p50": 87,
+        "p95": 113,
+        "p99": 118,
+        "max": 118
+      },
+      "uploads": {
+        "samples": 3597,
+        "p50": 0,
+        "p95": 2,
+        "p99": 4,
+        "max": 16
+      },
+      "shaderCompiles": {
+        "samples": 3597,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3597,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 7
+      },
+      "meanFps": 59.932020393881835,
+      "framesOver33ms": 2,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 1,
+      "engine": "phaser"
+    },
+    {
+      "profile": "combined",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3899,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 1591,
+        "textures": 76,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 55.01666666667036,
+          "animals": 79,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 1
+        },
+        "paint": null,
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 68,
+        "dropArrivals": 34,
+        "wolfArrivals": 17,
+        "crateArrivals": 17,
+        "events": {
+          "shot": 89,
+          "hook": 129,
+          "hit": 127,
+          "interrupt": 97,
+          "dazed": 21,
+          "reload": 28,
+          "dryFire": 60,
+          "pickup": 26,
+          "knockLoose": 8,
+          "dropLanded": 139,
+          "wolfEat": 107,
+          "ammoCrate": 2,
+          "greenmanPanic": 11,
+          "explosion": 10,
+          "greenmanGone": 10,
+          "release": 13,
+          "land": 20,
+          "powerup": 3,
+          "laserOn": 20,
+          "laserOff": 20,
+          "wolfLand": 13,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 18,
+          "update": 5.000000000007276,
+          "view": 12,
+          "frame": 32,
+          "submission": 13.999999999992724,
+          "calls": 117,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 0,
+          "frame": 20.000000000003638,
+          "submission": 19,
+          "calls": 110,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1.000000000007276,
+          "view": 6.999999999992724,
+          "frame": 18,
+          "submission": 10,
+          "calls": 126,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 1,
+          "frame": 14,
+          "submission": 12,
+          "calls": 78,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 3,
+          "frame": 12,
+          "submission": 9,
+          "calls": 110,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 1,
+          "frame": 12,
+          "submission": 11,
+          "calls": 134,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 18,
+          "update": 0,
+          "view": 1,
+          "frame": 11.000000000003638,
+          "submission": 10.000000000003638,
+          "calls": 97,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 1,
+          "frame": 11,
+          "submission": 10,
+          "calls": 81,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 5,
+          "frame": 11,
+          "submission": 5,
+          "calls": 131,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 4,
+          "frame": 10,
+          "submission": 5,
+          "calls": 80,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 1,
+          "frame": 10,
+          "submission": 9,
+          "calls": 87,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 3,
+          "frame": 10,
+          "submission": 7,
+          "calls": 95,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3595,
+        "p50": 17,
+        "p95": 17,
+        "p99": 18,
+        "max": 126
+      },
+      "updateCpuMs": {
+        "samples": 3595,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 5.000000000007276
+      },
+      "viewCpuMs": {
+        "samples": 3595,
+        "p50": 1,
+        "p95": 1.000000000007276,
+        "p99": 1.000000000014552,
+        "max": 12
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3595,
+        "p50": 2,
+        "p95": 4,
+        "p99": 6,
+        "max": 19
+      },
+      "totalCpuMs": {
+        "samples": 3595,
+        "p50": 3,
+        "p95": 5,
+        "p99": 7.000000000007276,
+        "max": 32
+      },
+      "drawCalls": {
+        "samples": 3595,
+        "p50": 109,
+        "p95": 158,
+        "p99": 165,
+        "max": 166
+      },
+      "uploads": {
+        "samples": 3595,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 3
+      },
+      "shaderCompiles": {
+        "samples": 3595,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3595,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "meanFps": 59.89969508639219,
+      "framesOver33ms": 2,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 2,
+      "engine": "pixi"
+    },
+    {
+      "profile": "combined",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3870,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 7811,
+        "textures": 719,
+        "effects": {
+          "particles": 103,
+          "popups": 1,
+          "rings": 2,
+          "stains": 15
+        },
+        "textureWrappers": 723,
+        "world": {
+          "phase": "play",
+          "timeLeft": 55.483333333337,
+          "animals": 79,
+          "projectiles": 1,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 1
+        },
+        "paint": {
+          "cachedRecipes": 557,
+          "pendingRecipes": 0,
+          "retainedRecipes": 3,
+          "retainedRgbaBytes": 131076,
+          "canvasRgbaBytes": 63656056
+        },
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 68,
+        "dropArrivals": 34,
+        "wolfArrivals": 17,
+        "crateArrivals": 17,
+        "events": {
+          "shot": 89,
+          "hook": 129,
+          "hit": 127,
+          "interrupt": 97,
+          "dazed": 21,
+          "reload": 28,
+          "dryFire": 59,
+          "pickup": 26,
+          "knockLoose": 8,
+          "dropLanded": 139,
+          "wolfEat": 106,
+          "ammoCrate": 2,
+          "greenmanPanic": 11,
+          "explosion": 10,
+          "greenmanGone": 10,
+          "release": 13,
+          "land": 20,
+          "powerup": 3,
+          "laserOn": 20,
+          "laserOff": 20,
+          "wolfLand": 13,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 16,
+          "update": 0.999999999998181,
+          "view": 1,
+          "frame": 247.99999999999818,
+          "submission": 245,
+          "calls": 56,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 576,
+          "update": 7,
+          "view": 6,
+          "frame": 29,
+          "submission": 10.999999999998181,
+          "calls": 56,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 20,
+          "update": 3,
+          "view": 5,
+          "frame": 26.000000000007276,
+          "submission": 15.000000000007276,
+          "calls": 84,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 22.000000000003638,
+          "frame": 26.000000000003638,
+          "submission": 3,
+          "calls": 66,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 3,
+          "view": 5,
+          "frame": 24.000000000007276,
+          "submission": 15.000000000007276,
+          "calls": 104,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 18,
+          "frame": 23,
+          "submission": 4,
+          "calls": 87,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 2,
+          "view": 13,
+          "frame": 19.000000000007276,
+          "submission": 4.000000000007276,
+          "calls": 114,
+          "uploads": 16,
+          "readbacks": 7,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 13,
+          "frame": 18,
+          "submission": 4,
+          "calls": 100,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 12,
+          "frame": 18,
+          "submission": 5,
+          "calls": 103,
+          "uploads": 14,
+          "readbacks": 7,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1.999999999996362,
+          "view": 12,
+          "frame": 17.999999999996362,
+          "submission": 4,
+          "calls": 79,
+          "uploads": 14,
+          "readbacks": 7,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 13.999999999996362,
+          "frame": 16.999999999996362,
+          "submission": 3,
+          "calls": 71,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0.999999999996362,
+          "view": 13,
+          "frame": 16.999999999996362,
+          "submission": 3,
+          "calls": 75,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3549,
+        "p50": 17,
+        "p95": 17,
+        "p99": 19,
+        "max": 576
+      },
+      "updateCpuMs": {
+        "samples": 3549,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 8
+      },
+      "viewCpuMs": {
+        "samples": 3549,
+        "p50": 1,
+        "p95": 1.000000000007276,
+        "p99": 2,
+        "max": 22.000000000003638
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3549,
+        "p50": 3,
+        "p95": 4.000000000007276,
+        "p99": 5,
+        "max": 245
+      },
+      "totalCpuMs": {
+        "samples": 3549,
+        "p50": 4,
+        "p95": 6,
+        "p99": 8.000000000007276,
+        "max": 247.99999999999818
+      },
+      "drawCalls": {
+        "samples": 3549,
+        "p50": 85,
+        "p95": 110,
+        "p99": 118,
+        "max": 119
+      },
+      "uploads": {
+        "samples": 3549,
+        "p50": 0,
+        "p95": 1,
+        "p99": 4,
+        "max": 16
+      },
+      "shaderCompiles": {
+        "samples": 3549,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3549,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 7
+      },
+      "meanFps": 59.13127509621953,
+      "framesOver33ms": 7,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 2,
+      "engine": "phaser"
+    },
+    {
+      "profile": "combined",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3898,
+      "metadata": {
+        "engine": "pixi",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 1597,
+        "textures": 78,
+        "effects": null,
+        "textureWrappers": null,
+        "world": {
+          "phase": "play",
+          "timeLeft": 55.033333333337026,
+          "animals": 79,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 1
+        },
+        "paint": null,
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 68,
+        "dropArrivals": 34,
+        "wolfArrivals": 17,
+        "crateArrivals": 17,
+        "events": {
+          "shot": 79,
+          "hook": 129,
+          "hit": 112,
+          "interrupt": 95,
+          "dazed": 19,
+          "reload": 25,
+          "dryFire": 70,
+          "pickup": 29,
+          "knockLoose": 9,
+          "dropLanded": 161,
+          "wolfEat": 99,
+          "greenmanPanic": 12,
+          "explosion": 11,
+          "greenmanGone": 11,
+          "release": 15,
+          "land": 12,
+          "ammoCrate": 1,
+          "powerup": 3,
+          "laserOn": 29,
+          "laserOff": 29,
+          "wolfLand": 10,
+          "powerEnd": 1,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 21,
+          "update": 5,
+          "view": 13,
+          "frame": 32,
+          "submission": 13,
+          "calls": 79,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 4,
+          "view": 9,
+          "frame": 25.999999999992724,
+          "submission": 12,
+          "calls": 131,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 2,
+          "view": 10,
+          "frame": 23,
+          "submission": 11,
+          "calls": 137,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 125,
+          "update": 0,
+          "view": 6,
+          "frame": 15,
+          "submission": 8,
+          "calls": 93,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 3.999999999996362,
+          "frame": 13,
+          "submission": 9.000000000003638,
+          "calls": 112,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 36,
+          "update": 2,
+          "view": 1,
+          "frame": 12,
+          "submission": 9,
+          "calls": 127,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 19,
+          "update": 1,
+          "view": 4,
+          "frame": 11,
+          "submission": 6,
+          "calls": 80,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 18,
+          "update": 0,
+          "view": 3,
+          "frame": 11,
+          "submission": 8,
+          "calls": 151,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0.999999999992724,
+          "view": 1,
+          "frame": 10.999999999992724,
+          "submission": 9,
+          "calls": 119,
+          "uploads": 3,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 3,
+          "frame": 10.000000000007276,
+          "submission": 7.000000000007276,
+          "calls": 155,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 1,
+          "view": 0,
+          "frame": 10,
+          "submission": 9,
+          "calls": 127,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 2,
+          "view": 1,
+          "frame": 9.000000000001819,
+          "submission": 6.000000000001819,
+          "calls": 65,
+          "uploads": 2,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3587,
+        "p50": 17,
+        "p95": 18,
+        "p99": 19,
+        "max": 131
+      },
+      "updateCpuMs": {
+        "samples": 3587,
+        "p50": 0,
+        "p95": 1,
+        "p99": 1.000000000007276,
+        "max": 5
+      },
+      "viewCpuMs": {
+        "samples": 3587,
+        "p50": 1,
+        "p95": 1.000000000007276,
+        "p99": 1.000000000007276,
+        "max": 13
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3587,
+        "p50": 2,
+        "p95": 4,
+        "p99": 6,
+        "max": 13
+      },
+      "totalCpuMs": {
+        "samples": 3587,
+        "p50": 3,
+        "p95": 5,
+        "p99": 7.000000000007276,
+        "max": 32
+      },
+      "drawCalls": {
+        "samples": 3587,
+        "p50": 110,
+        "p95": 153,
+        "p99": 163,
+        "max": 164
+      },
+      "uploads": {
+        "samples": 3587,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 4
+      },
+      "shaderCompiles": {
+        "samples": 3587,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3587,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "meanFps": 59.76341219593469,
+      "framesOver33ms": 4,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 3,
+      "engine": "pixi"
+    },
+    {
+      "profile": "combined",
+      "durationMs": 60000,
+      "warmupMs": 5000,
+      "fixedStepsIncludingWarmup": 3891,
+      "metadata": {
+        "engine": "phaser",
+        "sound": "audio disabled for graphics benchmark",
+        "viewport": [1280, 720],
+        "dpr": 2,
+        "backing": [2560, 1440],
+        "gpu": "Apple GPU",
+        "objects": 7816,
+        "textures": 718,
+        "effects": {
+          "particles": 39,
+          "popups": 0,
+          "rings": 1,
+          "stains": 3
+        },
+        "textureWrappers": 722,
+        "world": {
+          "phase": "play",
+          "timeLeft": 55.13333333333702,
+          "animals": 79,
+          "projectiles": 0,
+          "rockets": 0,
+          "bombs": 0,
+          "beams": 2
+        },
+        "paint": {
+          "cachedRecipes": 557,
+          "pendingRecipes": 0,
+          "retainedRecipes": 3,
+          "retainedRgbaBytes": 131076,
+          "canvasRgbaBytes": 63656056
+        },
+        "jsHeapBytes": null
+      },
+      "activity": {
+        "animalArrivals": 68,
+        "dropArrivals": 34,
+        "wolfArrivals": 17,
+        "crateArrivals": 17,
+        "events": {
+          "shot": 100,
+          "hook": 130,
+          "hit": 127,
+          "interrupt": 98,
+          "dazed": 22,
+          "reload": 33,
+          "dryFire": 46,
+          "pickup": 22,
+          "knockLoose": 10,
+          "dropLanded": 136,
+          "wolfEat": 127,
+          "ammoCrate": 2,
+          "greenmanPanic": 10,
+          "explosion": 9,
+          "greenmanGone": 9,
+          "release": 8,
+          "land": 21,
+          "powerup": 6,
+          "laserOn": 19,
+          "laserOff": 19,
+          "powerEnd": 1,
+          "wolfLand": 4,
+          "dropIncoming": 1,
+          "wolfIncoming": 1
+        }
+      },
+      "shaderCompilations": [],
+      "slowestFrames": [
+        {
+          "interval": 24,
+          "update": 3,
+          "view": 7.000000000001819,
+          "frame": 27.00000000000182,
+          "submission": 15.000000000001819,
+          "calls": 63,
+          "uploads": 1,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 22,
+          "frame": 26,
+          "submission": 3,
+          "calls": 66,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 23,
+          "update": 3,
+          "view": 5,
+          "frame": 25,
+          "submission": 15,
+          "calls": 87,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 15,
+          "frame": 21,
+          "submission": 5,
+          "calls": 96,
+          "uploads": 13,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 15,
+          "frame": 19,
+          "submission": 4,
+          "calls": 76,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 16,
+          "frame": 18.000000000003638,
+          "submission": 2.000000000003638,
+          "calls": 71,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 2,
+          "view": 11.000000000007276,
+          "frame": 18,
+          "submission": 4.999999999992724,
+          "calls": 112,
+          "uploads": 16,
+          "readbacks": 7,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0,
+          "view": 12,
+          "frame": 16,
+          "submission": 4,
+          "calls": 83,
+          "uploads": 14,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 1,
+          "view": 10,
+          "frame": 16,
+          "submission": 5,
+          "calls": 100,
+          "uploads": 13,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 17,
+          "update": 0.999999999998181,
+          "view": 11,
+          "frame": 14.999999999998181,
+          "submission": 3,
+          "calls": 62,
+          "uploads": 14,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 10.000000000014552,
+          "frame": 14,
+          "submission": 3.999999999985448,
+          "calls": 118,
+          "uploads": 12,
+          "readbacks": 6,
+          "compiles": 0
+        },
+        {
+          "interval": 16,
+          "update": 0,
+          "view": 1,
+          "frame": 13,
+          "submission": 12,
+          "calls": 70,
+          "uploads": 0,
+          "readbacks": 0,
+          "compiles": 0
+        }
+      ],
+      "frameIntervalMs": {
+        "samples": 3576,
+        "p50": 17,
+        "p95": 17,
+        "p99": 19,
+        "max": 163
+      },
+      "updateCpuMs": {
+        "samples": 3576,
+        "p50": 0,
+        "p95": 1,
+        "p99": 2,
+        "max": 7
+      },
+      "viewCpuMs": {
+        "samples": 3576,
+        "p50": 1,
+        "p95": 1.000000000007276,
+        "p99": 2.000000000003638,
+        "max": 22
+      },
+      "renderSubmissionCpuMs": {
+        "samples": 3576,
+        "p50": 3,
+        "p95": 4.000000000007276,
+        "p99": 5,
+        "max": 15.000000000001819
+      },
+      "totalCpuMs": {
+        "samples": 3576,
+        "p50": 4,
+        "p95": 6,
+        "p99": 8,
+        "max": 27.00000000000182
+      },
+      "drawCalls": {
+        "samples": 3576,
+        "p50": 87,
+        "p95": 113,
+        "p99": 118,
+        "max": 118
+      },
+      "uploads": {
+        "samples": 3576,
+        "p50": 0,
+        "p95": 2,
+        "p99": 4,
+        "max": 16
+      },
+      "shaderCompiles": {
+        "samples": 3576,
+        "p50": 0,
+        "p95": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "pixelReadbacks": {
+        "samples": 3576,
+        "p50": 0,
+        "p95": 0,
+        "p99": 1,
+        "max": 7
+      },
+      "meanFps": 59.58212536239128,
+      "framesOver33ms": 5,
+      "longTasks": [],
+      "caveats": [
+        "rAF intervals are browser callback intervals, not physical scanout measurements.",
+        "CPU includes fixture/input and instrumentation; submission excludes asynchronous GPU work.",
+        "GPU bytes are estimates where exposed; browser-native GPU memory is unavailable."
+      ],
+      "repeat": 3,
+      "engine": "phaser"
+    }
+  ],
+  "buildMode": "pixi-development-phaser-candidate",
+  "phaserCandidateUrl": "http://localhost:4173/",
+  "profiles": ["ordinary", "combined"],
+  "seconds": 60,
+  "repeats": 3,
+  "candidateBuild": {
+    "schema": 1,
+    "engine": "phaser",
+    "entry": "src/phaser/main.js",
+    "modules": [
+      "\u0000rolldown/runtime.js",
+      "\u0000vite/modulepreload-polyfill.js",
+      "\u0000vite/preload-helper.js",
+      "index.html",
+      "node_modules/phaser/dist/phaser.esm.js",
+      "package.json",
+      "src/audio.js",
+      "src/cheats.js",
+      "src/config.js",
+      "src/entry.js",
+      "src/gamepad.js",
+      "src/layout.js",
+      "src/logic/animal.js",
+      "src/logic/bot.js",
+      "src/logic/golden.js",
+      "src/logic/hook.js",
+      "src/logic/match.js",
+      "src/logic/ordnance.js",
+      "src/logic/powerup.js",
+      "src/logic/projectile.js",
+      "src/logic/rng.js",
+      "src/logic/round.js",
+      "src/logic/saucer.js",
+      "src/logic/scoring.js",
+      "src/logic/tally.js",
+      "src/logic/weapon.js",
+      "src/logic/wolf.js",
+      "src/logic/world.js",
+      "src/occasion.js",
+      "src/options.js",
+      "src/phaser/art.js",
+      "src/phaser/artwork-fixtures.js",
+      "src/phaser/artwork.js",
+      "src/phaser/clock.js",
+      "src/phaser/drawing.js",
+      "src/phaser/fullscreen.js",
+      "src/phaser/gallery-fixtures.js",
+      "src/phaser/gallery.js",
+      "src/phaser/input.js",
+      "src/phaser/listView.js",
+      "src/phaser/main.js",
+      "src/phaser/presentation.js",
+      "src/phaser/preview.js",
+      "src/phaser/render/animalView.js",
+      "src/phaser/render/backdrop.js",
+      "src/phaser/render/effects.js",
+      "src/phaser/render/festive.js",
+      "src/phaser/render/hud.js",
+      "src/phaser/render/listView.js",
+      "src/phaser/render/menu.js",
+      "src/phaser/render/powerupView.js",
+      "src/phaser/render/projectileView.js",
+      "src/phaser/render/saucerView.js",
+      "src/phaser/render/shootingStars.js",
+      "src/phaser/render/text.js",
+      "src/phaser/render/tieFlyby.js",
+      "src/phaser/render/timeBombView.js",
+      "src/phaser/render/uiLayer.js",
+      "src/phaser/render/wolfView.js",
+      "src/phaser/representatives.js",
+      "src/phaser/scenes/play.js",
+      "src/phaser/scenes/roundEnd.js",
+      "src/phaser/scenes/scope.js",
+      "src/phaser/scenes/settings.js",
+      "src/phaser/scenes/tally.js",
+      "src/phaser/scenes/title.js",
+      "src/phaser/shapes.js",
+      "src/phaser/textureSampling.js",
+      "src/phaser/uiLayer.js",
+      "src/phaser/warmup.js",
+      "src/session.js"
+    ]
+  }
+}

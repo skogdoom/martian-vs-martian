@@ -1,0 +1,28 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "url": "http://127.0.0.1:5183/",
+      "engine": "phaser",
+      "canvases": 1
+    },
+    {
+      "url": "http://127.0.0.1:5183/?engine=pixi",
+      "engine": "phaser",
+      "canvases": 1
+    },
+    {
+      "url": "http://127.0.0.1:5185/",
+      "engine": "phaser",
+      "canvases": 1
+    },
+    {
+      "url": "http://127.0.0.1:5185/?engine=pixi",
+      "engine": "phaser",
+      "canvases": 1
+    }
+  ],
+  "missing_reference_url_rejected": true,
+  "benchmark_complete": true,
+  "note": "One-second samples verify wiring, not performance acceptance."
+}
