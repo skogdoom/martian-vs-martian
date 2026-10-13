@@ -12,6 +12,26 @@ The complete suite now has 467 tests. See the [migration record](PHASER_MIGRATIO
 [production playtest](docs/phaser-playtest/README.md) and
 [merge validation](docs/phaser-merge-validation/README.md) for current evidence.
 
+## Before the next non-dev release
+
+Review the following items before publishing the next version without a `-dev`
+suffix. They remain advisory for merging `phaser` into `master` and for development
+builds. Record results, fixes and any accepted remaining limitations here.
+
+- [ ] Browser/audio edge checks: review production gameplay in Safari, Firefox
+  and Chromium, including fullscreen entry/exit, initial audio unlock, mute/unmute,
+  and sound recovery after switching tabs, sleep/wake or changing audio output.
+- [ ] Controller reconnects: review disconnect/reconnect of either controller
+  during play and pause, player assignment, held-input cleanup and rumble recovery.
+- [ ] Keyboard combinations: review both players moving diagonally and shooting
+  simultaneously, including pause/resume and focus loss; record hardware ghosting
+  separately from game input issues.
+- [ ] Rare performance stalls: investigate the recorded callback-gap and
+  renderer-submission outliers with repeated production measurements on the M1
+  MacBook Air in Safari, in ordinary and busy play with both graphics styles.
+  Retain the [accepted performance budget and exceptions](docs/phaser-cutover/README.md#acceptance-and-remaining-follow-ups)
+  when recording results; current evidence does not establish zero stalls.
+
 ## Tech
 
 - Vite, Phaser 4.2.1, plain JavaScript (ES modules), Vitest for logic tests.

@@ -43,6 +43,11 @@ stalls remain documented follow-ups; this run makes no CPU-parity or zero-stall
 claim. Physical-device timing is established by its recorded scope rather than
 Chromium/SwiftShader measurements.
 
+These browser/audio, controller reconnect, keyboard-combination and rare-stall
+follow-ups are now scheduled for review
+[before the next non-dev release](../../PLAN.md#before-the-next-non-dev-release).
+They remain advisory for the merge and development builds.
+
 The migration's required local validation is complete. Merging into `master` and
 publishing remain separate actions; a push to `master` runs the Pages workflow.
 `CHANGELOG.md` keeps the 1.0.0/1.1.0 release history and records the Phaser/cartoon

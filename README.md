@@ -75,7 +75,9 @@ The [migration plan](PHASER_MIGRATION.md) and [final cutover notes](docs/phaser-
 record preservation checks, the accepted M1 performance budget and unresolved
 benchmark outliers. Sound, smooth Safari gameplay and two-controller/rumble
 playtests passed. Browser compatibility, controller edge cases and keyboard
-combinations remain advisory.
+combinations remain advisory for the merge. Browser/audio edge checks, controller
+reconnects, keyboard combinations and rare performance stalls are tracked for
+review [before the next non-dev release](PLAN.md#before-the-next-non-dev-release).
 The [production playtest](docs/phaser-playtest/README.md) records smooth M1 Safari
 play in both graphics styles. The [merge validation](docs/phaser-merge-validation/README.md)
 records the clean-install, regression, production-hosting and resource checks
