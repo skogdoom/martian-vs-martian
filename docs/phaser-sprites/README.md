@@ -134,10 +134,13 @@ These automated checks use Chromium and a software GPU. They establish asset
 coverage, state preservation, loading and ownership; they do not establish M1
 Safari frame pacing. Controller checks are mocked; the controller and sound
 services from the accepted `phaser` branch are unchanged.
-Review ordinary and busy play on the M1, especially silhouettes, movement, pickup
-beams, team colors and explosions. The existing comparison script can target
-`?graphics=classic` and `?graphics=cartoon`. Earlier Phaser performance acceptance
-and its rare benchmark outliers remain documented in the cutover notes.
+The user confirmed smooth ordinary/busy M1 Safari play in both graphics modes,
+including paused style changes, on October 13, 2026. The
+[pre-merge production playtest](../phaser-playtest/README.md) records that manual
+confirmation alongside production flow, artwork/style-switch checks and live
+ordinary/combined captures in both renderers. The existing comparison script can
+target `?graphics=classic` and `?graphics=cartoon`. Earlier Phaser performance
+acceptance and its rare benchmark outliers remain documented in the cutover notes.
 
 ![Cartoon title](title.png)
 
