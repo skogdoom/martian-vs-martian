@@ -1,5 +1,7 @@
 # Martian vs Martian
 
+![Martian vs Martian cover art: flying saucers abducting farm animals at night](cover.png)
+
 A two-player couch game for the browser. Two flying saucers share one keyboard
 and race to abduct cows and lambs into their own pen. Shoot, ram and steal
 from each other; grab power-ups dropped by little green men. Rounds of
