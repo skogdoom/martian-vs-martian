@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Replaced the browser runtime with Phaser 4.2.1 while retaining game rules,
+  controls, synthesized sounds and the original test suite.
+- Added cartoon sprite graphics for the game and seasonal scenery. The saved
+  Classic graphics setting in Settings and the pause menu restores the original
+  procedural artwork without resetting the round.
+- Refined cartoon flags, foreground fence layering, title logo and version
+  placement, moon phases/haze, Halloween pumpkins, Christmas trees and smiling
+  moon/hat, midsummer poles/ribbons, and May 4 station/fighter artwork.
+- Improved renderer resource ownership, shader preparation and frame pacing;
+  WebGL and Canvas fallback remain supported. Preserved an optional Pixi reference
+  package for regression comparisons; it is excluded from the shipped game.
+- Development version is `2.0.0-dev`. Production builds retain relative paths for
+  GitHub Pages and folder hosting.
+
 ## 1.1.0 (2026-10-11)
 
 - Some easter eggs have been added.

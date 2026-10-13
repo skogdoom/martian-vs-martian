@@ -1,5 +1,11 @@
 # Milestone 6: performance and soak verification
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 This records the milestone 6 implementation and measurements. The later
 [Safari stutter follow-up](../phaser-stutter-fix/README.md) changes idle-cache
 retention, avoids immutable pixel copies, and prewarms static recipes. The data

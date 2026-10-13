@@ -1,5 +1,11 @@
 # Milestone 3: complete procedural artwork
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The sixteen original rendering modules now have Phaser implementations in
 `src/phaser/render/`. The default URL still runs the Pixi game. Full title,
 settings, play, result and tally scene integration is milestone 4.

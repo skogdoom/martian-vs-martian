@@ -1,5 +1,11 @@
 # Milestone 4: complete scene flow and input integration
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 `?engine=phaser` now runs the complete game: title, settings, countdown, play,
 pause menu, round results, sudden death, and tally. The default URL remains Pixi
 until milestone 7. Version remains `2.0.0-dev`.

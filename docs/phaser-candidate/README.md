@@ -1,5 +1,11 @@
 # Milestone 7 preparation: Phaser-only review artifact
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The subsequent [final cutover](../phaser-cutover/README.md) makes Phaser the normal
 runtime. The initial preparation evidence and instructions below describe the
 retained-comparison stage; use the final notes for current commands and optional

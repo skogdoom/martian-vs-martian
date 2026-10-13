@@ -1,5 +1,11 @@
 # Milestone 2: drawing and resource ownership
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 Implemented on `phaser`, following the security fix `ac40db7`. The full game
 continues to use Pixi by default. Milestone 3 has not started.
 

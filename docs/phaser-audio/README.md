@@ -1,5 +1,11 @@
 # Milestone 5: synthesized audio validation
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The complete Phaser game keeps the original `src/audio.js` page service and all
 34 sound recipes. Milestone 4 already connected the host and play scenes to that
 service; this milestone adds reproducible browser verification and listening

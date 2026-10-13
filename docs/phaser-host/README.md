@@ -1,5 +1,11 @@
 # Milestone 1: Phaser host review
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The `phaser` branch now has an opt-in Phaser 4.2.1 host. Run `npm ci` and
 `npm run dev`, then open `http://localhost:5173/?engine=phaser&gallery=calibration` (substitute the port
 printed by Vite). Add `&renderer=canvas` to select Canvas. The normal URL runs Pixi.

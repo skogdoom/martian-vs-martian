@@ -1,5 +1,11 @@
 # Safari movement stutter follow-up
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The later [simultaneous-event follow-up](../phaser-shader-warmup/README.md) prepares
 shader variants at startup. The reports below remain evidence for this earlier
 implementation and its recorded source fingerprints.

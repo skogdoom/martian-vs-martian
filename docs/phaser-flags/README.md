@@ -1,5 +1,11 @@
 # M1 Safari report and native flag rendering
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The saved [M1 Safari report](m1-safari-before.json) confirms that shader preparation
 removed new program compilation during these runs, but frame pacing still trails
 Pixi. These are **before-fix** physical-device results. The

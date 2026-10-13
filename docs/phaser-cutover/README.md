@@ -1,5 +1,11 @@
 # Milestone 7: Phaser becomes the normal runtime
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The `phaser` branch now uses Phaser for the normal game. The standard entry imports
 only `src/phaser/main.js`; the temporary engine selector and active Pixi host,
 input/fullscreen, scenes and drawing files are retired. `npm ci` installs no Pixi

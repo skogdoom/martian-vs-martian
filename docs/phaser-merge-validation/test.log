@@ -1,0 +1,13 @@
+
+> martian-vs-martian@2.0.0-dev test
+> vitest run
+
+
+ RUN  v5.0.2 /workspace/martian-vs-martian
+
+
+ Test Files  33 passed (33)
+      Tests  467 passed (467)
+   Start at  12:05:33
+   Duration  33.22s (tests 94%, transform 3%, import 3%)
+

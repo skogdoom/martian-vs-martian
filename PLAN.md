@@ -2,13 +2,23 @@
 
 A two-player, same-keyboard browser game. Two flying saucers compete to abduct cows and lambs and drop them in their own pen. Shots knock the opponent away, interrupt their pickups and knock loose the animal they carry. The game is shown in 2D from the side on one shared screen.
 
+## Current status
+
+The `phaser` branch uses Phaser 4.2.1 and version `2.0.0-dev`. Cartoon graphics
+are the default; **Classic graphics** in Settings or the pause menu restores the
+original procedural artwork and saves the choice. The engine migration preserves
+the rules, synthesized audio, controls and all 271 original test identities.
+The complete suite now has 467 tests. See the [migration record](PHASER_MIGRATION.md),
+[production playtest](docs/phaser-playtest/README.md) and
+[merge validation](docs/phaser-merge-validation/README.md) for current evidence.
+
 ## Tech
 
-- Vite, PixiJS v8, plain JavaScript (ES modules), Vitest for logic tests.
+- Vite, Phaser 4.2.1, plain JavaScript (ES modules), Vitest for logic tests.
 - No physics engine. Movement uses a custom fixed-timestep loop at 60 Hz.
-- All graphics are drawn in code with `PIXI.Graphics`, and all sounds are synthesized with the Web Audio API. No asset files.
+- Cartoon graphics use four local PNG/JSON atlases in `assets/cartoon/`, with native text and variable geometry. Classic artwork is drawn through the Phaser presentation layer. All sounds are synthesized with the Web Audio API.
 - Logical width of 1280, scaled to fit the window. The height is 720 for a 16:9 window; a taller window shows more sky instead of black bars (see "Screen layout" below). Only a wider window gets bars, at the sides.
-- Game logic (`src/logic/`) is pure and has no Pixi imports, so it can be unit tested. Rendering only reads the logic state.
+- Game logic (`src/logic/`) is pure and independent of the renderer, so it can be unit tested. Rendering only reads the logic state.
 
 ## Arena
 
@@ -20,7 +30,7 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ## Screen layout (`src/layout.js`)
 - The game always uses the whole height of the window. The scale is the smaller of width/1280 and height/720; a window taller than 16:9 then shows up to 360 more logical px of height (so up to 1280×1080), and only beyond that, in a portrait window, are there bars above and below.
-- In the arena (play and round-end) the ground stays at the bottom of the screen and the extra is sky. The HUD and announcements hang from the top of the screen, and saucers can fly up into the extra sky (`ARENA.flightTop` is set to minus the extra while a round is on; green men and rockets follow it). Every scene, menus included, sits at the bottom, so the ground and the sky are at the same height in the menus and in a round; the menu text alone is lifted by half the extra height to stay centred on the screen (`src/render/uiLayer.js`).
+- In the arena (play and round-end) the ground stays at the bottom of the screen and the extra is sky. The HUD and announcements hang from the top of the screen, and saucers can fly up into the extra sky (`ARENA.flightTop` is set to minus the extra while a round is on; green men and rockets follow it). Every scene, menus included, sits at the bottom, so the ground and the sky are at the same height in the menus and in a round; the menu text alone is lifted by half the extra height to stay centred on the screen (`src/phaser/render/uiLayer.js`).
 - The "16:9" setting (settings and pause menus) turns the extra height off: the game area stays 16:9, with bars where the window is taller.
 - It follows window resizes and full screen, also mid-round. The balance numbers from the simulator are for a 16:9 window; with more sky the playfield is only larger, nothing else changes.
 
@@ -151,19 +161,25 @@ A two-player, same-keyboard browser game. Two flying saucers compete to abduct c
 
 ```
 index.html
-src/main.js            boot, scaling, fixed-step loop, scene manager, error recovery
+src/entry.js           load the Phaser runtime
+src/phaser/main.js     boot, scaling, fixed-step loop, scene manager, error recovery
 src/config.js          all tuning constants and key bindings
 src/layout.js          how the game area fills the window (16:9 or the whole height)
-src/input.js           keyboard and controller state
+src/phaser/input.js    keyboard and controller state
 src/gamepad.js         controller mapping (Gamepad API)
 src/audio.js           synthesized sound effects
-src/fullscreen.js      full screen, and Esc while in it
+src/phaser/fullscreen.js full screen, and Esc while in it
 src/options.js         round length, rounds and 16:9, remembered in localStorage
 src/session.js         what lives for the page: mode, match, tallies
 src/logic/             pure logic: world, round, saucer, hook, animal, weapon, projectile,
                        ordnance, power-ups, wolf, golden, scoring, match, tally, bot
-src/render/            Pixi drawing per entity, HUD, backdrop, particles, menus
-src/scenes/            title, settings, play (with the pause menu), roundEnd, tally
+src/phaser/render/     classic drawing, HUD, backdrop, particles, menus
+src/phaser/sprites/    cartoon views, atlas adapter and graphics-mode switching
+src/phaser/scenes/     title, settings, play (with the pause menu), roundEnd, tally
+src/phaser/presentation.js native views and texture ownership
+src/phaser/graphicsPreferences.js saved classic/cartoon preference
+assets/cartoon/        shipped sprite atlases and retained revision sources
+references/pixi/      optional archived Pixi runtime for historical comparisons
 scripts/sim.js         balance simulator, bot against bot (`npm run sim`)
 tests/                 Vitest tests for the logic
 ```
@@ -186,7 +202,12 @@ Also in `config.js`: projectile speed, knockback strength, bump strength, saucer
 
 ## Milestones
 
-Work one milestone at a time. Each should be playable or testable before moving on.
+The milestones below retain the original 1.x development history, including its
+then-open playtest/release checklist and old renderer paths. The 1.0.0 and 1.1.0
+releases are recorded in `CHANGELOG.md`; those historical checkboxes are not
+current Phaser merge gates. Current browser/controller edge checks are advisory.
+Phaser work and its acceptance are recorded in `PHASER_MIGRATION.md` and the
+validation/playtest notes linked above.
 
 - [x] **1. Scaffold**
   - Vite and Pixi set up, the scaled canvas, the fixed-step loop and input handling.

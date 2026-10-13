@@ -34,7 +34,7 @@ touch alone.
 
 ## Running it
 
-Requires Node.js 20.19+ or 22.12+.
+Requires Node.js 20.19+ or 22.12+; validation and CI use Node 22.
 
 ```sh
 npm ci
@@ -76,6 +76,10 @@ record preservation checks, the accepted M1 performance budget and unresolved
 benchmark outliers. Sound, smooth Safari gameplay and two-controller/rumble
 playtests passed. Browser compatibility, controller edge cases and keyboard
 combinations remain advisory.
+The [production playtest](docs/phaser-playtest/README.md) records smooth M1 Safari
+play in both graphics styles. The [merge validation](docs/phaser-merge-validation/README.md)
+records the clean-install, regression, production-hosting and resource checks
+after reconciling `master`, while retaining version `2.0.0-dev`.
 
 Pixi is absent from the root dependency tree and the shipped game. Original Pixi
 source and comparison tools are retained in an [optional reference package](references/pixi/README.md).

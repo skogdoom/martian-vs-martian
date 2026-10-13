@@ -1,7 +1,23 @@
 # Phaser migration plan
 
 Prepared on branch `phaser`, against commit `a6b49901ea7279514a960baf15d5141bee04e4f0`.
-Implementation status and evidence are recorded below; the default entry remains Pixi until cutover.
+The migration and cutover are complete on `phaser`. Phaser 4.2.1 is the normal
+development/production runtime, with no Pixi dependency in the root install or
+shipped build. Version remains `2.0.0-dev`.
+
+The subsequent user-approved cartoon artwork adds local sprite atlases and a
+saved Classic graphics toggle. All 271 original test identities remain intact;
+the current suite contains 467 tests. Master release history has been reconciled
+while retaining the Phaser dependency graph and version. The user confirmed
+smooth ordinary/busy M1 Safari play in both styles, including paused switching.
+See the [production playtest](docs/phaser-playtest/README.md) and
+[merge validation](docs/phaser-merge-validation/README.md) for current results.
+
+The initial findings, constraints, milestone instructions and per-milestone test
+counts below are historical. In particular, statements about Pixi defaults,
+pending acceptance, `dist-phaser/`, and purely procedural artwork describe the
+stage recorded at that point. Saved report fingerprints and original counts
+remain unchanged; the later sprite work is documented separately.
 
 ## Goal and constraints
 
@@ -24,7 +40,7 @@ session/match statistics, cheats, occasions, layout, gamepad polling, and audio
 throttling. It does **not** establish browser rendering, scene lifecycle, keyboard
 event integration, audible sound, or performance parity. Those need separate checks.
 
-## Findings from the current code
+## Findings from the original Pixi code
 
 | Area | Current implementation | Migration consequence |
 | --- | --- | --- |

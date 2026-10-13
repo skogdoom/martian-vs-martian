@@ -1,5 +1,11 @@
 # Simultaneous-event stutter follow-up
 
+> Historical migration evidence: the instructions, test counts, runtime defaults
+> and pending checks below describe this milestone at its recorded commit.
+> The current game uses Phaser with cartoon/classic graphics; see the
+> [current README](../../README.md), [playtest](../phaser-playtest/README.md)
+> and [merge validation](../phaser-merge-validation/README.md).
+
 The report after the texture-allocation fix was minor slowdowns in Safari on an
 M1 MacBook Air when animals arrived, shooting and pickups overlapped, a wolf was
 present, and power-ups were falling. This patch addresses a separate verified
