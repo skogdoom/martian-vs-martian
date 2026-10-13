@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.1.0 (2026-10-11)
+
 - Some easter eggs have been added.
 - Fixed: the sound could stop for good after the browser had paused it
   (sleep, switching tabs or apps, a new output device) until the page was
